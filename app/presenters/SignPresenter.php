@@ -1,8 +1,9 @@
 <?php
 
 use Nette\Application\UI,
-    Nette\Security as NS;
-use Nette\Application\UI\Form;
+    Nette\Security as NS, 
+    Nette\Application\UI\Form,
+    Nette\Diagnostics\Debugger;
 
 
 /**
@@ -49,6 +50,7 @@ class SignPresenter extends BasePresenter
 			if ($values->persistent) {
 				$user->setExpiration('+30 days', FALSE);
 			}
+
 			$user->login($values->username, $values->password);
 			$this->flashMessage('Přihlášení bylo úspěšné.', 'success');
 			$this->redirect('Post:');
@@ -64,12 +66,17 @@ class SignPresenter extends BasePresenter
 
 		if($fb_user){			
 
+			$authenticator = $this->context->facebookAuthenticator;
+			$user = $this->getUser();
+			
 			try {
 
 				$fb_user_data = $facebook->api('/me');
-				$indentity = $this->context->facebookAuthenticator->authenticate($fb_user_data);
 
-				$this->getUser()->login($indentity);
+				$indentity = $authenticator->authenticate($fb_user_data);
+				$user->setAuthenticator($authenticator);
+
+				$user->login($indentity);
 				$this->flashMessage('Přihlášení bylo úspěšné.', 'success');
 				$this->redirect('Post:');
 
