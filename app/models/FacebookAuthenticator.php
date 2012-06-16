@@ -3,7 +3,7 @@
 	use Nette\Security as NS;
 
 	/**
-	* Authentizace facebook users
+	* Authentication facebook users
 	*/
 	class FacebookAuthenticator extends Nette\Object implements NS\IAuthenticator
 	{
