@@ -12,7 +12,7 @@
 
 		private $users;
 
-		function __construct(Facebook $fb, Nette\Database\Table\Selection $users)
+		function __construct(Nette\Database\Table\Selection $users, Facebook $fb)
 		{
 			$this->fb = $fb;
 			$this->users = $users;
@@ -29,9 +29,9 @@
 			if (!$row) {
 		        $row = $this->synchronization($credits);
 
-			    return new NS\Identity($row->id, NULL, $row->toArray());
+			    return new NS\Identity($row->id, $row->role, $row->toArray());
 		    }else{
-		    	return new NS\Identity($row->id, NULL, $row->toArray());    
+		    	return new NS\Identity($row->id, $row->role, $row->toArray());    
 		    }
 			
 		}
@@ -48,7 +48,15 @@
 			if($exist_email){
 				return $this->users->update(array('facebook' => $data['id'], 'name' => $data['name']));
 			}else{
-				return $this->users->insert(array('facebook' => $data['id'], 'name' => $data['name'], 'username' => $data['username'], 'email' => $data['email']));
+				return $this->users->insert(
+					array(
+						'facebook' => $data['id'], 
+						'name' => $data['name'], 
+						'username' => $data['username'], 
+						'email' => $data['email'],
+						'role' => 'moderator',
+					)
+				);
 			}
 		}
 

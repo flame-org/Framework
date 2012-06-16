@@ -1,7 +1,5 @@
 <?php
 
-	use Nette\Diagnostics\Debugger;
-
 /**
  * Base class for all application presenters.
  *

@@ -44,12 +44,13 @@ class SignPresenter extends BasePresenter
 	 */
 	public function signInFormSubmitted(Form $form)
 	{
+		$authenticator = $this->context->authenticator;
+		
 		try {
-			$authenticator = $this->context->authenticator;
 
 			$user = $this->getUser();
 			$user->setAuthenticator($authenticator);
-			
+
 			$values = $form->getValues();
 			if ($values->persistent) {
 				$user->setExpiration('+30 days', FALSE);
@@ -58,6 +59,7 @@ class SignPresenter extends BasePresenter
 			$user->login($values->username, $values->password);
 			$this->flashMessage('Přihlášení bylo úspěšné.', 'success');
 			$this->redirect('Post:');
+
 		} catch (NS\AuthenticationException $e) {
 			$form->addError('Neplatné uživatelské jméno nebo heslo.');
 		}
