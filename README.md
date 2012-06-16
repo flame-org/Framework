@@ -8,4 +8,4 @@ JS-CMS required setup:
 * Facebook appID and secret key
 * Database credentials
 
-Change the settings in the file: **bold CONFIG.NEON**
+Change the settings in the file: **CONFIG.NEON**
