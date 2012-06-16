@@ -78,7 +78,9 @@ class SignPresenter extends BasePresenter
 				Debugger::log($e->getMessage());
 			}
 		}else{
-			$this->redirect($facebook->getLoginUrl(array('scope' => 'email', 'redirect_url' => $this->link('//fblogin'))));
+			$login_url = $facebook->getLoginUrl(array('scope' => 'email', 'redirect_url' => $this->link('//fblogin')));
+
+			$this->redirect($this->link($login_url));
 		}
 	}
 
