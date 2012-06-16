@@ -8,15 +8,13 @@ common:
 	parameters:
 		database:
 			driver: mysql
-			host: localhost
-			dbname: cms
-			user: root
-			password: root
+			host:
+			dbname:
+			user:
+			password:
 		facebook:
-			appId: 'Your app ID here'
-			secret: Your secret key here
-
-
+			appId: '366433960078803'
+			secret: f5105956ff89e12c45169e522be64898
 	php:
 		date.timezone: Europe/Prague
 		# session.save_path: "%tempDir%/sessions"
@@ -48,5 +46,17 @@ common:
 		comments: CommentsModel
 
 production < common:
+	parameters:
+		database:
+			host: us-mm-auto-dca-01.cleardb.com
+			dbname: heroku_bd9e868b0ea7b48
+			user: 351a5b05065df5
+			password: 4969bee1
 
 development < common:
+	parameters:
+		database:
+			host: localhost
+			dbname: cms
+			user: root
+			password: root
