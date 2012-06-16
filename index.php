@@ -1,3 +1,3 @@
 <?php
-	header("Status: 404 Not Found");
+	header("Location: www/");
 ?>
