@@ -1,0 +1,12 @@
+{var $title = $post->name}
+
+{block content}
+
+<h2>{$post->name}</h2>
+
+<h3>{$post->slug}</h3>
+
+<p>{$post->content}</p>
+
+{control comments}
+

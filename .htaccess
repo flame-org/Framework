@@ -1,0 +1,15 @@
+
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+
+	Options +FollowSymlinks
+
+	RewriteBase /www/
+
+	RewriteCond %{HTTP_HOST} js-cms.herokuapp.com
+	RewriteCond %{REQUEST_URI} !www/ 
+	#adresář do kterého jsem nahrál web z původní domény doména1.cz
+	RewriteRule ^(.*)$ www/$1 [L] 
+	#adresář do kterého jsem nahrál web z původní domény doména1.cz
+
+</IfModule>

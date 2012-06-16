@@ -1,0 +1,11 @@
+{var $title = 'Přehled článků'}
+
+{block #content}
+	
+	{foreach $posts as $post}
+		<div>
+			<h3><a href="{link Post:detail $post->id}"> {$post->name}</a></h3>
+			<p>{$post->slug}</p>
+		</div>
+	{/foreach}
+{/block}

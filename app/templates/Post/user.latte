@@ -1,0 +1,15 @@
+{var $title = 'Příspěvky uživatele'}
+
+{block content}
+
+{foreach $posts as $post}
+	<div n:class="$iterator->isOdd() ? odd : even">
+		{if $post->publish}
+			<h3><a href="{link Post:detail $post->id}"> {$post->name}</a></h3>
+		{else}
+			<h3>{$post->name}</h3>
+		{/if}
+		
+		<p>{$post->slug}<span style="color: red;font-weight:bold;">{if !$post->publish}#UNPUBLISH{/if}</span><small><a href="{link Post:edit $post->id}"> #EDIT</a></small></p>
+	</div>
+{/foreach}
