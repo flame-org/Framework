@@ -2,8 +2,7 @@
 
 use Nette\Application\UI,
     Nette\Security as NS, 
-    Nette\Application\UI\Form,
-    Nette\Diagnostics\Debugger;
+    Nette\Application\UI\Form;
 
 
 /**
@@ -62,38 +61,6 @@ class SignPresenter extends BasePresenter
 
 		} catch (NS\AuthenticationException $e) {
 			$form->addError('Neplatné uživatelské jméno nebo heslo.');
-		}
-	}
-
-	public function handleLoginFBUser()
-	{
-		$facebook = $this->context->createFacebook();
-		$fb_user = $facebook->getUser();
-
-		if($fb_user){			
-
-			$authenticator = $this->context->facebookAuthenticator;
-			$user = $this->getUser();
-
-			try {
-
-				$fb_user_data = $facebook->api('/me');
-
-				$indentity = $authenticator->authenticate($fb_user_data);
-				$user->setAuthenticator($authenticator);
-
-				$user->login($indentity);
-				$this->flashMessage('Přihlášení bylo úspěšné.', 'success');
-				$this->redirect('Post:');
-
-			} catch (FacebookApiException $e) {
-				
-				Debugger::log($e->getMessage());
-			}
-		}else{
-			$login_url = $facebook->getLoginUrl(array('scope' => 'email', 'redirect_url' => $this->link('//fblogin')));
-
-			$this->redirect($this->link($login_url));
 		}
 	}
 

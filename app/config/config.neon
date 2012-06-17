@@ -34,24 +34,18 @@ common:
 
 
 	services:
+		facebook: Facebook({appId: %facebook.appId%, secret: %facebook.secret%})
 		database: @Nette\Database\Connection
 		authenticator: Authenticator( @users )
 		facebookAuthenticator: FacebookAuthenticator( @users, @facebook )
 
 
 	factories:
-		facebook: Facebook({appId: %facebook.appId%, secret: %facebook.secret%})
 		posts: PostsModel
 		users: UsersModel
 		comments: CommentsModel
 
 production < common:
-	parameters:
-		database:
-			host: us-mm-auto-dca-01.cleardb.com
-			dbname: heroku_bd9e868b0ea7b48
-			user: 351a5b05065df5
-			password: 4969bee1
 
 development < common:
 	parameters:
