@@ -34,13 +34,14 @@ common:
 
 
 	services:
-		facebook: Facebook({appId: %facebook.appId%, secret: %facebook.secret%})
+		authorizator: Authorizator
 		database: @Nette\Database\Connection
 		authenticator: Authenticator( @users )
 		facebookAuthenticator: FacebookAuthenticator( @users, @facebook )
 
 
 	factories:
+		facebook: Facebook({appId: %facebook.appId%, secret: %facebook.secret%})
 		posts: PostsModel
 		users: UsersModel
 		comments: CommentsModel
