@@ -13,8 +13,8 @@ common:
 			user:
 			password:
 		facebook:
-			appId: '366433960078803'
-			secret: f5105956ff89e12c45169e522be64898
+			appId: 'Your app ID here'
+			secret: Your secret key here
 	php:
 		date.timezone: Europe/Prague
 		# session.save_path: "%tempDir%/sessions"
