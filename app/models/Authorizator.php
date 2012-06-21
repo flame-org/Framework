@@ -23,7 +23,7 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->allow('guest', array('Homepage'), 'default');
 		$this->allow('guest', array('Message', 'Sign'));
 
-		$this->allow('moderator', array('Post'), array('add', 'edit', 'user'));
+		$this->allow('moderator', array('Post'), array('add', 'edit'));
 
 		$this->allow('administrator', NS\Permission::ALL);
 	}

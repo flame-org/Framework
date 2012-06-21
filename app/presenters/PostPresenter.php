@@ -52,15 +52,6 @@
 			}
 		}
 
-		public function actionUser()
-		{
-			if(!$this->getUser()->isLoggedIn()){
-				$this->redirect('Sign:in');
-			}else{
-				$this->template->posts = $this->context->createPosts()->getByUser($this->getUser()->getIdentity()->username);
-			}
-		}
-
 		protected function createComponentComments()
 		{
 			$comments = $this->context->createComments()->get($this->post_id);
