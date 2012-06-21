@@ -11,8 +11,8 @@
 
 		public function __construct(Selection $comments)
 		{
-			$this->comments = $comments;
 			parent::__construct();
+			$this->comments = $comments;
 		}
 
 		public function render()

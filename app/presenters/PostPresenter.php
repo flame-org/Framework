@@ -1,6 +1,6 @@
 <?php
 
-	use Nette\Application\UI\Form, Nette\Diagnostics\Debugger;
+	use Nette\Application\UI\Form;
 
 	/**
 	* Post presenter
@@ -12,7 +12,12 @@
 		
 		public function renderDefault()
 		{
-			$this->template->posts = $this->context->createPosts()->get();
+			
+		}
+
+		public function createComponentPostList()
+		{
+			return new PostList($this->context->createPosts()->get());
 		}
 
 		public function actionDetail($id)
