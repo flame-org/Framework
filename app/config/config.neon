@@ -12,9 +12,7 @@ common:
 			dbname:
 			user:
 			password:
-		facebook:
-			appId: 'Your app ID here'
-			secret: Your secret key here
+			
 	php:
 		date.timezone: Europe/Prague
 		# session.save_path: "%tempDir%/sessions"
@@ -37,11 +35,9 @@ common:
 		authorizator: Authorizator
 		database: @Nette\Database\Connection
 		authenticator: Authenticator( @users )
-		facebookAuthenticator: FacebookAuthenticator( @users, @facebook )
 
 
 	factories:
-		facebook: Facebook({appId: %facebook.appId%, secret: %facebook.secret%})
 		posts: PostsModel
 		users: UsersModel
 		comments: CommentsModel

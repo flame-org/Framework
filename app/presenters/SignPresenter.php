@@ -2,8 +2,7 @@
 
 use Nette\Application\UI,
     Nette\Security as NS, 
-    Nette\Application\UI\Form, 
-    Nette\Diagnostics\Debugger;
+    Nette\Application\UI\Form;
 
 
 /**
@@ -35,12 +34,10 @@ class SignPresenter extends BasePresenter
 	 */
 	public function signInFormSubmitted(Form $form)
 	{
-		$authenticator = $this->context->authenticator;
 		
 		try {
 
 			$user = $this->getUser();
-			$user->setAuthenticator($authenticator);
 
 			$values = $form->getValues();
 			if ($values->persistent) {
@@ -53,47 +50,6 @@ class SignPresenter extends BasePresenter
 
 		} catch (NS\AuthenticationException $e) {
 			$form->addError('Neplatné uživatelské jméno nebo heslo.');
-		}
-	}
-
-	public function actionOut()
-	{
-		$user = $this->getUser();
-		$user->setAuthenticator($this->context->authenticator);
-
-		$user->logout();
-		$this->flashMessage('You have been signed out.');
-		$this->redirect('Homepage:');
-		
-	}
-
-	public function actionFbIn()
-	{
-		$facebook = $this->context->createFacebook();
-
-		if($facebook->getUser()){
-
-			$authenticator = $this->context->facebookAuthenticator;
-			$user = $this->getUser();
-
-			try {
-
-				$fb_user_data = $facebook->api('/me');
-
-				$indentity = $authenticator->authenticate($fb_user_data);
-				$user->setAuthenticator($authenticator);
-
-				$user->login($indentity);
-
-				$this->flashMessage('You have been signed in.');
-				$this->redirect('Homepage:');
-
-			} catch (FacebookApiException $e) {
-				
-				Debugger::log($e->getMessage());
-			}
-		}else{
-			$this->redirectUrl($facebook->getLoginUrl(array('scope' => 'email', 'redirect_uri' => $this->link('//fbIn'))));
 		}
 	}
 

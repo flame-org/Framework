@@ -41,7 +41,7 @@
 			{if $user->isLoggedIn()}
 				<li><a n:href="Post:add">Přidat příspěvek</a></li>
 				<li><a n:href="Post:user">Vaše příspěvky</a></li>
-				<li><a n:href="Sign:out">Logout</a></li>
+				<li><a n:href="signOut!">Logout</a></li>
 			{else}
 				<li><a n:href="Sign:in">Login</a></li>
 			{/if}

@@ -14,4 +14,12 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 			$this->redirect('Message:accessDenied');
 		}
 	}
+
+	public function handleSignOut()
+	{
+		$this->getUser()->logout();
+		$this->flashMessage('You have been signed out.');
+		$this->redirect('Homepage:');
+		
+	}
 }
