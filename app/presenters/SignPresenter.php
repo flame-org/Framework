@@ -5,16 +5,9 @@ use Nette\Application\UI,
     Nette\Application\UI\Form;
 
 
-/**
- * Presenter, který se stará o přihlašování uživatelů.
- */
 class SignPresenter extends BasePresenter
 {
 
-	/**
-	 * Vytvoří přihlašovací formulář.
-	 * @return Form
-	 */
 	protected function createComponentSignInForm()
 	{
 		$form = new Form();
@@ -26,12 +19,6 @@ class SignPresenter extends BasePresenter
 		return $form;
 	}
 
-
-
-	/**
-	 * Zpracuje přihlašovací formulář a přihlásí uživatele.
-	 * @param Form $form
-	 */
 	public function signInFormSubmitted(Form $form)
 	{
 		

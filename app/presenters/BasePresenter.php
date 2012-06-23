@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Base class for all application presenters.
+ * Base class for all applications presenters.
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
@@ -21,5 +21,34 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		$this->flashMessage('You have been signed out.');
 		$this->redirect('Homepage:');
 		
+	}
+
+	public function beforeRender()
+	{
+		$this->template->userMenu = $this->generateUserMenu();
+	}
+
+	private function generateUserMenu()
+	{
+		$menu = array(
+			array('Post', 'add', 'přidat příspěvěk'),
+		);
+
+		$menu_allowed = array();
+
+		foreach ($menu as $key => $value) {
+			
+			if($this->getUser()->isAllowed($value[0], $value[1])){
+				$menu_allowed[] = array($value[0] . ':' . $value[1], $value[2]);
+			}
+		}
+
+		if($this->getUser()->isLoggedIn()){
+			$menu_allowed[] = array('signOut!', 'odhlásit se');
+		}else{
+			$menu_allowed[] = array('Sign:in', 'přihlásit se');
+		}
+
+		return $menu_allowed;
 	}
 }
