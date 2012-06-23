@@ -8,7 +8,7 @@ body {
 	background-color: #fff;
 	width: 980px;
 	margin: 0 auto;
-	padding: 15px;
+	padding: 10px;
 }
 
 h1 {
@@ -16,9 +16,15 @@ h1 {
 	color: #3484D2;
 }
 
-#header {
+#header-cont {
+	margin: 15px;
 	text-align: center;
-	min-height: 70px;
+	min-height: 90px;
+}
+
+#navigation {
+	background: #eee;
+	padding: 2px;
 }
 
 #navigation ul li{
@@ -53,4 +59,22 @@ a[href^="error:"] {
 
 .odd {
 	background-color: $eee;
+}
+
+#admin-nav {
+	text-align: right;
+	background: black;
+	color: #fff;
+}
+
+#admin-nav a {
+	color: #fff;
+}
+
+#admin-nav ul li{
+	display: inline;
+}
+
+#content {
+	margin: 25px 0;
 }

@@ -1,9 +1,6 @@
 {**
  * My Application layout template.
  *
- * @copyright  Copyright (c) 2010 John Doe
- * @package    MyApplication
- *
  * @param string   $basePath web base path
  * @param string   $robots   tell robots how to index the content of a page (optional)
  * @param array    $flashes  flash messages
@@ -14,13 +11,15 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-	<meta name="description" content="Nette Framework web application skeleton">
+	<meta name="description" content="{$desc}" n:ifset="$desc">
 	<meta name="robots" content="{$robots}" n:ifset="$robots">
 
 	<title>{ifset $title}{$title} &ndash; {/ifset}CMS</title>
 
+	<link rel="stylesheet" media="screen" href="{$basePath}/css/reset.css" type="text/css">
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css" type="text/css">
 	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css" type="text/css">
+
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon">
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
@@ -29,28 +28,34 @@
 </head>
 
 <body>
-	<script> document.body.className+=' js' </script>
-
 	<div id="header">
-		<H1>CMS</H1>
-	</div>
-	<div id="navigation">
-		<ul>
-			<li><a n:href="Homepage:">HOME</a></li>
 
-			{if $user->isLoggedIn()}
-				<li><a n:href="Post:add">Přidat příspěvek</a></li>
-				<li><a n:href="signOut!">Logout</a></li>
-			{else}
-				<li><a n:href="Sign:in">Login</a></li>
-			{/if}
-		</ul>
+		{ifset $userMenu}
+			<div id="admin-nav">
+				<ul>
+				{foreach $userMenu as $menu}
+					<li><a n:href="$menu[0]">{$menu[1]}</a></li>
+				{/foreach}
+				</ul>
+			</div>
+		{/ifset}
+
+		<div id="header-cont">
+			<H1>CMS</H1>
+		</div>
+
+		<div id="navigation">
+			<ul>
+				<li><a n:href="Homepage:">HOME</a></li>
+			</ul>
+		</div>
 	</div>
 
 	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
 
-	{include #content}
-
+	<div id="content">
+		{include #content}
+	</div>
 	
 </body>
 </html>
