@@ -9,8 +9,6 @@ use Nette\Application\Routers\Route;
 // Load Nette Framework
 require LIBS_DIR . '/nette/Nette/loader.php';
 
-require LIBS_DIR . '/php-sdk/src/facebook.php';
-
 // Configure application
 $configurator = new Nette\Config\Configurator;
 
@@ -31,8 +29,8 @@ $container = $configurator->createContainer();
 
 // Setup router
 $container->router[] = new Route('index.php', 'Homepage:default', Route::ONE_WAY);
-$container->router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
 
+$container->router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
 
 // Configure and run the application!
 $container->application->run();
