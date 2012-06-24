@@ -24,5 +24,10 @@ class Comments extends Selection
 	{
 		return $this->order('id DESC');
 	}
+
+	public function getUnPublish()
+	{
+		return $this->where(array('publish' => '0'))->order('id DESC');
+	}
 }
 ?>
