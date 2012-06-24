@@ -57,4 +57,10 @@ class Authenticator extends Nette\Object implements NS\IAuthenticator
 		return hash('sha512', $password);
 	}
 
+	public function setPassword($id, $password)
+	{
+		$this->users->where(array('id' => $id))
+			->update(array('password' => $this->calculateHash($password)));
+	}
+
 }

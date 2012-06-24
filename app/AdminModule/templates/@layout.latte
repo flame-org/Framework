@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<meta name="robots" content="noindex,nofollow">
+
+	<title>{ifset $title}{$title} &ndash; {/ifset}{$name} - Administration</title>
+
+	<link rel="stylesheet" media="screen" href="{$basePath}/css/reset.css" type="text/css">
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/_admin/css/screen.css" type="text/css">
+
+	<link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon">
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/netteForms.js"></script>
+	{block head}{/block}
+</head>
+
+<body>
+	<div id="header">
+
+		{if $user->isLoggedIn()}
+			<div id="navigation">
+				<ul>
+					<li><a n:href="Dashboard:">Dashboard</a></li>
+					<li><a n:href="Post:">Posts</a></li>
+					<li><a n:href="Comment:">Comments</a></li>
+					<li><a n:href="Option:">Options</a></li>
+				</ul>
+			</div>
+		{/if}
+	</div>
+
+	<div id="main">
+
+		<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+
+		<div id="content">
+			{include #content}
+		</div>
+
+	</div>
+
+	{if $user->isLoggedIn()}
+		<div id="footer">
+			Logged in as <a n:href="User:password">{$user->getIdentity()->username}</a> | <a n:href="signOut!">Logout</a>
+		</div>
+	{/if}
+	
+</body>
+</html>

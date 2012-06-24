@@ -1,18 +1,14 @@
 <?php
 
+namespace AdminModule;
+
 use Nette\Application\UI\Form;
 use Nette\Security as NS;
 
 
-/**
- * Presenter, který zajišťuje změnu hesla uživatele.
- */
-class UserPresenter extends SecuredPresenter
+class UserPresenter extends AdminPresenter
 {
-	/**
-	 * Továrna na vytvoření formuláře pro změnu hesla.
-	 * @return Nette\Application\UI\Form
-	 */
+
 	protected function createComponentPasswordForm()
 	{
 		$form = new Form();
@@ -23,27 +19,24 @@ class UserPresenter extends SecuredPresenter
 		$form->addPassword('confirmPassword', 'Potvrzení hesla:', 30)
 			->addRule(Form::FILLED, 'Nové heslo je nutné zadat ještě jednou pro potvrzení.')
 			->addRule(Form::EQUAL, 'Zadná hesla se musejí shodovat.', $form['newPassword']);
-		$form->addSubmit('set', 'Změnit heslo');
+		$form->addSubmit('set', 'Change password');
 		$form->onSuccess[] = callback($this, 'passwordFormSubmitted');
 		return $form;
 	}
 
 
-	/**
-	 * Zpracuje odeslaný formulář. Mění heslo uživatele.
-	 * @param Nette\Application\UI\Form $form
-	 */
 	public function passwordFormSubmitted(Form $form)
 	{
 		$values = $form->getValues();
 		$user = $this->getUser();
+
 		try {
 			$this->context->authenticator->authenticate(array($user->getIdentity()->username, $values->oldPassword));
 			$this->context->authenticator->setPassword($user->getId(), $values->newPassword);
-			$this->flashMessage('Heslo bylo změněno.', 'success');
-			$this->redirect('Homepage:');
+			$this->flashMessage('Password was changed.', 'success');
+			$this->redirect('this');
 		} catch (NS\AuthenticationException $e) {
-			$form->addError('Zadané heslo není správné.');
+			$form->addError('Invalid credentials');
 		}
 	}
 }

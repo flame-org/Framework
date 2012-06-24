@@ -1,9 +1,11 @@
 <?php
 
+namespace FrontModule;
+
 /**
 * Display special message pages
 */
-class MessagePresenter extends BasePresenter
+class MessagePresenter extends FrontPresenter
 {
 	
 	public function actionAccessDenied()

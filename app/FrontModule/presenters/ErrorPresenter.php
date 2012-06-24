@@ -1,5 +1,7 @@
 <?php
 
+namespace FrontModule;
+
 use Nette\Diagnostics\Debugger,
 	Nette\Application as NA;
 
@@ -11,7 +13,7 @@ use Nette\Diagnostics\Debugger,
  * @author     John Doe
  * @package    MyApplication
  */
-class ErrorPresenter extends BasePresenter
+class ErrorPresenter extends FrontPresenter
 {
 
 	/**

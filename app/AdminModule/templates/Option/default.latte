@@ -1,16 +1,16 @@
-{var $title = "Nastavení"}
+{var $title = "Global variables"}
 
 {block #content}
 
-	<a n:href="Option:add">Přidat</a>
+	<p><a n:href="Option:add">Add new variable</a></p>
 
 	{ifset $options}
-	<table class="table">
-		<caption>Seznam proměných</caption>
+	<table>
+		<caption>List of Variables</caption>
 		<thead>
-			<th>Název</th>
-			<th>Hodnota</th>
-			<th>Smazat</th>
+			<th>Name</th>
+			<th>Value</th>
+			<th>Delete</th>
 		</thead>
 		<tbody>
 		{foreach $options as $option}

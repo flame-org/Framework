@@ -1,9 +1,11 @@
 <?php
 
+namespace FrontModule;
+
 /**
 * Home page
 */
-class HomepagePresenter extends BasePresenter
+class HomepagePresenter extends FrontPresenter
 {
 	
 	public function renderDefault()

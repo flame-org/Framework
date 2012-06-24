@@ -29,27 +29,17 @@
 
 <body>
 	<div id="header">
-
-		{ifset $userMenus}
-			<div id="admin-nav">
-				<ul>
-					<li n:foreach="$userMenus as $userMenu"><a href="{$userMenu[0]}">{$userMenu[1]}</a></li>
-				</ul>
-			</div>
-		{/ifset}
-
+		
 		<div id="header-cont">
 			<H1>{$name}</H1>
 		</div>
 
-		<div id="navigation">
-			<ul>
-				<li><a n:href="Homepage:">Home</a></li>
-				<li n:foreach="$menus as $menu">
-					<a n:href="Post:detail, 'id' => $menu['id'],'slug' => $menu['slug']">{$menu['name']}</a>
-				</li>
-			</ul>
-		</div>
+		<ul id="navigation">
+			<li><a n:href="Homepage:">Home</a></li>
+			<li n:foreach="$menus as $menu">
+				<a n:href="Post:detail, 'id' => $menu['id'],'slug' => $menu['slug']">{$menu['name']}</a>
+			</li>
+		</ul>
 	</div>
 
 	<div id="main">

@@ -1,20 +1,22 @@
 <?php
 
+namespace AdminModule;
+
 use Nette\Application\UI,
     Nette\Security as NS, 
     Nette\Application\UI\Form;
 
 
-class SignPresenter extends BasePresenter
+class SignPresenter extends \BasePresenter
 {
 
 	protected function createComponentSignInForm()
 	{
 		$form = new Form();
-		$form->addText('username', 'Uživatelské jméno:', 30, 20);
-		$form->addPassword('password', 'Heslo:', 30);
-		$form->addCheckbox('persistent', 'Pamatovat si mě na tomto počítači');
-		$form->addSubmit('login', 'Přihlásit se');
+		$form->addText('username', 'Username:', 30, 20);
+		$form->addPassword('password', 'Password:', 30);
+		$form->addCheckbox('persistent', 'Remember me?');
+		$form->addSubmit('login', 'Login');
 		$form->onSuccess[] = callback($this, 'signInFormSubmitted');
 		return $form;
 	}
@@ -25,18 +27,19 @@ class SignPresenter extends BasePresenter
 		try {
 
 			$user = $this->getUser();
-
 			$values = $form->getValues();
+
+			//var_export($this->context->authenticator->calculateHash($values['password']));exit();
 			if ($values->persistent) {
 				$user->setExpiration('+30 days', FALSE);
 			}
 
 			$user->login($values->username, $values->password);
-			$this->flashMessage('Přihlášení bylo úspěšné.', 'success');
-			$this->redirect('Homepage:');
+			$this->flashMessage('Login was successful', 'success');
+			$this->redirect('Dashboard:');
 
 		} catch (NS\AuthenticationException $e) {
-			$form->addError('Neplatné uživatelské jméno nebo heslo.');
+			$form->addError('Invalid username or password');
 		}
 	}
 

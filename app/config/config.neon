@@ -38,10 +38,10 @@ common:
 
 
 	factories:
-		posts: PostsModel
-		users: UsersModel
-		comments: CommentsModel
-		options: OptionsModel
+		posts: Model\Posts
+		users: Model\Users
+		comments: Model\Comments
+		options: Model\Options
 
 production < common:
 

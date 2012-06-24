@@ -1,0 +1,37 @@
+{block content}
+	
+	{ifset $comments}
+	<table>
+		<thead>
+			<th>Post</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Web</th>
+			<th>Content</th>
+			<th>Published</th>
+			<th>Created</th>
+			<th>Actions</th>
+		</thead>
+
+		<tbody>
+			<tr n:foreach="$comments as $comment">
+				<td><a n:href=":Front:Post:detail $comment['id_post']">{$comment['name']}</a></td>
+				<td>{$comment->name}</td>
+				<td>{$comment->email}</td>
+				<td>{$comment->web}</td>
+				<td>{$comment->content}</td>
+				<td>{$comment->publish}</td>
+				<td>{$comment->created|date}</td>
+				<td>
+					{if $comment->publish}
+						<a n:href="unPublish! $comment->id">unpublish</a>
+					{else}
+						<a n:href="publish! $comment->id">publish</a>
+					{/if}
+					<a n:href="delete! $comment->id">X</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	{/ifset}

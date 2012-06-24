@@ -1,11 +1,14 @@
 <?php
 
-use Nette\Database\Connection, Nette\Database\Table\Selection;
+namespace Model;
+
+use Nette\Database\Connection, 
+	Nette\Database\Table\Selection;
 
 /**
 * Global variables and settings
 */
-class OptionsModel extends Selection
+class Options extends Selection
 {
 	
 	public function __construct(Connection $c)

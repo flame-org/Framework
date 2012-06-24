@@ -2,6 +2,8 @@
 html, body {
 	font: 16px/1.5 "Trebuchet MS", "Geneva CE", lucida, sans-serif;
 	color: #333;
+	margin: 0;
+	padding: 0;
 }
 
 #main {
@@ -41,11 +43,6 @@ a, a:link, a:visited {
 	color: black;
 }
 
-a[href^="error:"] {
-	background: red;
-	color: white;
-}
-
 a.active {
 	background: #3484D2;
 }
@@ -56,17 +53,17 @@ a.active {
 }
 
 #header-cont {
-	margin: 15px;
 	text-align: center;
-	min-height: 90px;
+	min-height: 80px;
 }
 
 #navigation {
 	background: #eee;
-	padding: 2px;
+	width: 980px;
+	margin: 0 auto;
 }
 
-#navigation ul li{
+#navigation li{
 	display: inline;
 }
 
@@ -79,12 +76,8 @@ a.active {
 	display: none;
 }
 
-div.flash {
-	color: black;
-	background: #FFF9D7;
-	border: 1px solid #E2C822;
-	padding: 1em;
-	margin: 1em 0;
+#comment {
+	margin: 35px 0;
 }
 
 .comment-box {
@@ -97,41 +90,10 @@ div.flash {
 	background-color: $eee;
 }
 
-#admin-nav {
-	text-align: right;
-	background: black;
-	color: #fff;
-}
-
-#admin-nav a {
-	color: #fff;
-}
-
-#admin-nav ul li{
-	display: inline;
-}
-
 #content {
 	margin: 25px 0;
 }
 
 .post-box {
 	margin: 15px 0;
-}
-
-.table caption {
-	background-color: #BABABA;
-}
-
-.table thead {
-	background-color: #eee;
-}
-
-.table thead th {
-	padding: 5px;
-}
-
-.table tbody tr td {
-	padding: 10px;
-	border: 1px solid #eee;
 }

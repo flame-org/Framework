@@ -1,5 +1,7 @@
 <?php
 
+namespace Model;
+
 use Nette\Database\Table\Selection, 
 	Nette\Database\Connection, 
 	Nette\Database\SqlLiteral;
@@ -7,7 +9,7 @@ use Nette\Database\Table\Selection,
 /**
 * Post model
 */
-class PostsModel extends Selection
+class Posts extends Selection
 {
 	
 	function __construct(Connection $c)
@@ -50,5 +52,10 @@ class PostsModel extends Selection
 	public function getPages()
 	{
 		return $this->where(array('publish' => '1', 'page' => '1'))->order('id DESC');
+	}
+
+	public function getNameByID($id)
+	{
+		return $this->where(array('id' => $id))->fetchPairs('id', 'name');
 	}
 }
