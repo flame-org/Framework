@@ -1,0 +1,26 @@
+
+{block #listExcept}
+	
+	<a href="{plink Post:add}">Přidat</a>
+
+	<table class="table">
+		<caption>Seznam Příspěvků</caption>
+		<thead>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Edit</th>
+			<th>Smazat</th>
+		</thead>
+
+		<tbody>
+			<tr n:foreach="$posts as $post">
+				<td>{$post->id}</td>
+				<td><a href="{plink Post:detail $post->id, slug => $post->slug}">{$post->name}</a></td>
+				<td>{$post->description}</td>
+				<td><a href="{plink Post:edit $post->id}">Edit</a></td>
+				<td><a href="{link delete! $post->id}">X</a></td>
+			</tr>
+		</tbody>
+	</table>
+{/block}

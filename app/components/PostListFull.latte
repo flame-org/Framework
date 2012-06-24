@@ -1,0 +1,8 @@
+{block #ListFull}
+	
+	<div class="post-box" n:foreach="$posts as $post">
+		<h2><a href="{plink Post:detail $post->id, slug => $post->slug}"> {$post->name}</a></h2>
+		{!$post->content}
+	</div>
+	<hr>
+{/block}
