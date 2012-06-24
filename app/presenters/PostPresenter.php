@@ -68,14 +68,21 @@ class PostPresenter extends BasePresenter
 		$f = new Form($this, $name);
 		$f->addText('name', 'Název', 80)
 			->addRule(FORM::FILLED, 'Musíš vyplnit název příspěvku')
-			->addRule(FORM::MAX_LENGTH, 'Název příspěvku nemůže být delší jak 50 znaků.', 50);
-		$f->addTextArea('slug', 'Popis', 80, 6)
+			->addRule(FORM::MAX_LENGTH, 'Název příspěvku nemůže být delší jak 100 znaků.', 100);
+
+		$f->addTextArea('description', 'Popis', 80, 6)
 			->addRule(FORM::MAX_LENGTH, 'Popis příspěvku nemůže být delší jak 250 znalů', 250);
-		$f->addTextArea('content', 'Obsah', 80, 40);
+
+		$f->addTextArea('content', 'Obsah', 80, 25)
+			->getControlPrototype()->class('mceEditor');
+
 		$f->addCheckbox('publish', 'Publikovat?');
+		$f->addCheckbox('page', 'Použít jako stránku?');
+		$f->addCheckbox('comment', 'Povolit komentáře?')
+			->setDefaultValue('1');
 		$f->addSubmit('create', 'Vytvořit příspěvek');
 		$f->onSuccess[] = callback($this, 'addFormSubmited');
-		return $f;
+		$f->getElementPrototype()->onsubmit('tinyMCE.triggerSave()');
 	}
 
 	public function addFormSubmited(Form $f)
@@ -85,15 +92,19 @@ class PostPresenter extends BasePresenter
 
 		if(!$user->isLoggedIn()){
 			$this->redirect('Sign:in');
+			$this->flashMessage('Musíš být přihlášen');
 		}else{
 			$this->context->createPosts()->insert(
 				array(
 					'user' => $user->getIdentity()->username,
 					'name' => $values['name'], 
-					'slug' => $values['slug'], 
+					'description' => $values['description'], 
+					'slug' => $this->createPostsSlug($values['name']),
 					'content' => $values['content'], 
 					'created' => new DateTime, 
-					'publish' => $values['publish']
+					'publish' => $values['publish'],
+					'page' => $values['page'],
+					'comment' => $values['comment'],
 				)
 			);
 			$this->flashMessage('Příspěvek byl úspěšně vytvořen', 'success');
@@ -112,15 +123,22 @@ class PostPresenter extends BasePresenter
 			->addRule(FORM::FILLED, 'Musíš vyplnit název příspěvku')
 			->addRule(FORM::MAX_LENGTH, 'Název příspěvku nemůže být delší jak 50 znaků.', 50);
 
-		$f->addTextArea('slug', 'Popis', 80, 6)
-			->setDefaultValue($values['slug'])
+		$f->addTextArea('description', 'Popis', 80, 6)
+			->setDefaultValue($values['description'])
 			->addRule(FORM::MAX_LENGTH, 'Popis příspěvku nemůže být delší jak 250 znalů', 250);
 
 		$f->addTextArea('content', 'Obsah', 80, 40)
-			->setDefaultValue($values['content']);
+			->setDefaultValue($values['content'])
+			->getControlPrototype()->class('mceEditor');
 
 		$f->addCheckbox('publish', 'Publikovat?')
 			->setDefaultValue($values['publish']);
+
+		$f->addCheckbox('page', 'Použít jako stránku?')
+			->setDefaultValue($values['page']);
+
+		$f->addCheckbox('comment', 'Povolit komentáře?')
+			->setDefaultValue($values['comment']);
 
 		$f->addSubmit('edit', 'Editovat příspěvek');
 		$f->onSuccess[] = callback($this, 'editFormSubmited');
@@ -140,15 +158,28 @@ class PostPresenter extends BasePresenter
 				array(
 					'user' => $user->getIdentity()->username,
 					'name' => $values['name'], 
-					'slug' => $values['slug'], 
+					'description' => $values['description'], 
+					'slug' => $this->createPostsSlug($values['name']),
 					'content' => $values['content'], 
-					'created' => new DateTime, 
-					'publish' => $values['publish']
+					'publish' => $values['publish'],
+					'page' => $values['page'],
+					'comment' => $values['comment'],
 				)
 			);
 			$this->flashMessage('Příspěvek byl úspěšně upraven', 'success');
 			$this->redirect('this');
 		}
+	}
+
+	private function createPostsSlug($name)
+	{
+		$url = preg_replace('~[^\\pL0-9_]+~u', '-', $name);
+		$url = trim($url, "-");
+		$url = iconv("utf-8", "us-ascii//TRANSLIT", $url);
+		$url = strToLower($url);
+		$url = preg_replace('~[^-a-z0-9_]+~', '', $url);
+
+		return $url;
 	}
 }
 ?>

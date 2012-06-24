@@ -1,12 +1,15 @@
 {var $title = $post->name}
+{var $desc = $post->description}
 
 {block content}
 
 <h2>{$post->name}</h2>
 
-<h3>{$post->slug}</h3>
+<h3>{$post->description}</h3>
 
-<p>{$post->content}</p>
+{!$post->content}
 
-{control comments}
+{if $post->comment}
+	{control comments}
+{/if}
 
