@@ -1,0 +1,27 @@
+{var $title = "Nastavení"}
+
+{block #content}
+
+	<a n:href="Option:add">Přidat</a>
+
+	{ifset $options}
+	<table class="table">
+		<caption>Seznam proměných</caption>
+		<thead>
+			<th>Název</th>
+			<th>Hodnota</th>
+			<th>Smazat</th>
+		</thead>
+		<tbody>
+		{foreach $options as $option}
+			<tr>
+				<td>{$option->name}</td>
+				<td>{$option->value}</td>
+				<td><a n:href="delete! id => $option->id">X</a></td>
+			</tr>
+		{/foreach}
+		</tbody>
+	</table>
+	{/ifset}
+
+{/block}

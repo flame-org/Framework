@@ -41,6 +41,7 @@ common:
 		posts: PostsModel
 		users: UsersModel
 		comments: CommentsModel
+		options: OptionsModel
 
 production < common:
 
