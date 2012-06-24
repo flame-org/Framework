@@ -1,19 +1,58 @@
-html {
-	background-color: #f2f2f2;
-}
 
-body {
+html, body {
 	font: 16px/1.5 "Trebuchet MS", "Geneva CE", lucida, sans-serif;
 	color: #333;
+}
+
+#main {
 	background-color: #fff;
+	padding: 10px;
 	width: 980px;
 	margin: 0 auto;
-	padding: 10px;
+}
+
+h1, h2, h3, h4 {
+	color: #3484D2;
 }
 
 h1 {
+	font-size: 200%;
+}
+
+h2 { 
+	font-size: 175%;
+}
+
+h3 {
 	font-size: 150%;
-	color: #3484D2;
+}
+
+h4 {
+	font-size: 125%;
+}
+
+small {font-size: 75%;}
+
+a:hover {
+	background: #3484D2;
+}
+
+a, a:link, a:visited {
+	color: black;
+}
+
+a[href^="error:"] {
+	background: red;
+	color: white;
+}
+
+a.active {
+	background: #3484D2;
+}
+
+#header {
+	background-color: #f2f2f2;
+	border-bottom: 3px solid #CCCACA;
 }
 
 #header-cont {
@@ -48,13 +87,10 @@ div.flash {
 	margin: 1em 0;
 }
 
-a[href^="error:"] {
-	background: red;
-	color: white;
-}
-
 .comment-box {
-	border-bottom: 1px solid #eee;
+	border: 1px solid #eee;
+	padding: 10px;
+	margin: 5px 0;
 }
 
 .odd {
@@ -77,4 +113,25 @@ a[href^="error:"] {
 
 #content {
 	margin: 25px 0;
+}
+
+.post-box {
+	margin: 15px 0;
+}
+
+.table caption {
+	background-color: #BABABA;
+}
+
+.table thead {
+	background-color: #eee;
+}
+
+.table thead th {
+	padding: 5px;
+}
+
+.table tbody tr td {
+	padding: 10px;
+	border: 1px solid #eee;
 }

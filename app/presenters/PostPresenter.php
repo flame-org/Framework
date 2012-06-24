@@ -23,11 +23,14 @@ class PostPresenter extends BasePresenter
 	public function actionDetail($id)
 	{
 		$this->post_id = $id;
-		$post = $this->context->createPosts()->getDetail($id);
+		$posts = $this->context->createPosts();
+
+		$post = $posts->getDetail($id);
 
 		if($post === false){
 			$this->setView('notFound');
 		}else{
+			$posts->updateHit($id);
 			$this->template->post = $post;
 		}
 	}

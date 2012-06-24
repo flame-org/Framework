@@ -25,13 +25,17 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 	public function beforeRender()
 	{
-		$this->template->userMenu = $this->generateUserMenu();
+		$this->template->userMenus = $this->generateUserMenu();
+		$this->template->menus = $this->context->createPosts()->getPages();
+
+		$this->template->name = $this->context->createOptions()->getByName('name');
 	}
 
 	private function generateUserMenu()
 	{
 		$menu = array(
-			array('Post', 'add', 'přidat příspěvěk'),
+			array('Post', 'default', 'příspěvky'),
+			array('Option', 'default', 'nastavení'),
 		);
 
 		$menu_allowed = array();
@@ -39,14 +43,14 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		foreach ($menu as $key => $value) {
 			
 			if($this->getUser()->isAllowed($value[0], $value[1])){
-				$menu_allowed[] = array($value[0] . ':' . $value[1], $value[2]);
+				$menu_allowed[] = array($this->link($value[0] . ':' . $value[1]), $value[2]);
 			}
 		}
 
 		if($this->getUser()->isLoggedIn()){
-			$menu_allowed[] = array('signOut!', 'odhlásit se');
+			$menu_allowed[] = array($this->link('signOut!'), 'odhlásit se');
 		}else{
-			$menu_allowed[] = array('Sign:in', 'přihlásit se');
+			$menu_allowed[] = array($this->link('Sign:in'), 'přihlásit se');
 		}
 
 		return $menu_allowed;

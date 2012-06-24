@@ -30,31 +30,36 @@
 <body>
 	<div id="header">
 
-		{ifset $userMenu}
+		{ifset $userMenus}
 			<div id="admin-nav">
 				<ul>
-				{foreach $userMenu as $menu}
-					<li><a n:href="$menu[0]">{$menu[1]}</a></li>
-				{/foreach}
+					<li n:foreach="$userMenus as $userMenu"><a href="{$userMenu[0]}">{$userMenu[1]}</a></li>
 				</ul>
 			</div>
 		{/ifset}
 
 		<div id="header-cont">
-			<H1>CMS</H1>
+			<H1>{$name}</H1>
 		</div>
 
 		<div id="navigation">
 			<ul>
-				<li><a n:href="Homepage:">HOME</a></li>
+				<li><a n:href="Homepage:">Home</a></li>
+				<li n:foreach="$menus as $menu">
+					<a n:href="Post:detail, 'id' => $menu['id'],'slug' => $menu['slug']">{$menu['name']}</a>
+				</li>
 			</ul>
 		</div>
 	</div>
 
-	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+	<div id="main">
 
-	<div id="content">
-		{include #content}
+		<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+
+		<div id="content">
+			{include #content}
+		</div>
+
 	</div>
 	
 </body>

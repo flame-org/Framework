@@ -17,9 +17,29 @@ class PostList extends UI\Control
 
 	public function render()
 	{
-		$this->template->setFile(__DIR__.'/PostList.latte');
+		$this->template->setFile(__DIR__.'/PostListExcept.latte');
 		$this->template->posts = $this->posts;
 		$this->template->render();
+	}
+
+	public function renderFull()
+	{
+		$this->template->setFile(__DIR__.'/PostListFull.latte');
+		$this->template->posts = $this->posts;
+		$this->template->render();
+	}
+
+	public function handleDelete($id)
+	{
+		if(!$this->presenter->getUser()->isAllowed('Post', 'delete')){
+			$this->redirect('Message:accessDenied');
+		}else{
+			$row = $this->posts->where(array('id' => $id))->fetch();
+			if($row !== false)
+				$row->delete();
+
+			$this->redirect('this');
+		}
 	}
 
 }
