@@ -4,3 +4,6 @@
 [submodule "libs/php-sdk"]
 	path = libs/php-sdk
 	url = git://github.com/facebook/php-sdk.git
+[submodule "libs/NetteTestCase"]
+	path = libs/NetteTestCase
+	url = git@github.com:DeveloperHub/NetteTestCase.git

@@ -4,7 +4,7 @@
  * My Application bootstrap file.
  */
 use Nette\Application\Routers\Route,
-	Nette\Application\Routers\RouteList;;
+	Nette\Application\Routers\RouteList;
 
 
 // Load Nette Framework

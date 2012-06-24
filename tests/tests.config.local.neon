@@ -1,0 +1,10 @@
+#
+# Konfiguracni soubor NetteTestCase
+#
+
+common:
+
+	services:
+
+
+console < common:

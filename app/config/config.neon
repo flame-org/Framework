@@ -45,6 +45,8 @@ common:
 
 production < common:
 
+console:
+
 development < common:
 	parameters:
 		database:
