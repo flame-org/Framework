@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vygenerováno: Neděle 24. června 2012, 09:14
+-- Vygenerováno: Neděle 24. června 2012, 15:51
 -- Verze MySQL: 5.5.9
 -- Verze PHP: 5.3.6
 
@@ -28,13 +28,15 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 CREATE TABLE `comment` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_post` int(11) unsigned NOT NULL,
-  `user` varchar(35) COLLATE utf8_czech_ci NOT NULL,
+  `name` varchar(75) COLLATE utf8_czech_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_czech_ci NOT NULL,
+  `web` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `content` varchar(1000) COLLATE utf8_czech_ci NOT NULL,
   `created` datetime NOT NULL,
+  `publish` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `id_post` (`id_post`),
-  KEY `user` (`user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=6 ;
+  KEY `id_post` (`id_post`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=21 ;
 
 -- --------------------------------------------------------
 
@@ -70,7 +72,7 @@ CREATE TABLE `post` (
   `hit` tinyint(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user` (`user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -99,8 +101,7 @@ CREATE TABLE `user` (
 -- Omezení pro tabulku `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Omezení pro tabulku `post`
