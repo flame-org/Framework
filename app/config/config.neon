@@ -49,6 +49,6 @@ development < common:
 	parameters:
 		database:
 			host: localhost
-			dbname: cms
+			dbname: jscms
 			user: root
 			password: root

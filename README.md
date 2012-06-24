@@ -7,10 +7,9 @@ Simple CMS based on php framework [Nette](http://nette.org/)
 JS-CMS required setup:
 * Facebook appID and secret key
 * Database credentials
+* Create database structure (use **SQL-DUMP.SQL** file)
 
 Change the settings in the file: **CONFIG.NEON**
-
-Create database structure (use **SQL-DUMP.SQL** file)
 
 ### Features
 * Logging normally or with Facebook

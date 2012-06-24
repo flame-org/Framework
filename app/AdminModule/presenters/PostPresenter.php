@@ -63,11 +63,11 @@ class PostPresenter extends AdminPresenter
 			->addRule(FORM::FILLED, 'Musíš vyplnit název příspěvku')
 			->addRule(FORM::MAX_LENGTH, 'Název příspěvku nemůže být delší jak 50 znaků.', 50);
 
-		$f->addTextArea('description', 'Popis', 80, 6)
+		$f->addTextArea('description', 'Popis', 90, 5)
 			->setDefaultValue($values['description'])
 			->addRule(FORM::MAX_LENGTH, 'Popis příspěvku nemůže být delší jak 250 znalů', 250);
 
-		$f->addTextArea('content', 'Obsah', 80, 40)
+		$f->addTextArea('content', 'Obsah', 115, 35)
 			->setDefaultValue($values['content'])
 			->getControlPrototype()->class('mceEditor');
 
@@ -127,10 +127,10 @@ class PostPresenter extends AdminPresenter
 			->addRule(FORM::FILLED, 'Musíš vyplnit název příspěvku')
 			->addRule(FORM::MAX_LENGTH, 'Název příspěvku nemůže být delší jak 100 znaků.', 100);
 
-		$f->addTextArea('description', 'Popis', 80, 6)
+		$f->addTextArea('description', 'Popis', 90, 5)
 			->addRule(FORM::MAX_LENGTH, 'Popis příspěvku nemůže být delší jak 250 znalů', 250);
 
-		$f->addTextArea('content', 'Obsah', 80, 25)
+		$f->addTextArea('content', 'Obsah', 115, 35)
 			->getControlPrototype()->class('mceEditor');
 
 		$f->addCheckbox('publish', 'Publikovat?');
