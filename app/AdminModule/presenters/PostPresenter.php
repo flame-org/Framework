@@ -15,9 +15,7 @@ class PostPresenter extends AdminPresenter
 	{
 		$posts = $this->context->createPosts()->get();
 
-		if(!count($posts)){
-			$this->flashMessage('You have not added any post yet');
-		}else{
+		if(count($posts)){
 			$this->template->posts = $posts;
 		}
 	}
@@ -88,25 +86,21 @@ class PostPresenter extends AdminPresenter
 	{
 		$values = $f->getValues();
 		$user = $this->getUser();
-
-		if(!$user->isLoggedIn()){
-			$this->redirect('Sign:in');
-		}else{
-			$this->context->createPosts()->where(array('id' => $this->postID))->update(
-				array(
-					'user' => $user->getIdentity()->username,
-					'name' => $values['name'], 
-					'description' => $values['description'], 
-					'slug' => $this->createPostsSlug($values['name']),
-					'content' => $values['content'], 
-					'publish' => $values['publish'],
-					'page' => $values['page'],
-					'comment' => $values['comment'],
-				)
-			);
-			$this->flashMessage('Příspěvek byl úspěšně upraven', 'success');
-			$this->redirect('this');
-		}
+		
+		$this->context->createPosts()->where(array('id' => $this->postID))->update(
+			array(
+				'user' => $user->getIdentity()->username,
+				'name' => $values['name'], 
+				'description' => $values['description'], 
+				'slug' => $this->createPostsSlug($values['name']),
+				'content' => $values['content'], 
+				'publish' => $values['publish'],
+				'page' => $values['page'],
+				'comment' => $values['comment'],
+			)
+		);
+		$this->flashMessage('Příspěvek byl úspěšně upraven', 'success');
+		$this->redirect('this');
 	}
 
 	private function createPostsSlug($name)
@@ -138,8 +132,8 @@ class PostPresenter extends AdminPresenter
 		$f->addCheckbox('comment', 'Povolit komentáře?')
 			->setDefaultValue('1');
 		$f->addSubmit('create', 'Vytvořit příspěvek');
-		$f->onSuccess[] = callback($this, 'addFormSubmited');
 		$f->getElementPrototype()->onsubmit('tinyMCE.triggerSave()');
+		$f->onSuccess[] = callback($this, 'addFormSubmited');
 	}
 
 	public function addFormSubmited(Form $f)
@@ -147,26 +141,21 @@ class PostPresenter extends AdminPresenter
 		$values = $f->getValues();
 		$user = $this->getUser();
 
-		if(!$user->isLoggedIn()){
-			$this->redirect('Sign:in');
-			$this->flashMessage('Musíš být přihlášen');
-		}else{
-			$this->context->createPosts()->insert(
-				array(
-					'user' => $user->getIdentity()->username,
-					'name' => $values['name'], 
-					'description' => $values['description'], 
-					'slug' => $this->createPostsSlug($values['name']),
-					'content' => $values['content'], 
-					'created' => new \DateTime, 
-					'publish' => $values['publish'],
-					'page' => $values['page'],
-					'comment' => $values['comment'],
-				)
-			);
-			$this->flashMessage('Příspěvek byl úspěšně vytvořen', 'success');
-			$this->redirect('this');
-		}
+		$this->context->createPosts()->insert(
+			array(
+				'user' => $user->getIdentity()->username,
+				'name' => $values['name'], 
+				'description' => $values['description'], 
+				'slug' => $this->createPostsSlug($values['name']),
+				'content' => $values['content'], 
+				'created' => new \DateTime, 
+				'publish' => $values['publish'],
+				'page' => $values['page'],
+				'comment' => $values['comment'],
+			)
+		);
+		$this->flashMessage('Příspěvek byl úspěšně vytvořen', 'success');
+		$this->redirect('this');
 	}
 
 }

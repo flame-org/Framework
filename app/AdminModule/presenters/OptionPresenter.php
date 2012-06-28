@@ -14,9 +14,7 @@ class OptionPresenter extends AdminPresenter
 	{
 		$options = $this->context->createOptions()->getAll();
 
-		if(!count($options)){
-			$this->flashMessage('You have not added any variable yet.');
-		}else{
+		if(count($options)){
 			$this->template->options = $options;
 		}
 		
