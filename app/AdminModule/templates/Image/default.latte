@@ -1,0 +1,37 @@
+{var $title="Images"}
+
+{block #content}
+
+	<p><a n:href="Image:upload">Upload new Image</a></p>
+
+	{ifset $images}
+		<table>
+			<thead>
+				<th>Thumbnail</th>
+				<th>File</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Thumbnail size</th>
+				<th>Original size</th>
+				<th>Actions</th>
+			</thead>
+
+			<tbody>
+				<tr n:foreach="$images as $image">
+					<td>
+						<a href="{$baseUrl}/media/images/{$image->file}"><img src="{$baseUrl}/media/images_thumbnails/{$image->thumbnail}" width="75"></a>
+					</td>
+					<td>{$image->file}</td>
+					<td>{$image->name}</td>
+					<td>{$image->desc}</td>
+					<td>{$image->size_thumbnail[0]}x{$image->size_thumbnail[1]}px</td>
+					<td>{$image->size[0]}x{$image->size[1]}px</td>
+					<td>
+						<a n:href="delete! $image->id">X</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<small>Your images are stored in folder <b>media</b></small>
+	{/ifset}

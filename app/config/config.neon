@@ -42,6 +42,7 @@ common:
 		users: Model\Users
 		comments: Model\Comments
 		options: Model\Options
+		images: Model\Images
 
 production < common:
 

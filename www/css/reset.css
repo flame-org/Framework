@@ -53,6 +53,11 @@ tbody tr:nth-child(even) td, tbody tr.even td {background:#e5ecf9;}
 tfoot {font-style:italic;}
 caption {background:#8EB6FA;}
 
+.error {
+	background-color: #DB568B;
+	padding: 5px;
+	list-style: none;
+}
 a[href^="error:"] {
 	background: red;
 	color: white;

@@ -7,3 +7,6 @@
 [submodule "libs/NetteTestCase"]
 	path = libs/NetteTestCase
 	url = git@github.com:DeveloperHub/NetteTestCase.git
+[submodule "libs/timymce"]
+	path = libs/timymce
+	url = git://github.com/tinymce/tinymce.git
