@@ -151,12 +151,16 @@ class ImagePresenter extends AdminPresenter
 					unlink($thumbnail);
 				}	
 
-				if($row->delete()){
-					$this->flashMessage('Image was deleted.', 'success');
-				}
+				$row->delete();
+			}else{
+				$this->flashMessage('Required image to delete does not exist!');
 			}
+		}
 
+		if(!$this->isAjax()){
 			$this->redirect('this');
+		}else{
+			$this->invalidateControl('images');
 		}
 	}
 }

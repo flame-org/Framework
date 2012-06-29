@@ -7,14 +7,18 @@ namespace AdminModule;
 */
 class DashboardPresenter extends AdminPresenter
 {
-	public function renderDefault()
+
+	private $commentsFactory;
+
+	public function actionDefault()
 	{
-		$this->template->unPublishComments = count($this->context->createComments()->getUnPublish());
+		$this->commentsFactory = $this->context->createComments();
+		$this->template->unPublishComments = count($this->commentsFactory->getUnPublish());
 	}	
 
 	public function createComponentCommentList()
 	{
-		return new CommentList($this->context->createComments()->getUnPublish());
+		return new CommentList($this->commentsFactory->getUnPublish(), $this->context->createComments());
 	}
 
 }

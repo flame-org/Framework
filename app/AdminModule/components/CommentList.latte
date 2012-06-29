@@ -30,14 +30,13 @@
 				<td>{$comment->publish}</td>
 				<td>{$comment->created|date}</td>
 				<td>
-					{if $comment->publish}
-						<a n:href="unPublish! $comment->id">unpublish</a>
-					{else}
-						<a n:href="publish! $comment->id">publish</a>
-					{/if}
-					<a n:href="delete! $comment->id">X</a>
+					<a n:href="markPublish! $comment->id" class="ajax">publish / unpublish </a>
+					<a n:href="delete! $comment->id" class="ajax">X</a>
 				</td>
 			</tr>
 		</tbody>
 	</table>
-{/if}
+	{else}
+		<h4>None</h4>
+	{/if}
+{/snippet}

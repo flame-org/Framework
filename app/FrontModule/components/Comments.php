@@ -63,8 +63,7 @@ class Comments extends UI\Control
 				'publish' => '0'
 			)
 		);
-		$f->addError('Your comment is waiting for moderation');
-		//$this->flashMessage('Your comment is waiting for moderation');
+		$this->presenter->flashMessage('Your comment is waiting for moderation');
 		$this->redirect('this');
 	}
 

@@ -11,6 +11,10 @@ abstract class FrontPresenter extends \BasePresenter
 	public function startup()
 	{
 		parent::startup();
+
+		if(!$this->getUser()->isAllowed($this->name, $this->view)){
+			$this->redirect(':Front:Message:accessDenied');
+		}
 	}
 
 	public function beforeRender()

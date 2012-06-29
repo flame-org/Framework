@@ -13,24 +13,26 @@ class PostPresenter extends AdminPresenter
 	
 	public function renderDefault()
 	{
-		$posts = $this->context->createPosts()->get();
-
-		if(count($posts)){
-			$this->template->posts = $posts;
-		}
+		$this->template->posts = $this->context->createPosts()->get();
 	}
 
 	public function handleDelete($id)
 	{
 		if(!$this->getUser()->isAllowed('Admin:Post', 'delete')){
 			$this->flashMessage('Access denided');
-			$this->redirect('Dashboard:');
 		}else{
 			$row = $this->context->createPosts()->where(array('id' => $id))->fetch();
-			if($row !== false)
+			if($row !== false){
 				$row->delete();
+			}else{
+				$this->flashMessage('Required post to delete does not exist!');
+			}
+		}
 
+		if(!$this->isAjax()){
 			$this->redirect('this');
+		}else{
+			$this->invalidateControl('posts');
 		}
 	}
 

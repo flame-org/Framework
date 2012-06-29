@@ -1,39 +1,44 @@
+{var $title="Posts"}
 
 {block #content}
 	
 	<p><a n:href="Post:add">Add new post</a></p>
 	
-	{ifset $posts}	
-	<table>
-		<caption>List of Posts</caption>
-		<thead>
-			<th>ID</th>
-			<th>Name</th>
-			<th>View</th>
-			<th>Page</th>
-			<th>Public</th>
-			<th>Comments</th>
-			<th>User</th>
-			<th>Created</th>
-			<th>Actions</th>
-		</thead>
+	{snippet #posts}
+		{if count($posts)}
+		<table>
+			<caption>List of Posts</caption>
+			<thead>
+				<th>ID</th>
+				<th>Name</th>
+				<th>View</th>
+				<th>Page</th>
+				<th>Public</th>
+				<th>Comments</th>
+				<th>User</th>
+				<th>Created</th>
+				<th>Actions</th>
+			</thead>
 
-		<tbody>
-			<tr n:foreach="$posts as $post">
-				<td>{$post->id}</td>
-				<td><a n:href=":Front:Post:detail $post->id, slug => $post->slug" target="_blank">{$post->name}</a></td>
-				<td>{$post->content|striptags|truncate:50}</td>
-				<td>{$post->page}</td>
-				<td>{$post->publish}</td>
-				<td>{$post->comment}</td>
-				<td>{$post->user}</td>
-				<td>{$post->created|date}</td>
-				<td>
-					<a n:href="Post:edit $post->id">Edit</a>
-					<a n:href="delete! $post->id">X</a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	{/ifset}
+			<tbody>
+				<tr n:foreach="$posts as $post">
+					<td>{$post->id}</td>
+					<td><a n:href=":Front:Post: $post->id, slug => $post->slug" target="_blank">{$post->name}</a></td>
+					<td>{$post->content|striptags|truncate:50}</td>
+					<td>{$post->page}</td>
+					<td>{$post->publish}</td>
+					<td>{$post->comment}</td>
+					<td>{$post->user}</td>
+					<td>{$post->created|date}</td>
+					<td>
+						<a n:href="Post:edit $post->id">Edit</a>
+						<a n:href="delete! $post->id" class="ajax">X</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		{else}
+			<H4>None</H4>
+		{/if}
+	{/snippet}
 {/block}

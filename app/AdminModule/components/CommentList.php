@@ -11,10 +11,14 @@ use Nette\Application\UI,
 class CommentList extends UI\Control
 {
 	private $comments;
-	
-	function __construct(Selection $comments)
+	private $commentsFactory;
+	private $postsFactory;
+
+	function __construct(Selection $comments, \Model\Comments $commentsFactory)
 	{
 		parent::__construct();
+
+		$this->commentsFactory = $commentsFactory;
 		$this->comments = $comments;
 	}
 
@@ -28,38 +32,42 @@ class CommentList extends UI\Control
 	public function handleDelete($id)
 	{
 		if(!$this->presenter->getUser()->isAllowed('Admin:Comment', 'delete')){
-			$this->flashMessage('Access denided');
-			$this->redirect('Dashboard:');
+			$this->presenter->flashMessage('Access denided');
 		}else{
-			$row = $this->presenter->context->createComments()->where(array('id' => $id))->fetch();
-			if($row !== false)
+			$row = $this->commentsFactory->where(array('id' => $id))->fetch();
+			if($row !== false){
 				$row->delete();
+			}else{
+				$this->presenter->flashMessage('The comment with required ID does not exist.');
+			}
+		}
 
-			$this->redirect('this');
+		if(!$this->presenter->isAjax()){
+			$this->presenter->redirect('this');
+		}else{
+			$this->invalidateControl();
 		}
 	}
 
-	public function handlePublish($id)
+	public function handleMarkPublish($id)
 	{
 		if(!$this->presenter->getUser()->isAllowed('Admin:Comment', 'publish')){
-			$this->flashMessage('Access denided');
-			$this->redirect('Dashboard:');
+			$this->presenter->flashMessage('Access denided');
 		}else{
-			$row = $this->presenter->context->createComments()->where(array('id' => $id))->update(array('publish' => '1'));
 
-			$this->redirect('this');
+			$row = $this->commentsFactory->where(array('id' => $id))->fetch();
+
+			if((int)$row['publish'] == 1){
+				$row = $this->commentsFactory->where(array('id' => $id))->update(array('publish' => '0'));
+			}else{
+				$row = $this->commentsFactory->where(array('id' => $id))->update(array('publish' => '1'));
+			}
 		}
-	}
 
-	public function handleUnPublish($id)
-	{
-		if(!$this->presenter->getUser()->isAllowed('Admin:Comment', 'publish')){
-			$this->flashMessage('Access denided');
-			$this->redirect('Dashboard:');
+		if(!$this->presenter->isAjax()){
+			$this->presenter->redirect('this');
 		}else{
-			$row = $this->presenter->context->createComments()->where(array('id' => $id))->update(array('publish' => '0'));
-
-			$this->redirect('this');
+			$this->invalidateControl();
 		}
 	}
 }

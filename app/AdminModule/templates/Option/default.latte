@@ -4,24 +4,27 @@
 
 	<p><a n:href="Option:add">Add new variable</a></p>
 
-	{ifset $options}
-	<table>
-		<caption>List of Variables</caption>
-		<thead>
-			<th>Name</th>
-			<th>Value</th>
-			<th>Delete</th>
-		</thead>
-		<tbody>
-		{foreach $options as $option}
-			<tr>
-				<td>{$option->name}</td>
-				<td>{$option->value}</td>
-				<td><a n:href="delete! id => $option->id">X</a></td>
-			</tr>
-		{/foreach}
-		</tbody>
-	</table>
-	{/ifset}
-
+	{snippet #options}
+		{if count($options)}
+		<table>
+			<caption>List of Variables</caption>
+			<thead>
+				<th>Name</th>
+				<th>Value</th>
+				<th>Delete</th>
+			</thead>
+			<tbody>
+			{foreach $options as $option}
+				<tr>
+					<td>{$option->name}</td>
+					<td>{$option->value}</td>
+					<td><a n:href="delete! id => $option->id" class="ajax">X</a></td>
+				</tr>
+			{/foreach}
+			</tbody>
+		</table>
+		{else}
+			<h4>None</h4>
+		{/if}
+	{/snippet}
 {/block}

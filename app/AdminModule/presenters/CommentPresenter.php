@@ -7,28 +7,18 @@ namespace AdminModule;
 */
 class CommentPresenter extends AdminPresenter
 {
+	private $comments;
 
-	public function renderDefault()
+	public function actionDefault()
 	{
-		if(!count($this->context->createComments()->getAll())){
-			$this->flashMessage('Your visitors have not added any commnets yet');
-		}
+		$this->comments = $this->context->createComments();
 	}
 
 	public function createComponentCommentList()
 	{
-		$comments = $this->context->createComments()->getAll();
+		$comments = $this->comments->getAll();
 
-		if(count($comments)){
-			$posts = $this->context->createPosts();
-
-			foreach ($comments as $key => $value) {
-				$temp = $posts->getNameByID($value['id_post']);
-				$comments[$key]['name'] = $temp[$value['id_post']];
-			}
-		}
-
-		return new CommentList($comments);
+		return new CommentList($comments, $this->context->createComments());
 	}
 }
 ?>

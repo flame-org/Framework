@@ -12,16 +12,22 @@ abstract class AdminPresenter extends \BasePresenter
 
 	public function startup()
 	{
+		parent::startup();
 		
-		if(!$this->getUser()->isLoggedIn()){
-			if ($this->getUser()->logoutReason === NS\User::INACTIVITY) {
+		$user = $this->getUser();
+
+		if(!$user->isLoggedIn()){
+			if ($user->logoutReason === NS\User::INACTIVITY) {
                 $this->flashMessage('You was logout for the users INACTIVITY. Please login again.');
             }
             $backlink = $this->application->storeRequest();
             $this->redirect('Sign:in', array('backlink' => $backlink));
+		}else{
+			if(!$user->isAllowed($this->name, $this->view)){
+				$this->flashMessage('Access denited');
+				$this->redirect('Dashboard:');
+			}
 		}
-
-		parent::startup();
 	}
 
 	public function beforeRender()

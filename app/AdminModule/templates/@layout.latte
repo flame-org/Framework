@@ -13,13 +13,16 @@
 
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon">
 
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script type="text/javascript" src="{$basePath}/js/netteForms.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/ajax.js"></script>
 	{block head}{/block}
 </head>
 
 <body>
 	<div id="header">
+
+		<H1>{$name}</H1>
 
 		{if $user->isLoggedIn()}
 			<div id="navigation">
@@ -32,11 +35,15 @@
 				</ul>
 			</div>
 		{/if}
+
+		<H2>{$presenter->name} | {$presenter->view}</H2>
 	</div>
 
 	<div id="main">
 
-		<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+		{snippet flashMessages}
+			<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+		{/snippet}
 
 		<div id="content">
 			{include #content}
