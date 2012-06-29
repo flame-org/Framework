@@ -19,12 +19,14 @@ class ImagePresenter extends AdminPresenter
 
 		if(count($images)){
 			foreach ($images as $key => $value) {
-				$images[$key]['size'] = getimagesize(WWW_DIR . '/media/images/' . $value['file']);
-				$images[$key]['size_thumbnail'] = getimagesize(WWW_DIR . '/media/images_thumbnails/' . $value['thumbnail']);
+				$temp = unserialize($value['file_info']);
+				$images[$key]['image_size'] = $temp[0] . 'x' . $temp[1] . 'px';
+				$temp = unserialize($value['thumbnail_info']);
+				$images[$key]['thumbnail_size'] = $temp[0] . 'x' . $temp[1] . 'px';
 			}
-
-			$this->template->images = $images;
 		}
+
+		$this->template->images = $images;
 	}
 	
 	public function createComponentUploadImageForm($name)
@@ -50,14 +52,16 @@ class ImagePresenter extends AdminPresenter
 
 		$image_name = $this->saveImage($values['image']);
 		$thumbnail_name = $this->createThumbnail($image_name);
-		
+
 		$s = $this->context->createImages()->insert(
 			array(
 				'user' => $user->getIdentity()->username,
 				'file' => $image_name,
+				'file_info' => serialize($this->getImageSize(WWW_DIR . '/media/images/' . $image_name)),
 				'name' => $values['name'],
 				'desc' => $values['desc'],
 				'thumbnail' => $thumbnail_name,
+				'thumbnail_info' => serialize($this->getImageSize(WWW_DIR . '/media/images_thumbnails/' . $thumbnail_name)),
 				)
 		);
 
@@ -72,13 +76,19 @@ class ImagePresenter extends AdminPresenter
 
 	private function createThumbnail($image_name)
 	{
+
 		$image = IMAGE::fromFile(WWW_DIR . '/media/images/' . $image_name);
 		$image->resize($this->thumbnailW, $this->thumbnailH, Image::SHRINK_ONLY);
 		$image->sharpen();
 
-		$image_name = 'min_' . $image_name;
+		$path = WWW_DIR . '/media/images_thumbnails';
 
-		$saved = $image->save(WWW_DIR . '/media/images_thumbnails/' . $image_name);
+		if(!file_exists($path)){
+			mkdir($path);
+		}
+
+		$image_name = '/min_' . $image_name;
+		$saved = $image->save($path . $image_name);
 
 		if ($saved) {
 			return $image_name;
@@ -131,12 +141,18 @@ class ImagePresenter extends AdminPresenter
 			$this->thumbnailH = $height;
 	}
 
+	private function getImageSize($imagePath)
+	{
+		if(file_exists($imagePath)){
+			return getimagesize($imagePath);
+		}
+	}
+
 	public function handleDelete($id)
 	{
 
 		if(!$this->getUser()->isAllowed('Admin:Image', 'delete')){
 			$this->flashMessage('Access denided');
-			$this->redirect('Dashboard:');
 		}else{
 			$row = $this->context->createImages()->where(array('id' => $id))->fetch();	
 
