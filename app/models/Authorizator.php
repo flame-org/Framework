@@ -33,17 +33,16 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->allow('guest', array('Front:Homepage'));
 		$this->allow('guest', array('Front:Message'));
 		$this->allow('guest', array('Admin:Sign'), array('in'));
-		$this->allow('guest', array('Front:Post'), array('detail'));
+		$this->allow('guest', array('Front:Post'), array('default'));
 
 		$this->allow('user', array('Admin:User'), array('password'));
 
 		//DEFINE ADMIN MODERATORS ACCESS
-		$this->allow('moderator', array('Admin:Dashboard', 'Admin:Post'));
-		$this->allow('moderator', array('Admin:Post', 'Admin:Image'));
+		$this->allow('moderator', array('Admin:Dashboard', 'Admin:Post', 'Admin:Image'));
 		$this->allow('moderator', array('Admin:Comment'), array('delete', 'publish', 'default'));
 
 		//DEFINE ADMIN ADMINISTRATORS ACCESS
-		$this->allow('administrator', array('Admin:Option'));
+		$this->allow('administrator', array('Admin:Option'), array('default', 'delete', 'add'));
 		$this->allow('administrator', array('Admin:User'));
 		
 		$this->allow('root', NS\Permission::ALL);

@@ -63,6 +63,14 @@ class PostPresenter extends AdminPresenter
 			->addRule(FORM::FILLED, 'Musíš vyplnit název příspěvku')
 			->addRule(FORM::MAX_LENGTH, 'Název příspěvku nemůže být delší jak 50 znaků.', 50);
 
+		$f->addText('slug', 'Name in URL', 80)
+			->setDefaultValue($values['slug'])
+			->addRule(FORM::MAX_LENGTH, 'Adresa nemůže být delší jak 100 znaků', 100);
+
+		$f->addText('keywords', 'META Keywords', 80)
+			->setDefaultValue($values['keywords'])
+			->addRule(FORM::MAX_LENGTH, 'Klíčová slova nemůžou mít více jak 500 znaků', 500);
+
 		$f->addTextArea('description', 'Popis', 90, 5)
 			->setDefaultValue($values['description'])
 			->addRule(FORM::MAX_LENGTH, 'Popis příspěvku nemůže být delší jak 250 znalů', 250);
@@ -99,6 +107,7 @@ class PostPresenter extends AdminPresenter
 				'publish' => $values['publish'],
 				'page' => $values['page'],
 				'comment' => $values['comment'],
+				'keywords' => $values['keywords'],
 			)
 		);
 		$this->flashMessage('Příspěvek byl úspěšně upraven', 'success');
@@ -123,10 +132,17 @@ class PostPresenter extends AdminPresenter
 			->addRule(FORM::FILLED, 'Musíš vyplnit název příspěvku')
 			->addRule(FORM::MAX_LENGTH, 'Název příspěvku nemůže být delší jak 100 znaků.', 100);
 
+		$f->addText('slug', 'Name in URL', 80)
+			->addRule(FORM::MAX_LENGTH, 'Adresa nemůže být delší jak 100 znaků', 100);
+
+		$f->addText('keywords', 'META Keywords', 80)
+			->addRule(FORM::MAX_LENGTH, 'Klíčová slova nemůžou mít více jak 500 znaků', 500);
+
 		$f->addTextArea('description', 'Popis', 90, 5)
-			->addRule(FORM::MAX_LENGTH, 'Popis příspěvku nemůže být delší jak 250 znalů', 250);
+			->addRule(FORM::MAX_LENGTH, 'Popis příspěvku nemůže být delší jak 250 znaků', 250);
 
 		$f->addTextArea('content', 'Obsah', 115, 35)
+			->addRule(FORM::FILLED, 'Obsah příspěvku je vyžadován.')
 			->getControlPrototype()->class('mceEditor');
 
 		$f->addCheckbox('publish', 'Publikovat?');
@@ -143,12 +159,19 @@ class PostPresenter extends AdminPresenter
 		$values = $f->getValues();
 		$user = $this->getUser();
 
+		if(empty($values['slug'])){
+			$slug = $this->createPostsSlug($values['name']);
+		}else{
+			$slug = $this->createPostsSlug($values['slug']);
+		}
+
 		$this->context->createPosts()->insert(
 			array(
 				'user' => $user->getIdentity()->username,
 				'name' => $values['name'], 
 				'description' => $values['description'], 
-				'slug' => $this->createPostsSlug($values['name']),
+				'keywords' => $values['keywords'], 
+				'slug' => $slug,
 				'content' => $values['content'], 
 				'created' => new \DateTime, 
 				'publish' => $values['publish'],

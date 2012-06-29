@@ -56,6 +56,7 @@ class Posts extends Selection
 
 	public function getNameByID($id)
 	{
-		return $this->where(array('id' => $id))->fetchPairs('id', 'name');
+		$post = $this->select('name')->where(array('id' => $id))->limit(1)->fetch();
+		return $post['name'];
 	}
 }

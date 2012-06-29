@@ -2,9 +2,7 @@
 
 {block #content}
 
-<h1>Hello in Administration</h1>
-
-{if $unPublishComments}
-	<h2>Unpublish comments</h2>
-	{control commentList}
-{/if}
+	{if $unPublishComments}
+		<h3>Unpublish comments</h3>
+		{control commentList}
+	{/if}
