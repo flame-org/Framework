@@ -39,7 +39,7 @@
 		<ul id="navigation">
 			<li><a n:href="Homepage:">Home</a></li>
 			<li n:foreach="$menus as $menu">
-				<a n:href="Post:detail, 'id' => $menu['id'],'slug' => $menu['slug']">{$menu['name']}</a>
+				<a n:href="Post:, 'id' => $menu['id'],'slug' => $menu['slug']">{$menu['name']}</a>
 			</li>
 		</ul>
 	</div>

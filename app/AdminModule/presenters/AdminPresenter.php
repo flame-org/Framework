@@ -24,7 +24,7 @@ abstract class AdminPresenter extends \BasePresenter
             $this->redirect('Sign:in', array('backlink' => $backlink));
 		}else{
 			if(!$user->isAllowed($this->name, $this->view)){
-				$this->flashMessage('Access denited');
+				$this->flashMessage('Access denied');
 				$this->redirect('Dashboard:');
 			}
 		}
