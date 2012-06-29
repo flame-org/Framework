@@ -12,7 +12,6 @@ JS-CMS required setup:
 Change the settings in the file: **CONFIG.NEON**
 
 ### Features
-* Logging normally or with Facebook
 * Access control list
 * Creating / editing posts
 * Comments
