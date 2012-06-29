@@ -17,3 +17,4 @@ Change the settings in the file: **CONFIG.NEON**
 * Creating / editing posts
 * Comments
 * TimyCME editor
+* Managing of images
