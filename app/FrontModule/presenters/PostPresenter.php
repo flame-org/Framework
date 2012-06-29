@@ -10,7 +10,7 @@ class PostPresenter extends FrontPresenter
 
 	public $postID;
 
-	public function actionDetail($id)
+	public function actionDefault($id)
 	{
 		$this->postID = $id;
 		$posts = $this->context->createPosts();

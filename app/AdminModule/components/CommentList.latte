@@ -1,8 +1,9 @@
-{if count($comments)}
+{snippet}
+	{if count($comments)}
 	<table>
 		<thead>
 			<th>Post</th>
-			<th>Name</th>
+			<th>User name</th>
 			<th>Email</th>
 			<th>Web</th>
 			<th>Content</th>
@@ -13,7 +14,15 @@
 
 		<tbody>
 			<tr n:foreach="$comments as $comment">
-				<td><a href="{plink :Front:Post:detail $comment['id_post']}">{$comment['name']}</a></td>
+				<td>
+					<a href="{plink :Front:Post: $comment['id_post']}">
+					{ifset $comment['post_name']}
+						{$comment['post_name']}
+					{else}
+						{$comment['id_post']}
+					{/ifset}
+					</a>
+				</td>
 				<td>{$comment->name}</td>
 				<td>{$comment->email}</td>
 				<td>{$comment->web}</td>

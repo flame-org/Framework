@@ -1,0 +1,16 @@
+{var $title = $post->name}
+{var $desc = $post->description}
+{var $keys = $post->keywords}
+
+{block content}
+
+<h2>{$post->name}</h2>
+
+<h3>{$post->description}</h3>
+
+{!$post->content}
+
+{if $post->comment}
+	{control comments}
+{/if}
+
