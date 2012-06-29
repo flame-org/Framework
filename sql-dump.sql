@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: localhost
--- Vygenerováno: Neděle 24. června 2012, 15:51
+-- Vygenerováno: Pátek 29. června 2012, 17:35
 -- Verze MySQL: 5.5.9
 -- Verze PHP: 5.3.6
 
@@ -36,7 +36,26 @@ CREATE TABLE `comment` (
   `publish` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `id_post` (`id_post`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=28 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabulky `image`
+--
+
+CREATE TABLE `image` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user` varchar(35) COLLATE utf8_czech_ci NOT NULL,
+  `file` varchar(150) COLLATE utf8_czech_ci NOT NULL,
+  `file_info` varchar(1000) COLLATE utf8_czech_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8_czech_ci NOT NULL,
+  `desc` varchar(250) COLLATE utf8_czech_ci NOT NULL,
+  `thumbnail` varchar(150) COLLATE utf8_czech_ci NOT NULL,
+  `thumbnail_info` varchar(1000) COLLATE utf8_czech_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user` (`user`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -45,12 +64,12 @@ CREATE TABLE `comment` (
 --
 
 CREATE TABLE `option` (
-  `id` int(11) unsigned NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_czech_ci NOT NULL,
   `value` varchar(250) COLLATE utf8_czech_ci NOT NULL,
   UNIQUE KEY `name` (`name`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -64,6 +83,7 @@ CREATE TABLE `post` (
   `name` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `slug` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `description` varchar(250) COLLATE utf8_czech_ci NOT NULL,
+  `keywords` varchar(500) COLLATE utf8_czech_ci NOT NULL,
   `content` text COLLATE utf8_czech_ci NOT NULL,
   `created` datetime NOT NULL,
   `publish` tinyint(1) NOT NULL,
@@ -72,7 +92,7 @@ CREATE TABLE `post` (
   `hit` tinyint(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user` (`user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -102,6 +122,12 @@ CREATE TABLE `user` (
 --
 ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Omezení pro tabulku `image`
+--
+ALTER TABLE `image`
+  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Omezení pro tabulku `post`
