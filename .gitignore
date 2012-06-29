@@ -1,4 +1,7 @@
 .DS_Store
 /temp/cache/
 /temp/sessions/
-/log/(.*).(log|html)
+/log/*.html
+/log/*.log
+#/www/media/*
+/www/media/
