@@ -3,4 +3,4 @@
 /temp/sessions/
 /log/*.html
 /log/*.log
-/www/media/
+/www/media/*
