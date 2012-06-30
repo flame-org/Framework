@@ -13,7 +13,7 @@ class PostPresenter extends AdminPresenter
 	
 	public function renderDefault()
 	{
-		$this->template->posts = $this->context->createPosts()->get();
+		$this->template->posts = $this->context->createPosts()->getAll();
 	}
 
 	public function handleDelete($id)

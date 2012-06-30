@@ -3,6 +3,8 @@
 	<div class="post-box" n:foreach="$posts as $post">
 		<h2><a href="{plink Post: $post->id, slug => $post->slug}"> {$post->name}</a></h2>
 		{!$post->content}
+		<hr>
 	</div>
-	<hr>
+
+	{control paginator}
 {/block}

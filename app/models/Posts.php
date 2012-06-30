@@ -17,6 +17,11 @@ class Posts extends Selection
 		parent::__construct('post', $c);
 	}
 
+	public function getAll()
+	{
+		return $this->order('id DESC');
+	}
+
 	public function getDetail($id)
 	{
 		$post = $this->where(array('id' => $id, 'publish' => '1'))->limit(1)->fetch();
@@ -24,10 +29,9 @@ class Posts extends Selection
 		
 	}
 
-	public function get($limit = null, $offset = null)
+	public function getPublish()
 	{
-		$posts = $this->where(array('publish' => '1'))->order('id DESC')->limit($limit, $offset);
-		return $posts;
+		return $this->where(array('publish' => '1'))->order('id DESC');
 	}
 
 	public function getByUser($username, $id = null)

@@ -17,10 +17,12 @@ Change the settings in the file: **CONFIG.NEON**
 * Comments
 * TimyCME editor
 * Managing of images
+* Paginator for posts
 
 ### Global variables
 If you want to affect prepared options (set up in the options section)
 * name (e.g. 'JSCMS')
 * thumbnail_width (default: 230)
 * thumbnail_height (defautl: 230)
+* items_per_page (Paginator, default: 10)
 

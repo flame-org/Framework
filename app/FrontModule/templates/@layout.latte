@@ -17,8 +17,10 @@
 	<meta name="description" content="{$desc}" n:ifset="$desc">
 	<meta name="keywords" content="{$keys}" n:ifset="$keys">
 
+	<link rel="stylesheet" media="screen" href="{$basePath}/css/paginator.css" type="text/css">
 	<link rel="stylesheet" media="screen" href="{$basePath}/css/reset.css" type="text/css">
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css" type="text/css">
+	
 	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css" type="text/css">
 
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon">
@@ -31,20 +33,20 @@
 
 <body>
 	<div id="header">
-		
-		<div id="header-cont">
+		<div id="header-cont" class="wrapper">
 			<H1>{$name}</H1>
 		</div>
-
 		<ul id="navigation">
-			<li><a n:href="Homepage:">Home</a></li>
-			<li n:foreach="$menus as $menu">
-				<a n:href="Post:, 'id' => $menu['id'],'slug' => $menu['slug']">{$menu['name']}</a>
-			</li>
+			<div class="wrapper">
+				<li><a n:href="Homepage:">Home</a></li>
+				<li n:foreach="$menus as $menu">
+					<a n:href="Post:, 'id' => $menu['id'],'slug' => $menu['slug']">{$menu['name']}</a>
+				</li>
+			</div>
 		</ul>
 	</div>
 
-	<div id="main">
+	<div id="main" class="wrapper">
 
 		{snippet flashMessages}
 			<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
@@ -54,6 +56,12 @@
 			{include #content}
 		</div>
 
+	</div>
+
+	<div id="footer">
+		<div class="wrapper">
+			Powered by <a href="https://github.com/jsifalda/JS-CMS" title="JSCMS" target="_blank">JSCMS</a>
+		</div>
 	</div>
 	
 </body>

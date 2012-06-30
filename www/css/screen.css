@@ -1,16 +1,32 @@
+body {
+	font-size: 12px;
+	font-family: "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;	
+	width:auto; height:auto;	
+	padding: 0 0 0 0;
+	margin: 0;
+	color: #7d7d7b;	
+	background-color: #f3f2f2;
+	border-top: 5px solid #ffd800;	
+}
 
-html, body {
-	font: 16px/1.5 "Trebuchet MS", "Geneva CE", lucida, sans-serif;
-	color: #333;
+p {
+	line-height: 1.7em;
+	margin: 0 0 20px 0;	
+}
+
+ul {
+	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-#main {
-	background-color: #fff;
-	padding: 10px;
-	width: 980px;
-	margin: 0 auto;
+li {
+	margin: 0 0 0 0;
+	padding: 0;
+}
+
+img {
+	margin: 0;
 }
 
 h1, h2, h3, h4 {
@@ -47,6 +63,11 @@ a.active {
 	background: #3484D2;
 }
 
+#main {
+	background-color: #fff;
+	padding: 10px;
+}
+
 #header {
 	background-color: #f2f2f2;
 	border-bottom: 3px solid #CCCACA;
@@ -59,22 +80,12 @@ a.active {
 }
 
 #navigation {
+	padding: 5px;
 	background: #eee;
-	width: 980px;
-	margin: 0 auto;
 }
 
 #navigation li{
 	display: inline;
-}
-
-#ajax-spinner {
-	margin: 15px 0 0 15px;
-	padding: 13px;
-	background: white url('../images/spinner.gif') no-repeat 50% 50%;
-	font-size: 0;
-	z-index: 123456;
-	display: none;
 }
 
 #comment {
@@ -97,4 +108,14 @@ a.active {
 
 .post-box {
 	margin: 15px 0;
+}
+
+#footer {
+	padding: 30px 0 30px;
+	background-color: #F3F2F2;
+	border-top: 1px solid #CCCACA;
+}
+.wrapper {
+	width: 980px;
+	margin: 0 auto;
 }
