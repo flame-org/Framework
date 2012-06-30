@@ -1,6 +1,5 @@
 .DS_Store
-/temp/cache/
-/temp/sessions/
-/log/*.html
-/log/*.log
+/temp/*
+/log/*
 /www/media/*
+/nbproject/

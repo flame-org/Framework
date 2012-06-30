@@ -21,6 +21,6 @@ class MyFirstTest extends \NetteTestCase\TestCase
 
 	public function testFirst()
 	{
-		$this->assertTrue( TRUE );
+		$this->assertTrue(TRUE);
 	}
 }
