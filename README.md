@@ -5,7 +5,6 @@ Simple CMS based on php framework [Nette](http://nette.org/)
 
 ### Required Settings
 JS-CMS required setup:
-* Facebook appID and secret key
 * Database credentials
 * Create database structure (use **SQL-DUMP.SQL** file)
 
