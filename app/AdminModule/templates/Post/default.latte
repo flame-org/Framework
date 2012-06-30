@@ -33,6 +33,11 @@
 					<td>
 						<a n:href="Post:edit $post->id">Edit</a>
 						<a n:href="delete! $post->id" class="ajax">X</a>
+						{if $post->publish}
+							<a n:href="markPublish! $post->id" class="ajax">Unpublish</a>
+						{else}
+							<a n:href="markPublish! $post->id" class="ajax">Publish</a>
+						{/if}
 					</td>
 				</tr>
 			</tbody>

@@ -36,6 +36,30 @@ class PostPresenter extends AdminPresenter
 		}
 	}
 
+	public function handleMarkPublish($id)
+	{
+		$factory =  $this->context->createPosts();
+
+		if(!$this->presenter->getUser()->isAllowed('Admin:Post', 'publish')){
+			$this->flashMessage('Access denided');
+		}else{
+
+			$row = $factory->where(array('id' => $id))->fetch();
+
+			if((int)$row['publish'] == 1){
+				$row = $factory->where(array('id' => $id))->update(array('publish' => '0'));
+			}else{
+				$row = $factory->where(array('id' => $id))->update(array('publish' => '1'));
+			}
+		}
+
+		if(!$this->isAjax()){
+			$this->redirect('this');
+		}else{
+			$this->invalidateControl('posts');
+		}
+	}
+
 	public function actionEdit($id)
 	{
 
