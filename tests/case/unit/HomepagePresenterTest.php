@@ -18,8 +18,8 @@ class HomepagePresenterTest extends \NetteTestCase\TestCase
 
 	public function testRenderDefault()
 	{
-		// $req = new \Nette\Application\Request('Homepage', 'POST', array());
-		// $res = $this->object->run($req);
-		// $this->assertInstanceOf('Nette\Application\Responses\TextResponse', $res);
+		$req = new \Nette\Application\Request('Homepage', 'POST', array());
+		$res = $this->object->run($req);
+		$this->assertInstanceOf('Nette\Application\Responses\TextResponse', $res);
 	}
 }
