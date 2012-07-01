@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^(.*)$ /www/$1 [L,NE]

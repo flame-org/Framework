@@ -20,9 +20,9 @@ Options -Indexes
 </IfModule>
 
 # allow combined JavaScript & CSS. Inside of script.combined.js you could use <!--#include file="script.js" -->
-#<IfModule mod_include.c>
-#	<FilesMatch "\.combined\.(js|css)$">
-#		Options +Includes
-#		SetOutputFilter INCLUDES
-#	</FilesMatch>
-#</IfModule>
+<IfModule mod_include.c>
+	<FilesMatch "\.combined\.(js|css)$">
+		#Options +Includes
+		#SetOutputFilter INCLUDES
+	</FilesMatch>
+</IfModule>

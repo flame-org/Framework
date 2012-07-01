@@ -45,6 +45,12 @@ common:
 		images: Model\Images
 
 production < common:
+	parameters:
+		database:
+			host: wm20.wedos.net
+			dbname: d16533_jscms
+			user: w16533_jscms
+			password: yourpasswordhere
 
 console:
 
