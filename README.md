@@ -17,6 +17,7 @@ Change the settings in the file: **CONFIG.NEON**
 * TimyCME editor
 * Managing of images
 * Paginator for posts
+* Users management
 
 ### Global variables
 If you want to affect prepared options (set up in the options section)
