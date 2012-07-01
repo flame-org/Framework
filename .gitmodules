@@ -1,9 +1,6 @@
-[submodule "libs/nette"]
-	path = libs/nette
-	url = git://github.com/nette/nette.git
-[submodule "libs/php-sdk"]
-	path = libs/php-sdk
-	url = git://github.com/facebook/php-sdk.git
 [submodule "libs/NetteTestCase"]
 	path = libs/NetteTestCase
 	url = git://github.com/DeveloperHub/NetteTestCase.git
+[submodule "libs/Nette"]
+	path = libs/Nette
+	url = git://github.com/nette/nette.git
