@@ -38,6 +38,3 @@ $container->router[] = $adminRouter = new RouteList('Admin');
 
 $container->router[] = $frontRouter = new RouteList('Front');
 	$frontRouter[] = new Route('<presenter>/<action>[/<id>][/<slug>]', 'Homepage:default');
-
-// Configure and run the application!
-$container->application->run();

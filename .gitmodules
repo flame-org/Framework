@@ -1,6 +1,3 @@
-[submodule "libs/NetteTestCase"]
-	path = libs/NetteTestCase
-	url = git://github.com/DeveloperHub/NetteTestCase.git
 [submodule "libs/Nette"]
 	path = libs/Nette
 	url = git://github.com/nette/nette.git
