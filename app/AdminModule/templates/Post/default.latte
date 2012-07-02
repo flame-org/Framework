@@ -11,12 +11,13 @@
 			<thead>
 				<th>ID</th>
 				<th>Name</th>
-				<th>View</th>
+				<th>Content</th>
 				<th>Page</th>
 				<th>Public</th>
 				<th>Comments</th>
 				<th>User</th>
 				<th>Created</th>
+				<th>Views</th>
 				<th>Actions</th>
 			</thead>
 
@@ -30,6 +31,7 @@
 					<td>{$post->comment}</td>
 					<td>{$post->user}</td>
 					<td>{$post->created|date}</td>
+					<td>{$post->hit}</td>
 					<td>
 						<a n:href="Post:edit $post->id">Edit</a>
 						<a n:href="delete! $post->id" class="ajax">X</a>

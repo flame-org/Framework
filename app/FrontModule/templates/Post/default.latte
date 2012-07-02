@@ -10,6 +10,8 @@
 
 {!$post->content}
 
+<p><small>{$post->created|date} | {$post->hit} Views</small></p>
+
 {if $post->comment}
 	{control comments}
 {/if}
