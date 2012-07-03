@@ -12,6 +12,12 @@ common:
 			dbname:
 			user:
 			password:
+
+		selenium:
+			host: localhost
+			browser: firefox
+			browserUrl: http://localhost/JS-CMS/www/
+			# port: 4444
 			
 	php:
 		date.timezone: Europe/Prague
@@ -52,7 +58,7 @@ production < common:
 			user: w16533_jscms
 			password: yourpasswordhere
 
-#console:
+console < common:
 
 development < common:
 	parameters:
@@ -61,8 +67,3 @@ development < common:
 			dbname: cms
 			user: root
 			password: root
-
-		selenium:
-			host: localhost
-			browser: *googlechrome
-			browserUrl: http://localhost/JS-CMS/www/

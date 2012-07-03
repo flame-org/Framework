@@ -8,5 +8,5 @@ define('DATA_DIR', WWW_DIR . '/../data');
 require APP_DIR . '/bootstrap.php';
 
 require WWW_DIR . '/UnitTestCase.php';
-#require WWW_DIR . '/IntegrationTestCase.php';
+require WWW_DIR . '/IntegrationTestCase.php';
 require WWW_DIR . '/SeleniumTestCase.php';

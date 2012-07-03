@@ -2,7 +2,7 @@
 
 use Nette\Environment;
 
-class SeleniumTestCase extends \PHPUnit_Extensions_Selenium2TestCase
+class SeleniumTestCase extends PHPUnit_Extensions_Selenium2TestCase
 {
 
 	public function setUp()
