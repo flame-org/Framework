@@ -1,0 +1,19 @@
+<div id="comment">
+	<h3>Comments</h3>
+	<hr>
+	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+	<div n:foreach="$comments as $comment" class="comment-box">
+		<p>{$comment->content}</p>
+		<small>Date: {$comment->created|date} | Sent: 
+			{if $comment->web}
+				<a href="{$comment->web}" target="_blank">{$comment->name}</a>
+			{else}
+				{$comment->name}
+			{/if}
+		</small>
+	</div>
+
+	<h4>Add new comment</h4>
+
+	{control addCommentForm}
+</div>

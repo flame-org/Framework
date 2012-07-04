@@ -21,7 +21,7 @@ class UserPresenter extends AdminPresenter
 			->addRule(FORM::FILLED, 'Username is required.')
 			->addRule(FORM::MAX_LENGTH, 'Username must be shorter than 35 chars.', 35);
 
-		$f->addText('password', 'Password:', 60)
+		$f->addPassword('password', 'Password:', 60)
 			->addRule(FORM::FILLED, 'Password is required.');
 
 		$f->addSelect('role', 'Role:')
