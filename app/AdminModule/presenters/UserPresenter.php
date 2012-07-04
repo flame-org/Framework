@@ -11,7 +11,7 @@ class UserPresenter extends AdminPresenter
 
 	public function actionDefault()
 	{
-		$this->template->users = $this->context->createUsers()->getAll();
+		$this->template->users = $this->context->users->findAll();
 	}
 
 	protected function createComponentAddUserForm($name)
@@ -41,14 +41,14 @@ class UserPresenter extends AdminPresenter
 	public function addUserFormSubmited(Form $form)
 	{
 		$values = $form->getValues();
-		$factory = $this->context->createUsers();
+		$service = $this->context->users;
 
-		if($factory->existUsername($values['username'])){
+		if($service->findOneBy(array('username' => $values['username']))){
 			$form->addError('Username exist yet.');
-		}elseif($this->context->createUsers()->existEmail($values['email'])){
+		}elseif($service->findOneBy(array('email' => $values['email']))){
 			$form->addError('Email exist yet.');
 		}else{
-			$status = $factory->insert(
+			$service->createOrUpdate(
 				array(
 					'username' => $values['username'],
 					'role' => $values['role'],
@@ -94,13 +94,15 @@ class UserPresenter extends AdminPresenter
 	}
 
 	public function handleDelete($id)
-	{
-		if(!$this->getUser()->isAllowed('Admin:User', 'delete')){
+	{	
+		if($this->getUser()->getId() == $id){
+			$this->flashMessage('You cannot delete yourself');
+		}elseif(!$this->getUser()->isAllowed('Admin:User', 'delete')){
 			$this->flashMessage('Access denied');
 		}else{
-			$row = $this->context->createUsers()->getByID($id);
+			$row = $this->context->users->find($id);
 
-			if($row === false){
+			if(!$row){
 				$this->flashMessage('User with required ID does not exist');
 			}else{
 				$row->delete();

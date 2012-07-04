@@ -32,23 +32,28 @@ common:
 
 		database:
 			default:
-				dsn: '%database.driver%:host=%database.host%;dbname=%database.dbname%'
+				dsn: %database.dns%
+				#dns: 'sqlite://%dataDir%/sqlite3.db'
 				user: %database.user%
 				password: %database.password%
 
 
 	services:
-		authorizator: Authorizator
 		database: @Nette\Database\Connection
+
+		#security
+		authorizator: Authorizator
 		authenticator: Authenticator( @users )
+
+		#tables
+		posts: PostsService
+		users: UsersService
+		comments: CommentsService
+		options: OptionsService
+		images: ImagesService
 
 
 	factories:
-		posts: Model\Posts
-		users: Model\Users
-		comments: Model\Comments
-		options: Model\Options
-		images: Model\Images
 
 production < common:
 	parameters:
@@ -57,8 +62,6 @@ production < common:
 			dbname: d16533_jscms
 			user: w16533_jscms
 			password: yourpasswordhere
-
-console < common:
 
 development < common:
 	parameters:

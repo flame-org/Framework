@@ -9,11 +9,11 @@ use Nette\Application\UI\Form;
 */
 class PostPresenter extends AdminPresenter
 {
-	private $postID;
+	private $postId;
 	
-	public function renderDefault()
+	public function actionDefault()
 	{
-		$this->template->posts = $this->context->createPosts()->getAll();
+		$this->template->posts = $this->context->posts->findAll();
 	}
 
 	public function handleDelete($id)
@@ -21,8 +21,10 @@ class PostPresenter extends AdminPresenter
 		if(!$this->getUser()->isAllowed('Admin:Post', 'delete')){
 			$this->flashMessage('Access denided');
 		}else{
-			$row = $this->context->createPosts()->where(array('id' => $id))->fetch();
-			if($row !== false){
+			
+			$row = $this->context->posts->find($id);
+
+			if($row){
 				$row->delete();
 			}else{
 				$this->flashMessage('Required post to delete does not exist!');
@@ -38,18 +40,18 @@ class PostPresenter extends AdminPresenter
 
 	public function handleMarkPublish($id)
 	{
-		$factory =  $this->context->createPosts();
+		$service =  $this->context->posts;
 
 		if(!$this->presenter->getUser()->isAllowed('Admin:Post', 'publish')){
 			$this->flashMessage('Access denided');
 		}else{
 
-			$row = $factory->where(array('id' => $id))->fetch();
+			$row = $service->find($id);
 
 			if((int)$row['publish'] == 1){
-				$row = $factory->where(array('id' => $id))->update(array('publish' => '0'));
+				$row = $service->createOrUpdate(array('id' => $id, 'publish' => '0'));
 			}else{
-				$row = $factory->where(array('id' => $id))->update(array('publish' => '1'));
+				$row = $service->createOrUpdate(array('id' => $id, 'publish' => '1'));
 			}
 		}
 
@@ -63,11 +65,11 @@ class PostPresenter extends AdminPresenter
 	public function actionEdit($id)
 	{
 
-		$this->postID = $id;
+		$this->postId = $id;
 
-		$post = $this->context->createPosts()->getToEdit($this->postID);
+		$post = $this->context->posts->find($this->postId);
 
-		if($post === false){
+		if(!$post){
 			$this->flashMessage('Post does not exist.');
 			$this->redirect('Post:');
 		}else{
@@ -78,7 +80,7 @@ class PostPresenter extends AdminPresenter
 
 	protected function createComponentEditPostForm($name)
 	{
-		$values = $this->context->createPosts()->getToEdit($this->postID);
+		$values = $this->context->posts->find($this->postId);
 
 		$f = new Form($this, $name);
 
@@ -189,7 +191,7 @@ class PostPresenter extends AdminPresenter
 			$slug = $this->createPostsSlug($values['slug']);
 		}
 
-		$this->context->createPosts()->insert(
+		$this->context->posts->createOrUpdate(
 			array(
 				'user' => $user->getIdentity()->username,
 				'name' => $values['name'], 

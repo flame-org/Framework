@@ -7,18 +7,16 @@ namespace AdminModule;
 */
 class CommentPresenter extends AdminPresenter
 {
-	private $comments;
+	private $service;
 
 	public function actionDefault()
 	{
-		$this->comments = $this->context->createComments();
+		$this->service = $this->context->comments;
 	}
 
-	public function createComponentCommentList()
+	public function createComponentCommentsControl()
 	{
-		$comments = $this->comments->getAll();
-
-		return new CommentList($comments, $this->context->createComments());
+		return new CommentsControl($this->service->findAll(), $this->service);
 	}
 }
 ?>

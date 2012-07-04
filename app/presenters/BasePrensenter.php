@@ -13,7 +13,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 	public function beforeRender()
 	{
-		$this->template->name = $this->context->createOptions()->getByName('name');
+		$this->template->name = $this->context->options->getOptionValue('name');
 
 		if($this->isAjax()){
 			$this->invalidateControl('flashMessages');

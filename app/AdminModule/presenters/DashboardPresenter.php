@@ -8,17 +8,23 @@ namespace AdminModule;
 class DashboardPresenter extends AdminPresenter
 {
 
-	private $commentsFactory;
+	private $service;
+	private $unPublishComments;
 
 	public function actionDefault()
 	{
-		$this->commentsFactory = $this->context->createComments();
-		$this->template->unPublishComments = count($this->commentsFactory->getUnPublish());
+		$this->service = $this->context->comments;
+		$this->unPublishComments = $this->service->findBy(array('publish' => '0'));
+		$this->template->unPublishComments = $this->unPublishComments;
 	}	
 
-	public function createComponentCommentList()
+	protected function createComponentCommentsControl()
 	{
-		return new CommentList($this->commentsFactory->getUnPublish(), $this->context->createComments());
+		if(!$this->unPublishComments){
+			return null;
+		}else{
+			return new CommentsControl($this->unPublishComments, $this->service);
+		}
 	}
 
 }

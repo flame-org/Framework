@@ -7,26 +7,27 @@ namespace FrontModule;
 */
 class HomepagePresenter extends FrontPresenter
 {
-	private $postsList;
+	private $posts;
 	
 	public function actionDefault()
 	{
-		$this->postsList = $this->context->createPosts()->getPublish();
+		$this->posts = $this->context->posts;
 
-		if(!count($this->postsList)){
+		if(!count($this->posts->findBy(array('publish' => '1')))){
 			$this->flashMessage('No posts');
 		}	
 	}
 
-	public function createComponentPostList()
+	public function createComponentPostControl()
 	{
-		$option = $this->context->createOptions()->getByName('items_per_page');
+		$postControl = new PostControl($this->posts);
 
-		if(!is_null($option)){
-			return new PostList($this->postsList, $option);
-		}else{
-			return new PostList($this->postsList);
+		$itemsPerPage = $this->context->options->getOptionValue('items_per_page');
+		if($itemsPerPage){
+			$postControl->setItemsPerPage($itemsPerPage);
 		}
+
+		return $postControl;
 	}
 }
 

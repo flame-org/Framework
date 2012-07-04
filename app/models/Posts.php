@@ -1,66 +1,13 @@
 <?php
 
-namespace Model;
-
-use Nette\Database\Table\Selection, 
-	Nette\Database\Connection, 
-	Nette\Database\SqlLiteral;
+use	Nette\Database\SqlLiteral;
 
 /**
 * Post model
 */
-class Posts extends Selection
+class PostsService extends Table
 {
-	
-	function __construct(Connection $c)
-	{
-		parent::__construct('post', $c);
-	}
 
-	public function getAll()
-	{
-		return $this->order('id DESC');
-	}
+	protected $tableName = 'posts';
 
-	public function getDetail($id)
-	{
-		$post = $this->where(array('id' => $id, 'publish' => '1'))->limit(1)->fetch();
-		return $post;
-		
-	}
-
-	public function getPublish()
-	{
-		return $this->where(array('publish' => '1'))->order('id DESC');
-	}
-
-	public function getByUser($username, $id = null)
-	{	
-		if(!is_null($id)){
-			return $this->where(array('user' => $username, 'id' => $id))->order('id DESC')->limit(1)->fetch();
-		}else{
-			return $this->where(array('user' => $username))->order('id DESC');
-		}
-	}
-
-	public function getToEdit($id)
-	{
-		return $this->where(array('id' => $id))->limit(1)->fetch();
-	}
-
-	public function updateHit($id)
-	{
-		return $this->where(array('id' => $id))->update(array('hit' => new SqlLiteral('hit +1')));
-	}
-
-	public function getPages()
-	{
-		return $this->where(array('publish' => '1', 'page' => '1'))->order('id DESC');
-	}
-
-	public function getNameByID($id)
-	{
-		$post = $this->select('name')->where(array('id' => $id))->limit(1)->fetch();
-		return $post['name'];
-	}
 }

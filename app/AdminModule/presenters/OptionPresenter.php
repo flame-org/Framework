@@ -12,7 +12,7 @@ class OptionPresenter extends AdminPresenter
 	
 	public function renderDefault()
 	{
-		$this->template->options = $this->context->createOptions()->getAll();	
+		$this->template->options = $this->context->options->findAll();	
 	}
 
 	public function createComponentAddOptionForm($name)
@@ -32,7 +32,7 @@ class OptionPresenter extends AdminPresenter
 	{
 		$values = $f->getValues();
 
-		$this->context->createOptions()->insert(
+		$this->context->options->createOrUpdate(
 			array(
 				'name' => $values['name'],
 				'value' => $values['value']
@@ -48,8 +48,8 @@ class OptionPresenter extends AdminPresenter
 		if(!$this->getUser()->isAllowed('Admin:Option', 'delete')){
 			$this->flashMessage('Access denited');
 		}else{
-			$row = $this->context->createOptions()->where(array('id' => $id))->fetch();
-			if($row !== false){
+			$row = $this->context->options->find($id);
+			if($row){
 				$row->delete();
 			}else{
 				$this->flashMessage('Required variable does not exist');

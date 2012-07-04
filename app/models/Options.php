@@ -1,35 +1,22 @@
 <?php
 
-namespace Model;
-
-use Nette\Database\Connection, 
-	Nette\Database\Table\Selection;
-
 /**
 * Global variables and settings
 */
-class Options extends Selection
+class OptionsService extends Table
 {
-	
-	public function __construct(Connection $c)
-	{
-		parent::__construct('option', $c);
-	}
+	protected $tableName = 'options';
 
-	public function getAll()
+	public function getOptionValue($name)
 	{
-		return $this->order('id DESC');
-	}
+		$name = $this->findOneBy(array('name' => $name));
 
-	public function getByName($name)
-	{
-		$var = $this->where(array('name' => $name))->fetch();
-
-		if($var === false){
-			return null;
+		if($name){
+			return $name['value'];
 		}else{
-			return $var->value;
+			return null;
 		}
 	}
+
 }
 ?>

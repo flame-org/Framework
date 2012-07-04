@@ -15,7 +15,7 @@ class ImagePresenter extends AdminPresenter
 
 	public function renderDefault()
 	{
-		$images = $this->context->createImages()->getAll();
+		$images = $this->context->images->findAll();
 
 		if(count($images)){
 			foreach ($images as $key => $value) {
@@ -53,7 +53,7 @@ class ImagePresenter extends AdminPresenter
 		$image_name = $this->saveImage($values['image']);
 		$thumbnail_name = $this->createThumbnail($image_name);
 
-		$s = $this->context->createImages()->insert(
+		$s = $this->context->images->createOrUpdate(
 			array(
 				'user' => $user->getIdentity()->username,
 				'file' => $image_name,
@@ -129,10 +129,10 @@ class ImagePresenter extends AdminPresenter
 
 	private function initDefinedSize()
 	{
-		$factory = $this->context->createOptions();
+		$service = $this->context->options;
 
-		$width = $factory->getByName('thumbnail_width');
-		$height = $factory->getByName('thumbnail_height');
+		$width = $service->getOptionValue('thumbnail_width');
+		$height = $service->getOptionValue('thumbnail_height');
 
 
 		if(!is_null($width))
@@ -154,9 +154,9 @@ class ImagePresenter extends AdminPresenter
 		if(!$this->getUser()->isAllowed('Admin:Image', 'delete')){
 			$this->flashMessage('Access denided');
 		}else{
-			$row = $this->context->createImages()->where(array('id' => $id))->fetch();	
+			$row = $this->context->images->find($id);	
 
-			if($row !== false){
+			if($row){
 				$file = WWW_DIR . '/media/images/' . $row->file;
 				if(file_exists($file)){
 					unlink($file);
