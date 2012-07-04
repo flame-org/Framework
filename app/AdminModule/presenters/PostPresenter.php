@@ -108,9 +108,6 @@ class PostPresenter extends AdminPresenter
 		$f->addCheckbox('publish', 'Publikovat?')
 			->setDefaultValue($values['publish']);
 
-		$f->addCheckbox('page', 'Použít jako stránku?')
-			->setDefaultValue($values['page']);
-
 		$f->addCheckbox('comment', 'Povolit komentáře?')
 			->setDefaultValue($values['comment']);
 
@@ -123,15 +120,15 @@ class PostPresenter extends AdminPresenter
 		$values = $f->getValues();
 		$user = $this->getUser();
 		
-		$this->context->createPosts()->where(array('id' => $this->postID))->update(
+		$this->context->posts->createOrUpdate(
 			array(
+				'id' => $this->postId,
 				'user' => $user->getIdentity()->username,
 				'name' => $values['name'], 
 				'description' => $values['description'], 
-				'slug' => $this->createPostsSlug($values['name']),
+				'slug' => $this->createPostsSlug($values['slug']),
 				'content' => $values['content'], 
 				'publish' => $values['publish'],
-				'page' => $values['page'],
 				'comment' => $values['comment'],
 				'keywords' => $values['keywords'],
 			)

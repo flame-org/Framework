@@ -39,9 +39,6 @@
 		<ul id="navigation">
 			<div class="wrapper">
 				<li><a n:href="Homepage:">Home</a></li>
-				<li n:foreach="$menus as $menu">
-					<a n:href="Post:, 'id' => $menu['id'],'slug' => $menu['slug']">{$menu['name']}</a>
-				</li>
 			</div>
 		</ul>
 	</div>

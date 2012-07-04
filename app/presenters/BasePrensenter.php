@@ -3,7 +3,7 @@
 /**
  * Base class for all applications presenters.
  */
-abstract class BasePresenter extends Nette\Application\UI\Presenter
+abstract class BasePresenter extends \Nette\Application\UI\Presenter
 {
 
 	public function startup()
