@@ -72,7 +72,9 @@ class VisualPaginator extends UI\Control
 
 		$this->template->steps = $steps;
 		$this->template->paginator = $paginator;
-		$this->template->setFile(dirname(__FILE__) . '/template.phtml');
+		
+		$template = dirname(__FILE__) . '/template.phtml';
+		$this->template->setFile($template);
 		$this->template->render();
 	}
 
