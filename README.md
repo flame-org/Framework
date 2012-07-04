@@ -6,7 +6,7 @@ Simple CMS based on php framework [Nette](http://nette.org/)
 ### Required Settings
 JS-CMS required setup:
 * Database credentials
-* Create database structure (use **DATABASE.DUMP.SQL** file)
+* Create database structure (use **DATABASE.SQL** file)
 
 Change the settings in the file: **CONFIG.NEON**
 
