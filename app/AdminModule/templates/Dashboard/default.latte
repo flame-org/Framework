@@ -2,7 +2,7 @@
 
 {block #content}
 
-	{if $unPublishComments}
+	{if count($unPublishComments)}
 		<h3>Unpublish comments</h3>
-		{control commentList}
+		{control commentsControl}
 	{/if}
