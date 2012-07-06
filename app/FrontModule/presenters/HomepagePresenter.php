@@ -21,13 +21,13 @@ class HomepagePresenter extends FrontPresenter
 
 	public function createComponentPostControl()
 	{
-		$postControl = new PostControl($this->posts);
+		$postControl = new Componnets\PostsControl($this->posts);
 
 		$itemsPerPage = $this->context->options->getOptionValue('items_per_page');
 		if($itemsPerPage){
 			$postControl->setItemsPerPage($itemsPerPage);
 		}
-		
+
 		return $postControl;
 	}
 }

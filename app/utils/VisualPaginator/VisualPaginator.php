@@ -1,5 +1,7 @@
 <?php
 
+namespace Utils;
+
 /**
  * Nette Framework Extras
  *

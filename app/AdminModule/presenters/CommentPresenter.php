@@ -16,7 +16,7 @@ class CommentPresenter extends AdminPresenter
 
 	public function createComponentCommentsControl()
 	{
-		return new CommentsControl($this->service->findAll(), $this->service);
+		return new Componnets\CommentsControl($this->service->findAll(), $this->service);
 	}
 }
 ?>

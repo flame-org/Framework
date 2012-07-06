@@ -1,13 +1,13 @@
 <?php
 
-namespace FrontModule;
+namespace FrontModule\Componnets;
 
 use Nette\Application\UI;
 
 /**
 * Comments component
 */
-class PostControl extends UI\Control
+class PostsControl extends UI\Control
 {
 	private $service;
 	private $itemsPerPage = 10;
@@ -24,7 +24,7 @@ class PostControl extends UI\Control
 
 	public function render()
 	{
-		$this->template->setFile(__DIR__.'/PostControlFull.latte');
+		$this->template->setFile(__DIR__.'/PostsControlFull.latte');
 
 		$paginator = $this['paginator']->getPaginator();
 
@@ -44,7 +44,7 @@ class PostControl extends UI\Control
 
 	protected function createComponentPaginator()
 	{
-		$visualPaginator = new \VisualPaginator($this, 'paginator');
+		$visualPaginator = new \Utils\VisualPaginator($this, 'paginator');
 	    $visualPaginator->paginator->itemsPerPage = $this->itemsPerPage;
 	    return $visualPaginator;	
 	}
