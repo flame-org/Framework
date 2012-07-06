@@ -33,17 +33,22 @@ common:
 		database:
 			default:
 				dsn: '%database.driver%:host=%database.host%;dbname=%database.dbname%'
-				#dsn: 'sqlite://%dataDir%/sqlite3.db'
 				user: %database.user%
 				password: %database.password%
 
 
 	services:
 		database: @Nette\Database\Connection
+		cache: Nette\Caching\Cache
 
 		#security
 		authorizator: Authorizator
 		authenticator: Authenticator( @users )
+
+		#news
+		NewsreelFacade: Model\Newsreel\NewsreelFacade( @NewsreelRepositoryCached )
+		NewsreelRepositoryCached: Model\Newsreel\NewsreelRepositoryCached( @NewsreelRepositoryTable, @cache )
+		NewsreelRepositoryTable: Model\Newsreel\NewsreelRepositoryTable
 
 		#tables
 		posts: PostsService

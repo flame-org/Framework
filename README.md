@@ -18,6 +18,7 @@ Change the settings in the file: **CONFIG.NEON**
 * Managing of images
 * Paginator for posts
 * Users management
+* Newsreel
 
 ### Global variables
 If you want to affect prepared options (set up in the options section)

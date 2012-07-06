@@ -28,4 +28,12 @@ abstract class FrontPresenter extends \BasePresenter
 		// 		</li>
 
 	}
+
+	protected function createComponentNewsreelControl()
+	{
+
+		$newsreel = new NewsreelControl($this->context->NewsreelFacade);
+
+		return $newsreel;
+	}
 }

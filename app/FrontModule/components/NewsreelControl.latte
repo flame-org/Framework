@@ -1,0 +1,15 @@
+{if count($newsreels)}
+	<H3>Newsreel</H3>
+	<ul>
+		<li n:foreach="$newsreels as $newsreel">
+			<div>
+				<span>{$newsreel->date|date}</span>
+				<span>{$newsreel->title}</span><br />
+				<p>
+					{$newsreel->content|truncate:250}
+					<a href="{plink Newsreel:detail $newsreel->id}">Show detail-></a>
+				</p>
+			</div>
+		</li>
+	</ul>
+{/if}

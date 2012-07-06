@@ -20,6 +20,7 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->addResource('Front:Homepage');
 		$this->addResource('Front:Message');
 		$this->addResource('Front:Post');
+		$this->addResource('Front:Newsreel');
 
 		//DEFINE ADMIN RESOURCE
 		$this->addResource('Admin:Dashboard');
@@ -29,8 +30,10 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->addResource('Admin:User');
 		$this->addResource('Admin:Comment');
 		$this->addResource('Admin:Image');
+		$this->addResource('Admin:Page');
+		$this->addResource('Admin:New');
 
-		$this->allow('guest', array('Front:Homepage'));
+		$this->allow('guest', array('Front:Homepage', 'Front:Newsreel'));
 		$this->allow('guest', array('Front:Message'));
 		$this->allow('guest', array('Admin:Sign'), array('in'));
 		$this->allow('guest', array('Front:Post'), array('default'));

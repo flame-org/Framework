@@ -1,5 +1,5 @@
 {**
- * My Application layout template.
+ * JSCMS layout template.
  *
  * @param string   $basePath web base path
  * @param string   $robots   tell robots how to index the content of a page (optional)
@@ -44,15 +44,22 @@
 	</div>
 
 	<div id="main" class="wrapper">
+		
+		<div id="left">
+			{snippet flashMessages}
+				<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+			{/snippet}
 
-		{snippet flashMessages}
-			<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
-		{/snippet}
-
-		<div id="content">
-			{include #content}
+			<div id="content">
+				{include #content}
+			</div>
 		</div>
 
+		<div id="right">
+			{control newsreelControl}
+		</div>
+
+		<br class="clear" />
 	</div>
 
 	<div id="footer">
