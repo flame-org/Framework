@@ -1,6 +1,6 @@
 <?php
 
-namespace FrontModule\Componnets;
+namespace FrontModule\Components;
 
 use Nette\Application\UI;
 

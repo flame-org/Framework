@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminModule\Componnets;
+namespace AdminModule\Components;
 
 use Nette\Application\UI;
 

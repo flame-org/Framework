@@ -27,7 +27,7 @@ class PostPresenter extends FrontPresenter
 	{
 		if(!$this->post) return null;
 
-		$commentsControl = new Componnets\CommentsControl($this->context->comments);
+		$commentsControl = new Components\CommentsControl($this->context->comments);
 		$commentsControl->setPostId($this->post->id);
 
 		return $commentsControl;

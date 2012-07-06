@@ -23,7 +23,7 @@ class DashboardPresenter extends AdminPresenter
 		if(!$this->unPublishComments){
 			return null;
 		}else{
-			return new Componnets\CommentsControl($this->unPublishComments, $this->service);
+			return new Components\CommentsControl($this->unPublishComments, $this->service);
 		}
 	}
 
