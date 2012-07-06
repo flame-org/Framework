@@ -1,9 +1,10 @@
 {var $title = $newsreel->title}
 
 {block #content}
-
+	
 	<h2>{$newsreel->title}</h2>
 
 	{!$newsreel->content}
 
 	<p>{$newsreel->date|date} | {$newsreel->hit}</p>
+{/block}

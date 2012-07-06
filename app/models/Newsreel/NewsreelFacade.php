@@ -29,4 +29,10 @@ class NewsreelFacade
 		$this->repository->persist($new);
 		return $this;
 	}
+
+    public function addOrUpdate(Newsreel $newsreel)
+    {
+        $this->repository->addOrUpdate($newsreel);
+        return $this;
+    }
 }

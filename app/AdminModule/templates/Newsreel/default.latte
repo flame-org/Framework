@@ -1,0 +1,25 @@
+{var $title='List of newsreel'}
+
+{block #content}
+
+    <p><a n:href="Newsreel:add">Add new newsreel</a> </p>
+
+    {if count($newsreels)}
+        <table>
+            <thead>
+            <th>Date</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Hit</th>
+            </thead>
+
+            <tbody>
+            <tr n:foreach="$newsreels as $newsreel">
+                <td>{$newsreel->date|date}</td>
+                <td>{$newsreel->title}</td>
+                <td>{$newsreel->content|striptags|truncate:500}</td>
+                <td>{$newsreel->hit}</td>
+            </tr>
+            </tbody>
+        </table>
+    {/if}

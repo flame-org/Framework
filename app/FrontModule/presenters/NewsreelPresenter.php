@@ -18,7 +18,7 @@ class NewsreelPresenter extends FrontPresenter
 			$this->newsreelFacade->increaseHit($newsreel);
 			$this->template->newsreel = $newsreel;
 		}else{
-			$this->flashMessage('The Newsreel does not exist!');
+			$this->setView('notFound');
 		}
 	}
 }

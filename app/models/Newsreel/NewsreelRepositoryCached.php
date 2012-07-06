@@ -6,6 +6,7 @@ use \Nette\Caching\Cache;
 
 class NewsreelRepositoryCached implements NewsreelRepository
 {
+
 	private $repository;
 
 	private $cache;
@@ -25,7 +26,10 @@ class NewsreelRepositoryCached implements NewsreelRepository
 		}
 
 		$newsreels = $this->repository->findAll($limit);
-		$this->cache->save($key, $newsreels);
+
+        if(count($newsreels))
+		    $this->cache->save($key, $newsreels, array(Cache::EXPIRE => '+ 5 hours'));
+
 		return $newsreels;
 	}
 
@@ -33,7 +37,7 @@ class NewsreelRepositoryCached implements NewsreelRepository
 	{
 		$key = 'newsreel-' . $newsreel->getId();
 		$this->repository->persist($newsreel);
-		$this->cache->save($key, $newsreel);
+		$this->cache->save($key, $newsreel, array(Cache::EXPIRE => '+ 5 hours'));
 		return $this;
 	}
 
@@ -46,7 +50,20 @@ class NewsreelRepositoryCached implements NewsreelRepository
 		}
 
 		$newsreel = $this->repository->findOne($id);
-		$this->cache->save($key, $newsreel);
+		$this->cache->save($key, $newsreel, array(Cache::EXPIRE => '+ 5 hours'));
 		return $newsreel;
 	}
+
+    public function addOrUpdate(Newsreel $newsreel)
+    {
+        $resutl = $this->repository->addOrUpdate($newsreel);
+
+        if($resutl instanceof Newsreel){
+            $key = 'newsree-' . $resutl->getId();
+            $this->cache->save($key, $resutl);
+        }
+
+        return $resutl;
+
+    }
 }

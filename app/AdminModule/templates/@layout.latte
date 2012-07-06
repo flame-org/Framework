@@ -16,6 +16,15 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script type="text/javascript" src="{$basePath}/js/netteForms.js"></script>
 	<script type="text/javascript" src="{$basePath}/js/ajax.js"></script>
+
+    <script type="text/javascript" src="{$basePath}/js/tiny_mce/tiny_mce.js" ></script>
+    <script type="text/javascript" >
+        tinyMCE.init({
+            mode: "specific_textareas",
+            editor_selector: "mceEditor",
+            theme : "advanced"
+        });
+    </script >
 	{block head}{/block}
 </head>
 
@@ -29,8 +38,10 @@
 				<ul>
 					<li><a n:href="Dashboard:">Dashboard</a></li>
 					<li><a n:href="Post:">Posts</a></li>
+					<li><a n:href="Page:">Pages</a></li>
 					<li><a n:href="Image:">Images</a></li>
 					<li><a n:href="Comment:">Comments</a></li>
+					<li><a n:href="Newsreel:">Newsreel</a></li>
 					<li><a n:href="Option:">Options</a></li>
 					<li><a n:href="User:">Users</a></li>
 				</ul>

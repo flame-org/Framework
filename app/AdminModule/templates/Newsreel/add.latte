@@ -1,0 +1,66 @@
+{block #head}
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+    <link rel="stylesheet" media="screen,projection,tv" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css">
+
+    <script>
+        /* English/UK initialisation for the jQuery UI date picker plugin. */
+        /* Written by Stuart. */
+        jQuery(function($){
+            $.datepicker.regional['en-GB'] = {
+                closeText: 'Done',
+                prevText: 'Prev',
+                nextText: 'Next',
+                currentText: 'Today',
+                monthNames: ['January','February','March','April','May','June',
+                    'July','August','September','October','November','December'],
+                monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                dayNamesMin: ['Su','Mo','Tu','We','Th','Fr','Sa'],
+                weekHeader: 'Wk',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''};
+            $.datepicker.setDefaults($.datepicker.regional['en-GB']);
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("input.date").each(function () { // input[type=date] does not work in IE
+                var el = $(this);
+                var value = el.val();
+                var date = (value ? $.datepicker.parseDate($.datepicker.W3C, value) : null);
+
+                var minDate = el.attr("min") || null;
+                if (minDate) minDate = $.datepicker.parseDate($.datepicker.W3C, minDate);
+                var maxDate = el.attr("max") || null;
+                if (maxDate) maxDate = $.datepicker.parseDate($.datepicker.W3C, maxDate);
+
+                // input.attr("type", "text") throws exception
+                if (el.attr("type") == "date") {
+                    var tmp = $("<input/>");
+                    $.each("class,disabled,id,maxlength,name,readonly,required,size,style,tabindex,title,value".split(","), function(i, attr)  {
+                        tmp.attr(attr, el.attr(attr));
+                    });
+                    el.replaceWith(tmp);
+                    el = tmp;
+                }
+                el.datepicker({
+                    minDate: minDate,
+                    maxDate: maxDate
+                });
+                el.val($.datepicker.formatDate(el.datepicker("option", "dateFormat"), date));
+            });
+        });
+    </script>
+{/block}
+
+{var $title = 'Add new Newsreel'}
+
+{block #content}
+    {control addNewsreelForm}
+{/block}

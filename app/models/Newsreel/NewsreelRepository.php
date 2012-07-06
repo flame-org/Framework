@@ -9,4 +9,6 @@ interface NewsreelRepository
 	public function persist(Newsreel $new);
 
 	public function findOne($id);
+
+    public function addOrUpdate(Newsreel $newsreel);
 }

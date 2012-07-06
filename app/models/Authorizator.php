@@ -31,7 +31,7 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->addResource('Admin:Comment');
 		$this->addResource('Admin:Image');
 		$this->addResource('Admin:Page');
-		$this->addResource('Admin:New');
+		$this->addResource('Admin:Newsreel');
 
 		$this->allow('guest', array('Front:Homepage', 'Front:Newsreel'));
 		$this->allow('guest', array('Front:Message'));
@@ -41,7 +41,7 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->allow('user', array('Admin:User'), array('password'));
 
 		//DEFINE ADMIN MODERATORS ACCESS
-		$this->allow('moderator', array('Admin:Dashboard', 'Admin:Post', 'Admin:Image'));
+		$this->allow('moderator', array('Admin:Dashboard', 'Admin:Post', 'Admin:Image', 'Admin:Page', 'Admin:Newsreel'));
 		$this->allow('moderator', array('Admin:Comment'), array('delete', 'publish', 'default'));
 
 		//DEFINE ADMIN ADMINISTRATORS ACCESS

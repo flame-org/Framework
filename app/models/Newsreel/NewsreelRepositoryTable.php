@@ -11,9 +11,11 @@ class NewsreelRepositoryTable extends \Table implements NewsreelRepository
 		
 		$rows = $this->findBy(array())->order('date DESC')->limit($limit);
 		
+		if(!$rows) return null;
+
 		$newsreels = array();
+
 		foreach ($rows as $row) {
-			//dump($row);exit();
 			$newsreel = new Newsreel(
 				$row->id, 
 				$row->title, 
@@ -41,6 +43,8 @@ class NewsreelRepositoryTable extends \Table implements NewsreelRepository
 	{
 		$row = $this->find($id);
 
+		if(!$row) return null;
+
 		return new Newsreel(
 			$row->id, 
 			$row->title, 
@@ -49,4 +53,18 @@ class NewsreelRepositoryTable extends \Table implements NewsreelRepository
 			$row->hit
 		);
 	}
+
+    public function addOrUpdate(Newsreel $newsreel)
+    {
+        $result = $this->createOrUpdate(array(
+            'id' => $newsreel->getId(),
+            'title' => $newsreel->getTitle(),
+            'content' => $newsreel->getContent(),
+            'date' => $newsreel->getDate()
+        ));
+
+        if($result){
+            return new Newsreel($result->id, $result->title, $result->content, $result->date, $result->hit);
+        }
+    }
 }
