@@ -169,7 +169,6 @@ class PostPresenter extends AdminPresenter
 			->getControlPrototype()->class('mceEditor');
 
 		$f->addCheckbox('publish', 'Publikovat?');
-		$f->addCheckbox('page', 'Použít jako stránku?');
 		$f->addCheckbox('comment', 'Povolit komentáře?')
 			->setDefaultValue('1');
 		$f->addSubmit('create', 'Vytvořit příspěvek');
@@ -198,7 +197,6 @@ class PostPresenter extends AdminPresenter
 				'content' => $values['content'], 
 				'created' => new \DateTime, 
 				'publish' => $values['publish'],
-				'page' => $values['page'],
 				'comment' => $values['comment'],
 			)
 		);
