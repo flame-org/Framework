@@ -16,6 +16,7 @@ class HomepagePresenter extends FrontPresenter
 		if(!count($this->posts->findBy(array('publish' => '1')))){
 			$this->flashMessage('No posts');
 		}	
+
 	}
 
 	public function createComponentPostControl()
@@ -26,7 +27,7 @@ class HomepagePresenter extends FrontPresenter
 		if($itemsPerPage){
 			$postControl->setItemsPerPage($itemsPerPage);
 		}
-
+		
 		return $postControl;
 	}
 }

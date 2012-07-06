@@ -65,7 +65,6 @@ a.active {
 
 #main {
 	background-color: #fff;
-	padding: 10px;
 }
 
 #header {
@@ -102,6 +101,17 @@ a.active {
 	background-color: $eee;
 }
 
+#left {
+	width: 680px;
+	float: left;
+	padding: 10px;
+}
+
+#right {
+	width: 260px;
+	float: right;
+	padding: 10px;
+}
 #content {
 	margin: 25px 0;
 }

@@ -47,7 +47,7 @@ abstract class Table extends Nette\Object
 	 */
 	public function findAll()
 	{
-		return $this->getTable()->order('id DESC');
+		return $this->getTable();
 	}
 
 
@@ -58,7 +58,7 @@ abstract class Table extends Nette\Object
 	 */
 	public function findBy(array $by)
 	{
-		return $this->getTable()->where($by)->order('id DESC');
+		return $this->getTable()->where($by);
 	}
 
 
