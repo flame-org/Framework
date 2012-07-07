@@ -55,4 +55,33 @@ class Newsreel extends \Nette\Object
 		return $this;
 	}
 
+    public function setTitle($title)
+    {
+        $this->title = (string) $title;
+        return $this;
+    }
+
+    public function setContent($content)
+    {
+        $this->content = (string) $content;
+        return $this;
+    }
+
+    public function setDate($date)
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    public function toArray()
+    {
+        return array(
+            'id' => $this->id,
+            'content' => $this->content,
+            'title' => $this->title,
+            'date' => $this->date,
+            'hit' => $this->hit
+        );
+    }
+
 }

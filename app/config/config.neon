@@ -39,15 +39,15 @@ common:
 
 	services:
 		database: @Nette\Database\Connection
-		cache: Nette\Caching\Cache
+		#cache: Nette\Caching\Cache
+		#memoryStorage: Nette\Caching\Storages\MemoryStorage
 
 		#security
 		authorizator: Authorizator
 		authenticator: Authenticator( @users )
 
 		#news
-		NewsreelFacade: Model\Newsreel\NewsreelFacade( @NewsreelRepositoryCached )
-		NewsreelRepositoryCached: Model\Newsreel\NewsreelRepositoryCached( @NewsreelRepositoryTable, @cache )
+		NewsreelFacade: Model\Newsreel\NewsreelFacade
 		NewsreelRepositoryTable: Model\Newsreel\NewsreelRepositoryTable
 
 		#tables

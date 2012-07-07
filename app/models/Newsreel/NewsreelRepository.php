@@ -4,11 +4,14 @@ namespace Model\Newsreel;
 
 interface NewsreelRepository
 {
-	public function findAll($limit = null);
+	public function getAll($limit = null);
 
-	public function persist(Newsreel $new);
+	public function addOrUpdate(Newsreel $newsreel);
 
-	public function findOne($id);
+	public function getOne($id);
 
-    public function addOrUpdate(Newsreel $newsreel);
+    public function getBy($conditions, $limit = null);
+
+    public function delete(Newsreel $newsreel);
+
 }

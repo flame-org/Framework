@@ -13,26 +13,35 @@ class NewsreelFacade
 
 	public function getOne($id)
 	{
-		$newsreel = $this->repository->findOne($id);
-
-		return $newsreel;
+		return $this->repository->getOne($id);
 	}
 
-	public function getLastNewsreel()
+	public function getLastNewsreel($limit = null)
 	{
-		return $this->repository->findAll();
+		return $this->repository->getAll($limit);
 	}
+
+    public function getLastPassedNewsreel($limit = null)
+    {
+        return $this->repository->getBy('date <= NOW()', $limit);
+    }
 
 	public function increaseHit(Newsreel $new)
 	{
 		$new->setHit($new->getHit() + 1);
-		$this->repository->persist($new);
+		$this->repository->addOrUpdate($new);
 		return $this;
 	}
 
     public function addOrUpdate(Newsreel $newsreel)
     {
         $this->repository->addOrUpdate($newsreel);
+        return $this;
+    }
+
+    public function deleteNewsreel(Newsreel $newsreel)
+    {
+        $this->repository->delete($newsreel);
         return $this;
     }
 }

@@ -6,65 +6,75 @@ class NewsreelRepositoryTable extends \Table implements NewsreelRepository
 {
 	protected $tableName = 'newsreel';
 
-	public function findAll($limit = null)
+	public function getAll($limit = null)
 	{
-		
-		$rows = $this->findBy(array())->order('date DESC')->limit($limit);
-		
-		if(!$rows) return null;
-
-		$newsreels = array();
-
-		foreach ($rows as $row) {
-			$newsreel = new Newsreel(
-				$row->id, 
-				$row->title, 
-				$row->content, 
-				$row->date, 
-				$row->hit);
-
-			$newsreels[] = $newsreel;
-		}
-
-		return $newsreels;
+		$rows = $this->findAll()->order('date DESC')->limit($limit);
+        return $this->createNewsreelArray($rows);
 	}
 
-	public function persist(Newsreel $newsreel)
-	{
-		$this->createOrUpdate(array(
-			'id' => $newsreel->getId(),
-			'hit' => $newsreel->getHit(),
-		));
+    public function getBy($conditions, $limit = null)
+    {
+        $rows = $this->findBy($conditions)->order('date DESC')->limit($limit);
+        return $this->createNewsreelArray($rows);
+    }
 
-		return $this;
-	}
-
-	public function findOne($id)
+	public function getOne($id)
 	{
 		$row = $this->find($id);
 
-		if(!$row) return null;
-
-		return new Newsreel(
-			$row->id, 
-			$row->title, 
-			$row->content, 
-			$row->date, 
-			$row->hit
-		);
+		if(!$row){
+            return null;
+        }else{
+            return new Newsreel(
+                $row->id,
+                $row->title,
+                $row->content,
+                $row->date,
+                $row->hit
+            );
+        }
 	}
 
     public function addOrUpdate(Newsreel $newsreel)
     {
-        $result = $this->createOrUpdate(array(
+        $this->createOrUpdate(array(
             'id' => $newsreel->getId(),
             'title' => $newsreel->getTitle(),
             'content' => $newsreel->getContent(),
-            'date' => $newsreel->getDate()
+            'date' => $newsreel->getDate(),
+            'hit' => $newsreel->getHit()
         ));
 
-        if($result){
-            return new Newsreel($result->id, $result->title, $result->content, $result->date, $result->hit);
+        return $this;
+    }
+
+    public function delete(Newsreel $newsreel)
+    {
+        $row = $this->findBy($newsreel->toArray())->limit(1);
+
+        if($row) $row->delete();
+        return $this;
+    }
+
+    private function createNewsreelArray($newsreelRows)
+    {
+        if(!count($newsreelRows)){
+            return null;
+        }else{
+            $newsreels = array();
+
+            foreach ($newsreelRows as $row) {
+                $newsreel = new Newsreel(
+                    $row->id,
+                    $row->title,
+                    $row->content,
+                    $row->date,
+                    $row->hit);
+
+                $newsreels[] = $newsreel;
+            }
+
+            return $newsreels;
         }
     }
 }

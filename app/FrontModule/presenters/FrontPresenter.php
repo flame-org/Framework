@@ -31,7 +31,10 @@ abstract class FrontPresenter extends \BasePresenter
 
 	protected function createComponentNewsreelControl()
 	{
+        $itemsInNewsreelMenuList = $this->presenter->context->options->getOptionValue('items_in_newsreel_menu_list');
+
 		$newsreel = new Components\NewsreelControl($this->context->NewsreelFacade);
+        if(!is_null($itemsInNewsreelMenuList)) $newsreel->setCountOfItemsInNewsreel($itemsInNewsreelMenuList);
 
 		return $newsreel;
 	}

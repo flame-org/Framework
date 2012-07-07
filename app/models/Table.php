@@ -53,10 +53,10 @@ abstract class Table extends Nette\Object
 
 
 	/**
-	 * @param array $by
+	 * @param mixed $by
 	 * @return \Nette\Database\Table\Selection
 	 */
-	public function findBy(array $by)
+	public function findBy($by)
 	{
 		return $this->getTable()->where($by);
 	}

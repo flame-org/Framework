@@ -4,22 +4,30 @@
 
     <p><a n:href="Newsreel:add">Add new newsreel</a> </p>
 
-    {if count($newsreels)}
-        <table>
-            <thead>
-            <th>Date</th>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Hit</th>
-            </thead>
+    {snippet #newsreel}
+        {if count($newsreels)}
+            <table>
+                <thead>
+                <th>Date</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Hit</th>
+                <th>Actions</th>
+                </thead>
 
-            <tbody>
-            <tr n:foreach="$newsreels as $newsreel">
-                <td>{$newsreel->date|date}</td>
-                <td>{$newsreel->title}</td>
-                <td>{$newsreel->content|striptags|truncate:500}</td>
-                <td>{$newsreel->hit}</td>
-            </tr>
-            </tbody>
-        </table>
-    {/if}
+                <tbody>
+                <tr n:foreach="$newsreels as $newsreel">
+                    <td>{$newsreel->date|date:'%d.%m.%Y'}</td>
+                    <td>{$newsreel->title}</td>
+                    <td>{$newsreel->content|striptags|truncate:500}</td>
+                    <td>{$newsreel->hit}</td>
+                    <td>
+                        <a n:href="Newsreel:edit $newsreel->id">Edit</a>
+                        <a n:href="delete! $newsreel->id" class="ajax">X</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        {/if}
+    {/snippet}
+{/block}
