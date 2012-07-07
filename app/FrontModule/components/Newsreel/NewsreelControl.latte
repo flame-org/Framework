@@ -3,10 +3,10 @@
 	<ul>
 		<li n:foreach="$newsreels as $newsreel">
 			<div>
-				<span>{$newsreel->date|date}</span>
-				<span>{$newsreel->title}</span><br />
+				<small>{$newsreel->date|date:'%d.%m.%y'}</small>
+				<strong>{$newsreel->title}</strong><br />
 				<p>
-					{$newsreel->content|truncate:250}
+					{$newsreel->content|striptags|truncate:250}
 					<a href="{plink Newsreel:detail $newsreel->id}">Show detail-></a>
 				</p>
 			</div>

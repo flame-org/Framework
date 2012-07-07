@@ -17,7 +17,7 @@
 
                 <tbody>
                 <tr n:foreach="$newsreels as $newsreel">
-                    <td>{$newsreel->date|date:'%d.%m.%Y'}</td>
+                    <td>{$newsreel->date|date:'%d.%m.%y'}</td>
                     <td>{$newsreel->title}</td>
                     <td>{$newsreel->content|striptags|truncate:500}</td>
                     <td>{$newsreel->hit}</td>

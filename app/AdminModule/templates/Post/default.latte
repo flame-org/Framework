@@ -24,11 +24,11 @@
 				<tr n:foreach="$posts as $post">
 					<td>{$post->id}</td>
 					<td><a n:href=":Front:Post: $post->id, slug => $post->slug" target="_blank">{$post->name}</a></td>
-					<td>{$post->content|truncate:50}</td>
+					<td>{$post->content|striptags|truncate:50}</td>
 					<td>{$post->publish}</td>
 					<td>{$post->comment}</td>
 					<td>{$post->user}</td>
-					<td>{$post->created|date}</td>
+					<td>{$post->created|date:'%d.%m.%y'}</td>
 					<td>{$post->hit}</td>
 					<td>
 						<a n:href="Post:edit $post->id">Edit</a>

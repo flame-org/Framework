@@ -5,6 +5,6 @@
 	<h2>{$newsreel->title}</h2>
 
 	{!$newsreel->content}
-
-	<p>{$newsreel->date|date} | {$newsreel->hit}</p>
+    <br />
+	<p>{$newsreel->date|date:'%d.%m.%y'} | {$newsreel->hit}</p>
 {/block}
