@@ -37,6 +37,17 @@ CREATE TABLE `images` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
+DROP TABLE IF EXISTS `newsreel`;
+CREATE TABLE `newsreel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) COLLATE utf8_czech_ci NOT NULL,
+  `content` text COLLATE utf8_czech_ci NOT NULL,
+  `date` datetime NOT NULL,
+  `hit` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+
 DROP TABLE IF EXISTS `options`;
 CREATE TABLE `options` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -44,6 +55,23 @@ CREATE TABLE `options` (
   `value` varchar(250) COLLATE utf8_czech_ci NOT NULL,
   UNIQUE KEY `name` (`name`),
   KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+
+DROP TABLE IF EXISTS `pages`;
+CREATE TABLE `pages` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user` int(11) unsigned NOT NULL,
+  `name` varchar(100) COLLATE utf8_czech_ci NOT NULL,
+  `slug` varchar(100) COLLATE utf8_czech_ci NOT NULL,
+  `descriptions` varchar(250) COLLATE utf8_czech_ci NOT NULL,
+  `keywords` varchar(250) COLLATE utf8_czech_ci NOT NULL,
+  `content` text COLLATE utf8_czech_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `hit` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user` (`user`),
+  CONSTRAINT `pages_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
@@ -61,7 +89,8 @@ CREATE TABLE `posts` (
   `comment` tinyint(1) NOT NULL DEFAULT '1',
   `hit` tinyint(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `user` (`user`)
+  KEY `user` (`user`),
+  CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
@@ -79,4 +108,4 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
--- 2012-07-04 13:12:35
+-- 2012-07-08 14:14:07
