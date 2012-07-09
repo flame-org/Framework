@@ -5,7 +5,7 @@ namespace FrontModule;
 /**
  * Base class for all applications presenters.
  */
-abstract class FrontPresenter extends \BasePresenter
+abstract class FrontPresenter extends \Flame\Presenters\BasePresenter
 {
 
 	public function startup()

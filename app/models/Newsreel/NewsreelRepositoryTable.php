@@ -1,8 +1,8 @@
 <?php
 
-namespace Model\Newsreel;
+namespace Flame\Models\Newsreel;
 
-class NewsreelRepositoryTable extends \Table implements NewsreelRepository
+class NewsreelRepositoryTable extends \Flame\Utils\Table implements NewsreelRepository
 {
 	protected $tableName = 'newsreel';
 

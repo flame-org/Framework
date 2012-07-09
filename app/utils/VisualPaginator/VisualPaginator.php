@@ -1,6 +1,6 @@
 <?php
 
-namespace Utils;
+namespace Flame\Utils;
 
 /**
  * Nette Framework Extras

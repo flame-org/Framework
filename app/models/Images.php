@@ -3,7 +3,7 @@
 /**
 * Images model
 */
-class ImagesService extends Table
+class ImagesService extends Flame\Utils\Table
 {
 
 	protected $tableName = 'images';

@@ -8,7 +8,7 @@ class NewsreelControl extends \Nette\Application\UI\Control
 
     private $itemsInNewsreelMenuList = 3;
 
-	public function __construct(\Model\Newsreel\NewsreelFacade $newsreelFacade)
+	public function __construct(\Flame\Models\Newsreel\NewsreelFacade $newsreelFacade)
 	{
 		parent::__construct();
 		$this->newsreelFacade = $newsreelFacade;

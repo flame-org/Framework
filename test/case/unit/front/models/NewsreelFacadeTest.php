@@ -3,6 +3,8 @@
 require APP_DIR . '/models/Newsreel/NewsreelRepository.php';
 require APP_DIR . '/models/Newsreel/NewsreelFacade.php';
 
+use Flame\Models\Newsreel;
+
 class NewsreelFacadeTest extends UnitTestCase
 {
     private $repository;
@@ -12,11 +14,11 @@ class NewsreelFacadeTest extends UnitTestCase
     public function setUp()
     {
 
-        $this->repository = $this->getMockBuilder('\Model\Newsreel\NewsreelRepository')
+        $this->repository = $this->getMockBuilder('NewsreelRepository')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->facade = new Model\Newsreel\NewsreelFacade($this->repository);
+        $this->facade = new NewsreelFacade($this->repository);
 
     }
 
@@ -46,6 +48,6 @@ class NewsreelFacadeTest extends UnitTestCase
 
     private function createNewsreel()
     {
-        return new \Model\Newsreel\Newsreel(1, 'newsreel', 'the best test of newsreel', new \DateTime(), 0);
+        return new Newsreel(1, 'newsreel', 'the best test of newsreel', new \DateTime(), 0);
     }
 }

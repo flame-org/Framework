@@ -3,7 +3,7 @@
 /**
 * Global variables and settings
 */
-class OptionsService extends Table
+class OptionsService extends Flame\Utils\Table
 {
 	protected $tableName = 'options';
 

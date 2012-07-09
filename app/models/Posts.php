@@ -1,11 +1,9 @@
 <?php
 
-use	Nette\Database\SqlLiteral;
-
 /**
 * Post model
 */
-class PostsService extends Table
+class PostsService extends Flame\Utils\Table
 {
 
 	protected $tableName = 'posts';

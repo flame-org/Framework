@@ -7,7 +7,7 @@ class NewsreelPresenter extends FrontPresenter
 
 	private $newsreelFacade;
 
-	public function __construct(\Model\Newsreel\NewsreelFacade $newsreelFacade)
+	public function __construct(\Flame\Models\Newsreel\NewsreelFacade $newsreelFacade)
 	{
 		$this->newsreelFacade = $newsreelFacade;
 	}

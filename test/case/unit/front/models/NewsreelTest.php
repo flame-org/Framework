@@ -2,19 +2,21 @@
 
 require APP_DIR . '/models/Newsreel/Newsreel.php';
 
+use Flame\Models\Newsreel;
+
 class NewsreelTest extends UnitTestCase
 {
     public function testConstruction()
     {
-        $newsreel = new \Model\Newsreel\Newsreel(1, 'title', 'content', new \Datetime(), 0);
+        $newsreel = new Newsreel(1, 'title', 'content', new \Datetime(), 0);
 
-        $this->assertInstanceOf('\Model\Newsreel\Newsreel', $newsreel);
+        $this->assertInstanceOf('Newsreel', $newsreel);
     }
 
     public function testGetters()
     {
         $date = new \Datetime();
-        $newsreel = new \Model\Newsreel\Newsreel(1, 'title', 'content', $date, 0);
+        $newsreel = new Newsreel(1, 'title', 'content', $date, 0);
 
         $this->assertEquals(1, $newsreel->getId());
         $this->assertEquals('title', $newsreel->getTitle());
@@ -25,7 +27,7 @@ class NewsreelTest extends UnitTestCase
 
     public function testSetterTitle()
     {
-        $newsreel = new \Model\Newsreel\Newsreel(1, 'title', 'content', new \Datetime(), 0);
+        $newsreel = new Newsreel(1, 'title', 'content', new \Datetime(), 0);
         $newsreel->setTitle('new title');
 
         $this->assertEquals('new title', $newsreel->getTitle());
@@ -33,7 +35,7 @@ class NewsreelTest extends UnitTestCase
 
     public function testSetterContent()
     {
-        $newsreel = new \Model\Newsreel\Newsreel(1, 'title', 'content', new \Datetime(), 0);
+        $newsreel = new Newsreel(1, 'title', 'content', new \Datetime(), 0);
         $newsreel->setContent('new content');
 
         $this->assertEquals('new content', $newsreel->getContent());
@@ -43,15 +45,15 @@ class NewsreelTest extends UnitTestCase
     {
         $date = new \Datetime();
 
-        $newsreel = new \Model\Newsreel\Newsreel(1, 'title', 'content', new \Datetime(), 0);
+        $newsreel = new Newsreel(1, 'title', 'content', new \Datetime(), 0);
         $newsreel->setDate($date);
 
         $this->assertEquals($date, $newsreel->getDate());
     }
 
-    public function testSetterhit()
+    public function testSetterHit()
     {
-        $newsreel = new \Model\Newsreel\Newsreel(1, 'title', 'content', new \Datetime(), 0);
+        $newsreel = new Newsreel(1, 'title', 'content', new \Datetime(), 0);
         $newsreel->setHit(6);
 
         $this->assertEquals(6, $newsreel->getHit());
@@ -61,7 +63,7 @@ class NewsreelTest extends UnitTestCase
     {
         $date = new \Datetime();
 
-        $newsreel = new \Model\Newsreel\Newsreel(1, 'title', 'content', $date, 0);
+        $newsreel = new Newsreel(1, 'title', 'content', $date, 0);
         $array = $newsreel->toArray();
 
         $this->assertCount(5, $array);

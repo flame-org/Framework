@@ -43,14 +43,14 @@ common:
 		#memoryStorage: Nette\Caching\Storages\MemoryStorage
 
 		#security
-		authorizator: Authorizator
-		authenticator: Authenticator( @users )
+		authorizator: Flame\Models\Security\Authorizator
+		authenticator: Flame\Models\Security\Authenticator( @users )
 
 		#news
-		NewsreelFacade: Model\Newsreel\NewsreelFacade
-		NewsreelRepositoryTable: Model\Newsreel\NewsreelRepositoryTable
+		NewsreelFacade: Flame\Models\Newsreel\NewsreelFacade
+		NewsreelRepositoryTable: Flame\Models\Newsreel\NewsreelRepositoryTable
 
-		#tables
+		#tables -> old services
 		posts: PostsService
 		users: UsersService
 		comments: CommentsService

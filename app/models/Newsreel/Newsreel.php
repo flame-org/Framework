@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\Newsreel;
+namespace Flame\Models\Newsreel;
 
 class Newsreel extends \Nette\Object
 {

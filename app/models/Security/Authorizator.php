@@ -1,5 +1,7 @@
 <?php
 
+namespace Flame\Models\Security;
+
 use Nette\Security as NS;
 
 /**
@@ -33,11 +35,15 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->addResource('Admin:Page');
 		$this->addResource('Admin:Newsreel');
 
+        //DEFINE ADMIN GUEST ACCESS
 		$this->allow('guest', array('Front:Homepage', 'Front:Newsreel'));
 		$this->allow('guest', array('Front:Message'));
-		$this->allow('guest', array('Admin:Sign'), array('in'));
 		$this->allow('guest', array('Front:Post'), array('default'));
 
+        //DEFINE FRONT GUEST ACCESS
+        $this->allow('guest', array('Admin:Sign'), array('in'));
+
+        //DEFINE ADMIN USERS ACCESS
 		$this->allow('user', array('Admin:User'), array('password'));
 
 		//DEFINE ADMIN MODERATORS ACCESS
@@ -47,7 +53,8 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		//DEFINE ADMIN ADMINISTRATORS ACCESS
 		$this->allow('administrator', array('Admin:Option'), array('default', 'delete', 'add'));
 		$this->allow('administrator', array('Admin:User'));
-		
+
+        //DEFINE ROOT PERMISSION
 		$this->allow('root', NS\Permission::ALL);
 	}
 	

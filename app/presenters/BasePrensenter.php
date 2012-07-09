@@ -1,5 +1,7 @@
 <?php
 
+namespace Flame\Presenters;
+
 /**
  * Base class for all applications presenters.
  */
@@ -19,4 +21,11 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 			$this->invalidateControl('flashMessages');
 		}
 	}
+
+//	protected function createTemplate($class = null)
+//	{
+//		$template = parent::createTemplate($class);
+//		$template->registerHelperLoader('\Flame\Utils\Helpers::loader');
+//		return $template;
+//	}
 }

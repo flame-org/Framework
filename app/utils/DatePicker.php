@@ -6,11 +6,11 @@
  * @license  MIT
  */
 
-namespace Utils;
+namespace Flame\Utils;
 
-use Nette;
-use Nette\Forms;
-use DateTime;
+use Nette,
+    Nette\Forms,
+    DateTime;
 
 /**
  * Form control for selecting date.

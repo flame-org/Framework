@@ -7,7 +7,7 @@ use Nette\Security as NS;
 /**
  * Base class for all applications presenters.
  */
-abstract class AdminPresenter extends \BasePresenter
+abstract class AdminPresenter extends \Flame\Presenters\BasePresenter
 {
 
 	public function startup()

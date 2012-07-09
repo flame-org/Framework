@@ -1,12 +1,14 @@
 <?php
 
+namespace Flame\Models\Security;
+
 use Nette\Security as NS;
 
 
 /**
  * Users authenticator.
  */
-class Authenticator extends Nette\Object implements NS\IAuthenticator
+class Authenticator extends \Nette\Object implements NS\IAuthenticator
 {
 	private $users;
 

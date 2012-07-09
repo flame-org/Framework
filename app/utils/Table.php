@@ -1,12 +1,14 @@
 <?php
 
+namespace Flame\Utils;
+
 use Nette\Database\Table\ActiveRow,
 	Nette\Database\Table\Selection;
 
 /**
  * Represents repository for database table
  */
-abstract class Table extends Nette\Object
+abstract class Table extends \Nette\Object
 {
 
 	/**
@@ -20,11 +22,11 @@ abstract class Table extends Nette\Object
 	 * @param \Nette\Database\Connection $db
 	 * @throws \Nette\InvalidStateException
 	 */
-	public function __construct(Nette\Database\Connection $db)
+	public function __construct(\Nette\Database\Connection $db)
 	{
 		if (!isset($this->tableName)) {
 			$class = get_called_class();
-			throw new Nette\InvalidStateException("Property \$tableName must be defined in $class.");
+			throw new \Nette\InvalidStateException("Property \$tableName must be defined in $class.");
 		}
 
 		$this->connection = $db;

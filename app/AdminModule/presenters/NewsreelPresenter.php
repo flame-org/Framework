@@ -11,12 +11,12 @@ class NewsreelPresenter extends AdminPresenter
     private $newsreel;
     private $id;
 
-	public function __construct(\Model\Newsreel\NewsreelFacade $newsreelFacade )
+	public function __construct(\Flame\Models\Newsreel\NewsreelFacade $newsreelFacade )
 	{
 	    $this->newsreelFacade = $newsreelFacade;
 
         \Nette\Forms\Container::extensionMethod('addDatePicker', function (\Nette\Forms\Container $container, $name, $label = NULL) {
-            return $container[$name] = new \Utils\DatePicker($label);
+            return $container[$name] = new \Flame\Utils\DatePicker($label);
         });
 	}
 
@@ -76,7 +76,7 @@ class NewsreelPresenter extends AdminPresenter
         }else{ //add
 
             $this->newsreelFacade->addOrUpdate(
-                new \Model\Newsreel\Newsreel(null, $values['title'], $values['content'], $values['date'], 0));
+                new \Flame\Models\Newsreel\Newsreel(null, $values['title'], $values['content'], $values['date'], 0));
 
             $this->flashMessage('Newsreel was successfully added');
             $this->redirect('Newsreel:');

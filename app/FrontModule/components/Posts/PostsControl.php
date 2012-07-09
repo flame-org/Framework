@@ -44,7 +44,7 @@ class PostsControl extends UI\Control
 
 	protected function createComponentPaginator()
 	{
-		$visualPaginator = new \Utils\VisualPaginator($this, 'paginator');
+		$visualPaginator = new \Flame\Utils\VisualPaginator($this, 'paginator');
 	    $visualPaginator->paginator->itemsPerPage = $this->itemsPerPage;
 	    return $visualPaginator;	
 	}
