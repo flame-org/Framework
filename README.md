@@ -1,7 +1,12 @@
-JS-CMS
+FLAME
 ======
 
-Simple CMS based on php framework [Nette](http://nette.org/)
+Flame is simple but smart CMS based on php framework [Nette](http://nette.org/)
+
+WARNING: This package is under active development, and shouldn't be used at production!
+
+### Requirements
+* Nette framework
 
 ### Required Settings
 JS-CMS required setup:
