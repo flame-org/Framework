@@ -7,13 +7,18 @@ namespace FrontModule;
 */
 class HomepagePresenter extends FrontPresenter
 {
-	private $posts;
+	private $postFacade;
+    private $optionFacade;
+
+    public function __construct(\Flame\Models\Posts\PostFacade $postFacade, \Flame\Models\Options\OptionFacade $optionFacade)
+    {
+        $this->postFacade = $postFacade;
+        $this->optionFacade = $optionFacade;
+    }
 	
 	public function actionDefault()
 	{
-		$this->posts = $this->context->posts;
-
-		if(!count($this->posts->findBy(array('publish' => '1')))){
+		if(!count($this->postFacade->getLastPublishPosts())){
 			$this->flashMessage('No posts');
 		}	
 
@@ -21,9 +26,9 @@ class HomepagePresenter extends FrontPresenter
 
 	public function createComponentPostControl()
 	{
-		$postControl = new Components\PostsControl($this->posts);
+		$postControl = new \Flame\Components\PostsControl($this->postFacade);
 
-		$itemsPerPage = $this->context->options->getOptionValue('items_per_page');
+		$itemsPerPage = $this->optionFacade->getOptionValue('items_per_page');
 		if($itemsPerPage){
 			$postControl->setItemsPerPage($itemsPerPage);
 		}
