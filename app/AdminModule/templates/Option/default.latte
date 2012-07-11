@@ -18,7 +18,10 @@
 				<tr>
 					<td>{$option->name}</td>
 					<td>{$option->value}</td>
-					<td><a n:href="delete! id => $option->id" class="ajax">X</a></td>
+					<td>
+						<a n:href="Option:edit $option->id">Edit</a>
+						<a n:href="delete! id => $option->id" class="ajax">X</a>
+					</td>
 				</tr>
 			{/foreach}
 			</tbody>
