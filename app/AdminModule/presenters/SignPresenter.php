@@ -37,7 +37,6 @@ class SignPresenter extends \Flame\Presenters\BasePresenter
 			$user = $this->getUser();
 			$values = $form->getValues();
 
-			//var_export($this->context->authenticator->calculateHash($values['password']));exit();
 			if ($values->persistent) {
 				$user->setExpiration('+30 days', FALSE);
 			}
