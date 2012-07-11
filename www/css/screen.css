@@ -7,6 +7,7 @@ body {
 	color: #7d7d7b;	
 	background-color: #f3f2f2;
 	border-top: 5px solid #ffd800;	
+	min-width: 1100px;
 }
 
 p {
