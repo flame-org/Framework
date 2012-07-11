@@ -15,7 +15,8 @@ class NewsreelPresenter extends FrontPresenter
 	public function actionDetail($id)
 	{
 		if($newsreel = $this->newsreelFacade->getOne($id)){
-			$this->newsreelFacade->increaseHit($newsreel);
+            $newsreel->setHit($newsreel->getHit() + 1);
+			$this->newsreelFacade->persist($newsreel);
 			$this->template->newsreel = $newsreel;
 		}else{
 			$this->setView('notFound');

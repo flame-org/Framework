@@ -49,9 +49,15 @@ class NewsreelPresenter extends AdminPresenter
             ->getControlPrototype()->class('mceEditor');
         $f->addDatePicker('date', 'Date:')
             ->setDefaultValue(new \DateTime())
-            //->addRule(Form::VALID, 'Entered date is not valid')
+            ->addRule(Form::VALID, 'Entered date is not valid')
             ->addRule(Form::FILLED, 'Date is required item of form');
-        $f->addSubmit('Create', 'Create newsreel');
+
+        if($this->id){
+            $f->addSubmit('Create', 'Edit newsreel');
+        }else{
+            $f->addSubmit('Create', 'Create newsreel');
+        }
+
         $f->onSuccess[] = callback($this, 'newsreelFormSubmitted');
     }
 
@@ -69,14 +75,14 @@ class NewsreelPresenter extends AdminPresenter
                 ->setDate($values['date'])
                 ->setContent($values['content']);
 
-            $this->newsreelFacade->addOrUpdate($this->newsreel);
+            $this->newsreelFacade->persist($this->newsreel);
 
             $this->flashMessage('Newsreel was successfully edited');
             $this->redirect('this');
         }else{ //add
 
-            $this->newsreelFacade->addOrUpdate(
-                new \Flame\Models\Newsreel\Newsreel(null, $values['title'], $values['content'], $values['date'], 0));
+            $newsreel = new \Flame\Models\Newsreel\Newsreel($values['title'], $values['content'], $values['date'], 0);
+            $this->newsreelFacade->persist($newsreel);
 
             $this->flashMessage('Newsreel was successfully added');
             $this->redirect('Newsreel:');

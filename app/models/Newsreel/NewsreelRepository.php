@@ -1,17 +1,19 @@
 <?php
+/**
+ * NewsreelRepository
+ *
+ * @author  Jiří Šifalda
+ * @package Flame
+ *
+ * @date    10.07.12
+ */
 
 namespace Flame\Models\Newsreel;
 
-interface NewsreelRepository
+class NewsreelRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getAll($limit = null);
-
-	public function addOrUpdate(Newsreel $newsreel);
-
-	public function getOne($id);
-
-    public function getBy($conditions, $limit = null);
-
-    public function delete(Newsreel $newsreel);
-
+    public function getOne($id)
+    {
+        return $this->_em->find('\Flame\Models\Newsreel\Newsreel', $id);
+    }
 }
