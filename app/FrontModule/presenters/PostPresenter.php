@@ -6,18 +6,28 @@ namespace FrontModule;
 * Post presenter
 */
 class PostPresenter extends FrontPresenter
-{	
-	private $post;
+{
+    private $commentFacade;
+	private $postFacade;
+    private $post;
+
+    public function __construct(\Flame\Models\Posts\PostFacade $postFacade, \Flame\Models\Comments\CommentFacade $commentFacade)
+    {
+        $this->postFacade = $postFacade;
+        $this->commentFacade = $commentFacade;
+    }
 
 	public function actionDefault($id)
 	{
 
-		$this->post = $this->context->posts->find($id);
+		$this->post = $this->postFacade->getOne($id);
 
 		if(!$this->post){
 			$this->setView('notFound');
 		}else{
-			$this->context->posts->createOrUpdate(array('id' => $id, 'hit' => new \Nette\Database\SqlLiteral('hit +1')));
+
+            $this->post->setHit($this->post->getHit() + 1);
+            $this->postFacade->persist($this->post);
 		}
 
 		$this->template->post = $this->post;
@@ -26,11 +36,7 @@ class PostPresenter extends FrontPresenter
 	protected function createComponentComments()
 	{
 		if(!$this->post) return null;
-
-		$commentsControl = new Components\CommentsControl($this->context->comments);
-		$commentsControl->setPostId($this->post->id);
-
-		return $commentsControl;
+		return new \Flame\Components\CommentsControl($this->post, $this->commentFacade);
 	}
 }
 ?>

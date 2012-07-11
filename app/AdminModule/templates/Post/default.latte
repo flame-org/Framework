@@ -9,10 +9,9 @@
 		<table>
 			<caption>List of Posts</caption>
 			<thead>
-				<th>ID</th>
 				<th>Name</th>
 				<th>Content</th>
-				<th>Public</th>
+				<th>Publish</th>
 				<th>Comments</th>
 				<th>User</th>
 				<th>Created</th>
@@ -24,10 +23,10 @@
 				<tr n:foreach="$posts as $post">
 					<td>{$post->id}</td>
 					<td><a n:href=":Front:Post: $post->id, slug => $post->slug" target="_blank">{$post->name}</a></td>
-					<td>{$post->content|striptags|truncate:50}</td>
+					<td>{!$post->content|striptags|truncate:250}</td>
 					<td>{$post->publish}</td>
 					<td>{$post->comment}</td>
-					<td>{$post->user}</td>
+					<td>{$post->user->username}</td>
 					<td>{$post->created|date:'%d.%m.%y'}</td>
 					<td>{$post->hit}</td>
 					<td>

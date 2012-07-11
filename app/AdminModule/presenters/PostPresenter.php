@@ -9,23 +9,33 @@ use Nette\Application\UI\Form;
 */
 class PostPresenter extends AdminPresenter
 {
-	private $postId;
+	private $id;
+    private $post;
+
+    private $postFacade;
+    private $userFacade;
+
+    public function __construct(\Flame\Models\Posts\PostFacade $postFacade, \Flame\Models\Users\UserFacade $userFacade)
+    {
+        $this->postFacade = $postFacade;
+        $this->userFacade = $userFacade;
+    }
 	
-	public function actionDefault()
+	public function renderDefault()
 	{
-		$this->template->posts = $this->context->posts->findAll();
+		$this->template->posts = $this->postFacade->getLastPosts();
 	}
 
 	public function handleDelete($id)
 	{
 		if(!$this->getUser()->isAllowed('Admin:Post', 'delete')){
-			$this->flashMessage('Access denided');
+			$this->flashMessage('Access denied');
 		}else{
 			
-			$row = $this->context->posts->find($id);
+			$post = $this->postFacade->getOne($id);
 
-			if($row){
-				$row->delete();
+			if($post){
+				$this->postFacade->delete($post);
 			}else{
 				$this->flashMessage('Required post to delete does not exist!');
 			}
@@ -40,18 +50,18 @@ class PostPresenter extends AdminPresenter
 
 	public function handleMarkPublish($id)
 	{
-		$service =  $this->context->posts;
-
-		if(!$this->presenter->getUser()->isAllowed('Admin:Post', 'publish')){
-			$this->flashMessage('Access denided');
+		if(!$this->getUser()->isAllowed('Admin:Post', 'publish')){
+			$this->flashMessage('Access denied');
 		}else{
 
-			$row = $service->find($id);
+			$post = $this->postFacade->getOne($id);
 
-			if((int)$row['publish'] == 1){
-				$row = $service->createOrUpdate(array('id' => $id, 'publish' => '0'));
+			if($post and (int)$post->getPublish() == 1){
+				$post->setPublish(false);
+                $this->postFacade->persist($post);
 			}else{
-				$row = $service->createOrUpdate(array('id' => $id, 'publish' => '1'));
+                $post->setPublish(true);
+                $this->postFacade->persist($post);
 			}
 		}
 
@@ -64,144 +74,110 @@ class PostPresenter extends AdminPresenter
 
 	public function actionEdit($id)
 	{
+		$this->id = $id;
 
-		$this->postId = $id;
-
-		$post = $this->context->posts->find($this->postId);
-
-		if(!$post){
-			$this->flashMessage('Post does not exist.');
-			$this->redirect('Post:');
-		}else{
-			$this->template->post = $post;
-		}
+        if($this->post = $this->postFacade->getOne($id)){
+            $this['postForm']->setDefaults($this->post->toArray());
+        }else{
+            $this->flashMessage('Post does not exist.');
+            $this->redirect('Post:');
+        }
 
 	}
 
-	protected function createComponentEditPostForm($name)
+    private function createPostsSlug($name)
+    {
+        $url = preg_replace('~[^\\pL0-9_]+~u', '-', $name);
+        $url = trim($url, "-");
+        $url = iconv("utf-8", "us-ascii//TRANSLIT", $url);
+        $url = strToLower($url);
+        $url = preg_replace('~[^-a-z0-9_]+~', '', $url);
+
+        return $url;
+    }
+
+	protected function createComponentPostForm()
 	{
-		$values = $this->context->posts->find($this->postId);
-
-		$f = new Form($this, $name);
-
-		$f->addText('name', 'Název', 80)
-			->setDefaultValue($values['name'])
-			->addRule(FORM::FILLED, 'Musíš vyplnit název příspěvku')
-			->addRule(FORM::MAX_LENGTH, 'Název příspěvku nemůže být delší jak 50 znaků.', 50);
+		$f = new Form;
+		$f->addText('name', 'Name:', 80)
+			->addRule(FORM::FILLED, 'Name is required.')
+			->addRule(FORM::MAX_LENGTH, 'Name of post must be shorter than %d chars', 100);
 
 		$f->addText('slug', 'Name in URL', 80)
-			->setDefaultValue($values['slug'])
-			->addRule(FORM::MAX_LENGTH, 'Adresa nemůže být delší jak 100 znaků', 100);
+			->addRule(FORM::MAX_LENGTH, 'Name in URL must be shorter than %d chars', 100);
 
 		$f->addText('keywords', 'META Keywords', 80)
-			->setDefaultValue($values['keywords'])
-			->addRule(FORM::MAX_LENGTH, 'Klíčová slova nemůžou mít více jak 500 znaků', 500);
+			->addRule(FORM::MAX_LENGTH, 'Meta keywords must be shorter than %d chars', 500);
 
-		$f->addTextArea('description', 'Popis', 90, 5)
-			->setDefaultValue($values['description'])
-			->addRule(FORM::MAX_LENGTH, 'Popis příspěvku nemůže být delší jak 250 znalů', 250);
+		$f->addTextArea('description', 'Descriptions', 90, 5)
+			->addRule(FORM::MAX_LENGTH, 'Descriptions must be shorter than %d chars', 250);
 
-		$f->addTextArea('content', 'Obsah', 115, 35)
-			->setDefaultValue($values['content'])
+		$f->addTextArea('content', 'Content:', 115, 35)
+			->addRule(FORM::FILLED, 'Content is required.')
 			->getControlPrototype()->class('mceEditor');
 
-		$f->addCheckbox('publish', 'Publikovat?')
-			->setDefaultValue($values['publish']);
+		$f->addCheckbox('publish', 'Make this post published?');
 
-		$f->addCheckbox('comment', 'Povolit komentáře?')
-			->setDefaultValue($values['comment']);
+        if($this->id){
+            $f->addCheckbox('comment', 'Allow comments?');
+            $f->addSubmit('create', 'Edit post');
+        }else{
+            $f->addCheckbox('comment', 'Allow comments?')
+                ->setDefaultValue('1');
+            $f->addSubmit('create', 'Create post');
+        }
 
-		$f->addSubmit('edit', 'Editovat příspěvek');
-		$f->onSuccess[] = callback($this, 'editFormSubmited');
+		$f->onSuccess[] = callback($this, 'postFormSubmitted');
+
+        return $f;
 	}
 
-	public function editFormSubmited(Form $f)
+	public function postFormSubmitted(Form $f)
 	{
-		$values = $f->getValues();
-		$user = $this->getUser();
-		
-		$this->context->posts->createOrUpdate(
-			array(
-				'id' => $this->postId,
-				'user' => $user->getIdentity()->username,
-				'name' => $values['name'], 
-				'description' => $values['description'], 
-				'slug' => $this->createPostsSlug($values['slug']),
-				'content' => $values['content'], 
-				'publish' => $values['publish'],
-				'comment' => $values['comment'],
-				'keywords' => $values['keywords'],
-			)
-		);
-		$this->flashMessage('Příspěvek byl úspěšně upraven', 'success');
-		$this->redirect('this');
-	}
+        if($this->id and !$this->post){
+            throw new \Nette\Application\BadRequestException;
+        }
 
-	private function createPostsSlug($name)
-	{
-		$url = preg_replace('~[^\\pL0-9_]+~u', '-', $name);
-		$url = trim($url, "-");
-		$url = iconv("utf-8", "us-ascii//TRANSLIT", $url);
-		$url = strToLower($url);
-		$url = preg_replace('~[^-a-z0-9_]+~', '', $url);
+        $values = $f->getValues();
 
-		return $url;
-	}
+        if(empty($values['slug'])){
+            $slug = $this->createPostsSlug($values['name']);
+        }else{
+            $slug = $this->createPostsSlug($values['slug']);
+        }
 
-	protected function createComponentAddPostForm($name)
-	{
-		$f = new Form($this, $name);
-		$f->addText('name', 'Název', 80)
-			->addRule(FORM::FILLED, 'Musíš vyplnit název příspěvku')
-			->addRule(FORM::MAX_LENGTH, 'Název příspěvku nemůže být delší jak 100 znaků.', 100);
+        if($this->id){
+            $this->post
+                ->setName($values['name'])
+                ->setSlug($values['slug'])
+                ->setDescription($values['description'])
+                ->setKeywords($values['keywords'])
+                ->setContent($values['content'])
+                ->setPublish($values['publish'])
+                ->setComment($values['comment']);
 
-		$f->addText('slug', 'Name in URL', 80)
-			->addRule(FORM::MAX_LENGTH, 'Adresa nemůže být delší jak 100 znaků', 100);
+            $this->postFacade->persist($this->post);
+            $this->flashMessage('Post was edited');
+            $this->redirect('this');
 
-		$f->addText('keywords', 'META Keywords', 80)
-			->addRule(FORM::MAX_LENGTH, 'Klíčová slova nemůžou mít více jak 500 znaků', 500);
+        }else{
+            $post = new \Flame\Models\Posts\Post(
+                $this->userFacade->getOne($this->getUser()->getId()),
+                $values['name'],
+                $slug,
+                $values['description'],
+                $values['keywords'],
+                $values['content'],
+                new \DateTime,
+                $values['publish'],
+                $values['comment'],
+                0
+            );
+            $this->postFacade->persist($post);
+            $this->flashMessage('Post was successfully added.', 'success');
+            $this->redirect('Post:');
+        }
 
-		$f->addTextArea('description', 'Popis', 90, 5)
-			->addRule(FORM::MAX_LENGTH, 'Popis příspěvku nemůže být delší jak 250 znaků', 250);
-
-		$f->addTextArea('content', 'Obsah', 115, 35)
-			->addRule(FORM::FILLED, 'Obsah příspěvku je vyžadován.')
-			->getControlPrototype()->class('mceEditor');
-
-		$f->addCheckbox('publish', 'Publikovat?');
-		$f->addCheckbox('comment', 'Povolit komentáře?')
-			->setDefaultValue('1');
-		$f->addSubmit('create', 'Vytvořit příspěvek');
-		$f->getElementPrototype()->onsubmit('tinyMCE.triggerSave()');
-		$f->onSuccess[] = callback($this, 'addFormSubmited');
-	}
-
-	public function addFormSubmited(Form $f)
-	{
-		$values = $f->getValues();
-		$user = $this->getUser();
-
-		if(empty($values['slug'])){
-			$slug = $this->createPostsSlug($values['name']);
-		}else{
-			$slug = $this->createPostsSlug($values['slug']);
-		}
-
-		$this->context->posts->createOrUpdate(
-			array(
-				'user' => $user->getIdentity()->username,
-				'name' => $values['name'], 
-				'description' => $values['description'], 
-				'keywords' => $values['keywords'], 
-				'slug' => $slug,
-				'content' => $values['content'], 
-				'created' => new \DateTime, 
-				'publish' => $values['publish'],
-				'comment' => $values['comment'],
-			)
-		);
-		$this->flashMessage('Příspěvek byl úspěšně vytvořen', 'success');
-		$this->redirect('this');
 	}
 
 }
