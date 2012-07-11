@@ -15,6 +15,8 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 
 	public function beforeRender()
 	{
+        parent::beforeRender();
+
         $this->template->name = $this->context->OptionFacade->getOptionValue('name');
 
 		if($this->isAjax()){
@@ -22,10 +24,13 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 		}
 	}
 
-//	protected function createTemplate($class = null)
-//	{
-//		$template = parent::createTemplate($class);
-//		$template->registerHelperLoader('\Flame\Utils\Helpers::loader');
-//		return $template;
-//	}
+	public function createTemplate($class = null)
+	{
+		$template = parent::createTemplate($class);
+		$template->registerHelperLoader(callback(
+			$this->context->Helpers,
+			'loader'
+		));
+		return $template;
+	}
 }

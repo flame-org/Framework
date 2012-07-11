@@ -13,6 +13,11 @@ common:
 		entities:
 			- %appDir%/models
 
+		imageHelper:
+			thumbDir: 'media/images_thumbnails' #do not change!
+			imageDir: 'media/images' #do not change!
+			baseDir: %wwwDir%
+
 		selenium:
 			host: localhost
 			browser: firefox
@@ -35,11 +40,9 @@ common:
 		#	class: Nette\Caching\Storages\MemoryStorage
 		#	autowired: no
 
-		#security
 		authorizator: Flame\Models\Security\Authorizator
 		authenticator: Flame\Models\Security\Authenticator
 
-		#doctrine
 		em_config:
 			class: Doctrine\ORM\Configuration
 			factory: Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(%entities%, true)
@@ -47,6 +50,8 @@ common:
 			class: Doctrine\ORM\EntityManager
 			factory: Doctrine\ORM\EntityManager::create(%database%, @em_config)
 
+		Helpers:
+			factory: Flame\Utils\Helpers(%imageHelper%)
 
 		NewsreelFacade: Flame\Models\Newsreel\NewsreelFacade
 		UserFacade: Flame\Models\Users\UserFacade
@@ -54,6 +59,7 @@ common:
 		CommentFacade: Flame\Models\Comments\CommentFacade
 		PostFacade: Flame\Models\Posts\PostFacade
 		PageFacade: Flame\Models\Pages\PageFacade
+		ImageFacade: Flame\Models\Images\ImageFacade
 
 	factories:
 

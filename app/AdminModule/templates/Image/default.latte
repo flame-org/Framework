@@ -13,21 +13,19 @@
 					<th>File</th>
 					<th>Name</th>
 					<th>Description</th>
-					<th>Thumbnail size</th>
-					<th>Original size</th>
 					<th>Actions</th>
 				</thead>
 
 				<tbody>
 					<tr n:foreach="$images as $image">
 						<td>
-							<a href="{$baseUrl}/media/images/{$image->file}"><img src="{$baseUrl}/media/images_thumbnails/{$image->thumbnail}" width="75"></a>
+							<a href="{$baseUrl}/media/images/{$image->file}">
+								<img src="{$baseUrl}/{$image->file|thumb:230}">
+							</a>
 						</td>
 						<td>{$image->file}</td>
 						<td>{$image->name}</td>
-						<td>{$image->desc}</td>
-						<td>{$image->thumbnail_size}</td>
-						<td>{$image->image_size}</td>
+						<td>{$image->description}</td>
 						<td>
 							<a n:href="delete! $image->id" class="ajax">X</a>
 						</td>
