@@ -23,6 +23,7 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->addResource('Front:Message');
 		$this->addResource('Front:Post');
 		$this->addResource('Front:Newsreel');
+        $this->addResource('Front:Page');
 
 		//DEFINE ADMIN RESOURCE
 		$this->addResource('Admin:Dashboard');
@@ -36,7 +37,7 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->addResource('Admin:Newsreel');
 
         //DEFINE ADMIN GUEST ACCESS
-		$this->allow('guest', array('Front:Homepage', 'Front:Newsreel'));
+		$this->allow('guest', array('Front:Homepage', 'Front:Newsreel', 'Front:Page'));
 		$this->allow('guest', array('Front:Message'));
 		$this->allow('guest', array('Front:Post'), array('default'));
 
@@ -51,7 +52,7 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->allow('moderator', array('Admin:Comment'), array('delete', 'publish', 'default'));
 
 		//DEFINE ADMIN ADMINISTRATORS ACCESS
-		$this->allow('administrator', array('Admin:Option'), array('default', 'delete', 'add'));
+		$this->allow('administrator', array('Admin:Option'), array('default', 'delete', 'add', 'edit'));
 		$this->allow('administrator', array('Admin:User'));
 
         //DEFINE ROOT PERMISSION

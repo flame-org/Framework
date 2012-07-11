@@ -10,13 +10,12 @@ use Nette\Security as NS;
  */
 class Authenticator extends \Nette\Object implements NS\IAuthenticator
 {
-	private $users;
+	private $userFacade;
 
-	public function __construct(UsersService $users)
+	public function __construct(\Flame\Models\Users\UserFacade $usersFacade)
 	{
-		$this->users = $users;
+		$this->userFacade = $usersFacade;
 	}
-
 
 	/**
 	 * Performs an authentication
@@ -27,18 +26,19 @@ class Authenticator extends \Nette\Object implements NS\IAuthenticator
 	public function authenticate(array $credentials)
 	{
 		list($username, $password) = $credentials;
-	    $row = $this->users->findOneBy(array('username' => $username));
+	    $user = $this->userFacade->getByUsername($username);
 
-	    if (!$row) {
+	    if (!$user) {
 	        throw new NS\AuthenticationException("User '$username' not found.", self::IDENTITY_NOT_FOUND);
 	    }
 
-	    if ($row->password !== $this->calculateHash($password)) {
+	    if ($user->password !== $this->calculateHash($password)) {
 	        throw new NS\AuthenticationException("Invalid password.", self::INVALID_CREDENTIAL);
 	    }
 
-	    unset($row->password);
-	    return new NS\Identity($row->id, $row->role, $row->toArray());
+	    $userData = $user->toArray();
+        unset($userData['password']);
+	    return new NS\Identity($user->id, $user->role, $userData);
 	}
 
 
@@ -50,12 +50,14 @@ class Authenticator extends \Nette\Object implements NS\IAuthenticator
 	 */
 	public function calculateHash($password)
 	{
+        //dump(hash('sha512', $password));exit;
 		return hash('sha512', $password);
 	}
 
-	public function setPassword($id, $password)
-	{
-		return $this->users->createOrUpdate(array('id' => $id, 'password' => $this->calculateHash($password)));
-	}
+    public function setPassword(\Flame\Models\Users\User $user, $password)
+    {
+        $user->setPassword($this->calculateHash($password));
+        $this->userFacade->persist($user);
+    }
 
 }
