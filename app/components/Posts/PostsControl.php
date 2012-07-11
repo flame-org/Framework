@@ -1,6 +1,6 @@
 <?php
 
-namespace FrontModule\Components;
+namespace Flame\Components;
 
 use Nette\Application\UI;
 
@@ -9,12 +9,12 @@ use Nette\Application\UI;
 */
 class PostsControl extends UI\Control
 {
-	private $service;
+	private $postFacade;
 	private $itemsPerPage = 10;
 
-	public function __construct(\PostsService $postsService)
+	public function __construct(\Flame\Models\Posts\PostFacade $postFacade)
 	{
-		$this->service = $postsService;
+		$this->postFacade = $postFacade;
 	}
 
 	public function setItemsPerPage($count)
@@ -28,10 +28,10 @@ class PostsControl extends UI\Control
 
 		$paginator = $this['paginator']->getPaginator();
 
-		$posts = $this->service->findBy(array('publish' => '1'));
+		$posts = $this->postFacade->getLastPublishPosts();
 		$paginator->itemCount = count($posts);
 
-		$posts->limit($paginator->itemsPerPage, $paginator->offset);
+		//$posts->limit($paginator->itemsPerPage, $paginator->offset);
 
 		$this->template->posts = $posts;
 		$this->template->render();

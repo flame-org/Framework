@@ -1,6 +1,6 @@
 <?php
 
-namespace FrontModule\Components;
+namespace Flame\Components;
 
 class NewsreelControl extends \Nette\Application\UI\Control
 {
