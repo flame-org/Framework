@@ -7,8 +7,16 @@ use Nette\Application\UI,
     Nette\Application\UI\Form;
 
 
-class SignPresenter extends \BasePresenter
+class SignPresenter extends \Flame\Presenters\BasePresenter
 {
+
+    public function startup()
+    {
+        parent::startup();
+        if($this->getUser()->isLoggedIn()){
+            $this->redirect('Dashboard:');
+        }
+    }
 
 	protected function createComponentSignInForm()
 	{
