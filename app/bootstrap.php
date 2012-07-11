@@ -8,13 +8,17 @@ require_once LIBS_DIR . '/autoload.php';
 require_once LIBS_DIR . '/nette/nette/Nette/loader.php';
 
 $configurator = new Configurator();
-//$configurator->setDebugMode($configurator::AUTO);
-//$configurator->setDebugMode(TRUE);
-//$configurator->setProductionMode(FALSE);
 $configurator->enableDebugger(__DIR__ . '/../log');
 $configurator->setTempDirectory(__DIR__ . '/../temp');
 $configurator->createRobotLoader()->addDirectory(APP_DIR)->register();
-$configurator->addConfig(__DIR__ . '/config/config.neon');
+
+if (PHP_SAPI == 'cli') {
+    $configurator->setDebugMode(TRUE);
+    $configurator->addConfig(__DIR__ . '/config/config.neon', $configurator::DEVELOPMENT);
+}else{
+    $configurator->setDebugMode($configurator::AUTO);
+    $configurator->addConfig(__DIR__ . '/config/config.neon');
+}
 $container = $configurator->createContainer();
 
 $container->router[] = new Route('index.php', 'Front:Homepage:default', Route::ONE_WAY);
