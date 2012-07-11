@@ -13,9 +13,9 @@ common:
 		entities:
 			- %appDir%/models
 
-		imageHelper:
-			thumbDir: 'media/images_thumbnails' #do not change!
-			imageDir: 'media/images' #do not change!
+		imageStorage:
+			thumbDir: 'media/images_thumbnails'
+			imageDir: 'media/images'
 			baseDir: %wwwDir%
 
 		selenium:
@@ -51,7 +51,7 @@ common:
 			factory: Doctrine\ORM\EntityManager::create(%database%, @em_config)
 
 		Helpers:
-			factory: Flame\Utils\Helpers(%imageHelper%)
+			factory: Flame\Utils\Helpers(%imageStorage%)
 
 		NewsreelFacade: Flame\Models\Newsreel\NewsreelFacade
 		UserFacade: Flame\Models\Users\UserFacade

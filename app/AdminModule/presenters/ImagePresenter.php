@@ -14,10 +14,19 @@ class ImagePresenter extends AdminPresenter
 
 	private $userFacade;
 
+	private $imageStorage;
+
 	public function __construct(\Flame\Models\Images\ImageFacade $imageFacade, \Flame\Models\Users\UserFacade $userFacade)
 	{
 		$this->imageFacade = $imageFacade;
 		$this->userFacade = $userFacade;
+	}
+
+	public function startup()
+	{
+		parent::startup();
+		$params = $this->context->getParameters();
+		$this->imageStorage = $params['imageStorage'];
 	}
 
 	public function renderDefault()
@@ -60,7 +69,10 @@ class ImagePresenter extends AdminPresenter
 	private function saveImage($file)
 	{
 		$name = $file->name;
-		$path = WWW_DIR . '/media/images/' . $name;
+		$path = $this->imageStorage['baseDir'] .
+			DIRECTORY_SEPARATOR .
+			$this->imageStorage['imageDir'] .
+			DIRECTORY_SEPARATOR . $name;
 		
 		if(!file_exists($path)){
 			$file->move($path);
@@ -96,7 +108,12 @@ class ImagePresenter extends AdminPresenter
 			$row = $this->imageFacade->getOne($id);
 
 			if($row){
-				$file = WWW_DIR . '/media/images/' . $row->file;
+
+				$file = $this->imageStorage['baseDir'] .
+					DIRECTORY_SEPARATOR .
+					$this->imageStorage['imageDir'] .
+					DIRECTORY_SEPARATOR . $row->file;
+
 				if(file_exists($file)){
 					unlink($file);
 				}
