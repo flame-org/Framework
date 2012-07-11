@@ -25,6 +25,7 @@ Change the settings in the file: **CONFIG.NEON**
 * Paginator for posts
 * Users management
 * Newsreel
+* Pages management
 
 ### Global variables
 If you want to affect prepared options (set up in the options section)
@@ -33,4 +34,5 @@ If you want to affect prepared options (set up in the options section)
 * thumbnail_height (defautl: 230)
 * items_per_page (Paginator, default: 10)
 * items_in_newsreel_menu_list (default: 3)
+* items_in_menu (default: 5)
 

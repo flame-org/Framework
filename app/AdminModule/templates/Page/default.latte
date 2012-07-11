@@ -1,0 +1,40 @@
+{var $title='List of pages'}
+
+{block #content}
+	<p><a n:href="Page:add">Add new page</a> </p>
+
+	{snippet #pages}
+		{if count($pages)}
+
+			<table>
+				<thead>
+					<th>Name</th>
+					<th>Content</th>
+					<th>User</th>
+					<th>Created</th>
+					<th>Views</th>
+					<th>Actions</th>
+				</thead>
+
+				<tbody>
+					<tr n:foreach="$pages as $page">
+
+						<td>{$page->name}</td>
+						<td>{!$page->content|striptags|truncate:250}</td>
+						<td>{$page->user->username}</td>
+						<td>{$page->created|date:'%d.%m.%y'}</td>
+						<td>{$page->hit}</td>
+						<td>
+							<a n:href="Page:edit $page->id">Edit</a>
+							<a n:href="delete! $page->id">X</a>
+						</td>
+					</tr>
+
+				</tbody>
+
+			</table>
+		{else}
+			<h4>None</h4>
+		{/if}
+	{/snippet}
+{/block}

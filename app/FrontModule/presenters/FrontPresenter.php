@@ -8,6 +8,8 @@ namespace FrontModule;
 abstract class FrontPresenter extends \Flame\Presenters\BasePresenter
 {
 
+    private $itemsInMenu = 5;
+
 	public function startup()
 	{
 		parent::startup();

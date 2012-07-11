@@ -1,0 +1,14 @@
+{var $title = $page->name}
+{var $desc = $page->description}
+{var $keys = $page->keywords}
+
+{block #content}
+
+	<h1>{$page->name}</h1>
+
+	<h3>{$page->description}</h3>
+
+	<p>{!$page->content}</p>
+
+	<p><small>{$page->created|date:'%d.%m.%y'} | {$page->hit} Views</small></p>
+{/block}
