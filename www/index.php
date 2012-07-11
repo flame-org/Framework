@@ -8,8 +8,6 @@ define('LIBS_DIR', WWW_DIR . '/../vendor');
 // uncomment this line if you must temporarily take down your site for maintenance
 // require APP_DIR . '/templates/maintenance.phtml';
 
-require LIBS_DIR . '/autoload.php';
-// load bootstrap file
 require APP_DIR . '/bootstrap.php';
 
 // Configure and run the application!
