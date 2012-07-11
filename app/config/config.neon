@@ -7,11 +7,11 @@
 common:
 	parameters:
 		database:
-			driver: mysql
-			host:
-			dbname:
-			user:
-			password:
+			driver: pdo_mysql
+			charset: utf8
+
+		entities:
+			- %appDir%/models
 
 		selenium:
 			host: localhost
@@ -30,43 +30,32 @@ common:
 			autoStart: smart
 			expiration: + 30 days
 
-		database:
-			default:
-				dsn: '%database.driver%:host=%database.host%;dbname=%database.dbname%'
-				user: %database.user%
-				password: %database.password%
-
-
 	services:
-		database: @Nette\Database\Connection
-		#cache: Nette\Caching\Cache
-		#memoryStorage: Nette\Caching\Storages\MemoryStorage
+		#memoryStorage:
+		#	class: Nette\Caching\Storages\MemoryStorage
+		#	autowired: no
 
 		#security
 		authorizator: Flame\Models\Security\Authorizator
-		authenticator: Flame\Models\Security\Authenticator( @users )
+		authenticator: Flame\Models\Security\Authenticator
 
-		#news
+		#doctrine
+		em_config:
+			class: Doctrine\ORM\Configuration
+			factory: Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(%entities%, true)
+		entity_manager:
+			class: Doctrine\ORM\EntityManager
+			factory: Doctrine\ORM\EntityManager::create(%database%, @em_config)
+
+
 		NewsreelFacade: Flame\Models\Newsreel\NewsreelFacade
-		NewsreelRepositoryTable: Flame\Models\Newsreel\NewsreelRepositoryTable
-
-		#tables -> old services
-		posts: PostsService
-		users: UsersService
-		comments: CommentsService
-		options: OptionsService
-		images: ImagesService
-
+		UserFacade: Flame\Models\Users\UserFacade
+		OptionFacade: Flame\Models\Options\OptionFacade
+		CommentFacade: Flame\Models\Comments\CommentFacade
+		PostFacade: Flame\Models\Posts\PostFacade
+		PageFacade: Flame\Models\Pages\PageFacade
 
 	factories:
-
-production < common:
-	parameters:
-		database:
-			host: wm20.wedos.net
-			dbname: d16533_jscms
-			user: w16533_jscms
-			password: yourpasswordhere
 
 development < common:
 	parameters:
@@ -75,3 +64,11 @@ development < common:
 			dbname: cms
 			user: root
 			password: root
+
+production < common:
+	parameters:
+		database:
+			host: wm20.wedos.net
+			dbname: d16533_jscms
+			user: w16533_jscms
+			password: yourpasswordhere

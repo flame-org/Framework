@@ -7,6 +7,7 @@ WARNING: This package is under active development, and shouldn't be used at prod
 
 ### Requirements
 * Nette framework
+* Doctrine 2
 
 ### Required Settings
 JS-CMS required setup:
