@@ -16,17 +16,14 @@ class OptionFacade
 {
     private $repository;
 
-    private $entityManager;
-
     public function __construct(\Doctrine\ORM\EntityManager $entityManager)
     {
-        $this->entityManager = $entityManager;
         $this->repository = $entityManager->getRepository('\Flame\Models\Options\Option');
     }
 
     public function getOne($id)
     {
-        return $this->repository->findOne($id);
+        return $this->repository->findOneBy(array('id' => $id));
     }
 
     public function getByName($name)
@@ -41,16 +38,12 @@ class OptionFacade
 
     public function persist(Option $option)
     {
-        $this->entityManager->persist($option);
-        $this->entityManager->flush();
-        return $this;
+        return $this->repository->save($option);
     }
 
     public function delete(Option $option)
     {
-        $this->entityManager->remove($option);
-        $this->entityManager->flush();
-        return $this;
+        return $this->repository->delete($option);
     }
 
     public function getOptionValue($name)

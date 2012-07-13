@@ -10,10 +10,7 @@
 
 namespace Flame\Models\Options;
 
-class OptionRepository extends \Doctrine\ORM\EntityRepository
+class OptionRepository extends \Flame\Models\Doctrine\BaseRepository
 {
-    public function findOne($id)
-    {
-        return $this->_em->find('\Flame\Models\Options\Option', $id);
-    }
+
 }

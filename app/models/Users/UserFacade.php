@@ -14,17 +14,14 @@ class UserFacade
 {
     private $repository;
 
-    private $entityManager;
-
     public function __construct(\Doctrine\ORM\EntityManager $entityManager)
     {
-        $this->entityManager = $entityManager;
         $this->repository = $entityManager->getRepository('\Flame\Models\Users\User');
     }
 
     public function getOne($id)
     {
-        return $this->repository->findOne($id);
+        return $this->repository->findOneBy(array('id' => $id));
     }
 
     public function getLastUsers()
@@ -44,15 +41,11 @@ class UserFacade
 
     public function persist(User $user)
     {
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
-        return $this;
+        return $this->repository->save($user);
     }
 
     public function delete(User $user)
     {
-        $this->entityManager->remove($user);
-        $this->entityManager->flush();
-        return $this;
+        return $this->repository->delete($user);
     }
 }

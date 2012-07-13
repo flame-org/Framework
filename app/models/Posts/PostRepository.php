@@ -10,10 +10,7 @@
 
 namespace Flame\Models\Posts;
 
-class PostRepository extends \Doctrine\ORM\EntityRepository
+class PostRepository extends \Flame\Models\Doctrine\BaseRepository
 {
-    public function getOne($id)
-    {
-        return $this->_em->find('\Flame\Models\Posts\Post', $id);
-    }
+
 }

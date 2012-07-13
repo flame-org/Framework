@@ -10,10 +10,9 @@
 
 namespace Flame\Models\Images;
 
-class ImageRepository extends \Doctrine\ORM\EntityRepository
+
+class ImageRepository extends \Flame\Models\Doctrine\BaseRepository
 {
-	public function getOne($id)
-	{
-		return $this->_em->find('\Flame\Models\Images\Image', (int) $id);
-	}
+
+
 }

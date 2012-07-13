@@ -10,10 +10,7 @@
 
 namespace Flame\Models\Comments;
 
-class CommentRepository extends \Doctrine\ORM\EntityRepository
+class CommentRepository extends \Flame\Models\Doctrine\BaseRepository
 {
-    public function getOne($id)
-    {
-        return $this->_em->find('\Flame\Models\Comments\Comment', $id);
-    }
+
 }

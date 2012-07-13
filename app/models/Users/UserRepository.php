@@ -10,10 +10,7 @@
 
 namespace Flame\Models\Users;
 
-class UserRepository extends \Doctrine\ORM\EntityRepository
+class UserRepository extends \Flame\Models\Doctrine\BaseRepository
 {
-    public function findOne($id)
-    {
-        return $this->_em->find('\Flame\Models\Users\User', $id);
-    }
+
 }

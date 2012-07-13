@@ -15,18 +15,16 @@ use \Flame\Models\Comments\Comment;
 class CommentFacade
 {
 
-    private $entityManager;
     private $repository;
 
     public function __construct(\Doctrine\ORM\EntityManager $entityManager)
     {
-        $this->entityManager = $entityManager;
         $this->repository = $entityManager->getRepository('\Flame\Models\Comments\Comment');
     }
 
     public function getOne($id)
     {
-        return $this->repository->getOne($id);
+        return $this->repository->findOneBy(array('id' => $id));
     }
 
     public function getLastComments()
@@ -41,15 +39,11 @@ class CommentFacade
 
     public function persist(Comment $comment)
     {
-        $this->entityManager->persist($comment);
-        $this->entityManager->flush();
-        return $this;
+        return $this->repository->save($comment);
     }
 
     public function delete(Comment $comment)
     {
-        $this->entityManager->remove($comment);
-        $this->entityManager->flush();
-        return $this;
+        return $this->repository->delete($comment);
     }
 }

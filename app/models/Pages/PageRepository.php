@@ -10,10 +10,19 @@
 
 namespace Flame\Models\Pages;
 
-class PageRepository extends \Doctrine\ORM\EntityRepository
+class PageRepository extends \Flame\Models\Doctrine\BaseRepository
 {
-    public function getOne($id)
-    {
-        return $this->_em->find('\Flame\Models\Pages\Page', $id);
-    }
+	public function findLast($limit)
+	{
+		$qb = $this->entityManager->createQueryBuilder();
+		$q = $qb->select('p')
+			->from('\Flame\Models\Pages\Page', 'p')
+			->orderBy('p.id', 'DESC');
+
+		if($limit){
+			$q->setMaxResults((int)$limit);
+		}
+
+		return $q->getQuery()->getResult();
+	}
 }
