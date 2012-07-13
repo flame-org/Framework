@@ -1,4 +1,4 @@
-FLAME
+FLAME:CMS
 ======
 
 Flame is simple but smart CMS based on php framework [Nette](http://nette.org/)
@@ -6,8 +6,10 @@ Flame is simple but smart CMS based on php framework [Nette](http://nette.org/)
 WARNING: This package is under active development, and shouldn't be used at production!
 
 ### Requirements
-* Nette framework
-* Doctrine 2
+* PHP 5.3+
+* MySQL 5+
+* Nette Framework 2.0
+* Doctrine 2.2+
 
 ### Required Settings
 JS-CMS required setup:

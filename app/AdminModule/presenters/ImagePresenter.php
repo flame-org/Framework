@@ -63,7 +63,7 @@ class ImagePresenter extends AdminPresenter
 
 		$this->imageFacade->persist($image);
 		$this->flashMessage('Image was uploaded.');
-		$this->redirect('this');
+		$this->redirect('Image:');
 	}
 
 	private function saveImage($file)
@@ -103,7 +103,7 @@ class ImagePresenter extends AdminPresenter
 	{
 
 		if(!$this->getUser()->isAllowed('Admin:Image', 'delete')){
-			$this->flashMessage('Access denided');
+			$this->flashMessage('Access denied');
 		}else{
 			$row = $this->imageFacade->getOne($id);
 

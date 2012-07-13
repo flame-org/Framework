@@ -21,11 +21,10 @@
 
 			<tbody>
 				<tr n:foreach="$posts as $post">
-					<td>{$post->id}</td>
 					<td><a n:href=":Front:Post: $post->id, slug => $post->slug" target="_blank">{$post->name}</a></td>
 					<td>{!$post->content|striptags|truncate:250}</td>
-					<td>{$post->publish}</td>
-					<td>{$post->comment}</td>
+					<td>{if $post->publish}Yes{else}No{/if}</td>
+					<td>{if $post->comment}Yes{else}No{/if}</td>
 					<td>{$post->user->username}</td>
 					<td>{$post->created|date:'%d.%m.%y'}</td>
 					<td>{$post->hit}</td>
