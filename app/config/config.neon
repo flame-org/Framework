@@ -27,7 +27,7 @@ common:
 	php:
 		date.timezone: Europe/Prague
 		# session.save_path: "%tempDir%/sessions"
-		# zlib.output_compression: yes
+		zlib.output_compression: yes
 
 
 	nette:
