@@ -10,7 +10,7 @@
 
 namespace Flame\Forms;
 
-class PostForm extends \Nette\Forms\Form
+class PostForm extends \Flame\Application\UI\Form
 {
 
 	public function configureAdd()
