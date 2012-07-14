@@ -1,8 +1,0 @@
-Disallow: nette/nette/tests
-
-Disallow: doctrine/orm/tests
-Disallow: doctrine/dbal/tests
-Disallow: doctrine/common/tests
-
-Disallow: doctrine/dbal/lib/vendor
-

@@ -4,7 +4,6 @@ use Nette\Application\Routers\Route,
 	Nette\Application\Routers\RouteList,
     Nette\Config\Configurator;
 
-require_once LIBS_DIR . '/autoload.php';
 require_once LIBS_DIR . '/nette/nette/Nette/loader.php';
 
 $configurator = new Configurator();
