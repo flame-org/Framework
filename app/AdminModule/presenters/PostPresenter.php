@@ -168,10 +168,8 @@ class PostPresenter extends AdminPresenter
                 $values['description'],
                 $values['keywords'],
                 $values['content'],
-                new \DateTime,
                 $values['publish'],
-                $values['comment'],
-                0
+                $values['comment']
             );
             $this->postFacade->persist($post);
             $this->flashMessage('Post was successfully added.', 'success');

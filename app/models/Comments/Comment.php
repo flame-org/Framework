@@ -54,15 +54,15 @@ class Comment extends Models\Doctrine\Entity
      */
     private $publish;
 
-    public function __construct(Models\Posts\Post $post, $name, $email, $web, $content, DateTime $created, $publish)
+    public function __construct(Models\Posts\Post $post, $name, $email, $web, $content)
     {
         $this->post = $post;
         $this->name = $name;
         $this->email = $email;
         $this->web = $web;
         $this->content = $content;
-        $this->created = $created;
-        $this->publish = $publish;
+        $this->created = new DateTime;
+        $this->publish = false;
     }
 
     public function getPost()

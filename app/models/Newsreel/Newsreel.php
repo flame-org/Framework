@@ -31,12 +31,12 @@ class Newsreel extends \Flame\Models\Doctrine\Entity
 	private $hit;
 
 
-	public function __construct($title, $content, DateTime $date, $hit)
+	public function __construct($title, $content, DateTime $date)
 	{
 		$this->title = $title;
 		$this->content = $content;
 		$this->date = $date;
-		$this->hit = $hit;
+		$this->hit = 0;
 	}
 
 	public function getTitle()

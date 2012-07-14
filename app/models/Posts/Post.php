@@ -70,7 +70,7 @@ class Post extends \Flame\Models\Doctrine\Entity
      */
     private $hit;
 
-    public function __construct(User $user, $name, $slug, $description, $keywords, $content, DateTime $created, $publish, $comment, $hit)
+    public function __construct(User $user, $name, $slug, $description, $keywords, $content, $publish, $comment)
     {
         $this->user = $user;
         $this->name = $name;
@@ -78,10 +78,10 @@ class Post extends \Flame\Models\Doctrine\Entity
         $this->description = $description;
         $this->keywords = $keywords;
         $this->content = $content;
-        $this->created = $created;
         $this->publish = $publish;
         $this->comment = $comment;
-        $this->hit = $hit;
+	    $this->created = new DateTime;
+        $this->hit = 0;
     }
 
     public function getUser()
