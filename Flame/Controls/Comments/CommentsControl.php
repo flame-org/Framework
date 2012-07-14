@@ -36,9 +36,11 @@ class CommentsControl extends \Flame\Application\UI\Control
 
 		$f->addText('email', 'Email adress', 55)
 			->addRule(FORM::FILLED, 'Email adress is required!')
+			->addRule(FORM::EMAIL)
 			->addRule(FORM::MAX_LENGTH, 'Your name cannot be longer than %d chars', 100);
 
 		$f->addText('web', 'Website', 55)
+			->addRule(FORM::URL)
 			->addRule(FORM::MAX_LENGTH, 'Your name cannot be longer than %d chars', 100);
 
 		$f->addTextArea('content', 'Comment:', 65, 7)

@@ -34,20 +34,20 @@ class PostForm extends \Flame\Application\UI\Form
 	private function configure()
 	{
 		$this->addText('name', 'Name:', 80)
-			->addRule(self::FILLED, 'Name is required.')
-			->addRule(self::MAX_LENGTH, 'Name of post must be shorter than %d chars', 100);
+			->addRule(self::FILLED)
+			->addRule(self::MAX_LENGTH, null, 100);
 
 		$this->addText('slug', 'Name in URL', 80)
-			->addRule(self::MAX_LENGTH, 'Name in URL must be shorter than %d chars', 100);
+			->addRule(self::MAX_LENGTH, null, 100);
 
 		$this->addText('keywords', 'META Keywords', 80)
-			->addRule(self::MAX_LENGTH, 'Meta keywords must be shorter than %d chars', 500);
+			->addRule(self::MAX_LENGTH, null, 500);
 
 		$this->addTextArea('description', 'Descriptions', 90, 5)
-			->addRule(self::MAX_LENGTH, 'Descriptions must be shorter than %d chars', 250);
+			->addRule(self::MAX_LENGTH, null, 250);
 
 		$this->addTextArea('content', 'Content:', 115, 35)
-			->addRule(self::FILLED, 'Content is required.')
+			->addRule(self::FILLED)
 			->getControlPrototype()->class('mceEditor');
 
 		$this->addCheckbox('publish', 'Make this post published?');
