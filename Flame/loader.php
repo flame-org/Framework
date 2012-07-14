@@ -8,8 +8,8 @@ require_once LIBS_DIR . '/autoload.php';
 require_once LIBS_DIR . '/nette/nette/Nette/loader.php';
 
 $configurator = new Configurator();
-$configurator->enableDebugger(__DIR__ . '/../log');
-$configurator->setTempDirectory(__DIR__ . '/../temp');
+$configurator->enableDebugger(WWW_DIR . '/../log');
+$configurator->setTempDirectory(WWW_DIR . '/../temp');
 $configurator->createRobotLoader()->addDirectory(APP_DIR)->register();
 
 if (PHP_SAPI == 'cli') {
