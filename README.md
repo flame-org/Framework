@@ -1,4 +1,4 @@
-FLAME:CMS [![Build Status](https://secure.travis-ci.org/jsifalda/flame.png?branch=master)](http://travis-ci.org/jsifalda/flame)
+FLAME:CMS
 ======
 
 Flame is simple but smart CMS based on php framework [Nette](http://nette.org/)
