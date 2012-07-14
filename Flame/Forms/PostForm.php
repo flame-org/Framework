@@ -10,13 +10,8 @@
 
 namespace Flame\Forms;
 
-class PostForm extends \Nette\Application\UI\Form
+class PostForm extends \Flame\Application\UI\Form
 {
-
-	public function __construct()
-	{
-		parent::__construct();
-	}
 
 	public function configureAdd()
 	{
@@ -56,7 +51,5 @@ class PostForm extends \Nette\Application\UI\Form
 			->getControlPrototype()->class('mceEditor');
 
 		$this->addCheckbox('publish', 'Make this post published?');
-
-		$this->onSuccess[] = callback($this->getPresenter(), 'postFormSubmitted');
 	}
 }
