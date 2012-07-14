@@ -10,7 +10,7 @@
 
 namespace Flame\Forms;
 
-class PostForm extends \Flame\Application\UI\Form
+class PostForm extends \Nette\Apllication\UI\Form
 {
 
 	public function __construct()
