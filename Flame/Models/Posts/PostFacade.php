@@ -22,7 +22,7 @@ class PostFacade
 
     public function getLastPosts()
     {
-        return $this->repository->findAll();
+        return $this->repository->findBy(array(), array('id'=> 'DESC'));
     }
 
     public function getLastPublishPosts()
