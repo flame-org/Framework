@@ -13,6 +13,11 @@ namespace Flame\Forms;
 class PostForm extends \Flame\Application\UI\Form
 {
 
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
 	public function configureAdd()
 	{
 		$this->configure();
