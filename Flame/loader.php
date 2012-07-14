@@ -9,7 +9,7 @@ require_once LIBS_DIR . '/nette/nette/Nette/loader.php';
 $configurator = new Configurator();
 $configurator->enableDebugger(WWW_DIR . '/../log');
 $configurator->setTempDirectory(WWW_DIR . '/../temp');
-$configurator->createRobotLoader()->addDirectory(APP_DIR)->register();
+$configurator->createRobotLoader()->addDirectory(APP_DIR)->addDirectory(LIBS_DIR)->register();
 
 if (PHP_SAPI == 'cli') {
     $configurator->setDebugMode(TRUE);
