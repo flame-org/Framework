@@ -11,7 +11,7 @@ common:
 			charset: utf8
 
 		entities:
-			- %appDir%/models
+			- %flameDir%/models
 
 		imageStorage:
 			thumbDir: 'media/images_thumbnails'
