@@ -26,6 +26,8 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
         $this->addResource('Front:Page');
 
 		//DEFINE ADMIN RESOURCE
+		$this->addResource('Admin:Tag');
+		$this->addResource('Admin:Category');
 		$this->addResource('Admin:Dashboard');
 		$this->addResource('Admin:Sign');
 		$this->addResource('Admin:Option');
@@ -35,6 +37,7 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->addResource('Admin:Image');
 		$this->addResource('Admin:Page');
 		$this->addResource('Admin:Newsreel');
+		$this->addResource('Admin:Schema');
 
         //DEFINE ADMIN GUEST ACCESS
 		$this->allow('guest', array('Front:Homepage', 'Front:Newsreel', 'Front:Page'));
@@ -48,12 +51,20 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->allow('user', array('Admin:User'), array('password'));
 
 		//DEFINE ADMIN MODERATORS ACCESS
-		$this->allow('moderator', array('Admin:Dashboard', 'Admin:Post', 'Admin:Image', 'Admin:Page', 'Admin:Newsreel'));
+		$this->allow('moderator', array(
+			'Admin:Dashboard',
+			'Admin:Post',
+			'Admin:Image',
+			'Admin:Page',
+			'Admin:Newsreel',
+			'Admin:Tag',
+			'Admin:Category'
+		));
 		$this->allow('moderator', array('Admin:Comment'), array('delete', 'publish', 'default'));
 
 		//DEFINE ADMIN ADMINISTRATORS ACCESS
 		$this->allow('administrator', array('Admin:Option'), array('default', 'delete', 'add', 'edit'));
-		$this->allow('administrator', array('Admin:User'));
+		$this->allow('administrator', array('Admin:User', 'Admin:Schema'));
 
         //DEFINE ROOT PERMISSION
 		$this->allow('root', NS\Permission::ALL);

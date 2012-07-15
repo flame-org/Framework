@@ -10,12 +10,14 @@
 
 namespace Flame\Models\Posts;
 
-use \DateTime,
-    \Flame\Models\Users\User;
+use DateTime,
+    Flame\Models\Users\User,
+	Flame\Models\Categories\Category,
+	Flame\Models\Tags\Tag;
 
 /**
  * @Entity(repositoryClass="PostRepository")
- * @Table(name="posts")
+ * @Table(name="posts", indexes={@index(columns={"category_id", "created"})})
  */
 class Post extends \Flame\Doctrine\Entity
 {
@@ -50,6 +52,16 @@ class Post extends \Flame\Doctrine\Entity
      */
     private $content;
 
+	/**
+	 * @ManyToOne(targetEntity="\Flame\Models\Categories\Category")
+	 */
+	private $category;
+
+	/**
+	 * @ManyToMany(targetEntity="\Flame\Models\Tags\Tag")
+	 */
+	private $tags;
+
     /**
      * @Column(type="datetime")
      */
@@ -70,7 +82,7 @@ class Post extends \Flame\Doctrine\Entity
      */
     private $hit;
 
-    public function __construct(User $user, $name, $slug, $description, $keywords, $content, $publish, $comment)
+    public function __construct(User $user, $name, $slug, $description, $keywords, $content, Category $category, Tag $tags, $publish, $comment)
     {
         $this->user = $user;
         $this->name = $name;
@@ -78,6 +90,8 @@ class Post extends \Flame\Doctrine\Entity
         $this->description = $description;
         $this->keywords = $keywords;
         $this->content = $content;
+	    $this->category = $category;
+	    $this->tags = $tags;
         $this->publish = $publish;
         $this->comment = $comment;
 	    $this->created = new DateTime;
@@ -147,6 +161,28 @@ class Post extends \Flame\Doctrine\Entity
     public function setContent($content)
     {
         $this->content = (string) $content;
+        return $this;
+    }
+
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function setTags(Tag $tags)
+    {
+        $this->tags = $tags;
         return $this;
     }
 
