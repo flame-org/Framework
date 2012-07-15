@@ -21,7 +21,12 @@ class CategoryFacade
 
 	public function getOne($id)
 	{
-		return $this->repository->findOneBy(array('id' => $id));
+		return $this->repository->findOneBy(array('id' => (int) $id));
+	}
+
+	public function getOneByName($name)
+	{
+		return $this->repository->findOneBy(array('name' => (string) $name));
 	}
 
 	public function getLastCategories()

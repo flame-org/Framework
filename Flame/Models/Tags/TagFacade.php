@@ -24,6 +24,11 @@ class TagFacade
 		return $this->repository->findOneBy(array('id' => $id));
 	}
 
+	public function getOneByName($name)
+	{
+		return $this->repository->findOneBy(array('name' => (string) $name));
+	}
+
 	public function getLastTags()
 	{
 		return $this->repository->findBy(array(), array('id' => 'DESC'));
