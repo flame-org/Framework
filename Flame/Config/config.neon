@@ -58,6 +58,8 @@ common:
 		OptionFacade: Flame\Models\Options\OptionFacade
 		CommentFacade: Flame\Models\Comments\CommentFacade
 		PostFacade: Flame\Models\Posts\PostFacade
+		CategoryFacade: Flame\Models\Categories\CategoryFacade
+		TagFacade: Flame\Models\Tags\TagFacade
 		PageFacade: Flame\Models\Pages\PageFacade
 		ImageFacade: Flame\Models\Images\ImageFacade
 

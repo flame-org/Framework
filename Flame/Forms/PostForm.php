@@ -2,7 +2,7 @@
 /**
  * PostForm.php
  *
- * @author  Jiří Šifalda <jsifalda.jiri@gmail.com>
+ * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
  * @package Flame
  *
  * @date    14.07.12

@@ -22,7 +22,7 @@ Flame required:
 
 ### Features
 * Access control list
-* Creating / editing posts
+* Creating / editing posts (categories, tags)
 * Comments
 * TimyCME editor
 * Managing of images
