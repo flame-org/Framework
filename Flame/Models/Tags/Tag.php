@@ -29,12 +29,13 @@ class Tag extends \Flame\Doctrine\Entity
 	/**
 	 * @ManyToMany(targetEntity="\Flame\Models\Posts\Post", mappedBy="tags")
 	 */
-	private $post;
+	private $posts;
 
 	public function __construct($name, $slug)
 	{
 		$this->name = $name;
 		$this->slug = $slug;
+		$this->posts = new \Doctrine\Common\Collections\ArrayCollection;
 	}
 
 	public function getName()
@@ -61,11 +62,16 @@ class Tag extends \Flame\Doctrine\Entity
 
 	public function getPosts()
 	{
-		return $this->post;
+		return $this->posts;
 	}
 
 	public function toArray()
 	{
 		return get_object_vars($this);
+	}
+
+	public function __toString()
+	{
+		return $this->name;
 	}
 }

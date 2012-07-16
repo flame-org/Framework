@@ -42,6 +42,7 @@ class Category extends \Flame\Doctrine\Entity
 		$this->name = $name;
 		$this->description = $description;
 		$this->slug = $slug;
+		$this->posts = new \Doctrine\Common\Collections\ArrayCollection;
 	}
 
 	public function getName()
@@ -85,5 +86,10 @@ class Category extends \Flame\Doctrine\Entity
 	public function toArray()
 	{
 		return get_object_vars($this);
+	}
+
+	public function __toString()
+	{
+		return $this->name;
 	}
 }
