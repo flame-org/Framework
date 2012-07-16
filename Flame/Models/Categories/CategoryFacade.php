@@ -21,7 +21,7 @@ class CategoryFacade
 
 	public function getOne($id)
 	{
-		return $this->repository->findOneBy(array('id' => (int) $id));
+		return $this->repository->findOneById($id);
 	}
 
 	public function getOneByName($name)

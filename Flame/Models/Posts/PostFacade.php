@@ -31,7 +31,7 @@ class PostFacade
     }
 
     public function getOne($id){
-        return $this->repository->findOneBy(array('id' => $id));
+	    return $this->repository->findOneById($id);
     }
 
     public function delete(Post $post)
