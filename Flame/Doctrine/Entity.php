@@ -40,4 +40,9 @@ abstract class Entity extends \Nette\Object implements IEntity
         return get_object_vars($this);
     }
 
+	public function __toString()
+	{
+		return (string) $this->id;
+	}
+
 }
