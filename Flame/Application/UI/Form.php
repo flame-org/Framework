@@ -16,4 +16,15 @@ class Form extends \Nette\Application\UI\Form
 	{
 		parent::__construct();
 	}
+
+	protected function prepareForFormItem(array &$items)
+	{
+		if(count($items)){
+			$prepared = array();
+			foreach($items as $item){
+				$prepared[$item->id] = $item->name;
+			}
+			return $prepared;
+		}
+	}
 }
