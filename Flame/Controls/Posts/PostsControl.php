@@ -8,7 +8,7 @@ namespace Flame\Components;
 class PostsControl extends \Flame\Application\UI\Control
 {
 
-	private $itemsPerPage = 10;
+	private $itemsPerPage = 2;
 
 	private $posts;
 
@@ -17,21 +17,19 @@ class PostsControl extends \Flame\Application\UI\Control
 		$this->posts = $posts;
 	}
 
-	public function setItemsPerPage($count)
+	public function setCountOfItemsPerPage($count)
 	{
 		$this->itemsPerPage = $count;
 	}
 
 	public function render()
 	{
-		$this->template->setFile(__DIR__.'/PostsControlFull.latte');
+		$this->template->setFile(__DIR__ . '/PostsControlFull.latte');
 
 		$paginator = $this['paginator']->getPaginator();
 		$paginator->itemCount = count($this->posts);
 
-		//$posts->limit($paginator->itemsPerPage, $paginator->offset);
-
-		$this->template->posts = $this->posts;
+		$this->template->posts = $this->getItemsPerPage($this->posts, $paginator->offset);
 		$this->template->render();
 	}
 
@@ -45,6 +43,11 @@ class PostsControl extends \Flame\Application\UI\Control
 		$visualPaginator = new \Flame\Utils\VisualPaginator($this, 'paginator');
 	    $visualPaginator->paginator->itemsPerPage = $this->itemsPerPage;
 	    return $visualPaginator;	
+	}
+
+	private function getItemsPerPage(&$posts, $offset)
+	{
+		return array_slice($posts, $offset, $this->itemsPerPage);
 	}
 
 }
