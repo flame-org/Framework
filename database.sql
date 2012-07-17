@@ -35,13 +35,13 @@ CREATE TABLE `comments` (
 DROP TABLE IF EXISTS `images`;
 CREATE TABLE `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL,
+  `user_id` int(11) unsigned DEFAULT NULL,
   `file` varchar(150) COLLATE utf8_czech_ci NOT NULL,
   `name` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `description` varchar(250) COLLATE utf8_czech_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user` (`user_id`),
-  CONSTRAINT `images_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+  CONSTRAINT `images_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
@@ -69,7 +69,7 @@ CREATE TABLE `options` (
 DROP TABLE IF EXISTS `pages`;
 CREATE TABLE `pages` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL,
+  `user_id` int(11) unsigned DEFAULT NULL,
   `name` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `slug` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `description` varchar(250) COLLATE utf8_czech_ci NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE `pages` (
   `hit` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `pages_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+  CONSTRAINT `pages_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
@@ -97,7 +97,8 @@ CREATE TABLE `post_tag` (
 DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL,
+  `user_id` int(11) unsigned DEFAULT NULL,
+  `category_id` int(11) unsigned DEFAULT NULL,
   `name` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `slug` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `description` varchar(250) COLLATE utf8_czech_ci NOT NULL,
@@ -106,11 +107,12 @@ CREATE TABLE `posts` (
   `created` datetime NOT NULL,
   `publish` tinyint(1) NOT NULL,
   `comment` tinyint(1) NOT NULL DEFAULT '1',
-  `hit` tinyint(11) NOT NULL DEFAULT '0',
-  `category_id` int(10) unsigned NOT NULL,
+  `hit` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+  KEY `category_id` (`category_id`),
+  CONSTRAINT `posts_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
+  CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
@@ -138,4 +140,4 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
--- 2012-07-15 15:19:24
+-- 2012-07-16 21:52:35
