@@ -27,9 +27,7 @@ class PostForm extends \Flame\Application\UI\Form
 	public function configureAdd()
 	{
 		$this->configure();
-		$this->addCheckbox('comment', 'Allow comments?')
-			->setDefaultValue('1');
-		$this->addSubmit('create', 'Create post');
+		$this->addSubmit('send', 'Create post');
 
 	}
 
@@ -37,16 +35,24 @@ class PostForm extends \Flame\Application\UI\Form
 	{
 		$this->configure();
 		$this->setDefaults($this->prepareDefaultValues($defaults));
-		$this->addCheckbox('comment', 'Allow comments?');
-		$this->addSubmit('edit', 'Edit post');
+		$this->addSubmit('send', 'Edit post');
 
 	}
 
 	private function configure()
 	{
+		$this->addGroup('Main');
+
 		$this->addText('name', 'Name:', 80)
 			->addRule(self::FILLED)
 			->addRule(self::MAX_LENGTH, null, 100);
+
+
+		$this->addTextArea('content', 'Content:', 105, 35)
+			->addRule(self::FILLED)
+			->getControlPrototype()->class('mceEditor');
+
+		$this->addGroup('Meta options');
 
 		$this->addText('slug', 'Name in URL', 80)
 			->addRule(self::MAX_LENGTH, null, 100);
@@ -57,16 +63,27 @@ class PostForm extends \Flame\Application\UI\Form
 		$this->addTextArea('description', 'Descriptions', 90, 5)
 			->addRule(self::MAX_LENGTH, null, 250);
 
-		$this->addTextArea('content', 'Content:', 115, 35)
-			->addRule(self::FILLED)
-			->getControlPrototype()->class('mceEditor');
+		$this->addGroup('Category');
 
-		$this->addSelect('category', 'Category:', $this->categories)
-			->addRule(self::FILLED);
+		if($this->categories){
+			$this->addSelect('category', 'Category:', $this->categories)
+				->setPrompt('-- Select one --')
+				->setOption('description', 'Select category or create new below.');
 
-		$this->addMultiSelect('tags', 'Tags:', $this->tags);
+			$this->addText('categoryNew', 'Create new category', 80)
+				->setAttribute('placeholder', 'Write name of new category');
+		}else{
+			$this->addText('categoryNew', 'Create new category', 80)
+				->addRule(self::FILLED)
+				->setAttribute('placeholder', 'Write name of new category');
+		}
+
+		if($this->tags) $this->addMultiSelect('tags', 'Tags:', $this->tags);
+
+		$this->addGroup('Are you sure?');
 
 		$this->addCheckbox('publish', 'Make this post published?');
+		$this->addCheckbox('comment', 'Allow comments?');
 	}
 
 	private function prepareDefaultValues(array $defaults)
