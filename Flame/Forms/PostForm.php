@@ -16,28 +16,32 @@ class PostForm extends \Flame\Application\UI\Form
 
 	private $tags;
 
-	private $useMarkDown;
+	private $defaults;
 
-	public function __construct(array $categories, array $tags, $useMarkDown = false)
+	public function __construct(array $categories, array $tags)
 	{
 		parent::__construct();
 
 		$this->categories = $this->prepareForFormItem($categories);
 		$this->tags = $this->prepareForFormItem($tags);
-		$this->useMarkDown = (bool) $useMarkDown;
 	}
 
 	public function configureAdd()
 	{
 		$this->configure();
+
 		$this->addSubmit('send', 'Create post');
 
 	}
 
 	public function configureEdit(array $defaults)
 	{
+		$this->defaults = $this->prepareDefaultValues($defaults);
+
 		$this->configure();
-		$this->setDefaults($this->prepareDefaultValues($defaults));
+
+		$this->setDefaults($this->defaults);
+
 		$this->addSubmit('send', 'Edit post');
 
 	}
@@ -50,14 +54,17 @@ class PostForm extends \Flame\Application\UI\Form
 			->addRule(self::FILLED)
 			->addRule(self::MAX_LENGTH, null, 100);
 
-		if(!$this->useMarkDown){
+		if($this->defaults and $this->defaults['markdown']){
+			$this->addTextArea('content', 'Content:', 105, 35)
+				->addRule(self::FILLED);
+		}else{
 			$this->addTextArea('content', 'Content:', 105, 35)
 				->addRule(self::FILLED)
 				->getControlPrototype()->class('mceEditor');
-		}else{
-			$this->addTextArea('content', 'Content:', 105, 35)
-				->addRule(self::FILLED);
 		}
+
+		$this->addCheckbox('markdown', 'Use MarkDown syntax?')
+			->setAttribute('class', 'use-markdown-syntax');
 
 		$this->addGroup('Meta options');
 

@@ -99,7 +99,7 @@ class Post extends \Flame\Doctrine\Entity
 	    $this->tags = $tags;
         $this->publish = $publish;
         $this->comment = $comment;
-        $this->mardown = $markdown;
+        $this->markdown = $markdown;
 	    $this->created = new DateTime;
         $this->hit = 0;
     }
