@@ -38,6 +38,12 @@ class PostFacade
 	    return $this->repository->findOneById($id);
     }
 
+	public function increaseHit(Post $post)
+	{
+		$post->setHit($post->getHit() + 1);
+		return $this->persist($post);
+	}
+
     public function delete(Post $post)
     {
         return $this->repository->delete($post);

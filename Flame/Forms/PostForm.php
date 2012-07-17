@@ -109,17 +109,8 @@ class PostForm extends \Flame\Application\UI\Form
 		}
 
 		if(isset($defaults['tags'])){
-
 			$tags = $defaults['tags']->toArray();
-
-			if(is_array($tags) and count($tags)){
-				$prepared = array();
-				foreach($tags as $tag){
-					$prepared[] = $tag->id;
-				}
-				$defaults['tags'] = $prepared;
-			}
-
+			if(is_array($tags)) $defaults['tags'] = array_map(function($tag){ return $tag->id; }, $tags);
 		}
 
 		return $defaults;

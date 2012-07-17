@@ -10,8 +10,6 @@
 
 namespace Flame\Models\Options;
 
-use \Flame\Models\Options\Option;
-
 class OptionFacade
 {
     private $repository;
