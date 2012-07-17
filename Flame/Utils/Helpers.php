@@ -35,7 +35,7 @@ class Helpers extends \Nette\Object
 
 	public function markdown($text)
 	{
-		$markDown = new MarkdownExtraParser();
+		$markDown = new \dflydev\markdown\MarkdownExtraParser();
 		return $markDown->transformMarkdown($text);
 	}
 
