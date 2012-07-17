@@ -78,7 +78,16 @@ class PostForm extends \Flame\Application\UI\Form
 				->setAttribute('placeholder', 'Write name of new category');
 		}
 
-		if($this->tags) $this->addMultiSelect('tags', 'Tags:', $this->tags);
+		$this->addGroup('Tags');
+
+		if($this->tags) {
+			$this->addMultiSelect('tags', 'Tags:', $this->tags, count($this->tags))
+				->setAttribute('class', 'tags-multiSelect');
+		}
+
+		$this->addText('tagsNew', 'Create new tags', 100)
+			->setOption('description', 'Tags split with commas')
+			->setAttribute('placeholder', 'Write names of new tags');
 
 		$this->addGroup('Are you sure?');
 
