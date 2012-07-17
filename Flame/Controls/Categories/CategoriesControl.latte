@@ -1,0 +1,14 @@
+
+{block #content}
+
+	<h3>Categories</h3>
+	<ul id="categories-menu">
+		{if count($categories)}
+			<li n:foreach="$categories as $category">
+				<a href="{plink Category:posts id => $category->id, slug => $category->slug}">{$category->name}</a>
+			</li>
+		{else}
+			<li>None</li>
+		{/if}
+	</ul>
+{/block}
