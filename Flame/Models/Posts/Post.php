@@ -82,7 +82,12 @@ class Post extends \Flame\Doctrine\Entity
      */
     private $hit;
 
-    public function __construct(User $user, $name, $slug, $description, $keywords, $content, Category $category, $tags, $publish, $comment)
+    /**
+     * @Column(type="boolean")
+     */
+    private $markdown;
+
+    public function __construct(User $user, $name, $slug, $description, $keywords, $content, Category $category, $tags, $publish, $comment, $markdown)
     {
         $this->user = $user;
         $this->name = $name;
@@ -94,6 +99,7 @@ class Post extends \Flame\Doctrine\Entity
 	    $this->tags = $tags;
         $this->publish = $publish;
         $this->comment = $comment;
+        $this->mardown = $markdown;
 	    $this->created = new DateTime;
         $this->hit = 0;
     }
@@ -227,6 +233,17 @@ class Post extends \Flame\Doctrine\Entity
     public function setHit($hit)
     {
         $this->hit = (int) $hit;
+        return $this;
+    }
+
+    public function getMarkdown()
+    {
+        return $this->markdown;
+    }
+
+    public function setMarkdown($markdown)
+    {
+        $this->markdown = (bool) $markdown;
         return $this;
     }
 

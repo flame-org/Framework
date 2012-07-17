@@ -33,6 +33,12 @@ class Helpers extends \Nette\Object
 		}
 	}
 
+	public function markdown($text)
+	{
+		$markDown = new MarkdownExtraParser();
+		return $markDown->transformMarkdown($text);
+	}
+
 
 	/**
      * Vytvoreni miniatury obrazku a vraceni jeho URI

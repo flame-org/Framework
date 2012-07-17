@@ -16,12 +16,15 @@ class PostForm extends \Flame\Application\UI\Form
 
 	private $tags;
 
-	public function __construct(array $categories, array $tags)
+	private $useMarkDown;
+
+	public function __construct(array $categories, array $tags, $useMarkDown = false)
 	{
 		parent::__construct();
 
 		$this->categories = $this->prepareForFormItem($categories);
 		$this->tags = $this->prepareForFormItem($tags);
+		$this->useMarkDown = (bool) $useMarkDown;
 	}
 
 	public function configureAdd()
@@ -47,10 +50,14 @@ class PostForm extends \Flame\Application\UI\Form
 			->addRule(self::FILLED)
 			->addRule(self::MAX_LENGTH, null, 100);
 
-
-		$this->addTextArea('content', 'Content:', 105, 35)
-			->addRule(self::FILLED)
-			->getControlPrototype()->class('mceEditor');
+		if(!$this->useMarkDown){
+			$this->addTextArea('content', 'Content:', 105, 35)
+				->addRule(self::FILLED)
+				->getControlPrototype()->class('mceEditor');
+		}else{
+			$this->addTextArea('content', 'Content:', 105, 35)
+				->addRule(self::FILLED);
+		}
 
 		$this->addGroup('Meta options');
 
