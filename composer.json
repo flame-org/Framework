@@ -3,7 +3,7 @@
     "description": "Flame is simple but smart CMS based on php framework Nette",
     "keywords": ["cms", "nette", "simple", "flame", "jsifalda"],
     "homepage": "https://github.com/jsifalda/flame",
-    "license": ["BSD-3"],
+    "license": "BSD-2-Clause-FreeBSD",
     "authors": [
         {
             "name": "Jiří Šifalda",
