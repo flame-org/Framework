@@ -12,9 +12,10 @@ namespace Flame\Application\UI;
 
 class Form extends \Nette\Application\UI\Form
 {
-	public function __construct()
+
+	public function __construct(\Nette\ComponentModel\IContainer $parent = null,  $name = null)
 	{
-		parent::__construct();
+		parent::__construct($parent, $name);
 	}
 
 	protected function prepareForFormItem(array &$items)
