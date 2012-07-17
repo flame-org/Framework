@@ -32,16 +32,6 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 		}
 	}
 
-	public function createTemplate($class = null)
-	{
-		$template = parent::createTemplate($class);
-		$template->registerHelperLoader(callback(
-			$this->context->Helpers,
-			'loader'
-		));
-		return $template;
-	}
-
 	private function setDefaultsFormMessages()
 	{
 		Rules::$defaultMessages = array(
@@ -54,5 +44,18 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 			Form::URL => 'Field "%label" must be valid URL address.',
 			Form::IMAGE => 'You can upload only JPEG, GIF or PNG files.'
 		);
+	}
+
+	public function createTemplate($class = null)
+	{
+		$template = parent::createTemplate($class);
+		$template->registerHelperLoader(callback(new \Flame\Utils\Helpers($this->getContextParameter('imageStorage')), 'loader'));
+		return $template;
+	}
+
+	private function getContextParameter($name = null)
+	{
+		$params = $this->context->getParameters();
+		if(isset($params[$name])) return $params[$name]; else return null;
 	}
 }

@@ -36,22 +36,19 @@ common:
 			expiration: + 30 days
 
 	services:
-		#memoryStorage:
+		#MemoryStorage:
 		#	class: Nette\Caching\Storages\MemoryStorage
 		#	autowired: no
 
-		authorizator: Flame\Security\Authorizator
-		authenticator: Flame\Security\Authenticator
+		Authorizator: Flame\Security\Authorizator
+		Authenticator: Flame\Security\Authenticator
 
-		em_config:
+		EntityManagerConfig:
 			class: Doctrine\ORM\Configuration
 			factory: Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(%entities%, true)
-		entity_manager:
+		EntityManager:
 			class: Doctrine\ORM\EntityManager
-			factory: Doctrine\ORM\EntityManager::create(%database%, @em_config)
-
-		Helpers:
-			factory: Flame\Utils\Helpers(%imageStorage%)
+			factory: Doctrine\ORM\EntityManager::create(%database%, @EntityManagerConfig)
 
 		NewsreelFacade: Flame\Models\Newsreel\NewsreelFacade
 		UserFacade: Flame\Models\Users\UserFacade
