@@ -18,7 +18,7 @@ class NewsreelFacade extends \Nette\Object
 
 	public function getLastNewsreel()
 	{
-		return $this->repository->findAll();
+		return $this->repository->findBy(array(), array('id' => 'DESC'));
 	}
 
     public function getLastPassedNewsreel($limit = null)
@@ -35,4 +35,10 @@ class NewsreelFacade extends \Nette\Object
     {
         return $this->repository->delete($newsreel);
     }
+
+	public function increaseHit(Newsreel $newsreel)
+	{
+		$newsreel->setHit($newsreel->getHit() + 1);
+		return $this->persist($newsreel);
+	}
 }
