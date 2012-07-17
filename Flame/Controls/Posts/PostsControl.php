@@ -7,12 +7,14 @@ namespace Flame\Components;
 */
 class PostsControl extends \Flame\Application\UI\Control
 {
-	private $postFacade;
+
 	private $itemsPerPage = 10;
 
-	public function __construct(\Flame\Models\Posts\PostFacade $postFacade)
+	private $posts;
+
+	public function __construct($posts)
 	{
-		$this->postFacade = $postFacade;
+		$this->posts = $posts;
 	}
 
 	public function setItemsPerPage($count)
@@ -25,13 +27,11 @@ class PostsControl extends \Flame\Application\UI\Control
 		$this->template->setFile(__DIR__.'/PostsControlFull.latte');
 
 		$paginator = $this['paginator']->getPaginator();
-
-		$posts = $this->postFacade->getLastPublishPosts();
-		$paginator->itemCount = count($posts);
+		$paginator->itemCount = count($this->posts);
 
 		//$posts->limit($paginator->itemsPerPage, $paginator->offset);
 
-		$this->template->posts = $posts;
+		$this->template->posts = $this->posts;
 		$this->template->render();
 	}
 
