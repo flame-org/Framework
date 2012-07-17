@@ -14,7 +14,7 @@
 	"require": {
 		"php": ">=5.3.2",
 		"nette/nette": "2.1.*",
-        "dflydev/markdown": "1.0.*",
+        "dflydev/markdown": "dev-master",
         "doctrine/orm": "2.2.*",
 		"symfony/console": "2.0.*"
 	}
