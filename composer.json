@@ -4,6 +4,8 @@
     "keywords": ["cms", "nette", "simple", "flame", "jsifalda"],
     "homepage": "https://github.com/jsifalda/flame",
     "license": "BSD-2-Clause-FreeBSD",
+    "minimum-stability":"dev",
+
     "authors": [
         {
             "name": "Jiří Šifalda",
@@ -15,8 +17,6 @@
         "email":"sifalda.jiri@gmail.com",
         "issues":"https://github.com/jsifalda/flame/issues"
     },
-
-    "minimum-stability":"dev",
 
 	"require": {
         "php": ">=5.3.2",
