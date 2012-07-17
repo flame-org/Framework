@@ -10,7 +10,7 @@
 
 namespace Flame\Models\Tags;
 
-class TagFacade
+class TagFacade extends \Nette\Object
 {
 	private $repository;
 	

@@ -12,7 +12,7 @@ namespace Flame\Models\Comments;
 
 use \Flame\Models\Comments\Comment;
 
-class CommentFacade
+class CommentFacade extends \Nette\Object
 {
 
     private $repository;

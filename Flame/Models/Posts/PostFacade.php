@@ -10,7 +10,7 @@
 
 namespace Flame\Models\Posts;
 
-class PostFacade
+class PostFacade extends \Nette\Object
 {
 
     private $repository;

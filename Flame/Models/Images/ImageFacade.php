@@ -10,7 +10,7 @@
 
 namespace Flame\Models\Images;
 
-class ImageFacade
+class ImageFacade extends \Nette\Object
 {
 
 	private $repository;

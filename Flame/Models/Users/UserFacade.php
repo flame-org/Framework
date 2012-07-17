@@ -10,7 +10,7 @@
 
 namespace Flame\Models\Users;
 
-class UserFacade
+class UserFacade extends \Nette\Object
 {
     private $repository;
 

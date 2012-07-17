@@ -12,7 +12,7 @@ namespace Flame\Models\Pages;
 
 use Flame\Models\Pages;
 
-class PageFacade
+class PageFacade extends \Nette\Object
 {
     private $repository;
 

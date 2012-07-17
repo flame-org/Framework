@@ -10,7 +10,7 @@
 
 namespace Flame\Models\Options;
 
-class OptionFacade
+class OptionFacade extends \Nette\Object
 {
     private $repository;
 

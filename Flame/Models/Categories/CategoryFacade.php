@@ -10,7 +10,7 @@
 
 namespace Flame\Models\Categories;
 
-class CategoryFacade
+class CategoryFacade extends \Nette\Object
 {
 	private $repository;
 
