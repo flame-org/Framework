@@ -3,7 +3,7 @@
     "description": "Flame is simple but smart CMS based on php framework Nette",
     "keywords": ["cms", "nette", "simple", "flame", "jsifalda"],
     "homepage": "https://github.com/jsifalda/flame",
-    "license": ["MIT"],
+    "license": ["BSD-3"],
     "authors": [
         {
             "name": "Jiří Šifalda",
@@ -11,9 +11,14 @@
         }
     ],
 
+    "support":{
+        "email":"sifalda.jiri@gmail.com",
+        "issues":"https://github.com/jsifalda/flame/issues"
+    },
+
 	"require": {
 		"php": ">=5.3.2",
-		"nette/nette": "2.1.*",
+		"nette/nette": "dev-master",
         "dflydev/markdown": "dev-master",
         "doctrine/orm": "2.2.*",
 		"symfony/console": "2.0.*"
