@@ -24,6 +24,7 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->addResource('Front:Post');
 		$this->addResource('Front:Newsreel');
         $this->addResource('Front:Page');
+		$this->addResource('Front:Category');
 
 		//DEFINE ADMIN RESOURCE
 		$this->addResource('Admin:Tag');
@@ -40,9 +41,13 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->addResource('Admin:Schema');
 
         //DEFINE ADMIN GUEST ACCESS
-		$this->allow('guest', array('Front:Homepage', 'Front:Newsreel', 'Front:Page'));
-		$this->allow('guest', array('Front:Message'));
-		$this->allow('guest', array('Front:Post'), array('default'));
+		$this->allow('guest', array(
+			'Front:Homepage',
+			'Front:Newsreel',
+			'Front:Page',
+			'Front:Post',
+			'Front:Message',
+			'Front:Category'));
 
         //DEFINE FRONT GUEST ACCESS
         $this->allow('guest', array('Admin:Sign'), array('in'));
