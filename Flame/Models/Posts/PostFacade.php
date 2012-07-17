@@ -25,9 +25,13 @@ class PostFacade
         return $this->repository->findBy(array(), array('id'=> 'DESC'));
     }
 
-    public function getLastPublishPosts()
+    public function getLastPublishPosts($category = null)
     {
-        return $this->repository->findBy(array('publish' => '1'), array('id'=> 'DESC'));
+	    if($category){
+		    return $this->repository->findBy(array('publish' => '1', 'category' => $category), array('id'=> 'DESC'));
+	    }else{
+		    return $this->repository->findBy(array('publish' => '1'), array('id'=> 'DESC'));
+	    }
     }
 
     public function getOne($id){
