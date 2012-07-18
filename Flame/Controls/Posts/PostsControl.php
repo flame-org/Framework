@@ -19,23 +19,29 @@ class PostsControl extends \Flame\Application\UI\Control
 
 	public function setCountOfItemsPerPage($count)
 	{
-		$this->itemsPerPage = $count;
+		if((int) $count >= 1) $this->itemsPerPage = (int) $count;
 	}
 
-	public function render()
+	private function beforeRender()
 	{
-		$this->template->setFile(__DIR__ . '/PostsControlFull.latte');
-
 		$paginator = $this['paginator']->getPaginator();
 		$paginator->itemCount = count($this->posts);
 
 		$this->template->posts = $this->getItemsPerPage($this->posts, $paginator->offset);
+	}
+
+	public function render()
+	{
+		$this->beforeRender();
+		$this->template->setFile(__DIR__ . '/PostsControlFull.latte');
 		$this->template->render();
 	}
 
 	public function renderExcept()
 	{
-		
+		$this->beforeRender();
+		$this->template->setFile(__DIR__ . '/PostsControlExcept.latte');
+		$this->template->render();
 	}
 
 	protected function createComponentPaginator()
