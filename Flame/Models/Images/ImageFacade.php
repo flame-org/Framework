@@ -27,7 +27,7 @@ class ImageFacade extends \Nette\Object
 
 	public function getLastImages()
 	{
-		return $this->repository->findAll();
+		return $this->repository->findBy(array(), array('id' => 'DESC'));
 	}
 
 	public function delete(Image $image)
