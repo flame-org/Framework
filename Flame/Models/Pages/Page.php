@@ -51,16 +51,16 @@ class Page extends \Flame\Doctrine\Entity
      */
     private $hit;
 
-    public function __construct(User $user, $name, $slug, $description, $keywords, $content, DateTime $created, $hit)
+    public function __construct(User $user, $name, $slug, $content)
     {
         $this->user = $user;
         $this->name = $name;
         $this->slug = $slug;
-        $this->description = $description;
-        $this->keywords = $keywords;
+        $this->description = "";
+        $this->keywords = "";
         $this->content = $content;
-        $this->created = $created;
-        $this->hit = $hit;
+        $this->created = new DateTime;
+        $this->hit = 0;
     }
 
     public function getUser()
