@@ -8,7 +8,7 @@ namespace Flame\Components;
 class PostsControl extends \Flame\Application\UI\Control
 {
 
-	private $itemsPerPage = 2;
+	private $itemsPerPage = 10;
 
 	private $posts;
 
