@@ -40,7 +40,6 @@ class CommentsControl extends \Flame\Application\UI\Control
 			->addRule(FORM::MAX_LENGTH, 'Your name cannot be longer than %d chars', 100);
 
 		$f->addText('web', 'Website', 55)
-			->addRule(FORM::URL)
 			->addRule(FORM::MAX_LENGTH, 'Your name cannot be longer than %d chars', 100);
 
 		$f->addTextArea('content', 'Comment:', 65, 7)
