@@ -39,12 +39,12 @@ class Image extends \Flame\Doctrine\Entity
      */
     private $description;
 
-    public function __construct(User $user, $file, $name, $description)
+    public function __construct(User $user, $file)
     {
         $this->user = $user;
         $this->file = $file;
-        $this->name = $name;
-        $this->description = $description;
+        $this->name = '';
+        $this->description = '';
     }
 
     public function getUser()

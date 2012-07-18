@@ -41,12 +41,12 @@ class User extends \Flame\Doctrine\Entity
      */
     private $email;
 
-    public function __construct($username, $password, $role, $name, $email)
+    public function __construct($username, $password, $role, $email)
     {
         $this->username = $username;
         $this->password = $password;
         $this->role = $role;
-        $this->name = $name;
+        $this->name = '';
         $this->email = $email;
     }
     

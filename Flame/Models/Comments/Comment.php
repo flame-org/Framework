@@ -54,12 +54,12 @@ class Comment extends \Flame\Doctrine\Entity
      */
     private $publish;
 
-    public function __construct(Post $post, $name, $email, $web, $content)
+    public function __construct(Post $post, $name, $email, $content)
     {
         $this->post = $post;
         $this->name = $name;
         $this->email = $email;
-        $this->web = $web;
+        $this->web = "";
         $this->content = $content;
         $this->created = new DateTime;
         $this->publish = false;

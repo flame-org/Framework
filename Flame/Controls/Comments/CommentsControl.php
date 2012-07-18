@@ -56,14 +56,8 @@ class CommentsControl extends \Flame\Application\UI\Control
 	{
 		$values = $f->getValues();
 
-		$comment = new \Flame\Models\Comments\Comment(
-            $this->post,
-            $values['name'],
-            $values['email'],
-            $values['web'],
-            $values['content'],
-            new \DateTime(),
-            0);
+		$comment = new \Flame\Models\Comments\Comment($this->post, $values['name'], $values['email'], $values['content']);
+		$comment->setWeb($values['web']);
         $this->commentFacade->persist($comment);
 		$this->flashMessage('Your comment is waiting for moderation');
 		$this->redirect('this');

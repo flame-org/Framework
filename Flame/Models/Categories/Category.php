@@ -37,10 +37,10 @@ class Category extends \Flame\Doctrine\Entity
 	 */
 	private $posts;
 
-	public function __construct($name, $description, $slug)
+	public function __construct($name, $slug)
 	{
 		$this->name = $name;
-		$this->description = $description;
+		$this->description = "";
 		$this->slug = $slug;
 		$this->posts = new \Doctrine\Common\Collections\ArrayCollection;
 	}
