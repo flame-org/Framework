@@ -87,21 +87,22 @@ class Post extends \Flame\Doctrine\Entity
      */
     private $markdown;
 
-    public function __construct(User $user, $name, $slug, $description, $keywords, $content, Category $category, $tags, $publish, $comment, $markdown)
+    public function __construct(User $user, $name, $slug, $content, Category $category)
     {
         $this->user = $user;
         $this->name = $name;
-        $this->slug = $slug;
-        $this->description = $description;
-        $this->keywords = $keywords;
+	    $this->slug = $slug;
         $this->content = $content;
 	    $this->category = $category;
-	    $this->tags = $tags;
-        $this->publish = $publish;
-        $this->comment = $comment;
-        $this->markdown = $markdown;
+
+	    $this->markdown = false;
+	    $this->hit = 0;
+	    $this->comment = true;
+	    $this->publish = true;
 	    $this->created = new DateTime;
-        $this->hit = 0;
+	    $this->tags = array();
+	    $this->keywords = "";
+	    $this->description = "";
     }
 
     public function getUser()
