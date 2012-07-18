@@ -60,6 +60,8 @@ common:
 		PageFacade: Flame\Models\Pages\PageFacade
 		ImageFacade: Flame\Models\Images\ImageFacade
 
+		WordPressImporter: Flame\Utils\WordPressImporter
+
 	factories:
 
 development < common:

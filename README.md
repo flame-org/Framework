@@ -31,6 +31,7 @@ Flame required:
 * Newsreel
 * Pages management
 * MarkDown syntax support
+* Wordpress posts import
 
 ### Global available settings
 If you want to affect prepared options (set up in the options section)
