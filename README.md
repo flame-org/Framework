@@ -30,6 +30,7 @@ Flame required:
 * Users management
 * Newsreel
 * Pages management
+* MarkDown syntax support
 
 ### Global available settings
 If you want to affect prepared options (set up in the options section)
