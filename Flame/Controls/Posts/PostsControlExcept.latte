@@ -4,10 +4,11 @@
 	<div class="post-box" n:foreach="$posts as $post">
 		<h2><a href="{plink Post: $post->id, slug => $post->slug}"> {$post->name}</a></h2>
 		{if $post->markdown}
-			{!$post->content|markdown|striptags|truncate:200}
-			{else}
-			{!$post->content|striptags|truncate:200}
+			{!$post->content|markdown|striptags|truncate:450}
+		{else}
+			{!$post->content|striptags|truncate:450}
 		{/if}
+		<a href="{plink Post: $post->id, slug => $post->slug}">Číst více &raquo</a>
 		<hr>
 	</div>
 
