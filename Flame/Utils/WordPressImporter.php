@@ -17,7 +17,6 @@ class WordPressImporter extends \Nette\Object
 
 	private $exportFile;
 
-
 	protected function loadItems()
 	{
 		$xml = simplexml_load_file($this->exportFile, 'SimpleXMLElement', LIBXML_NOCDATA);
@@ -62,6 +61,7 @@ class WordPressImporter extends \Nette\Object
 
 		$content = $item->children($namespaces['content']);
 		$post['content'] = str_replace("<!--more-->\n\n", '', $content->encoded);
+		$post['images'] = $this->findImages($post['content']);
 
 		return $post;
 	}
@@ -80,6 +80,15 @@ class WordPressImporter extends \Nette\Object
 		}
 
 		return $posts;
+	}
+
+	private function findImages($content){
+		$pattern = '/<img[^>]+src[\\s=\'"]';
+		$pattern .= '+([^"\'>\\s]+)/is';
+
+		if(preg_match_all($pattern,$content,$match)){
+			return $match;
+		}
 	}
 
 }
