@@ -24,7 +24,7 @@ common:
 			browser: firefox
 			browserUrl: http://localhost/JS-CMS/www/
 			# port: 4444
-			
+
 	php:
 		date.timezone: Europe/Prague
 		# session.save_path: "%tempDir%/sessions"

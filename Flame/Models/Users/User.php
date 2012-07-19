@@ -49,12 +49,12 @@ class User extends \Flame\Doctrine\Entity
         $this->name = '';
         $this->email = $email;
     }
-    
+
     public function getUsername()
     {
         return $this->username;
     }
-    
+
     public function getPassword()
     {
         return $this->password;

@@ -72,4 +72,3 @@ class CommentsControl extends \Flame\Application\UI\Control
 		return $url;
 	}
 }
-?>

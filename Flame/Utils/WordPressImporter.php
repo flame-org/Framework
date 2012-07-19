@@ -71,7 +71,7 @@ class WordPressImporter extends \Nette\Object
 		$this->exportFile = $file;
 
 		$this->loadItems();
-		
+
 		$posts = array();
 
 		foreach ($this->items as $item)

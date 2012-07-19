@@ -12,24 +12,24 @@ namespace Flame\Forms;
 
 class PageForm extends \Flame\Application\UI\Form
 {
-	
+
 	public function __construct()
 	{
 		parent::__construct();
 	}
-	
+
 	public function configureEdit()
 	{
 		$this->configure();
 		$this->addSubmit('send', 'Edit page');
 	}
-	
+
 	public function configureAdd()
 	{
 		$this->configure();
 		$this->addSubmit('send', 'Create page');
 	}
-	
+
 	private function configure()
 	{
 

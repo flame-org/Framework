@@ -74,6 +74,5 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
         //DEFINE ROOT PERMISSION
 		$this->allow('root', NS\Permission::ALL);
 	}
-	
+
 }
-?>

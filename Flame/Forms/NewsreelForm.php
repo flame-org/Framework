@@ -17,19 +17,19 @@ class NewsreelForm extends \Flame\Application\UI\Form
 	{
 		parent::__construct();
 	}
-	
+
 	public function configureAdd()
 	{
 		$this->configure();
 		$this->addSubmit('Create', 'Create newsreel');
 	}
-	
+
 	public function configureEdit()
 	{
 		$this->configure();
 		$this->addSubmit('Edit', 'Edit newsreel');
 	}
-	
+
 	private function configure()
 	{
 		$this->addText('title', 'Title:', 100)

@@ -48,7 +48,7 @@ class PostsControl extends \Flame\Application\UI\Control
 	{
 		$visualPaginator = new \Flame\Utils\VisualPaginator($this, 'paginator');
 	    $visualPaginator->paginator->itemsPerPage = $this->itemsPerPage;
-	    return $visualPaginator;	
+	    return $visualPaginator;
 	}
 
 	private function getItemsPerPage(&$posts, $offset)
@@ -57,4 +57,3 @@ class PostsControl extends \Flame\Application\UI\Control
 	}
 
 }
-?>

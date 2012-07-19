@@ -13,7 +13,7 @@ namespace Flame\Models\Tags;
 class TagFacade extends \Nette\Object
 {
 	private $repository;
-	
+
 	public function __construct(\Doctrine\ORM\EntityManager $entityManager)
 	{
 		$this->repository = $entityManager->getRepository('\Flame\Models\Tags\Tag');

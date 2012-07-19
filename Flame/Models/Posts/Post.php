@@ -159,7 +159,7 @@ class Post extends \Flame\Doctrine\Entity
         $this->description = (string) $description;
         return $this;
     }
-    
+
     public function getContent()
     {
         return $this->content;

@@ -16,7 +16,7 @@ namespace Flame\Utils;
  * @version    $Id: VisualPaginator.php 4 2009-07-14 15:22:02Z david@grudl.com $
  */
 
-use Nette\Application\UI, 
+use Nette\Application\UI,
 	Nette\Utils\Paginator;
 
 
@@ -74,7 +74,7 @@ class VisualPaginator extends UI\Control
 
 		$this->template->steps = $steps;
 		$this->template->paginator = $paginator;
-		
+
 		$template = dirname(__FILE__) . '/template.phtml';
 		$this->template->setFile($template);
 		$this->template->render();

@@ -91,40 +91,40 @@ class Comment extends \Flame\Doctrine\Entity
     {
         return $this->email;
     }
-    
+
     public function setEmail($email)
     {
         $this->email = (string) $email;
         return $this;
     }
-    
+
     public function getWeb()
     {
         return $this->web;
     }
-    
+
     public function setWeb($web)
     {
         $this->web = (string) $web;
         return $this;
     }
-    
+
     public function getContent()
     {
         return $this->content;
     }
-    
+
     public function setContent($content)
     {
         $this->content = (string) $content;
         return $this;
     }
-    
+
     public function getCreated()
     {
         return $this->created;
     }
-    
+
     public function setCreated(DateTime $date)
     {
         $this->created = $date;
