@@ -30,7 +30,7 @@ abstract class Control extends \Nette\Application\UI\Control
 		return $this->getPresenter()->getContext();
 	}
 
-	private function getContextParameter($name = null)
+	protected function getContextParameter($name = null)
 	{
 		$params = $this->getContext()->getParameters();
 		if(isset($params[$name])) return $params[$name]; else return null;

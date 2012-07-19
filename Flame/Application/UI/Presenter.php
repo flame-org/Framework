@@ -53,7 +53,7 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 		return $template;
 	}
 
-	private function getContextParameter($name = null)
+	protected function getContextParameter($name = null)
 	{
 		$params = $this->context->getParameters();
 		if(isset($params[$name])) return $params[$name]; else return null;
