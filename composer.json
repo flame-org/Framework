@@ -27,7 +27,6 @@
 	},
 
 	"autoload": {
-		"files": ["Nette/loader.php"],
-		"psr-0": {"Flame": "Flame"}
+		"classmap": ["Flame"]
 	}
 }
