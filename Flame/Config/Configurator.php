@@ -13,9 +13,11 @@ namespace Flame\Config;
 class Configurator extends \Nette\Config\Configurator
 {
 
-	public function __construct()
+	public function __construct($containerClass = 'Flame\DI\Container')
 	{
 		parent::__construct();
+
+		$this->addParameters(array('container' => array('class' => 'SystemContainer', 'parent' => $containerClass)));
 	}
 
 	public function setOptionalParameters()
