@@ -140,5 +140,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
+INSERT INTO `users` (`id`, `username`, `password`, `role`, `name`, `email`) VALUES
+(1,	'admin',	'69801dbd4a7e1629d6bf84cef0c58ba79693c9fbc6b43a4f00f15c6b086f268b127498c542b03f5f3da89c5fabe405ce36472db14641aa50447fbec8400fe104',	'administrator',	'Joe Dan',	'joedan@hotmail.com');
 
--- 2012-07-19 13:40:23
+-- 2012-07-22 11:54:15

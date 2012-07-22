@@ -1,5 +1,4 @@
-FLAME:CMS
-======
+#FLAME:CMS
 
 Flame is simple but smart CMS based on php framework [Nette](http://nette.org/)
 
@@ -10,9 +9,10 @@ Flame is available over Composer. Please visit [PACKAGIST](http://packagist.org/
 ### Requirements
 * PHP 5.3+
 * MySQL 5+
-* Composer
 * Nette Framework 2.0
 * Doctrine 2.2+
+* Composer
+* Markdown
 
 ### Required Settings (Change the settings in the file: **CONFIG.NEON**)
 Flame required:
@@ -41,4 +41,7 @@ If you want to affect prepared options (set up in the options section)
 * items_per_page (Paginator, default: 10)
 * items_in_newsreel_menu_list (default: 3)
 * items_in_menu (default: 5)
+
+#### If you want to sign in to backend part (Administration) of Flame, use login name **ADMIN** and password **PASSWORD12**
+
 

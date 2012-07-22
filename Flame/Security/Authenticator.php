@@ -50,7 +50,6 @@ class Authenticator extends \Nette\Object implements NS\IAuthenticator
 	 */
 	public function calculateHash($password)
 	{
-        //dump(hash('sha512', $password));exit;
 		return hash('sha512', $password);
 	}
 
