@@ -26,6 +26,7 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 		parent::beforeRender();
 
 		$this->template->name = $this->context->OptionFacade->getOptionValue('name');
+		$this->template->jqueryLib = $this->getJQueryLib();
 
 		if($this->isAjax()){
 			$this->invalidateControl('flashMessages');
@@ -58,4 +59,21 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 		$params = $this->context->getParameters();
 		if(isset($params[$name])) return $params[$name]; else return null;
 	}
+
+	protected function getBaseUrl()
+	{
+		return $this->getHttpRequest()->url->baseUrl;
+	}
+
+	private function getJQueryLib()
+	{
+		$local = $this->getBaseUrl() . 'js/jquery-1.7.2.min.js';
+		$googleApis = 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js';
+		if(@file($googleApis)){
+			return $googleApis;
+		}
+
+		return $local;
+	}
+
 }
