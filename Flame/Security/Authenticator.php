@@ -20,7 +20,7 @@ class Authenticator extends \Nette\Object implements NS\IAuthenticator
 	/**
 	 * Performs an authentication
 	 * @param  array
-	 * @return Nette\Security\Identity
+	 * @return Flame\Security\Identity
 	 * @throws Nette\Security\AuthenticationException
 	 */
 	public function authenticate(array $credentials)
@@ -36,12 +36,8 @@ class Authenticator extends \Nette\Object implements NS\IAuthenticator
 	        throw new NS\AuthenticationException("Invalid password.", self::INVALID_CREDENTIAL);
 	    }
 
-	    $userData = $user->toArray();
-        unset($userData['password']);
-	    return new NS\Identity($user->id, $user->role, $userData);
+	    return new Identity($user);
 	}
-
-
 
 	/**
 	 * Computes salted password hash.
@@ -56,7 +52,7 @@ class Authenticator extends \Nette\Object implements NS\IAuthenticator
     public function setPassword(\Flame\Models\Users\User $user, $password)
     {
         $user->setPassword($this->calculateHash($password));
-        $this->userFacade->persist($user);
+        return $this->userFacade->persist($user);
     }
 
 }
