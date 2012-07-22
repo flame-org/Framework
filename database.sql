@@ -141,6 +141,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 INSERT INTO `users` (`id`, `username`, `password`, `role`, `name`, `email`) VALUES
-(1,	'admin',	'69801dbd4a7e1629d6bf84cef0c58ba79693c9fbc6b43a4f00f15c6b086f268b127498c542b03f5f3da89c5fabe405ce36472db14641aa50447fbec8400fe104',	'administrator',	'Joe Dan',	'joedan@hotmail.com');
+(1,	'admin',	'552dc2e616c351e1a6ffaadb32dbacbaaeeb8359a9f6ec33668e9265997c8aa8fa8b501c6759b989742bf0b4e566ecf2079f9359d3224ecef116ce42c4ec07ad',	'administrator',	'Joe Dan',	'joedan@hotmail.com');
 
--- 2012-07-22 11:54:15
+-- 2012-07-22 12:06:41
