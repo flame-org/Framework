@@ -16,6 +16,8 @@ class Form extends \Nette\Application\UI\Form
 	public function __construct(\Nette\ComponentModel\IContainer $parent = null,  $name = null)
 	{
 		parent::__construct($parent, $name);
+
+		$this->addExtensionDatePicker();
 	}
 
 	protected function prepareForFormItem(array &$items)
@@ -27,5 +29,12 @@ class Form extends \Nette\Application\UI\Form
 			}
 			return $prepared;
 		}
+	}
+
+	private function addExtensionDatePicker()
+	{
+		\Nette\Forms\Container::extensionMethod('addDatePicker', function (\Nette\Forms\Container $container, $name, $label = NULL) {
+			return $container[$name] = new \Flame\Utils\DatePicker($label);
+		});
 	}
 }
