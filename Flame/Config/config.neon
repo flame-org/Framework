@@ -60,6 +60,7 @@ common:
 		TagFacade: Flame\Models\Tags\TagFacade
 		PageFacade: Flame\Models\Pages\PageFacade
 		ImageFacade: Flame\Models\Images\ImageFacade
+		UserInfoFacade: Flame\Models\UsersInfo\UserInfoFacade
 
 		WordPressImporter: Flame\Utils\WordPressImporter
 

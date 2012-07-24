@@ -17,11 +17,6 @@ namespace Flame\Models\Users;
 class User extends \Flame\Doctrine\Entity
 {
     /**
-     * @Column(type="string", length=35, unique=true)
-     */
-    private $username;
-
-    /**
      * @Column(type="string", length=128)
      */
     private $password;
@@ -32,27 +27,21 @@ class User extends \Flame\Doctrine\Entity
     private $role;
 
     /**
-     * @Column(type="string", length=150)
-     */
-    private $name;
-
-    /**
      * @Column(type="string", length=100, unique=true)
      */
     private $email;
 
-    public function __construct($username, $password, $role, $email)
+	/**
+	 * @Column(type="string", length=50)
+	 */
+	private $facebook;
+
+    public function __construct($email, $password, $role)
     {
-        $this->username = $username;
         $this->password = $password;
         $this->role = $role;
-        $this->name = '';
         $this->email = $email;
-    }
-
-    public function getUsername()
-    {
-        return $this->username;
+	    $this->facebook = null;
     }
 
     public function getPassword()
@@ -77,21 +66,21 @@ class User extends \Flame\Doctrine\Entity
         return $this;
     }
 
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setName($name)
-    {
-        $this->name = (string) $name;
-        return $this;
-    }
-
     public function getEmail()
     {
         return $this->email;
     }
+
+	public function getFacebook()
+	{
+		return $this->facebook;
+	}
+
+	public function setFacebook($facebook_id)
+	{
+		$this->facebook = (string) $facebook_id;
+		return $this;
+	}
 
     public function toArray()
     {

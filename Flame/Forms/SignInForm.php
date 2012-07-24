@@ -15,7 +15,7 @@ class SignInForm extends \Flame\Application\UI\Form
 	
 	public function configure()
 	{
-		$this->addText('username', 'Username:', 30, 20)
+		$this->addText('email', 'Email:', 30)
 			->addRule(self::FILLED);
 		$this->addPassword('password', 'Password:', 30)
 			->addRule(self::FILLED);

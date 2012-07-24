@@ -54,7 +54,7 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
         $this->allow('guest', array('Admin:Sign'), array('in'));
 
         //DEFINE ADMIN USERS ACCESS
-		$this->allow('user', array('Admin:User'), array('password'));
+		$this->allow('user', array('Admin:User'), array('password', 'edit'));
 
 		//DEFINE ADMIN MODERATORS ACCESS
 		$this->allow('moderator', array(

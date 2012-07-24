@@ -130,17 +130,30 @@ CREATE TABLE `tags` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(35) COLLATE utf8_czech_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `password` char(128) COLLATE utf8_czech_ci NOT NULL,
   `role` varchar(25) COLLATE utf8_czech_ci NOT NULL,
-  `name` varchar(150) COLLATE utf8_czech_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8_czech_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`)
+  `facebook` varchar(50) COLLATE utf8_czech_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
-INSERT INTO `users` (`id`, `username`, `password`, `role`, `name`, `email`) VALUES
-(1,	'admin',	'552dc2e616c351e1a6ffaadb32dbacbaaeeb8359a9f6ec33668e9265997c8aa8fa8b501c6759b989742bf0b4e566ecf2079f9359d3224ecef116ce42c4ec07ad',	'administrator',	'Joe Dan',	'joedan@hotmail.com');
+INSERT INTO `users` (`id`, `email`, `password`, `role`, `facebook`) VALUES
+(1,	'user@demo.com',	'552dc2e616c351e1a6ffaadb32dbacbaaeeb8359a9f6ec33668e9265997c8aa8fa8b501c6759b989742bf0b4e566ecf2079f9359d3224ecef116ce42c4ec07ad',	'administrator',	NULL);
 
--- 2012-07-22 12:06:41
+DROP TABLE IF EXISTS `users_info`;
+CREATE TABLE `users_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL,
+  `name` varchar(250) COLLATE utf8_czech_ci NOT NULL,
+  `about` varchar(500) COLLATE utf8_czech_ci NOT NULL,
+  `birthday` date NOT NULL,
+  `web` varchar(150) COLLATE utf8_czech_ci NOT NULL,
+  `facebook` varchar(100) COLLATE utf8_czech_ci NOT NULL,
+  `twitter` varchar(100) COLLATE utf8_czech_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `users_info_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+
+-- 2012-07-24 20:43:03

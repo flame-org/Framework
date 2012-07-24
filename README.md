@@ -42,6 +42,6 @@ If you want to affect prepared options (set up in the options section)
 * items_in_newsreel_menu_list (default: 3)
 * items_in_menu (default: 5)
 
-#### If you want to sign in to backend part (Administration) of Flame, use login name **ADMIN** and password **PASSWORD12**
+#### If you want to sign in to backend part (Administration) of Flame, use email **user@demo.com** and password **PASSWORD12** (in lower case)
 
 

@@ -25,11 +25,11 @@ class Authenticator extends \Nette\Object implements NS\IAuthenticator
 	 */
 	public function authenticate(array $credentials)
 	{
-		list($username, $password) = $credentials;
-	    $user = $this->userFacade->getByUsername($username);
+		list($email, $password) = $credentials;
+	    $user = $this->userFacade->getByEmail($email);
 
 	    if (!$user) {
-	        throw new NS\AuthenticationException("User '$username' not found.", self::IDENTITY_NOT_FOUND);
+	        throw new NS\AuthenticationException("User '$email' not found.", self::IDENTITY_NOT_FOUND);
 	    }
 
 	    if ($user->password !== $this->calculateHash($password)) {

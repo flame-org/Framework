@@ -29,11 +29,6 @@ class UserFacade extends \Nette\Object
         return $this->repository->findAll();
     }
 
-    public function getByUsername($username)
-    {
-        return $this->repository->findOneBy(array('username' => $username));
-    }
-
     public function getByEmail($email)
     {
         return $this->repository->findOneBy(array('email' => $email));
