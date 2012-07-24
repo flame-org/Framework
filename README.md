@@ -11,8 +11,8 @@ Flame is available over Composer. Please visit [PACKAGIST](http://packagist.org/
 * MySQL 5+
 * Nette Framework 2.0
 * Doctrine 2.2+
-* Composer
-* Markdown
+* Composer (dependencies manager)
+* Markdown syntax
 
 ### Required Settings (Change the settings in the file: **CONFIG.NEON**)
 Flame required:
