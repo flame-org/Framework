@@ -33,6 +33,17 @@ class Category extends \Flame\Doctrine\Entity
 	private $slug;
 
 	/**
+	 * @OneToMany(targetEntity="Category", mappedBy="parent")
+	 **/
+	private $children;
+
+	/**
+	 * @ManyToOne(targetEntity="Category", inversedBy="children")
+	 * @JoinColumn(name="parent_id", referencedColumnName="id")
+	 **/
+	private $parent;
+
+	/**
 	 * @OneToMany(targetEntity="\Flame\Models\Posts\Post", mappedBy="category")
 	 */
 	private $posts;
@@ -42,6 +53,7 @@ class Category extends \Flame\Doctrine\Entity
 		$this->name = $name;
 		$this->description = "";
 		$this->slug = $slug;
+		$this->children = new \Doctrine\Common\Collections\ArrayCollection;
 		$this->posts = new \Doctrine\Common\Collections\ArrayCollection;
 	}
 
@@ -75,6 +87,28 @@ class Category extends \Flame\Doctrine\Entity
 	public function setSlug($slug)
 	{
 		$this->slug = (string) $slug;
+		return $this;
+	}
+
+	public function getChildren()
+	{
+		return $this->children;
+	}
+
+	public function setChildren($categories)
+	{
+		$this->children[] = $categories;
+		return $this;
+	}
+
+	public function getParent()
+	{
+		return $this->parent;
+	}
+
+	public function setParent(Category $parent)
+	{
+		$this->parent = $parent;
 		return $this;
 	}
 

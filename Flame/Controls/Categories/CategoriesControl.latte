@@ -4,9 +4,25 @@
 	<h3>Categories</h3>
 	<ul id="categories-menu">
 		{if count($categories)}
-			<li n:foreach="$categories as $category">
-				<a href="{plink Category:posts id => $category->id, slug => $category->slug}">{$category->name}</a>
-			</li>
+			{foreach $categories as $category}
+				{if !$category->parent}
+					<li>
+						<a href="{plink Category:posts id => $category->id, slug => $category->slug}">{$category->name}</a>
+						<ul>
+							{foreach $category->children as $child}
+								{if $iterator->last}
+									<li class="last">
+								{else}
+									<li>
+								{/if}
+									<a href="{plink Category:posts id=> $child->id, slug => $child->slug}">{$child}</a>
+								</li>
+							{/foreach}
+						</ul>
+					</li>
+				{/if}
+
+			{/foreach}
 		{else}
 			<li>None</li>
 		{/if}

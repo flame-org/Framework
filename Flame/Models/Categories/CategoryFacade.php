@@ -43,4 +43,5 @@ class CategoryFacade extends \Nette\Object
 	{
 		return $this->repository->delete($category);
 	}
+
 }
