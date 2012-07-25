@@ -8,11 +8,13 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) unsigned DEFAULT NULL,
   `name` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `description` varchar(250) COLLATE utf8_czech_ci NOT NULL,
   `slug` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
+  KEY `parent_id` (`parent_id`),
+  CONSTRAINT `categories_ibfk_2` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
@@ -156,4 +158,4 @@ CREATE TABLE `users_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
--- 2012-07-24 20:43:03
+-- 2012-07-25 09:46:35
