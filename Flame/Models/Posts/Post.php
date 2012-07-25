@@ -12,7 +12,8 @@ namespace Flame\Models\Posts;
 
 use DateTime,
     Flame\Models\Users\User,
-	Flame\Models\Categories\Category;
+	Flame\Models\Categories\Category,
+	Flame\Models\Tags\Tag;
 
 /**
  * @Entity(repositoryClass="PostRepository")
@@ -100,7 +101,7 @@ class Post extends \Flame\Doctrine\Entity
 	    $this->comment = true;
 	    $this->publish = true;
 	    $this->created = new DateTime;
-	    $this->tags = array();
+	    $this->tags = new \Doctrine\Common\Collections\ArrayCollection;
 	    $this->keywords = "";
 	    $this->description = "";
     }
@@ -187,9 +188,9 @@ class Post extends \Flame\Doctrine\Entity
         return $this->tags;
     }
 
-    public function setTags($tags)
+    public function setTags(Tag $tag)
     {
-        $this->tags = $tags;
+        $this->tags[] = $tag;
         return $this;
     }
 
