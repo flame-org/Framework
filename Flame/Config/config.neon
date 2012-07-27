@@ -27,20 +27,17 @@ common:
 
 	php:
 		date.timezone: Europe/Prague
-		# session.save_path: "%tempDir%/sessions"
 		zlib.output_compression: yes
 
 
 	nette:
+		application:
+			errorPresenter: Error
+
 		session:
-			autoStart: smart
-			expiration: + 30 days
+			expiration: 14 days
 
 	services:
-		#MemoryStorage:
-		#	class: Nette\Caching\Storages\MemoryStorage
-		#	autowired: no
-
 		Authorizator: Flame\Security\Authorizator
 		Authenticator: Flame\Security\Authenticator
 
