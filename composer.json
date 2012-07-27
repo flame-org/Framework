@@ -26,10 +26,6 @@
         "symfony/console": "2.0.*"
 	},
 
-	"config": {
-		"vendor-dir": "libs"
-	},
-
 	"autoload": {
 		"classmap": ["Flame"],
 		"files": ["Flame/loader.php"]
