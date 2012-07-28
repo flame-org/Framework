@@ -32,7 +32,7 @@ common:
 
 	nette:
 		application:
-			errorPresenter: Error
+			errorPresenter: FrontModule\Error
 
 		session:
 			expiration: 14 days
