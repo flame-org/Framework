@@ -18,7 +18,6 @@ class Configurator extends \Nette\Config\Configurator
 		parent::__construct();
 
 		$this->addParameters(array('container' => array('class' => 'SystemContainer', 'parent' => $containerClass)));
-		$this->setDatabaseParametersFromEnv();
 	}
 
 	public function setOptionalParameters()
@@ -31,22 +30,6 @@ class Configurator extends \Nette\Config\Configurator
 			'basePath' => preg_replace('#https?://[^/]+#A', '', $baseUrl),
 			'flameDir' => realpath(FLAME_DIR),
 		));
-	}
-
-	private function setDatabaseParametersFromEnv()
-	{
-		if(isset($_SERVER['DB1_HOST'], $_SERVER['DB1_NAME'], $_SERVER['DB1_USER'], $_SERVER['DB1_PASS'])){
-			$this->addParameters(array(
-				'parameters' => array(
-					'database' => array(
-						'host' => $_SERVER['DB1_HOST'],
-						'dbname' => $_SERVER['DB1_NAME'],
-						'user' => $_SERVER['DB1_USER'],
-						'password' => $_SERVER['DB1_PASS'],
-					),
-				),
-			));
-		}
 	}
 
 }
