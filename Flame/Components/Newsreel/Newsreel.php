@@ -1,8 +1,8 @@
 <?php
 
-namespace Flame\Components;
+namespace Flame\Components\Newsreel;
 
-class NewsreelControl extends \Flame\Application\UI\Control
+class Newsreel extends \Flame\Application\UI\Control
 {
 	private $newsreelFacade;
 
@@ -21,7 +21,7 @@ class NewsreelControl extends \Flame\Application\UI\Control
 
 	public function render()
 	{
-		$this->template->setFile(__DIR__ . '/NewsreelControl.latte');
+		$this->template->setFile(__DIR__ . '/Newsreel.latte');
 		$this->template->newsreels = $this->newsreelFacade->getLastPassedNewsreel($this->itemsInNewsreelMenuList);
 		$this->template->render();
 	}

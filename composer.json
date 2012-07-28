@@ -27,7 +27,7 @@
 	},
 
 	"autoload": {
-		"classmap": ["Flame"],
+		"psr-0": {"Flame": ""},
 		"files": ["Flame/loader.php"]
 	}
 }

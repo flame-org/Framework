@@ -8,9 +8,9 @@
  * @date    28.07.12
  */
 
-namespace Flame\Components;
+namespace Flame\Components\Tags;
 
-class TagControl extends \Flame\Application\UI\Control
+class Tag extends \Flame\Application\UI\Control
 {
 
 	private $tagFacade;
@@ -23,7 +23,7 @@ class TagControl extends \Flame\Application\UI\Control
 
 	public function render()
 	{
-		$this->template->setFile(__DIR__ . '/TagControl.latte');
+		$this->template->setFile(__DIR__ . '/Tag.latte');
 		$this->template->tags = $this->tagFacade->getLastTags();
 		$this->template->render();
 	}

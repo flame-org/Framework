@@ -8,9 +8,9 @@
  * @date    16.07.12
  */
 
-namespace Flame\Components;
+namespace Flame\Components\Categories;
 
-class CategoriesControl extends \Flame\Application\UI\Control
+class Category extends \Flame\Application\UI\Control
 {
 
 	private $categoryFacade;
@@ -22,7 +22,7 @@ class CategoriesControl extends \Flame\Application\UI\Control
 
 	public function render()
 	{
-		$this->template->setFile(__DIR__ . '/CategoriesControl.latte');
+		$this->template->setFile(__DIR__ . '/Category.latte');
 		$this->template->categories = $this->categoryFacade->getLastCategories();
 		$this->template->render();
 	}

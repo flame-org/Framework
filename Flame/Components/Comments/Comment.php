@@ -1,13 +1,13 @@
 <?php
 
-namespace Flame\Components;
+namespace Flame\Components\Comments;
 
 use	Nette\Application\UI\Form;
 
 /**
 * Comments component
 */
-class CommentsControl extends \Flame\Application\UI\Control
+class Comment extends \Flame\Application\UI\Control
 {
 	private $commentFacade;
 
@@ -22,7 +22,7 @@ class CommentsControl extends \Flame\Application\UI\Control
 
 	public function render()
 	{
-		$this->template->setFile(__DIR__.'/CommentsControl.latte');
+		$this->template->setFile(__DIR__.'/Comment.latte');
 		$this->template->comments = $this->commentFacade->getPublishCommentsInPost($this->post);
 		$this->template->render();
 	}

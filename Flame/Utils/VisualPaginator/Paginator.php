@@ -1,6 +1,6 @@
 <?php
 
-namespace Flame\Utils;
+namespace Flame\Utils\VisualPaginator;
 
 /**
  * Nette Framework Extras
@@ -16,8 +16,7 @@ namespace Flame\Utils;
  * @version    $Id: VisualPaginator.php 4 2009-07-14 15:22:02Z david@grudl.com $
  */
 
-use Nette\Application\UI,
-	Nette\Utils\Paginator;
+use Nette\Application\UI;
 
 
 /**
@@ -27,7 +26,7 @@ use Nette\Application\UI,
  * @copyright  Copyright (c) 2009 David Grudl
  * @package    Nette Extras
  */
-class VisualPaginator extends UI\Control
+class Paginator extends UI\Control
 {
 	/** @var Paginator */
 	private $paginator;
@@ -43,7 +42,7 @@ class VisualPaginator extends UI\Control
 	public function getPaginator()
 	{
 		if (!$this->paginator) {
-			$this->paginator = new Paginator;
+			$this->paginator = new \Nette\Utils\Paginator;
 		}
 		return $this->paginator;
 	}

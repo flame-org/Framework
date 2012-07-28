@@ -1,11 +1,11 @@
 <?php
 
-namespace Flame\Components;
+namespace Flame\Components\Posts;
 
 /**
 * Comments component
 */
-class PostsControl extends \Flame\Application\UI\Control
+class Post extends \Flame\Application\UI\Control
 {
 
 	private $itemsPerPage = 10;
@@ -33,20 +33,20 @@ class PostsControl extends \Flame\Application\UI\Control
 	public function render()
 	{
 		$this->beforeRender();
-		$this->template->setFile(__DIR__ . '/PostsControlFull.latte');
+		$this->template->setFile(__DIR__ . '/PostFull.latte');
 		$this->template->render();
 	}
 
 	public function renderExcept()
 	{
 		$this->beforeRender();
-		$this->template->setFile(__DIR__ . '/PostsControlExcept.latte');
+		$this->template->setFile(__DIR__ . '/PostExcept.latte');
 		$this->template->render();
 	}
 
 	protected function createComponentPaginator()
 	{
-		$visualPaginator = new \Flame\Utils\VisualPaginator($this, 'paginator');
+		$visualPaginator = new \Flame\Utils\VisualPaginator\Paginator($this, 'paginator');
 	    $visualPaginator->paginator->itemsPerPage = $this->itemsPerPage;
 	    return $visualPaginator;
 	}
