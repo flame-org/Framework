@@ -14,6 +14,7 @@ class Post extends \Flame\Application\UI\Control
 
 	public function __construct($posts)
 	{
+		parent::__construct();
 		$this->posts = $posts;
 	}
 
