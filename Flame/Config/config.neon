@@ -9,6 +9,7 @@ common:
 		database:
 			driver: pdo_mysql
 			charset: utf8
+			port: 3306
 
 		entities:
 			- %flameDir%/models
