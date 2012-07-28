@@ -1,0 +1,13 @@
+
+{if count($tags)}
+	<h3>Tags cloud</h3>
+	<p>
+		{foreach $tags as $tag}
+			{if $iterator->last}
+				<a href="{plink Tag:posts $tag->id}">{$tag->name}</a>
+			{else}
+				<a href="{plink Tag:posts $tag->id}">{$tag->name}</a>,
+			{/if}
+		{/foreach}
+	</p>
+{/if}
