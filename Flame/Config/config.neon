@@ -31,9 +31,6 @@ common:
 
 
 	nette:
-		application:
-			errorPresenter: FrontModule\Error
-
 		session:
 			expiration: 14 days
 
