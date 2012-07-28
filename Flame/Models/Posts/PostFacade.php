@@ -25,13 +25,9 @@ class PostFacade extends \Nette\Object
         return $this->repository->findBy(array(), array('id'=> 'DESC'));
     }
 
-    public function getLastPublishPosts($category = null)
+    public function getLastPublishPosts()
     {
-	    if($category){
-		    return $this->repository->findBy(array('publish' => '1', 'category' => $category), array('id'=> 'DESC'));
-	    }else{
-		    return $this->repository->findBy(array('publish' => '1'), array('id'=> 'DESC'));
-	    }
+	    return $this->repository->findBy(array('publish' => '1'), array('id'=> 'DESC'));
     }
 
     public function getOne($id){
