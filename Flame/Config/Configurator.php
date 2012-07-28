@@ -18,6 +18,7 @@ class Configurator extends \Nette\Config\Configurator
 		parent::__construct();
 
 		$this->addParameters(array('container' => array('class' => 'SystemContainer', 'parent' => $containerClass)));
+		$this->setDatabaseParametersFromEnv();
 	}
 
 	public function setOptionalParameters()
@@ -32,7 +33,7 @@ class Configurator extends \Nette\Config\Configurator
 		));
 	}
 
-	public function setDatabaseParametersFromEnv()
+	private function setDatabaseParametersFromEnv()
 	{
 		if(isset($_SERVER['DB1_HOST'], $_SERVER['DB1_NAME'], $_SERVER['DB1_USER'], $_SERVER['DB1_PASS'])){
 			$this->addParameters(array(
