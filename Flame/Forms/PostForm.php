@@ -54,13 +54,13 @@ class PostForm extends \Flame\Application\UI\Form
 			->addRule(self::FILLED)
 			->addRule(self::MAX_LENGTH, null, 100);
 
-		if($this->defaults and $this->defaults['markdown']){
+		if(isset($this->defaults['markdown']) and $this->defaults['markdown']){
 			$this->addTextArea('content', 'Content:', 105, 35)
 				->addRule(self::FILLED);
 		}else{
 			$this->addTextArea('content', 'Content:', 105, 35)
 				->addRule(self::FILLED)
-				->getControlPrototype()->class('mceEditor');
+				->setAttribute('class', 'mceEditor');
 		}
 
 		$this->addCheckbox('markdown', 'Use MarkDown syntax?')
