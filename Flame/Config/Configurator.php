@@ -23,11 +23,10 @@ class Configurator extends \Nette\Config\Configurator
 	public function setOptionalParameters()
 	{
 		//$baseUrl = rtrim($this->container->httpRequest->getUrl()->getBaseUrl(), '/');
-		$baseUrl = '';
 
 		$this->addParameters(array(
-			'baseUrl' => $baseUrl,
-			'basePath' => preg_replace('#https?://[^/]+#A', '', $baseUrl),
+//			'baseUrl' => $baseUrl,
+//			'basePath' => preg_replace('#https?://[^/]+#A', '', $baseUrl),
 			'flameDir' => realpath(FLAME_DIR),
 		));
 	}
