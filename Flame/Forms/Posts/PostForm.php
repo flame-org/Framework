@@ -8,9 +8,9 @@
  * @date    14.07.12
  */
 
-namespace Flame\Forms;
+namespace Flame\Forms\Posts;
 
-class PostForm extends \Flame\Application\UI\Form
+class PostForm extends \Flame\Application\UI\TemplateForm
 {
 	private $categories;
 
@@ -29,7 +29,7 @@ class PostForm extends \Flame\Application\UI\Form
 	public function configureAdd()
 	{
 		$this->configure();
-
+		$this->setDefaults(array('markdown' => '1'));
 		$this->addSubmit('send', 'Create post');
 
 	}
@@ -37,11 +37,8 @@ class PostForm extends \Flame\Application\UI\Form
 	public function configureEdit(array $defaults)
 	{
 		$this->defaults = $this->prepareDefaultValues($defaults);
-
 		$this->configure();
-
 		$this->setDefaults($this->defaults);
-
 		$this->addSubmit('send', 'Edit post');
 
 	}
@@ -54,27 +51,22 @@ class PostForm extends \Flame\Application\UI\Form
 			->addRule(self::FILLED)
 			->addRule(self::MAX_LENGTH, null, 100);
 
-		if(isset($this->defaults['markdown']) and $this->defaults['markdown']){
-			$this->addTextArea('content', 'Content:', 105, 35)
-				->addRule(self::FILLED);
-		}else{
-			$this->addTextArea('content', 'Content:', 105, 35)
-				->addRule(self::FILLED)
-				->setAttribute('class', 'mceEditor');
-		}
+		$this->addTextArea('content', 'Content:', 105, 35)
+			->addRule(self::FILLED)
+			->setAttribute('class', 'mceEditor');
 
 		$this->addCheckbox('markdown', 'Use MarkDown syntax?')
 			->setAttribute('class', 'use-markdown-syntax');
 
 		$this->addGroup('Meta options');
 
-		$this->addText('slug', 'Name in URL', 80)
+		$this->addText('slug', 'Name in URL:', 80)
 			->addRule(self::MAX_LENGTH, null, 100);
 
-		$this->addText('keywords', 'META Keywords', 80)
+		$this->addText('keywords', 'META Keywords:', 80)
 			->addRule(self::MAX_LENGTH, null, 500);
 
-		$this->addTextArea('description', 'Descriptions', 90, 5)
+		$this->addTextArea('description', 'Descriptions:', 90, 5)
 			->addRule(self::MAX_LENGTH, null, 250);
 
 		$this->addGroup('Category');
