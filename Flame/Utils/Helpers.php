@@ -19,11 +19,11 @@ class Helpers extends \Nette\Object
 	private $imageDirUri;
 	private $baseDir;
 
-	public function __construct(array $params)
+	public function __construct(array $params = array())
 	{
-		$this->baseDir = $params['baseDir'];
-		$this->thumbDirUri = $params['thumbDir'];
-		$this->imageDirUri = $params['imageDir'];
+		$this->baseDir = $params['baseDir'] ? $params['baseDir'] : null;
+		$this->thumbDirUri = $params['thumbDir'] ? $params['thumbDir'] : null;
+		$this->imageDirUri = $params['imageDir'] ? $params['imageDir'] : null;
 	}
 
 	public function loader($helper)
@@ -50,6 +50,11 @@ class Helpers extends \Nette\Object
      */
     public function thumb($origName, $width, $height = NULL)
     {
+
+	    if(is_null($this->baseDir) or is_null($this->imageDirUri) or is_null($this->thumbDirUri)){
+		    throw new \Nette\InvalidArgumentException;
+	    }
+
         $thumbDirPath = $this->baseDir . '/' . trim($this->thumbDirUri, '/\\');
         $origPath = $this->baseDir . '/' . $this->imageDirUri . '/' . $origName;
 
