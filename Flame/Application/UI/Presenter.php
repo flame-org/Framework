@@ -25,7 +25,6 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 	{
 		parent::beforeRender();
 
-		$this->template->name = $this->context->OptionFacade->getOptionValue('name');
 		$this->template->jqueryLib = $this->getJQueryLib();
 
 		if($this->isAjax()){
