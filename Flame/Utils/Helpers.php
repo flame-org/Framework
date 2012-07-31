@@ -21,9 +21,9 @@ class Helpers extends \Nette\Object
 
 	public function __construct(array $params = array())
 	{
-		$this->baseDir = $params['baseDir'] ? $params['baseDir'] : null;
-		$this->thumbDirUri = $params['thumbDir'] ? $params['thumbDir'] : null;
-		$this->imageDirUri = $params['imageDir'] ? $params['imageDir'] : null;
+		if(isset($params['baseDir'])) $this->baseDir = $params['baseDir'];
+		if(isset($params['thumbDir'])) $this->thumbDirUri = $params['thumbDir'];
+		if(isset($params['imageDir'])) $this->imageDirUri = $params['imageDir'];
 	}
 
 	public function loader($helper)
