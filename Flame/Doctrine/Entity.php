@@ -25,11 +25,6 @@ abstract class Entity extends \Nette\Object implements IEntity
      */
     private $id;
 
-    function __construct()
-    {
-
-    }
-
     public function getId()
     {
         return $this->id;
