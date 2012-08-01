@@ -58,9 +58,10 @@ class Helpers extends \Nette\Object
         $thumbDirPath = $this->baseDir . '/' . trim($this->thumbDirUri, '/\\');
         $origPath = $this->baseDir . '/' . $this->imageDirUri . '/' . $origName;
 
+	    $this->createDirForThumbnails($thumbDirPath);
+
         if (($width === NULL && $height === NULL) || !is_file($origPath) || !is_dir($thumbDirPath) || !is_writable($thumbDirPath))
             return $origName;
-
 
         $thumbName = $this->getThumbName($origName, $width, $height, filemtime($origPath));
         $thumbUri = trim($this->thumbDirUri, '/\\') . '/' . $thumbName;
@@ -137,4 +138,9 @@ class Helpers extends \Nette\Object
 
         return $relPath;
     }
+
+	private function createDirForThumbnails($filepath)
+	{
+		if(!file_exists($filepath)) return chmod($filepath, 0777, true);
+	}
 }
