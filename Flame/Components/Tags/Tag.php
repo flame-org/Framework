@@ -12,6 +12,7 @@ namespace Flame\Components\Tags;
 
 class Tag extends \Flame\Application\UI\Control
 {
+	private $countOfItems = 35;
 
 	private $tagFacade;
 
@@ -21,10 +22,15 @@ class Tag extends \Flame\Application\UI\Control
 		$this->tagFacade = $tagFacade;
 	}
 
+	public function setCountOfItems($count)
+	{
+		$this->countOfItems = (int) $count;
+	}
+
 	public function render()
 	{
 		$this->template->setFile(__DIR__ . '/Tag.latte');
-		$this->template->tags = $this->tagFacade->getLastTags();
+		$this->template->tags = $this->tagFacade->getLastTags($this->countOfItems);
 		$this->template->render();
 	}
 

@@ -29,9 +29,13 @@ class TagFacade extends \Nette\Object
 		return $this->repository->findOneBy(array('name' => (string) $name));
 	}
 
-	public function getLastTags()
+	public function getLastTags($limit = null)
 	{
-		return $this->repository->findBy(array(), array('id' => 'DESC'));
+		if($limit){
+			return $this->repository->findBy(array(), array('id' => 'DESC'), $limit);
+		}else{
+			return $this->repository->findBy(array(), array('id' => 'DESC'));
+		}
 	}
 
 	public function persist(Tag $tag)
