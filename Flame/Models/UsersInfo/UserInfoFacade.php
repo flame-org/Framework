@@ -20,26 +20,6 @@ class UserInfoFacade extends \Nette\Object
 		$this->repository = $entityManager->getRepository('\Flame\Models\UsersInfo\UserInfo');
 	}
 
-	public function getOne($id)
-	{
-		return $this->repository->findOneBy(array('id' => $id));
-	}
-
-	public function getOneByUser(\Flame\Models\Users\User $user)
-	{
-		return $this->repository->findOneBy(array('user' => $user));
-	}
-
-	public function getLastUsers()
-	{
-		return $this->repository->findAll();
-	}
-
-	public function getByEmail($email)
-	{
-		return $this->repository->findOneBy(array('email' => $email));
-	}
-
 	public function persist(UserInfo $user)
 	{
 		return $this->repository->save($user);

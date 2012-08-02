@@ -19,12 +19,6 @@ use Flame\Models\Users\User,
  */
 class UserInfo extends \Flame\Doctrine\Entity
 {
-
-	/**
-	 * @ManyToOne(targetEntity="\Flame\Models\Users\User")
-	 */
-	private $user;
-
 	/**
 	 * @Column(type="string", length=250)
 	 */
@@ -55,26 +49,14 @@ class UserInfo extends \Flame\Doctrine\Entity
 	 */
 	private $twitter;
 
-	public function __construct(User $user, $name)
+	public function __construct($name)
 	{
-		$this->user = $user;
 		$this->name = $name;
 		$this->about = '';
 		$this->birthday = '';
 		$this->web = '';
 		$this->facebook = '';
 		$this->twitter = '';
-	}
-
-	public function getUser()
-	{
-		return $this->user;
-	}
-
-	public function setUser(User $user)
-	{
-		$this->user = $user;
-		return $this;
 	}
 
 	public function getName()

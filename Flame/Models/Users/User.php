@@ -36,12 +36,18 @@ class User extends \Flame\Doctrine\Entity
 	 */
 	private $facebook;
 
+	/**
+	 * @OneToOne(targetEntity="\Flame\Models\UsersInfo\UserInfo")
+	 */
+	private $info;
+
     public function __construct($email, $password, $role)
     {
         $this->password = $password;
         $this->role = $role;
         $this->email = $email;
 	    $this->facebook = null;
+	    $this->info = null;
     }
 
     public function getPassword()
@@ -79,6 +85,17 @@ class User extends \Flame\Doctrine\Entity
 	public function setFacebook($facebook_id)
 	{
 		$this->facebook = (string) $facebook_id;
+		return $this;
+	}
+
+	public function getInfo()
+	{
+		return $this->info;
+	}
+
+	public function setInfo(\Flame\Models\UsersInfo\UserInfo $info)
+	{
+		$this->info = $info;
 		return $this;
 	}
 
