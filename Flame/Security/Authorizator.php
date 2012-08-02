@@ -50,7 +50,6 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->addResource('Admin:Image');
 		$this->addResource('Admin:Page');
 		$this->addResource('Admin:Newsreel');
-		$this->addResource('Admin:Schema');
 		$this->addResource('Admin:Import');
 
         //DEFINE ADMIN GUEST ACCESS
@@ -83,7 +82,7 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->allow(self::MODERATOR, array('Admin:Comment'), array('delete', 'publish', 'default'));
 
 		//DEFINE ADMIN ADMINISTRATORS ACCESS
-		$this->allow(self::ADMINISTRATOR, array('Admin:User', 'Admin:Schema', 'Admin:Import', 'Admin:Option'));
+		$this->allow(self::ADMINISTRATOR, array('Admin:User', 'Admin:Import', 'Admin:Option'));
 
         //DEFINE ROOT PERMISSION
 		$this->allow(self::ROOT, NS\Permission::ALL);
