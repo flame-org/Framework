@@ -12,7 +12,7 @@ common:
 			port: 3306
 
 		entities:
-			- %flameDir%/models
+			- %flameDir%/Models
 
 		imageStorage:
 			thumbDir: 'media/images_thumbnails'
