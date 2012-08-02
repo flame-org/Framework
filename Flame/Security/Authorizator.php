@@ -9,14 +9,25 @@ use Nette\Security as NS;
 */
 class Authorizator extends NS\Permission implements NS\IAuthorizator
 {
+
+	const GUEST = 'guest';
+
+	const USER = 'user';
+
+	const MODERATOR = 'moderator';
+
+	const ADMINISTRATOR = 'administrator';
+
+	const ROOT = 'root';
+
 	public function __construct()
 	{
 		//DEFINE ROLES
-		$this->addRole('guest');
-		$this->addRole('user', 'guest');
-		$this->addRole('moderator', 'user');
-		$this->addRole('administrator', 'moderator');
-		$this->addRole('root', 'administrator');
+		$this->addRole(self::GUEST);
+		$this->addRole(self::USER, self::GUEST);
+		$this->addRole(self::MODERATOR, self::USER);
+		$this->addRole(self::ADMINISTRATOR, self::MODERATOR);
+		$this->addRole(self::ROOT, self::ADMINISTRATOR);
 
 		//DEFINE FRONT RESOURCE
 		$this->addResource('Front:Homepage');
@@ -43,7 +54,7 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		$this->addResource('Admin:Import');
 
         //DEFINE ADMIN GUEST ACCESS
-		$this->allow('guest', array(
+		$this->allow(self::GUEST, array(
 			'Front:Homepage',
 			'Front:Newsreel',
 			'Front:Page',
@@ -54,13 +65,13 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 		));
 
         //DEFINE FRONT GUEST ACCESS
-        $this->allow('guest', array('Admin:Sign'), array('in'));
+        $this->allow(self::GUEST, array('Admin:Sign'), array('in'));
 
         //DEFINE ADMIN USERS ACCESS
-		$this->allow('user', array('Admin:User'), array('password', 'edit'));
+		$this->allow(self::USER, array('Admin:User'), array('password', 'edit'));
 
 		//DEFINE ADMIN MODERATORS ACCESS
-		$this->allow('moderator', array(
+		$this->allow(self::MODERATOR, array(
 			'Admin:Dashboard',
 			'Admin:Post',
 			'Admin:Image',
@@ -69,13 +80,13 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 			'Admin:Tag',
 			'Admin:Category'
 		));
-		$this->allow('moderator', array('Admin:Comment'), array('delete', 'publish', 'default'));
+		$this->allow(self::MODERATOR, array('Admin:Comment'), array('delete', 'publish', 'default'));
 
 		//DEFINE ADMIN ADMINISTRATORS ACCESS
-		$this->allow('administrator', array('Admin:User', 'Admin:Schema', 'Admin:Import', 'Admin:Option'));
+		$this->allow(self::ADMINISTRATOR, array('Admin:User', 'Admin:Schema', 'Admin:Import', 'Admin:Option'));
 
         //DEFINE ROOT PERMISSION
-		$this->allow('root', NS\Permission::ALL);
+		$this->allow(self::ROOT, NS\Permission::ALL);
 	}
 
 }
