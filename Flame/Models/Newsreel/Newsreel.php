@@ -14,22 +14,22 @@ class Newsreel extends \Flame\Doctrine\Entity
     /**
      * @Column(type="string", length=100)
      */
-	private $title;
+	protected $title;
 
     /**
      * @Column(type="text")
      */
-	private $content;
+	protected $content;
 
     /**
      * @Column(type="datetime")
      */
-	private $date;
+	protected $date;
 
     /**
      * @Column(type="integer", length=11)
      */
-	private $hit;
+	protected $hit;
 
 
 	public function __construct($title, $content, DateTime $date)
@@ -81,10 +81,5 @@ class Newsreel extends \Flame\Doctrine\Entity
 		$this->hit = (int) $hit;
 		return $this;
 	}
-
-    public function toArray()
-    {
-        return get_object_vars($this);
-    }
 
 }

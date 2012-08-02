@@ -22,37 +22,37 @@ class Comment extends \Flame\Doctrine\Entity
     /**
      * @ManyToOne(targetEntity="\Flame\Models\Posts\Post")
      */
-    private $post;
+    protected $post;
 
     /**
      * @Column(type="string", length=75)
      */
-    private $name;
+    protected $name;
 
     /**
      * @Column(type="string", length=100)
      */
-    private $email;
+    protected $email;
 
     /**
      * @Column(type="string", length=100)
      */
-    private $web;
+    protected $web;
 
     /**
      * @Column(type="text")
      */
-    private $content;
+    protected $content;
 
     /**
      * @Column(type="datetime")
      */
-    private $created;
+    protected $created;
 
     /**
      * @Column(type="boolean")
      */
-    private $publish;
+    protected $publish;
 
     public function __construct(Post $post, $name, $email, $content)
     {

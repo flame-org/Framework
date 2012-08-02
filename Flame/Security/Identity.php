@@ -18,6 +18,7 @@ class Identity extends \Nette\Security\Identity
 	public function __construct(\Flame\Models\Users\User $user)
 	{
 		$this->user = $user;
+
 		$this->user->setPassword(null);
 		parent::__construct($this->user->getId(), $this->user->getRole(), $this->user->toArray());
 	}

@@ -26,67 +26,67 @@ class Post extends \Flame\Doctrine\Entity
     /**
      * @ManyToOne(targetEntity="\Flame\Models\Users\User")
      */
-    private $user;
+    protected $user;
 
     /**
      * @Column(type="string", length=100)
      */
-    private $name;
+    protected $name;
 
     /**
      * @Column(type="string", length=100)
      */
-    private $slug;
+    protected $slug;
 
     /**
      * @Column(type="string", length=250)
      */
-    private $description;
+    protected $description;
 
     /**
      * @Column(type="string", length=500)
      */
-    private $keywords;
+    protected $keywords;
 
     /**
      * @Column(type="text")
      */
-    private $content;
+    protected $content;
 
 	/**
 	 * @ManyToOne(targetEntity="\Flame\Models\Categories\Category", inversedBy="posts")
 	 */
-	private $category;
+	protected $category;
 
 	/**
 	 * @ManyToMany(targetEntity="\Flame\Models\Tags\Tag", inversedBy="posts")
 	 */
-	private $tags;
+	protected $tags;
 
     /**
      * @Column(type="datetime")
      */
-    private $created;
+    protected $created;
 
     /**
      * @Column(type="boolean")
      */
-    private $publish;
+    protected $publish;
 
     /**
      * @Column(type="boolean")
      */
-    private $comment;
+    protected $comment;
 
     /**
      * @Column(type="integer", length=11)
      */
-    private $hit;
+    protected $hit;
 
     /**
      * @Column(type="boolean")
      */
-    private $markdown;
+    protected $markdown;
 
     public function __construct(User $user, $name, $slug, $content, Category $category)
     {
@@ -247,10 +247,5 @@ class Post extends \Flame\Doctrine\Entity
     {
         $this->markdown = (bool) $markdown;
         return $this;
-    }
-
-    public function toArray()
-    {
-        return get_object_vars($this);
     }
 }

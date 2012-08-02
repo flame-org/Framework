@@ -19,17 +19,17 @@ class Tag extends \Flame\Doctrine\Entity
 	/**
 	 * @Column(type="string", length=100, unique=true)
 	 */
-	private $name;
+	protected $name;
 
 	/**
 	 * @Column(type="string", length=100)
 	 */
-	private $slug;
+	protected $slug;
 
 	/**
 	 * @ManyToMany(targetEntity="\Flame\Models\Posts\Post", mappedBy="tags")
 	 */
-	private $posts;
+	protected $posts;
 
 	public function __construct($name, $slug)
 	{
@@ -63,11 +63,6 @@ class Tag extends \Flame\Doctrine\Entity
 	public function getPosts()
 	{
 		return $this->posts;
-	}
-
-	public function toArray()
-	{
-		return get_object_vars($this);
 	}
 
 	public function __toString()

@@ -14,18 +14,17 @@ namespace Flame\Models\Options;
  * @Entity(repositoryClass="OptionRepository")
  * @Table(name="options")
  */
-
 class Option extends \Flame\Doctrine\Entity
 {
     /**
      * @Column(type="string", length=50, unique=true)
      */
-    private $name;
+    protected $name;
 
     /**
      * @Column(type="string", length=250)
      */
-    private $value;
+    protected $value;
 
     public function __construct($name, $value)
     {
@@ -53,11 +52,6 @@ class Option extends \Flame\Doctrine\Entity
     {
         $this->value = (string) $value;
         return $this;
-    }
-
-    public function toArray()
-    {
-        return get_object_vars($this);
     }
 
 }

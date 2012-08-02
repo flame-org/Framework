@@ -20,33 +20,33 @@ class Category extends \Flame\Doctrine\Entity
 	/**
 	 * @Column(type="string", length=100, unique=true)
 	 */
-	private $name;
+	protected $name;
 
 	/**
 	 * @Column(type="string", length=250)
 	 */
-	private $description;
+	protected $description;
 
 	/**
 	 * @Column(type="string", length=100)
 	 */
-	private $slug;
+	protected $slug;
 
 	/**
 	 * @OneToMany(targetEntity="Category", mappedBy="parent")
 	 **/
-	private $children;
+	protected $children;
 
 	/**
 	 * @ManyToOne(targetEntity="Category", inversedBy="children")
 	 * @JoinColumn(name="parent_id", referencedColumnName="id")
 	 **/
-	private $parent;
+	protected $parent;
 
 	/**
 	 * @OneToMany(targetEntity="\Flame\Models\Posts\Post", mappedBy="category")
 	 */
-	private $posts;
+	protected $posts;
 
 	public function __construct($name, $slug)
 	{
@@ -115,11 +115,6 @@ class Category extends \Flame\Doctrine\Entity
 	public function getPosts()
 	{
 		return $this->posts;
-	}
-
-	public function toArray()
-	{
-		return get_object_vars($this);
 	}
 
 	public function __toString()

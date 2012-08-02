@@ -14,42 +14,42 @@ class Page extends \Flame\Doctrine\Entity
     /**
      * @ManyToOne(targetEntity="\Flame\Models\Users\User")
      */
-    private $user;
+    protected $user;
 
     /**
      * @Column(type="string", length=100)
      */
-    private $name;
+    protected $name;
 
     /**
      * @Column(type="string", length=100)
      */
-    private $slug;
+    protected $slug;
 
     /**
      * @Column(type="string", length=250)
      */
-    private $description;
+    protected $description;
 
     /**
      * @Column(type="string", length=250)
      */
-    private $keywords;
+    protected $keywords;
 
     /**
      * @Column(type="text")
      */
-    private $content;
+    protected $content;
 
     /**
      * @Column(type="datetime")
      */
-    private $created;
+    protected $created;
 
     /**
      * @Column(type="integer", length=11)
      */
-    private $hit;
+    protected $hit;
 
     public function __construct(User $user, $name, $slug, $content)
     {
@@ -143,10 +143,5 @@ class Page extends \Flame\Doctrine\Entity
     {
         $this->hit = (int) $hit;
         return $this;
-    }
-
-    public function toArray()
-    {
-        return get_object_vars($this);
     }
 }

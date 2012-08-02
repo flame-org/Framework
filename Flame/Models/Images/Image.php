@@ -20,17 +20,17 @@ class Image extends \Flame\Doctrine\Entity
     /**
      * @Column(type="string", length=150)
      */
-    private $file;
+    protected $file;
 
     /**
      * @Column(type="string", length=100)
      */
-    private $name;
+    protected $name;
 
     /**
      * @Column(type="string", length=250)
      */
-    private $description;
+    protected $description;
 
     public function __construct($file)
     {

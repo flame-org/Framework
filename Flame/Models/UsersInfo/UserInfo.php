@@ -22,32 +22,32 @@ class UserInfo extends \Flame\Doctrine\Entity
 	/**
 	 * @Column(type="string", length=250)
 	 */
-	private $name;
+	protected $name;
 
 	/**
 	 * @Column(type="string", length=500)
 	 */
-	private $about;
+	protected $about;
 
 	/**
 	 * @Column(type="date")
 	 */
-	private $birthday;
+	protected $birthday;
 
 	/**
 	 * @Column(type="string", length=150)
 	 */
-	private $web;
+	protected $web;
 
 	/**
 	 * @Column(type="string", length=100)
 	 */
-	private $facebook;
+	protected $facebook;
 
 	/**
 	 * @Column(type="string", length=100)
 	 */
-	private $twitter;
+	protected $twitter;
 
 	public function __construct($name)
 	{
@@ -123,10 +123,5 @@ class UserInfo extends \Flame\Doctrine\Entity
 	{
 		$this->twitter = (string) $twitter;
 		return $this;
-	}
-
-	public function toArray()
-	{
-		return get_object_vars($this);
 	}
 }

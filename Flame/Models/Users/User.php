@@ -19,27 +19,27 @@ class User extends \Flame\Doctrine\Entity
     /**
      * @Column(type="string", length=128)
      */
-    private $password;
+    protected $password;
 
     /**
      * @Column(type="string", length=25)
      */
-    private $role;
+    protected $role;
 
     /**
      * @Column(type="string", length=100, unique=true)
      */
-    private $email;
+    protected $email;
 
 	/**
 	 * @Column(type="string", length=50)
 	 */
-	private $facebook;
+	protected $facebook;
 
 	/**
 	 * @OneToOne(targetEntity="\Flame\Models\UsersInfo\UserInfo")
 	 */
-	private $info;
+	protected $info;
 
     public function __construct($email, $password, $role)
     {
@@ -98,9 +98,4 @@ class User extends \Flame\Doctrine\Entity
 		$this->info = $info;
 		return $this;
 	}
-
-    public function toArray()
-    {
-        return get_object_vars($this);
-    }
 }
