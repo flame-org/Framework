@@ -32,6 +32,12 @@ common:
 
 
 	nette:
+		application:
+			errorPresenter: FrontModule\Error
+
+		presenterFactory:
+			class: Flame\Application\PresenterFactory
+
 		session:
 			expiration: 14 days
 
