@@ -10,19 +10,12 @@
 
 namespace Flame\Models\Images;
 
-use Flame\Models\Users\User;
-
 /**
  * @Entity(repositoryClass="ImageRepository")
  * @Table(name="images")
  */
 class Image extends \Flame\Doctrine\Entity
 {
-
-    /**
-     * @ManyToOne(targetEntity="\Flame\Models\Users\User")
-     */
-    private $user;
 
     /**
      * @Column(type="string", length=150)
@@ -39,23 +32,11 @@ class Image extends \Flame\Doctrine\Entity
      */
     private $description;
 
-    public function __construct(User $user, $file)
+    public function __construct($file)
     {
-        $this->user = $user;
         $this->file = $file;
         $this->name = '';
         $this->description = '';
-    }
-
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user)
-    {
-        $this->user = $user;
-        return $this;
     }
 
     public function getFile()

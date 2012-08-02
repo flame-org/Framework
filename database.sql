@@ -22,29 +22,25 @@ CREATE TABLE `categories` (
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `post_id` int(11) unsigned NOT NULL,
+  `post_id` int(11) DEFAULT NULL,
   `name` varchar(75) COLLATE utf8_czech_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `web` varchar(100) COLLATE utf8_czech_ci NOT NULL,
-  `content` varchar(1000) COLLATE utf8_czech_ci NOT NULL,
+  `content` longtext COLLATE utf8_czech_ci NOT NULL,
   `created` datetime NOT NULL,
-  `publish` tinyint(1) NOT NULL DEFAULT '0',
+  `publish` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_post` (`post_id`),
-  CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE
+  KEY `id_post` (`post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
 DROP TABLE IF EXISTS `images`;
 CREATE TABLE `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned DEFAULT NULL,
   `file` varchar(150) COLLATE utf8_czech_ci NOT NULL,
   `name` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `description` varchar(250) COLLATE utf8_czech_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user` (`user_id`),
-  CONSTRAINT `images_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
@@ -159,4 +155,4 @@ CREATE TABLE `users_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
--- 2012-08-02 16:08:13
+-- 2012-08-02 16:17:22
