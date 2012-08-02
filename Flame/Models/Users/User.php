@@ -98,4 +98,10 @@ class User extends \Flame\Doctrine\Entity
 		$this->info = $info;
 		return $this;
 	}
+
+	public function setInfoNull()
+	{
+		$this->info = null;
+		return $this;
+	}
 }
