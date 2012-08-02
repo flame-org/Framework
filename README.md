@@ -16,7 +16,7 @@ Flame is available over Composer. Please visit [PACKAGIST](http://packagist.org/
 ### Required Settings (Change the settings in the file: **CONFIG.NEON**)
 Flame required:
 * Setup database credentials
-* Create database structure (use **DATABASE.SQL** file)
+* Create database structure by Doctrine
 * Install dependencies with composer
 
 ### Features
@@ -42,6 +42,6 @@ If you want to affect prepared options (set up in the options section)
 * menu_newsreel_count (default: 3)
 * menu_tags_count (default: 35)
 
-#### If you want to sign in to backend part (Administration) of Flame, use email **user@demo.com** and password **PASSWORD12** (in lower case)
+If you want to sign in to backend part (Administration) of Flame, use email **user@demo.com** and password **PASSWORD12** (in lower case)
 
 
