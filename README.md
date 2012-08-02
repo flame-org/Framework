@@ -41,7 +41,3 @@ If you want to affect prepared options (set up in the options section)
 * menu_items (default: 5)
 * menu_newsreel_count (default: 3)
 * menu_tags_count (default: 35)
-
-If you want to sign in to backend part (Administration) of Flame, use email **user@demo.com** and password **PASSWORD12** (in lower case)
-
-
