@@ -32,7 +32,7 @@ class User extends \Flame\Doctrine\Entity
     protected $email;
 
 	/**
-	 * @Column(type="string", length=50)
+	 * @Column(type="string", length=50, nullable=true)
 	 */
 	protected $facebook;
 
