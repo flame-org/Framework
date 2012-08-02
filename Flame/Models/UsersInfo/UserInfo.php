@@ -102,7 +102,6 @@ class UserInfo extends \Flame\Doctrine\Entity
 		return $this;
 	}
 
-
 	public function getFacebook()
 	{
 		return $this->facebook;
