@@ -13,11 +13,6 @@ namespace Flame\Application\UI;
 abstract class Control extends \Nette\Application\UI\Control
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
 	public function createTemplate($class = null)
 	{
 		$template = parent::createTemplate($class);
