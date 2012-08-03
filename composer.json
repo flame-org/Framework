@@ -27,13 +27,6 @@
 		"symfony/console": "2.0.*"
 	},
 
-	"repositories": [
-		{
-			"type": "NetteTranslator",
-			"url": "git://github.com/Schmutzka/NetteTranslator.git"
-		}
-	],
-
 	"autoload": {
 		"psr-0": {"Flame": ""},
 		"files": ["Flame/loader.php"]
