@@ -5,70 +5,19 @@
 # http://nette.org/security-warning
 #
 common:
-	parameters:
-		database:
-			driver: pdo_mysql
-			charset: utf8
-			port: 3306
-
-		entities:
-			- %flameDir%/Models
-
-		imageStorage:
-			thumbDir: 'media/images_thumbnails'
-			imageDir: 'media/images'
-			importImageDir: 'media/imported_images'
-			baseDir: %wwwDir%
-
-		selenium:
-			host: localhost
-			browser: firefox
-			browserUrl: http://localhost/JS-CMS/www/
-			# port: 4444
-
 	php:
 		date.timezone: Europe/Prague
 		zlib.output_compression: yes
 
-
 	nette:
 		application:
 			errorPresenter: FrontModule\Error
+			presenterFactory: Flame\Application\PresenterFactory
+			session:expiration: 14 days
 
-		presenterFactory:
-			class: Flame\Application\PresenterFactory
-
-		session:
-			expiration: 14 days
-
-	services:
-		Authorizator: Flame\Security\Authorizator
-		Authenticator: Flame\Security\Authenticator
-
-		SqlLogger: Flame\Utils\ConnectionPanel::register
-
-		EntityManagerConfig:
-			class: Doctrine\ORM\Configuration
-			factory: Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(%entities%, true)
-			setup:
-				- @EntityManagerConfig::setSQLLogger(@SqlLogger)
-
-		EntityManager:
-			class: Doctrine\ORM\EntityManager
-			factory: Doctrine\ORM\EntityManager::create(%database%, @EntityManagerConfig)
-
-		NewsreelFacade: Flame\Models\Newsreel\NewsreelFacade
-		UserFacade: Flame\Models\Users\UserFacade
-		OptionFacade: Flame\Models\Options\OptionFacade
-		CommentFacade: Flame\Models\Comments\CommentFacade
-		PostFacade: Flame\Models\Posts\PostFacade
-		CategoryFacade: Flame\Models\Categories\CategoryFacade
-		TagFacade: Flame\Models\Tags\TagFacade
-		PageFacade: Flame\Models\Pages\PageFacade
-		ImageFacade: Flame\Models\Images\ImageFacade
-		UserInfoFacade: Flame\Models\UsersInfo\UserInfoFacade
-
-		WordPressImporter: Flame\Utils\WordPressImporter
+	includes:
+		- parameters.neon
+		- services.neon
 
 	factories:
 

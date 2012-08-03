@@ -1,0 +1,20 @@
+parameters:
+	database:
+		driver: pdo_mysql
+		charset: utf8
+		port: 3306
+
+	entities:
+		- %flameDir%/Models
+
+	imageStorage:
+		thumbDir: 'media/images_thumbnails'
+		imageDir: 'media/images'
+		importImageDir: 'media/imported_images'
+		baseDir: %wwwDir%
+
+	selenium:
+		host: localhost
+		browser: firefox
+		browserUrl: http://localhost/JS-CMS/www/
+		# port: 4444

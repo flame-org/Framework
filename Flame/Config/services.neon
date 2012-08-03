@@ -1,0 +1,28 @@
+services:
+	Authorizator: Flame\Security\Authorizator
+	Authenticator: Flame\Security\Authenticator
+
+	SqlLogger: Flame\Utils\ConnectionPanel::register
+
+	EntityManagerConfig:
+		class: Doctrine\ORM\Configuration
+		factory: Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(%entities%, true)
+		setup:
+			- @EntityManagerConfig::setSQLLogger(@SqlLogger)
+
+	EntityManager:
+		class: Doctrine\ORM\EntityManager
+		factory: Doctrine\ORM\EntityManager::create(%database%, @EntityManagerConfig)
+
+	NewsreelFacade: Flame\Models\Newsreel\NewsreelFacade
+	UserFacade: Flame\Models\Users\UserFacade
+	OptionFacade: Flame\Models\Options\OptionFacade
+	CommentFacade: Flame\Models\Comments\CommentFacade
+	PostFacade: Flame\Models\Posts\PostFacade
+	CategoryFacade: Flame\Models\Categories\CategoryFacade
+	TagFacade: Flame\Models\Tags\TagFacade
+	PageFacade: Flame\Models\Pages\PageFacade
+	ImageFacade: Flame\Models\Images\ImageFacade
+	UserInfoFacade: Flame\Models\UsersInfo\UserInfoFacade
+
+	WordPressImporter: Flame\Utils\WordPressImporter
