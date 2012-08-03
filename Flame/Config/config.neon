@@ -45,9 +45,14 @@ common:
 		Authorizator: Flame\Security\Authorizator
 		Authenticator: Flame\Security\Authenticator
 
+		SqlLogger: Flame\Utils\ConnectionPanel::register
+
 		EntityManagerConfig:
 			class: Doctrine\ORM\Configuration
 			factory: Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(%entities%, true)
+			setup:
+				- @EntityManagerConfig::setSQLLogger(@SqlLogger)
+
 		EntityManager:
 			class: Doctrine\ORM\EntityManager
 			factory: Doctrine\ORM\EntityManager::create(%database%, @EntityManagerConfig)
