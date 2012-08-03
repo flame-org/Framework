@@ -71,11 +71,12 @@ class PostForm extends \Flame\Application\UI\TemplateForm
 
 		$this->addGroup('Category');
 
-		if($this->categories){
-			$this->addSelect('category', 'Category:', $this->categories)
-				->setPrompt('-- Select one --')
-				->setOption('description', 'Select category or create new below.');
 
+		$this->addSelect('category', 'Category:', $this->categories)
+			->setPrompt('-- Select one --')
+			->setOption('description', 'Select category or create new below.');
+
+		if($this->categories){
 			$this->addText('categoryNew', 'Create new category', 80)
 				->setAttribute('placeholder', 'Write name of new category');
 		}else{
