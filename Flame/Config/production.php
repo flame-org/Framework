@@ -8,8 +8,10 @@
  * @date    28.07.12
  */
 
+$config = array();
+
 if(isset($_SERVER['DB1_HOST'], $_SERVER['DB1_NAME'], $_SERVER['DB1_USER'], $_SERVER['DB1_PASS'], $_SERVER['DB1_PORT'])){
-	return array(
+	$config = array(
 		'parameters' => array(
 			'database' => array(
 				'host' => $_SERVER['DB1_HOST'],
@@ -20,6 +22,6 @@ if(isset($_SERVER['DB1_HOST'], $_SERVER['DB1_NAME'], $_SERVER['DB1_USER'], $_SER
 			),
 		),
 	);
-}else{
-	return array();
 }
+
+return $config;
