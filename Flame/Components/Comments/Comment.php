@@ -46,6 +46,9 @@ class Comment extends \Flame\Application\UI\Control
 		$this->template->render();
 	}
 
+	/**
+	 * @return \Nette\Application\UI\Form
+	 */
 	protected function createComponentAddCommentForm()
 	{
 		$f = new Form;
@@ -71,6 +74,10 @@ class Comment extends \Flame\Application\UI\Control
         return $f;
 	}
 
+	/**
+	 * @param \Nette\Application\UI\Form $f
+	 * @throws \Nette\InvalidArgumentException
+	 */
 	public function commentFormSubmitted(Form $f)
 	{
 
@@ -87,6 +94,10 @@ class Comment extends \Flame\Application\UI\Control
 		$this->redirect('this');
 	}
 
+	/**
+	 * @param $url
+	 * @return string
+	 */
 	private function treatUrl($url)
 	{
 		if(strpos($url, 'http') !== true){

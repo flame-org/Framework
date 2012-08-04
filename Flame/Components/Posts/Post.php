@@ -26,7 +26,7 @@ class Post extends \Flame\Application\UI\Control
 	/**
 	 * @param $posts
 	 */
-	public function setPost($posts)
+	public function setPosts($posts)
 	{
 		$this->posts = $posts;
 	}
@@ -42,7 +42,7 @@ class Post extends \Flame\Application\UI\Control
 	 */
 	private function beforeRender()
 	{
-		if(!$this->posts){
+		if(is_null($this->posts)){
 			throw new \Nette\InvalidArgumentException('You must set posts');
 		}
 
