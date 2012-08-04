@@ -12,12 +12,24 @@ namespace Flame\Application\UI;
 
 abstract class Control extends \Nette\Application\UI\Control
 {
+	public function __construct(\Nette\ComponentModel\IContainer $parent, $name)
+	{
+		parent::__construct($parent, $name);
+	}
 
 	public function createTemplate($class = null)
 	{
 		$template = parent::createTemplate($class);
-		$template->registerHelperLoader(callback(new \Flame\Utils\Helpers($this->getContextParameter('imageStorage')), 'loader'));
+		$template->registerHelperLoader(callback(
+			new \Flame\Utils\Helpers($this->getContextParameter('imageStorage')),
+			'loader'
+		));
 		return $template;
+	}
+
+	public function getSession()
+	{
+		return $this->getPresenter()->getSession();
 	}
 
 	private function getContext()
