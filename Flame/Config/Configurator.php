@@ -27,16 +27,6 @@ class Configurator extends \Nette\Config\Configurator
 		$this->addParameters($this->getOptionalParameters());
 	}
 
-	protected function getDefaultParameters()
-	{
-		$default = parent::getDefaultParameters();
-
-		if($default['environment'] == self::DEVELOPMENT)
-			$default['consoleMode'] = false;
-
-		return $default;
-	}
-
 	protected function getOptionalParameters()
 	{
 		 return array(
