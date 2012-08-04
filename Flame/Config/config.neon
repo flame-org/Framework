@@ -11,9 +11,12 @@ common:
 
 	nette:
 		application:
+			debugger: true
 			errorPresenter: FrontModule\Error
 			session:
+				autoStart: true
 				expiration: 14 days
+				name: FLAME
 
 	includes:
 		- parameters.neon
