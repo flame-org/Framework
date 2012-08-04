@@ -8,7 +8,7 @@ use Nette\Security as NS;
 /**
  * Users authenticator.
  */
-class Authenticator extends \Nette\Object implements NS\IAuthenticator
+abstract class Authenticator extends \Nette\Object implements NS\IAuthenticator
 {
 
 	/**
