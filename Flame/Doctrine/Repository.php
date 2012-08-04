@@ -10,7 +10,7 @@
 
 namespace Flame\Doctrine;
 
-class BaseRepository extends \Doctrine\ORM\EntityRepository implements IRepository
+class Repository extends \Doctrine\ORM\EntityRepository implements IRepository
 {
 
 	protected $entityManager;
