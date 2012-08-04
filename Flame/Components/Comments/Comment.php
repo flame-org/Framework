@@ -9,15 +9,34 @@ use	Nette\Application\UI\Form;
 */
 class Comment extends \Flame\Application\UI\Control
 {
-	private $commentFacade;
 
+	/**
+	 * @var \Flame\Models\Posts\Post $post
+	 */
 	private $post;
 
-	public function __construct(\Flame\Models\Posts\Post $post, \Flame\Models\Comments\CommentFacade $commentFacade)
+	/**
+	 * @var \Flame\Models\Comments\CommentFacade
+	 */
+	private $commentFacade;
+
+	/**
+	 * @param \Nette\ComponentModel\IContainer $parent
+	 * @param null $name
+	 */
+	public function __construct($parent, $name)
 	{
-		parent::__construct();
-		$this->commentFacade = $commentFacade;
-        $this->post = $post;
+		parent::__construct($parent, $name);
+
+		$this->commentFacade = $this->presenter->context->CommentFacade;
+	}
+
+	/**
+	 * @param \Flame\Models\Posts\Post $post
+	 */
+	public function setPost(\Flame\Models\Posts\Post $post)
+	{
+		$this->post = $post;
 	}
 
 	public function render()
@@ -47,13 +66,18 @@ class Comment extends \Flame\Application\UI\Control
 			->addRule(FORM::MAX_LENGTH, 'Comment must be shorter than %d chars.', 1000);
 
 		$f->addSubmit('send', 'Send');
-		$f->onSuccess[] = callback($this, 'commentFormSubmitted');
+		$f->onSuccess[] = $this->commentFormSubmitted;
 
         return $f;
 	}
 
 	public function commentFormSubmitted(Form $f)
 	{
+
+		if(!$this->post){
+			throw new \Nette\InvalidArgumentException('You must set Post');
+		}
+
 		$values = $f->getValues();
 
 		$comment = new \Flame\Models\Comments\Comment($this->post, $values['name'], $values['email'], $values['content']);

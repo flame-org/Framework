@@ -12,26 +12,45 @@ namespace Flame\Components\Tags;
 
 class Tag extends \Flame\Application\UI\Control
 {
-	private $countOfItems = 35;
-
+	/**
+	 * @var \Flame\Models\Tags\TagFacade
+	 */
 	private $tagFacade;
 
-	public function __construct(\Flame\Models\Tags\TagFacade $tagFacade)
-	{
-		parent::__construct();
-		$this->tagFacade = $tagFacade;
-	}
+	/**
+	 * @var \Flame\Models\Options\OptionFacade
+	 */
+	private $optionFacade;
 
-	public function setCountOfItems($count)
+	/**
+	 * @var int
+	 */
+	private $countOfItems = 35;
+
+	/**
+	 * @param \Nette\ComponentModel\IContainer $parent
+	 * @param null $name
+	 */
+	public function __construct($parent, $name)
 	{
-		$this->countOfItems = (int) $count;
+		parent::__construct($parent, $name);
+
+		$this->tagFacade = $this->presenter->context->TagFacade;
+		$this->optionFacade = $this->presenter->context->OptionFacade;
 	}
 
 	public function render()
 	{
+		$this->initCountOfItems();
 		$this->template->setFile(__DIR__ . '/Tag.latte');
 		$this->template->tags = $this->tagFacade->getLastTags($this->countOfItems);
 		$this->template->render();
+	}
+
+	private function initCountOfItems()
+	{
+		$countOfItems = $this->optionFacade->getOptionValue('menu_tags_count');
+		if((int) $countOfItems >= 1) $this->countOfItems = (int) $countOfItems;
 	}
 
 }

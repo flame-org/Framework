@@ -7,24 +7,47 @@ namespace Flame\Components\Posts;
 */
 class Post extends \Flame\Application\UI\Control
 {
+	private $posts;
+
+	private $optionFacade;
 
 	private $itemsPerPage = 10;
 
-	private $posts;
-
-	public function __construct($posts)
+	/**
+	 * @param \Nette\ComponentModel\IContainer $parent
+	 * @param null $name
+	 */
+	public function __construct($parent, $name)
 	{
-		parent::__construct();
+		parent::__construct($parent, $name);
+		$this->optionFacade = $this->presenter->context->OptionFacade;
+	}
+
+	/**
+	 * @param $posts
+	 */
+	public function setPost($posts)
+	{
 		$this->posts = $posts;
 	}
 
-	public function setCountOfItemsPerPage($count)
+	private function initItemsPerPage()
 	{
-		if((int) $count >= 1) $this->itemsPerPage = (int) $count;
+		$itemsPerPage = $this->optionFacade->getOptionValue('items_per_page');
+		if((int) $itemsPerPage >= 1) $this->itemsPerPage = (int) $itemsPerPage;
 	}
 
+	/**
+	 * @throws \Nette\InvalidArgumentException
+	 */
 	private function beforeRender()
 	{
+		if(!$this->posts){
+			throw new \Nette\InvalidArgumentException('You must set posts');
+		}
+
+		$this->initItemsPerPage();
+
 		$paginator = $this['paginator']->getPaginator();
 		$paginator->itemCount = count($this->posts);
 
@@ -45,6 +68,9 @@ class Post extends \Flame\Application\UI\Control
 		$this->template->render();
 	}
 
+	/**
+	 * @return \Flame\Utils\VisualPaginator\Paginator
+	 */
 	protected function createComponentPaginator()
 	{
 		$visualPaginator = new \Flame\Utils\VisualPaginator\Paginator($this, 'paginator');
@@ -52,6 +78,11 @@ class Post extends \Flame\Application\UI\Control
 	    return $visualPaginator;
 	}
 
+	/**
+	 * @param $posts
+	 * @param $offset
+	 * @return array
+	 */
 	private function getItemsPerPage(&$posts, $offset)
 	{
 		return array_slice($posts, $offset, $this->itemsPerPage);

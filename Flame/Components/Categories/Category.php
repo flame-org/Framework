@@ -13,11 +13,20 @@ namespace Flame\Components\Categories;
 class Category extends \Flame\Application\UI\Control
 {
 
+	/**
+	 * @var \Flame\Models\Categories\CategoryFacade
+	 */
 	private $categoryFacade;
 
-	public function __construct(\Flame\Models\Categories\CategoryFacade $categoryFacade)
+	/**
+	 * @param \Nette\ComponentModel\IContainer $parent
+	 * @param null $name
+	 */
+	public function __construct($parent, $name)
 	{
-		$this->categoryFacade = $categoryFacade;
+		parent::__construct($parent, $name);
+
+		$this->categoryFacade = $this->presenter->context->CategoryFacade;
 	}
 
 	public function render()
