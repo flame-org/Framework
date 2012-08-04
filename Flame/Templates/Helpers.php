@@ -8,7 +8,7 @@
  * @date    11.07.12
  */
 
-namespace Flame\Utils;
+namespace Flame\Templates;
 
 class Helpers extends \Nette\Object
 {
@@ -27,15 +27,9 @@ class Helpers extends \Nette\Object
 		}
 	}
 
-	public function markdown($text)
-	{
-		$markDown = new \dflydev\markdown\MarkdownExtraParser();
-		return $markDown->transformMarkdown($text);
-	}
-
 	public function thumb($origName, $width, $height = NULL)
 	{
-		$thumb = new ThumbnailsCreator($this->params);
+		$thumb = new \Flame\Utils\ThumbnailsCreator($this->params);
 		return $thumb->thumb($origName, $width, $height);
 	}
 

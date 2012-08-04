@@ -1,6 +1,6 @@
 <?php
 
-namespace Flame\Utils\VisualPaginator;
+namespace Flame\Addons\VisualPaginator;
 
 /**
  * Nette Framework Extras

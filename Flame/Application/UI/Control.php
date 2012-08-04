@@ -21,7 +21,7 @@ abstract class Control extends \Nette\Application\UI\Control
 	{
 		$template = parent::createTemplate($class);
 		$template->registerHelperLoader(callback(
-			new \Flame\Utils\Helpers($this->getContextParameter('imageStorage')),
+			new \Flame\Templates\Helpers($this->getContextParameter('imageStorage')),
 			'loader'
 		));
 		return $template;

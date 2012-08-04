@@ -23,14 +23,5 @@ class Configurator extends \Nette\Config\Configurator
 				'parent' => $containerClass
 			)
 		));
-
-		$this->addParameters($this->getOptionalParameters());
-	}
-
-	protected function getOptionalParameters()
-	{
-		 return array(
-			'flameDir' => realpath(FLAME_DIR)
-		);
 	}
 }
