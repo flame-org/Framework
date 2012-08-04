@@ -17,18 +17,30 @@ class Configurator extends \Nette\Config\Configurator
 	{
 		parent::__construct();
 
-		$this->addParameters(array('container' => array('class' => 'SystemContainer', 'parent' => $containerClass)));
-	}
-
-	public function setOptionalParameters()
-	{
-		//$baseUrl = rtrim($this->container->httpRequest->getUrl()->getBaseUrl(), '/');
-
 		$this->addParameters(array(
-//			'baseUrl' => $baseUrl,
-//			'basePath' => preg_replace('#https?://[^/]+#A', '', $baseUrl),
-			'flameDir' => realpath(FLAME_DIR),
+			'container' => array(
+				'class' => 'SystemContainer',
+				'parent' => $containerClass
+			)
 		));
+
+		$this->addParameters($this->getOptionalParameters());
 	}
 
+	protected function getDefaultParameters()
+	{
+		$default = parent::getDefaultParameters();
+
+		if($default['environment'] == self::DEVELOPMENT)
+			$default['consoleMode'] = false;
+
+		return $default;
+	}
+
+	protected function getOptionalParameters()
+	{
+		 return array(
+			'flameDir' => realpath(FLAME_DIR)
+		);
+	}
 }
