@@ -10,18 +10,24 @@ use Nette\Security as NS;
  */
 class Authenticator extends \Nette\Object implements NS\IAuthenticator
 {
+
+	/**
+	 * @var \Flame\Models\Users\UserFacade
+	 */
 	private $userFacade;
 
+	/**
+	 * @param \Flame\Models\Users\UserFacade $usersFacade
+	 */
 	public function __construct(\Flame\Models\Users\UserFacade $usersFacade)
 	{
 		$this->userFacade = $usersFacade;
 	}
 
 	/**
-	 * Performs an authentication
-	 * @param  array
-	 * @return Flame\Security\Identity
-	 * @throws Nette\Security\AuthenticationException
+	 * @param array $credentials
+	 * @return Identity
+	 * @throws \Nette\Security\AuthenticationException
 	 */
 	public function authenticate(array $credentials)
 	{
@@ -32,7 +38,7 @@ class Authenticator extends \Nette\Object implements NS\IAuthenticator
 	        throw new NS\AuthenticationException("User '$email' not found.", self::IDENTITY_NOT_FOUND);
 	    }
 
-	    if ($user->password !== $this->calculateHash($password)) {
+	    if ($user->password !== $this->calculateHash($password, $user->password)) {
 	        throw new NS\AuthenticationException("Invalid password.", self::INVALID_CREDENTIAL);
 	    }
 
@@ -40,19 +46,17 @@ class Authenticator extends \Nette\Object implements NS\IAuthenticator
 	}
 
 	/**
-	 * Computes salted password hash.
-	 * @param  string
+	 * @param $password
+	 * @param $salt
 	 * @return string
 	 */
-	public function calculateHash($password)
+	public function calculateHash($password, $salt = null)
 	{
-		return hash('sha512', $password);
-	}
+		if ($salt === null) {
+			$salt = '$2a$07$' . md5(uniqid(time())) . '$';
+		}
 
-    public function setPassword(\Flame\Models\Users\User $user, $password)
-    {
-        $user->setPassword($this->calculateHash($password));
-        return $this->userFacade->persist($user);
-    }
+		return crypt($password, $salt);
+	}
 
 }
