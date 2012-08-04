@@ -77,9 +77,9 @@ class Authorizator extends NS\Permission implements NS\IAuthorizator
 			'Admin:Page',
 			'Admin:Newsreel',
 			'Admin:Tag',
-			'Admin:Category'
+			'Admin:Category',
+			'Admin:Comment'
 		));
-		$this->allow(self::MODERATOR, array('Admin:Comment'), array('delete', 'publish', 'default'));
 
 		//DEFINE ADMIN ADMINISTRATORS ACCESS
 		$this->allow(self::ADMINISTRATOR, array('Admin:User', 'Admin:Import', 'Admin:Option'));
