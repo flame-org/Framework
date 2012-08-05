@@ -19,7 +19,7 @@ class Form extends \Nette\Application\UI\Form
 
 		$this->addExtensionDatePicker();
 
-		$this->getElementPrototype()->class = 'well';
+		$this->getElementPrototype()->class[] = 'well';
 	}
 
 	protected function prepareForFormItem(array &$items)
