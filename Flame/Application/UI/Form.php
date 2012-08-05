@@ -19,6 +19,10 @@ class Form extends \Nette\Application\UI\Form
 
 		$this->addExtensionDatePicker();
 
+		$renderer = $this->getRenderer();
+		$renderer->wrappers['control']['.submit'] = 'btn btn-primary';
+		$renderer->wrappers['control']['.button'] = 'btn btn-primary';
+
 		$this->getElementPrototype()->class[] = 'well';
 	}
 
