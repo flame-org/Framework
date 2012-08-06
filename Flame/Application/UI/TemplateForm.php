@@ -12,24 +12,41 @@ namespace Flame\Application\UI;
 
 class TemplateForm extends Form
 {
+
+	/**
+	 * @var string
+	 */
 	protected $template;
 
+	/**
+	 * @param \Nette\ComponentModel\IContainer|null $parent
+	 * @param null $name
+	 */
 	public function __construct(\Nette\ComponentModel\IContainer $parent = null,  $name = null)
 	{
 		parent::__construct($parent, $name);
 	}
 
+	/**
+	 * @return string
+	 */
 	protected function getTemplateFile()
 	{
 		$reflection = $this->getReflection();
 		return dirname($reflection->getFileName()) . "/" . $reflection->getShortName() . ".latte";
 	}
 
+	/**
+	 * @return mixed
+	 */
 	protected function createTemplate()
 	{
 		return $this->getPresenter()->createTemplate()->setFile($this->getTemplateFile());
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getTemplate()
 	{
 		if (empty($this->template)) {
