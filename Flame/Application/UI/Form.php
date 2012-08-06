@@ -13,6 +13,10 @@ namespace Flame\Application\UI;
 class Form extends \Nette\Application\UI\Form
 {
 
+	/**
+	 * @param \Nette\ComponentModel\IContainer|null $parent
+	 * @param null $name
+	 */
 	public function __construct(\Nette\ComponentModel\IContainer $parent = null,  $name = null)
 	{
 		parent::__construct($parent, $name);
@@ -27,6 +31,10 @@ class Form extends \Nette\Application\UI\Form
 		$this->getElementPrototype()->class[] = 'well';
 	}
 
+	/**
+	 * @param array $items
+	 * @return array
+	 */
 	protected function prepareForFormItem(array &$items)
 	{
 		if(count($items)){
@@ -36,6 +44,8 @@ class Form extends \Nette\Application\UI\Form
 			}
 			return $prepared;
 		}
+
+		return $items;
 	}
 
 	private function addExtensionDatePicker()
