@@ -54,4 +54,9 @@ class Form extends \Nette\Application\UI\Form
 			return $container[$name] = new \Flame\Utils\DatePicker($label);
 		});
 	}
+
+	public function restore(array $defaults = array())
+	{
+		$this->setValues($defaults, true);
+	}
 }
