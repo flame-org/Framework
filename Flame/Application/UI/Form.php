@@ -35,12 +35,12 @@ class Form extends \Nette\Application\UI\Form
 	 * @param array $items
 	 * @return array
 	 */
-	protected function prepareForFormItem(array &$items)
+	protected function prepareForFormItem(array &$items, $filter = 'name')
 	{
 		if(count($items)){
 			$prepared = array();
 			foreach($items as $item){
-				$prepared[$item->id] = $item->name;
+				$prepared[$item->id] = $item->$filter;
 			}
 			return $prepared;
 		}
