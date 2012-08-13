@@ -8,7 +8,7 @@
  * @date    13.08.12
  */
 
-namespace Flame\Doctrine;
+namespace Flame\Model;
 
 interface IFacade
 {

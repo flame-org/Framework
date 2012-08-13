@@ -8,7 +8,7 @@
  * @date    12.07.12
  */
 
-namespace Flame\Doctrine;
+namespace Flame\Model;
 
 interface IRepository
 {
