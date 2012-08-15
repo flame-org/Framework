@@ -33,6 +33,7 @@ class Form extends \Nette\Application\UI\Form
 
 	/**
 	 * @param array $items
+	 * @param string $filter
 	 * @return array
 	 */
 	protected function prepareForFormItem(array &$items, $filter = 'name')
@@ -55,8 +56,12 @@ class Form extends \Nette\Application\UI\Form
 		});
 	}
 
+	/**
+	 * @param array $defaults
+	 */
 	public function restore(array $defaults = array())
 	{
+		$this->setDefaults($defaults, true);
 		$this->setValues($defaults, true);
 	}
 }
