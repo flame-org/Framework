@@ -19,6 +19,9 @@ class ThumbnailsCreator extends \Nette\Object
 	private $imageDirUri;
 	private $baseDir;
 
+	/**
+	 * @param array $params
+	 */
 	public function __construct(array $params = array())
 	{
 		if(isset($params['baseDir'])) $this->baseDir = $params['baseDir'];
@@ -27,12 +30,11 @@ class ThumbnailsCreator extends \Nette\Object
 	}
 
 	/**
-	 * Vytvoreni miniatury obrazku a vraceni jeho URI
-	 *
-	 * @param  string relativni URI originalu (zacina se v document_rootu)
-	 * @param  NULL|int sirka miniatury
-	 * @param  NULL|int vyska miniatury
-	 * @return string absolutni URI miniatury
+	 * @param $origName
+	 * @param $width
+	 * @param null $height
+	 * @return string
+	 * @throws \Nette\InvalidArgumentException
 	 */
 	public function thumb($origName, $width, $height = NULL)
 	{
@@ -97,14 +99,11 @@ class ThumbnailsCreator extends \Nette\Object
 	}
 
 
-
 	/**
-	 * Vytvori jmeno generovane miniatury
-	 *
-	 * @param  string relativni cesta (document_root/$relPath)
-	 * @param  int sirka
-	 * @param  int vyska
-	 * @param  int timestamp zmeny originalu
+	 * @param $relPath
+	 * @param $width
+	 * @param $height
+	 * @param $mtime
 	 * @return string
 	 */
 	private function getThumbName($relPath, $width, $height, $mtime)
@@ -125,6 +124,10 @@ class ThumbnailsCreator extends \Nette\Object
 		return $relPath;
 	}
 
+	/**
+	 * @param $filepath
+	 * @return bool
+	 */
 	private function createDirForThumbnails($filepath)
 	{
 		if(!file_exists($filepath)) return mkdir($filepath, 0777, true);

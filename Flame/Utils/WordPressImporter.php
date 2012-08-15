@@ -13,8 +13,14 @@ namespace Flame\Utils;
 class WordPressImporter extends \Nette\Object
 {
 
+	/**
+	 * @var array
+	 */
 	private $items;
 
+	/**
+	 * @var string
+	 */
 	private $exportFile;
 
 	protected function loadItems()
@@ -23,6 +29,10 @@ class WordPressImporter extends \Nette\Object
 		$this->items = $xml->channel->item;
 	}
 
+	/**
+	 * @param $item
+	 * @return array
+	 */
 	protected function postToArray($item)
 	{
 		$post = array();
@@ -66,6 +76,10 @@ class WordPressImporter extends \Nette\Object
 		return $post;
 	}
 
+	/**
+	 * @param $file
+	 * @return array
+	 */
 	public function convert($file)
 	{
 		$this->exportFile = $file;
@@ -82,6 +96,10 @@ class WordPressImporter extends \Nette\Object
 		return $posts;
 	}
 
+	/**
+	 * @param $content
+	 * @return mixed
+	 */
 	private function findImages($content){
 		$pattern = '/<img[^>]+src[\\s=\'"]';
 		$pattern .= '+([^"\'>\\s]+)/is';

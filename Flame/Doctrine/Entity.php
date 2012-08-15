@@ -25,16 +25,25 @@ abstract class Entity extends \Nette\Object implements \Flame\Model\IEntity
      */
     private $id;
 
-    public function getId()
+	/**
+	 * @return int
+	 */
+	public function getId()
     {
         return $this->id;
     }
 
-    public function toArray()
+	/**
+	 * @return array
+	 */
+	public function toArray()
     {
         return get_object_vars($this);
     }
 
+	/**
+	 * @return string
+	 */
 	public function __toString()
 	{
 		return (string) $this->id;

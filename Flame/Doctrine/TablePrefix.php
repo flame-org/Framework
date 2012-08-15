@@ -1,22 +1,36 @@
 <?php
 
 namespace Flame\Doctrine;
+
 use \Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 
 class TablePrefix implements \Doctrine\Common\EventSubscriber
 {
-    protected $prefix = '';
 
-    public function __construct($prefix)
+	/**
+	 * @var string
+	 */
+	protected $prefix = '';
+
+	/**
+	 * @param $prefix
+	 */
+	public function __construct($prefix)
     {
         $this->prefix = (string) $prefix;
     }
 
+	/**
+	 * @return array
+	 */
 	public function getSubscribedEvents()
 	{
 		return array('loadClassMetadata');
 	}
 
+	/**
+	 * @param \Doctrine\ORM\Event\LoadClassMetadataEventArgs $eventArgs
+	 */
 	public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
         $classMetadata = $eventArgs->getClassMetadata();
