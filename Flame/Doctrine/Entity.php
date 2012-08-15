@@ -13,7 +13,7 @@ namespace Flame\Doctrine;
 /**
  * @MappedSuperClass
  */
-abstract class Entity extends \Nette\Object implements IEntity
+abstract class Entity extends \Nette\Object implements \Flame\Model\IEntity
 {
 
     /**
