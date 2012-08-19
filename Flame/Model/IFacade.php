@@ -13,8 +13,15 @@ namespace Flame\Model;
 interface IFacade
 {
 
+	/**
+	 * @param \Doctrine\ORM\EntityManager $entityManager
+	 */
 	public function __construct(\Doctrine\ORM\EntityManager $entityManager);
 
+	/**
+	 * @param $id
+	 * @return mixed
+	 */
 	public function getOne($id);
 
 }

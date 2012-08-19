@@ -44,6 +44,10 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 		);
 	}
 
+	/**
+	 * @param null $class
+	 * @return \Nette\Templating\ITemplate
+	 */
 	public function createTemplate($class = null)
 	{
 		$template = parent::createTemplate($class);
@@ -54,12 +58,19 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 		return $template;
 	}
 
+	/**
+	 * @param null $name
+	 * @return null
+	 */
 	protected function getContextParameter($name = null)
 	{
 		$params = $this->context->getParameters();
 		if(isset($params[$name])) return $params[$name]; else return null;
 	}
 
+	/**
+	 * @return mixed
+	 */
 	protected function getBaseUrl()
 	{
 		return $this->getHttpRequest()->url->baseUrl;

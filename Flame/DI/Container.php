@@ -13,6 +13,11 @@ namespace Flame\DI;
 class Container extends \Nette\DI\Container
 {
 
+	/**
+	 * @param $key
+	 * @param null $default
+	 * @return null
+	 */
 	public function getParam($key, $default = null)
 	{
 		if(isset($this->parameters[$key])){
