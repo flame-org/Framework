@@ -52,7 +52,7 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 	{
 		$template = parent::createTemplate($class);
 		$template->registerHelperLoader(callback(
-			new \Flame\Templates\Helpers($this->getContextParameter('imageStorage')),
+			new \Flame\Templates\Helpers($this->getContextParameter('imageStorage') ?: array()),
 			'loader'
 		));
 		return $template;
