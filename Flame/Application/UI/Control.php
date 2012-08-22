@@ -12,5 +12,10 @@ namespace Flame\Application\UI;
 
 abstract class Control extends \Nette\Application\UI\Control
 {
+	
+	public function render()
+	{
+		$this->template->render();
+	}
 
 }
