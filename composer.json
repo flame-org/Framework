@@ -21,7 +21,8 @@
 	"require": {
         "php": ">=5.3.2",
         "nette/nette": "dev-master",
-		"doctrine/orm": "2.2.*"
+		"doctrine/orm": "2.2.*",
+		"jsifalda/service-panel": "dev-master"
 	},
 
 	"autoload": {
