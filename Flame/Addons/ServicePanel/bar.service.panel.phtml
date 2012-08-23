@@ -1,0 +1,23 @@
+<h1>Available services</h1>
+
+<div class="nette-inner">
+	<?php foreach ($list as $namespace => $services): ?>
+	
+	<?php if ($namespace != NULL): ?>
+	<h2 style="font-size: 2em"><?php echo htmlspecialchars($namespace) ?></h2>
+	<?php endif ?>
+	
+	<table>
+		<tr>
+			<th>Service name</th>
+			<th>Intance of ...</th>
+		</tr>
+		<?php foreach ($services as $service): ?>
+		<tr>
+			<td><?php echo htmlspecialchars($service['name']) ?></td>
+			<td><?php echo htmlspecialchars($service['class']) ?></td>
+		</tr>
+		<?php endforeach ?>
+	</table>
+	<?php endforeach ?>
+</div>
