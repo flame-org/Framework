@@ -17,7 +17,7 @@ class Repository extends \Doctrine\ORM\EntityRepository implements IRepository
 	 * @param \Doctrine\ORM\EntityManager $em
 	 * @param \Doctrine\ORM\Mapping\ClassMetadata $class
 	 */
-	public function __construct($em, \Doctrine\ORM\Mapping\ClassMetadata $class)
+	public function __construct(\Doctrine\ORM\EntityManager $em, \Doctrine\ORM\Mapping\ClassMetadata $class)
 	{
 		parent::__construct($em, $class);
 	}
@@ -27,7 +27,7 @@ class Repository extends \Doctrine\ORM\EntityRepository implements IRepository
 	 * @param bool $withoutFlush
 	 * @return Repository
 	 */
-	public function delete($entity, $withoutFlush = self::FLUSH)
+	public function delete(\Flame\Model\IEntity $entity, $withoutFlush = self::FLUSH)
 	{
 		$this->_em->remove($entity);
 		if(!$withoutFlush) $this->_em->flush();
@@ -39,7 +39,7 @@ class Repository extends \Doctrine\ORM\EntityRepository implements IRepository
 	 * @param bool $withoutFlush
 	 * @return Repository
 	 */
-	public function save($entity, $withoutFlush = self::FLUSH)
+	public function save(\Flame\Model\IEntity $entity, $withoutFlush = self::FLUSH)
 	{
 		$this->_em->persist($entity);
 		if(!$withoutFlush) $this->_em->flush();
