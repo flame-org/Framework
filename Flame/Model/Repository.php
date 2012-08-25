@@ -27,7 +27,7 @@ class Repository extends \Doctrine\ORM\EntityRepository implements IRepository
 	 * @param bool $withoutFlush
 	 * @return Repository
 	 */
-	public function delete(\Flame\Model\IEntity $entity, $withoutFlush = self::FLUSH)
+	public function delete(\Flame\Doctrine\IEntity $entity, $withoutFlush = self::FLUSH)
 	{
 		$this->_em->remove($entity);
 		if(!$withoutFlush) $this->_em->flush();
@@ -39,7 +39,7 @@ class Repository extends \Doctrine\ORM\EntityRepository implements IRepository
 	 * @param bool $withoutFlush
 	 * @return Repository
 	 */
-	public function save(\Flame\Model\IEntity $entity, $withoutFlush = self::FLUSH)
+	public function save(\Flame\Doctrine\IEntity $entity, $withoutFlush = self::FLUSH)
 	{
 		$this->_em->persist($entity);
 		if(!$withoutFlush) $this->_em->flush();
@@ -56,9 +56,9 @@ class Repository extends \Doctrine\ORM\EntityRepository implements IRepository
 	}
 
 	/**
-	 * @param IEntity $entity
+	 * @param \Flame\Doctrine\IEntity $entity
 	 */
-	public function setIdGeneratorTypeNone(\Flame\Model\IEntity $entity)
+	public function setIdGeneratorTypeNone(\Flame\Doctrine\IEntity $entity)
 	{
 		$metadata = $this->_em->getClassMetadata(get_class($entity));
 		$metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);
