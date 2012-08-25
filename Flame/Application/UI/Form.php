@@ -58,6 +58,7 @@ class Form extends \Nette\Application\UI\Form
 
 	/**
 	 * Fires send/click events.
+	 * @author Filip Procházka (filip.prochazka@kdyby.org)
 	 * @return void
 	 */
 	public function fireEvents()
@@ -86,6 +87,7 @@ class Form extends \Nette\Application\UI\Form
 
 
 	/**
+	 * @author Filip Procházka (filip.prochazka@kdyby.org)
 	 * @param array|\Traversable $listeners
 	 * @param mixed $arg
 	 */
