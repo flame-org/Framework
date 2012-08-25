@@ -44,7 +44,7 @@ abstract class Facade extends \Nette\Object implements \Flame\Model\IFacade
 	 */
 	public function getOne($id)
 	{
-		return $this->repository->finOneById($id);
+		return $this->repository->findOneById($id);
 	}
 
 	/**
