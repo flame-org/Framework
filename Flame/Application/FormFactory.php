@@ -19,10 +19,15 @@ class FormFactory extends \Nette\Object
 	protected $form;
 
 	/**
-	 * @return mixed
+	 * @return \Nette\Application\UI\Form
+	 * @throws \Nette\InvalidStateException
 	 */
 	public function createForm()
 	{
+		if(!$this->form instanceof \Nette\Application\UI\Form){
+			throw new \Nette\InvalidStateException;
+		}
+
 		return $this->form;
 	}
 }
