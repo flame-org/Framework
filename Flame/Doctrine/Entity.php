@@ -54,7 +54,11 @@ abstract class Entity extends \Nette\Object implements IEntity
 	 */
 	public function __toString()
 	{
-		return (string) $this->id;
+		if(isset($this->name) and $this->name !== null){
+			return $this->name;
+		}else{
+			return (string) $this->id;
+		}
 	}
 
 }
