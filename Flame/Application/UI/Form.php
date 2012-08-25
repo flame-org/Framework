@@ -121,4 +121,26 @@ class Form extends \Nette\Application\UI\Form
 		$this->setDefaults($defaults, true);
 		$this->setValues($defaults, true);
 	}
+
+	/**
+	 * @param array|\Nette\Forms\Traversable $values
+	 * @param bool $erase
+	 * @return \Nette\Forms\Container
+	 */
+	public function setDefaults($values, $erase = FALSE)
+	{
+		$values = array_map(function ($value){
+			if(is_object($value) and !($value instanceof \DateTime)){
+				if(isset($value->id)){
+					return (string) $value->id;
+				}else{
+					return (string) $value;
+				}
+
+			}
+			return $value;
+		}, $values);
+
+		return parent::setDefaults($values, $erase);
+	}
 }
