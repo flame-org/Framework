@@ -57,6 +57,61 @@ class Form extends \Nette\Application\UI\Form
 	}
 
 	/**
+	 * Fires send/click events.
+	 * @return void
+	 */
+	public function fireEvents()
+	{
+		if (!$this->isSubmitted()) {
+			return;
+
+		} elseif ($this->isSubmitted() instanceof ISubmitterControl) {
+			if (!$this->isSubmitted()->getValidationScope() || $this->isValid()) {
+				$this->dispatchEvent($this->isSubmitted()->onClick, $this->isSubmitted());
+				$valid = TRUE;
+
+			} else {
+				$this->dispatchEvent($this->isSubmitted()->onInvalidClick, $this->isSubmitted());
+			}
+		}
+
+		if (isset($valid) || $this->isValid()) {
+			$this->dispatchEvent($this->onSuccess, $this);
+
+		} else {
+			$this->dispatchEvent($this->onError, $this);
+		}
+	}
+
+
+
+	/**
+	 * @param array|\Traversable $listeners
+	 * @param mixed $arg
+	 */
+	protected function dispatchEvent($listeners, $arg = NULL)
+	{
+		$args = func_get_args();
+		$listeners = array_shift($args);
+
+		foreach ((array)$listeners as $handler) {
+			if ($handler instanceof \Nette\Application\UI\Link) {
+				/** @var \Nette\Application\UI\Link $handler */
+				$refl = $handler->getReflection();
+				/** @var \Nette\Reflection\ClassType $refl */
+				$compRefl = $refl->getProperty('component');
+				$compRefl->accessible = TRUE;
+				/** @var \Nette\Application\UI\PresenterComponent $component */
+				$component = $compRefl->getValue($handler);
+				$component->redirect($handler->getDestination(), $handler->getParameters());
+
+			} else {
+				callback($handler)->invokeArgs($args);
+			}
+		}
+	}
+
+	/**
 	 * @param array $defaults
 	 */
 	public function restore(array $defaults = array())
