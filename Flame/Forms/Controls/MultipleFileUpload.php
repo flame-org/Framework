@@ -138,4 +138,22 @@ class MultipleFileUpload extends UploadControl
 
 	}
 
+	/**
+	 * Has been any file uploaded?
+	 * @return bool
+	 */
+	public function isFilled()
+	{
+
+		if(is_array($this->value) and count($this->value)){
+			foreach($this->value as $file){
+				if(!$file instanceof FileUpload or !$file->isImage()) return false;
+			}
+
+			return true;
+		}else{
+			return $this->value instanceof FileUpload && $this->value->isImage();
+		}
+	}
+
 }
