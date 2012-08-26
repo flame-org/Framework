@@ -51,7 +51,7 @@ class PresentersList extends \Nette\Object
 			throw new \Nette\FileNotFoundException;
 
 		$this->robotLoader->addDirectory($modulePath);
-		$this->robotLoader->setCacheStorage(new \Nette\Caching\Storages\FileStorage($this->appDir . '/../temp'));
+		$this->robotLoader->setCacheStorage(new \Nette\Caching\Storages\FileStorage($this->appDir . '/../temp/cache'));
 		$this->robotLoader->register();
 	}
 
