@@ -12,18 +12,6 @@ namespace Flame\Templates;
 
 class Helpers extends \Nette\Object
 {
-	/**
-	 * @var array
-	 */
-	private $params;
-
-	/**
-	 * @param array $params
-	 */
-	public function __construct(array $params = array())
-	{
-		$this->params = $params;
-	}
 
 	/**
 	 * @param $helper
@@ -44,7 +32,7 @@ class Helpers extends \Nette\Object
 	 */
 	public function thumb($origName, $width, $height = NULL)
 	{
-		$thumb = new \Flame\Utils\ThumbnailsCreator($this->params);
+		$thumb = new \Flame\Utils\ThumbnailsCreator;
 		return $thumb->thumb($origName, $width, $height);
 	}
 

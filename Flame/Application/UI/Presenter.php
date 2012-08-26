@@ -51,21 +51,19 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 	public function createTemplate($class = null)
 	{
 		$template = parent::createTemplate($class);
-		$template->registerHelperLoader(callback(
-			new \Flame\Templates\Helpers($this->getContextParameter('imageStorage') ?: array()),
-			'loader'
-		));
+		$template->registerHelperLoader(callback(new \Flame\Templates\Helpers, 'loader'));
 		return $template;
 	}
 
 	/**
-	 * @param null $name
+	 * @param $name
+	 * @param null $defautl
 	 * @return null
 	 */
-	protected function getContextParameter($name = null)
+	protected function getContextParameter($name, $defautl = null)
 	{
 		$params = $this->context->getParameters();
-		if(isset($params[$name])) return $params[$name]; else return null;
+		if(isset($params[$name])) return $params[$name]; else return $defautl;
 	}
 
 	/**
