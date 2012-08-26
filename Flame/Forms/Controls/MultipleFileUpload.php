@@ -16,6 +16,9 @@ use Nette\Http\FileUpload,
 class MultipleFileUpload extends UploadControl
 {
 
+	/**
+	 * @param null $label
+	 */
 	public function __construct($label = null)
 	{
 		parent::__construct($label);
@@ -115,6 +118,10 @@ class MultipleFileUpload extends UploadControl
 		}
 	}
 
+	/**
+	 * @param \Nette\Forms\Controls\UploadControl $control
+	 * @return bool
+	 */
 	public static function validateImage(UploadControl $control)
 	{
 		$files = $control->getValue();
