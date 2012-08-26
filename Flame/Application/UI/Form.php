@@ -21,7 +21,8 @@ class Form extends \Nette\Application\UI\Form
 	{
 		parent::__construct($parent, $name);
 
-		$this->addExtensionDatePicker();
+		$this->addExtension('addDatePicker', '\Flame\Forms\Controls\DatePicker');
+		$this->addExtension('addMultipleFileUpload', '\Flame\Forms\Controls\MultipleFileUpload');
 
 		$renderer = $this->getRenderer();
 		$renderer->wrappers['control']['.submit'] = 'btn btn-primary';
@@ -49,10 +50,14 @@ class Form extends \Nette\Application\UI\Form
 		return $items;
 	}
 
-	private function addExtensionDatePicker()
+	/**
+	 * @param $name
+	 * @param $class
+	 */
+	protected function addExtension($name, $class)
 	{
-		\Nette\Forms\Container::extensionMethod('addDatePicker', function (\Nette\Forms\Container $container, $name, $label = NULL) {
-			return $container[$name] = new \Flame\Utils\DatePicker($label);
+		\Nette\Forms\Container::extensionMethod($name, function (\Nette\Forms\Container $container, $name, $label = NULL) use ($class){
+			return $container[$name] = new $class($label);
 		});
 	}
 
