@@ -22,7 +22,7 @@ class Form extends \Nette\Application\UI\Form
 		parent::__construct($parent, $name);
 
 		$this->addExtension('addDatePicker', '\Flame\Forms\Controls\DatePicker');
-		$this->addExtension('addMultipleFileUpload', '\Flame\Forms\Controls\MultipleFileUpload');
+		$this->addExtension('addMultiUpload', '\Flame\Forms\Controls\MultipleFileUpload');
 
 		$renderer = $this->getRenderer();
 		$renderer->wrappers['control']['.submit'] = 'btn btn-primary';
