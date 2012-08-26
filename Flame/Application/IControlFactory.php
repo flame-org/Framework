@@ -13,6 +13,6 @@ namespace Flame\Application;
 interface IControlFactory
 {
 
-	public function create();
+	public function create($data = null);
 
 }
