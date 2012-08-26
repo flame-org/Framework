@@ -6,7 +6,7 @@
  * @license  MIT
  */
 
-namespace Flame\Utils;
+namespace Flame\Forms\Controls;
 
 use Nette,
     Nette\Forms,
