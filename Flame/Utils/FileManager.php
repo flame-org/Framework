@@ -63,6 +63,15 @@ class FileManager extends \Nette\Object
 		return true;
 	}
 
+	public function removeFile($filePath)
+	{
+		if(file_exists($filePath)){
+			return @unlink($filePath);
+		}
+
+		return true;
+	}
+
 	protected function getRandomFilePrefix()
 	{
 		return substr(md5(uniqid(microtime(), true)), 0, 5);
