@@ -135,7 +135,8 @@ class Form extends \Nette\Application\UI\Form
 	public function setDefaults($values, $erase = FALSE)
 	{
 		$values = array_map(function ($value){
-			if(is_object($value) and !($value instanceof \DateTime)){
+			if(is_object($value) and !($value instanceof \DateTime) and !(method_exists($value, 'toArray'))){
+
 				if(isset($value->id)){
 					return (string) $value->id;
 				}else{
