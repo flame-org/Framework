@@ -10,7 +10,7 @@
 
 namespace Flame\Application;
 
-class FormFactory extends \Nette\Object
+abstract class FormFactory extends \Nette\Object implements IFormFactory
 {
 	/**
 	 * @var \Nette\Application\UI\Form
