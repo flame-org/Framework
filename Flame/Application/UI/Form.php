@@ -137,7 +137,9 @@ class Form extends \Nette\Application\UI\Form
 		$values = array_map(function ($value){
 			if(is_object($value) and
 				!($value instanceof \DateTime) and
-					!($value instanceof \Doctrine\Common\Collections\ArrayCollection)){
+					!($value instanceof \Doctrine\Common\Collections\ArrayCollection) and
+						!(method_exists($value, 'toArray'))
+			){
 
 				if(isset($value->id)){
 					return (string) $value->id;
