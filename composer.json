@@ -1,8 +1,8 @@
 {
-	"name": "jsifalda/flame",
-    "description": "Flame is simple and smart FRAMEWORK base on Nette",
-    "keywords": ["framework", "nette", "simple", "flame", "jsifalda"],
-    "homepage": "https://github.com/jsifalda/flame",
+	"name": "flame/framework",
+    "description": "Flame is simple and smart FRAMEWORK based on Nette and Doctrine2",
+    "keywords": ["framework", "nette", "simple", "flame", "jsifalda", "tools", "doctrine"],
+    "homepage": "https://github.com/flame-org/framework",
     "license": "BSD-2-Clause-FreeBSD",
     "minimum-stability":"dev",
 
@@ -15,7 +15,7 @@
 
     "support":{
         "email":"sifalda.jiri@gmail.com",
-        "issues":"https://github.com/jsifalda/flame/issues"
+        "issues":"https://github.com/flame-org/framework/issues"
     },
 
 	"require": {
