@@ -135,12 +135,7 @@ class Form extends \Nette\Application\UI\Form
 	public function setDefaults($values, $erase = FALSE)
 	{
 		$values = array_map(function ($value){
-			if(is_object($value) and
-				!($value instanceof \DateTime) and
-					!($value instanceof \Doctrine\Common\Collections\ArrayCollection) and
-						!(method_exists($value, 'toArray'))
-			){
-
+			if(is_object($value) and (method_exists($value, '__toString'))){
 				if(isset($value->id)){
 					return (string) $value->id;
 				}else{
@@ -153,4 +148,5 @@ class Form extends \Nette\Application\UI\Form
 
 		return parent::setDefaults($values, $erase);
 	}
+
 }
