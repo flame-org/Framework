@@ -104,7 +104,7 @@ class MultipleFileUpload extends UploadControl
 	 * @param $mimeType
 	 * @return bool
 	 */
-	private static function validateFileMimeType($file, $mimeType)
+	protected static function validateFileMimeType($file, $mimeType)
 	{
 		if ($file instanceof FileUpload) {
 			$type = strtolower($file->getContentType());
