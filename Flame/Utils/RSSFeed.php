@@ -12,7 +12,7 @@
 
 namespace Flame\Utils;
 
-class RSSFeed extends \Nette\Object
+class RSSFeed
 {
 	/** @var int */
 	public static $cacheExpire = 86400; // 1 day
