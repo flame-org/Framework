@@ -147,12 +147,12 @@ class MultipleFileUpload extends UploadControl
 
 		if(is_array($this->value) and count($this->value)){
 			foreach($this->value as $file){
-				if(!$file instanceof FileUpload or !$file->isImage()) return false;
+				if(!$file instanceof FileUpload or !$file->isOk()) return false;
 			}
 
 			return true;
 		}else{
-			return $this->value instanceof FileUpload && $this->value->isImage();
+			return $this->value instanceof FileUpload && $this->value->isOk();
 		}
 	}
 
