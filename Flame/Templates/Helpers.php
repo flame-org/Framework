@@ -36,5 +36,15 @@ class Helpers extends \Nette\Object
 		return $thumb->thumb($origName, $width, $height);
 	}
 
+	/**
+	 * @param $url
+	 * @param null $user
+	 * @param null $pass
+	 * @return \Flame\Utils\RSSFeed
+	 */
+	public function rss($url, $user = null, $pass = null)
+	{
+		return \Flame\Utils\RSSFeed::loadRss($url, $user, $pass);
+	}
 
 }
