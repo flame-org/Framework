@@ -15,6 +15,7 @@ use Nette\Forms\Rules,
 
 abstract class Presenter extends \Nette\Application\UI\Presenter
 {
+
 	public function startup()
 	{
 		parent::startup();
@@ -51,7 +52,7 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 	public function createTemplate($class = null)
 	{
 		$template = parent::createTemplate($class);
-		$template->registerHelperLoader(callback(new \Flame\Templates\Helpers, 'loader'));
+		$template->registerHelperLoader(\Nette\Callback::create(new \Flame\Templating\Helpers, 'loader'));
 		return $template;
 	}
 

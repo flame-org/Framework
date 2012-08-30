@@ -8,7 +8,7 @@
  * @date    11.07.12
  */
 
-namespace Flame\Templates;
+namespace Flame\Templating;
 
 class Helpers extends \Nette\Object
 {

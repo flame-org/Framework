@@ -25,7 +25,7 @@ abstract class Control extends \Nette\Application\UI\Control
 	public function createTemplate($class = null)
 	{
 		$template = parent::createTemplate($class);
-		$template->registerHelperLoader(callback(new \Flame\Templates\Helpers, 'loader'));
+		$template->registerHelperLoader(callback(new \Flame\Templating\Helpers, 'loader'));
 		return $template;
 	}
 }
