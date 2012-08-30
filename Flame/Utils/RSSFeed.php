@@ -1,220 +1,108 @@
 <?php
-
 /**
- * RSS for PHP - small and easy-to-use library for consuming an RSS Feed
+ * RSSFeedControlFactory.php
  *
- * @author     David Grudl
- * @copyright  Copyright (c) 2008 David Grudl
- * @license    New BSD License
- * @link       http://phpfashion.com/
- * @version    1.0
+ * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
+ * @package Flame
+ *
+ * @date    30.08.12
  */
 
 namespace Flame\Utils;
 
-class RSSFeed
+/**
+ * RSS for PHP - small and easy-to-use library for consuming an RSS Feed
+ */
+class RSSFeed extends \Nette\Object
 {
-	/** @var int */
-	public static $cacheExpire = 86400; // 1 day
-
-	/** @var string */
-	public static $cacheDir;
-
-	/** @var SimpleXMLElement */
-	protected $xml;
-
 
 	/**
-	 * Loads RSS channel.
-	 * @param  string  RSS feed URL
-	 * @param  string  optional user name
-	 * @param  string  optional password
-	 * @return Feed
-	 * @throws FeedException
+	 * @var int
 	 */
-	public static function loadRss($url, $user = null, $pass = null)
+	private $limit = 4;
+
+	/**
+	 * @var \Nette\Caching\Cache $cache
+	 */
+	private $cache;
+
+	/**
+	 * @param $limit
+	 */
+	public function setLimit($limit)
 	{
-
-		if(!self::isAvailable($url)) return null;
-
-		$xml = new \SimpleXMLElement(self::httpRequest($url, $user, $pass), LIBXML_NOWARNING | LIBXML_NOERROR);
-		if (!$xml->channel) {
-			throw new FeedException('Invalid channel.');
-		}
-
-		self::adjustNamespaces($xml->channel);
-
-		foreach ($xml->channel->item as $item) {
-			// converts namespaces to dotted tags
-			self::adjustNamespaces($item);
-
-			// generate 'timestamp' tag
-			if (isset($item->{'dc:date'})) {
-				$item->timestamp = strtotime($item->{'dc:date'});
-			} elseif (isset($item->pubDate)) {
-				$item->timestamp = strtotime($item->pubDate);
-			}
-		}
-
-		$feed = new self;
-		$feed->xml = $xml->channel;
-		return $feed;
+		$this->limit = (int) $limit;
 	}
 
-
-
 	/**
-	 * Loads Atom channel.
-	 * @param  string  Atom feed URL
-	 * @param  string  optional user name
-	 * @param  string  optional password
-	 * @return Feed
-	 * @throws FeedException
+	 * @param \Nette\Caching\Cache $cache
 	 */
-	public static function loadAtom($url, $user = null, $pass = null)
+	public function injectCache(\Nette\Caching\Cache $cache)
 	{
-
-		if(!self::isAvailable($url)) return null;
-
-		$xml = new \SimpleXMLElement(self::httpRequest($url, $user, $pass), LIBXML_NOWARNING | LIBXML_NOERROR);
-		if (!in_array('http://www.w3.org/2005/Atom', $xml->getDocNamespaces(), true)) {
-			throw new FeedException('Invalid channel.');
-		}
-
-		// generate 'timestamp' tag
-		foreach ($xml->entry as $entry) {
-			$entry->timestamp = strtotime($entry->updated);
-		}
-
-		$feed = new self;
-		$feed->xml = $xml;
-		return $feed;
+		$this->cache = $cache;
 	}
 
-
-
 	/**
-	 * Returns property value. Do not call directly.
-	 * @param  string  tag name
-	 * @return SimpleXMLElement
-	 */
-	public function __get($name)
-	{
-		return $this->xml->{$name};
+	* @param $content
+	* @return mixed
+	*/
+	private function findImages($content){
+		$pattern = '/<img[^>]+src[\\s=\'"]';
+		$pattern .= '+([^"\'>\\s]+)/is';
+
+		if(preg_match($pattern,$content,$match)){
+			return $match;
+		}
 	}
 
-
-	/**
-	 * Sets value of a property. Do not call directly.
-	 * @param $name
-	 * @param $value
-	 * @throws Exception
-	 */
-	public function __set($name, $value)
+	protected function load($url)
 	{
-		throw new Exception("Cannot assign to a read-only property '$name'.");
+
+		if(!$this->isAvailable($url)) return;
+
+		$xml = simplexml_load_file($url);
+		//$xml = simplexml_load_file($url, 'SimpleXMLElement', LIBXML_NOCDATA);
+		//$content = file_get_contents($url);
+		//$xml = new \SimpleXmlElement($content);
+
+		if($xml){
+			$r = array();
+			$counter = 0;
+
+			foreach($xml->channel->item as $item){
+				if($counter >= $this->limit) break;
+
+				$description = (string) $item->description;
+
+				$r[] = array(
+					'date' => new \Nette\DateTime($item->pubDate),
+					'link' => (string) $item->link,
+					'title' => (string) $item->title,
+					'description' => $description,
+					'category' => (string) $item->category
+				);
+
+				$counter++;
+			}
+
+			return \Nette\ArrayHash::from($r);
+		}
 	}
 
-
-	/**
-	 * Converts a SimpleXMLElement into an array.
-	 * @param \SimpleXMLElement $xml
-	 * @return array|string
-	 */
-	public function toArray(\SimpleXMLElement $xml = null)
+	public function loadRss($url)
 	{
-		if ($xml === null) {
-			$xml = $this->xml;
+
+		$key = 'rss-feed-' . $url . '-' . $this->limit;
+
+		if(isset($this->cache[$key])){
+			return $this->cache[$key];
 		}
 
-		if (!$xml->children()) {
-			return (string) $xml;
-		}
+		$rss = $this->load($url);
 
-		$arr = array();
-		foreach ($xml->children() as $tag => $child) {
-			if (count($xml->$tag) === 1) {
-				$arr[$tag] = $this->toArray($child);
-			} else {
-				$arr[$tag][] = $this->toArray($child);
-			}
-		}
+		$this->cache->save($key, $rss, array(\Nette\Caching\Cache::EXPIRE => '+ 22 hours'));
 
-		return $arr;
-	}
-
-
-	/**
-	 * Process HTTP request.
-	 * @param $url
-	 * @param $user
-	 * @param $pass
-	 * @return mixed|string
-	 * @throws Exception
-	 * @throws FeedException
-	 */
-	private static function httpRequest($url, $user, $pass)
-	{
-		if (self::$cacheDir && strpos($url, '://')) {
-			$cacheFile = self::$cacheDir . '/feed.' . md5($url) . '.xml';
-			if (@filemtime($cacheFile) + self::$cacheExpire > time()) {
-				return file_get_contents($cacheFile);
-			}
-		}
-
-		if ($user === null && $pass === null && ini_get('allow_url_fopen')) {
-			$result = file_get_contents($url);
-			$ok = is_string($result);
-
-		} else {
-			if (!extension_loaded('curl')) {
-				throw new Exception('PHP extension CURL is not loaded.');
-			}
-
-			$curl = curl_init();
-			curl_setopt($curl, CURLOPT_URL, $url);
-			if ($user !== null || $pass !== null) {
-				curl_setopt($curl, CURLOPT_USERPWD, "$user:$pass");
-			}
-			curl_setopt($curl, CURLOPT_HEADER, false);
-			curl_setopt($curl, CURLOPT_TIMEOUT, 20);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); // no echo, just return result
-			$result = curl_exec($curl);
-			$ok = curl_errno($curl) === 0 && curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200;
-		}
-
-		if (!$ok) {
-			if (isset($cacheFile)) {
-				$result = @file_get_contents($cacheFile);
-				if (is_string($result)) {
-					return $result;
-				}
-			}
-			throw new FeedException('Cannot load channel.');
-		}
-
-		if (isset($cacheFile)) {
-			file_put_contents($cacheFile, $result);
-		}
-
-		return $result;
-	}
-
-
-
-	/**
-	 * Generates better accessible namespaced tags.
-	 * @param  SimpleXMLElement
-	 * @return void
-	 */
-	private static function adjustNamespaces($el)
-	{
-		foreach ($el->getNamespaces(true) as $prefix => $ns) {
-			$children = $el->children($ns);
-			foreach ($children as $tag => $content) {
-				$el->{$prefix . ':' . $tag} = $content;
-			}
-		}
+		return $rss;
 	}
 
 	/**
@@ -222,18 +110,19 @@ class RSSFeed
 	 * @param $url
 	 * @return bool
 	 */
-	private static function isAvailable($url)
+	private function isAvailable($url)
 	{
-		return (bool) @file($url);
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_exec($ch);
+
+		if(!curl_errno($ch)){
+			$status =  true;
+		}else{
+			$status = false;
+		}
+
+		curl_close($ch);
+		return $status;
 	}
-
-}
-
-
-
-/**
- * An exception generated by Feed.
- */
-class FeedException extends \Exception
-{
 }
