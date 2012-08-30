@@ -55,6 +55,10 @@ class RSSFeed extends \Nette\Object
 		}
 	}
 
+	/**
+	 * @param $url
+	 * @return \Nette\ArrayHash
+	 */
 	protected function load($url)
 	{
 
@@ -89,6 +93,10 @@ class RSSFeed extends \Nette\Object
 		}
 	}
 
+	/**
+	 * @param $url
+	 * @return \Nette\ArrayHash
+	 */
 	public function loadRss($url)
 	{
 
