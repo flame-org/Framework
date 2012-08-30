@@ -2,7 +2,7 @@
 
 Flame is simple and smart **FRAMEWORK**
 
-Flame is available over Composer. Please visit [PACKAGIST](http://packagist.org/packages/jsifalda/flame)
+Flame is available over Composer. Please visit [PACKAGIST](http://packagist.org/packages/flame/framework)
 
 ### Requirements
 * PHP 5.3+
