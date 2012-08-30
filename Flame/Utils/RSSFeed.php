@@ -124,7 +124,7 @@ class RSSFeed extends \Nette\Object
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_exec($ch);
 
-		if(!curl_errno($ch)){
+		if(curl_errno($ch)){
 			$status =  true;
 		}else{
 			$status = false;
