@@ -19,19 +19,19 @@ class RSSFeed extends \Nette\Object
 	/**
 	 * @var int
 	 */
-	private $limit = 4;
+	protected $limit = 4;
 
 	/**
 	 * @var \Nette\Caching\Cache $cache
 	 */
-	private $cache;
+	protected $cache;
 
 	/**
 	 * @param $limit
 	 */
 	public function setLimit($limit)
 	{
-		$this->limit = (int) $limit;
+		if((int) $limit > 0) $this->limit = (int) $limit;
 	}
 
 	/**
