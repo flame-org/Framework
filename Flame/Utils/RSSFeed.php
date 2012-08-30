@@ -62,9 +62,7 @@ class RSSFeed extends \Nette\Object
 	protected function load($url)
 	{
 
-		if(!$this->isAvailable($url)) return;
-
-		$xml = simplexml_load_file($url);
+		$xml = @simplexml_load_file($url);
 		//$xml = simplexml_load_file($url, 'SimpleXMLElement', LIBXML_NOCDATA);
 		//$content = file_get_contents($url);
 		//$xml = new \SimpleXmlElement($content);
@@ -112,25 +110,5 @@ class RSSFeed extends \Nette\Object
 
 		return $rss;
 	}
-
-	/**
-	 * Check whether url is available
-	 * @param $url
-	 * @return bool
-	 */
-	private function isAvailable($url)
-	{
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_exec($ch);
-
-		if(curl_errno($ch)){
-			$status =  true;
-		}else{
-			$status = false;
-		}
-
-		curl_close($ch);
-		return $status;
-	}
+	
 }
