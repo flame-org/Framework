@@ -24,12 +24,9 @@ class Form extends \Nette\Application\UI\Form
 		$this->addExtension('addDatePicker', '\Flame\Forms\Controls\DatePicker');
 		$this->addExtension('addMultiUpload', '\Flame\Forms\Controls\MultipleFileUpload');
 
-		$renderer = $this->getRenderer();
-		$renderer->wrappers['control']['.submit'] = 'btn btn-primary';
-		$renderer->wrappers['control']['.button'] = 'btn btn-primary';
-		$renderer->wrappers['error'] = array('container' => 'div class="alert alert-error"', 'item' => 'h4 class="alert-heading"');
+		$this->getElementPrototype()->addClass('well');
 
-		$this->getElementPrototype()->class[] = 'well';
+		$this->setRenderer(new \Kdyby\Extension\Forms\BootstrapRenderer\BootstrapRenderer);
 	}
 
 	/**
