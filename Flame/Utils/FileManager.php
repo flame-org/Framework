@@ -14,12 +14,17 @@ class FileManager extends \Nette\Object
 {
 
 	/**
-	 * @var array
+	 * @var string
+	 */
+	private $baseDir = WWW_DIR;
+
+	/**
+	 * @var string
 	 */
 	private $fileStorage;
 
 	/**
-	 * @param array $fileStorage
+	 * @param string $fileStorage
 	 */
 	public function setFileStorage($fileStorage)
 	{
@@ -29,19 +34,14 @@ class FileManager extends \Nette\Object
 	/**
 	 * @param \Nette\Http\FileUpload $file
 	 * @return string
-	 * @throws \Nette\InvalidStateException
 	 */
 	public function saveFile(\Nette\Http\FileUpload $file)
 	{
 
-		if(!$this->fileStorage){
-			throw new \Nette\InvalidStateException('You must set "fileStorage"');
-		}
-		
-		$name = $file->name;
-		$filePath = $this->fileStorage . DIRECTORY_SEPARATOR . $name;
+		$this->createFolder($basePath = $this->getBasePath());
 
-		$this->createFolder($this->fileStorage);
+		$name = $file->name;
+		$filePath = $basePath . DIRECTORY_SEPARATOR . $name;
 
 		if(!file_exists($filePath)){
 			$file->move($filePath);
@@ -49,11 +49,15 @@ class FileManager extends \Nette\Object
 			$new_name = $this->getRandomFilePrefix() . '_' . $name;
 			$file->move(str_replace($name, $new_name, $filePath));
 			$name = $new_name;
-
 		}
-		return $name;
+
+		return $this->fileStorage . DIRECTORY_SEPARATOR . $name;
 	}
 
+	/**
+	 * @param $path
+	 * @return bool
+	 */
 	public function createFolder($path)
 	{
 		if(!file_exists($path)){
@@ -63,6 +67,10 @@ class FileManager extends \Nette\Object
 		return true;
 	}
 
+	/**
+	 * @param $filePath
+	 * @return bool
+	 */
 	public function removeFile($filePath)
 	{
 		if(file_exists($filePath)){
@@ -72,9 +80,26 @@ class FileManager extends \Nette\Object
 		return true;
 	}
 
+	/**
+	 * @return string
+	 */
 	protected function getRandomFilePrefix()
 	{
 		return substr(md5(uniqid(microtime(), true)), 0, 5);
+	}
+
+	/**
+	 * @return string
+	 * @throws \Nette\InvalidStateException
+	 */
+	protected function getBasePath()
+	{
+
+		if(!$this->fileStorage){
+			throw new \Nette\InvalidStateException('You must set "fileStorage"');
+		}
+
+		return $this->baseDir . DIRECTORY_SEPARATOR . $this->fileStorage;
 	}
 
 }
