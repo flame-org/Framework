@@ -38,8 +38,9 @@ class FileManager extends \Nette\Object
 	public function saveFile(\Nette\Http\FileUpload $file)
 	{
 
-		$this->createFolder($basePath = $this->getBasePath());
+		if(!$file->isOk()) return;
 
+		$this->createFolder($basePath = $this->getBasePath());
 		$name = $file->name;
 		$filePath = $basePath . DIRECTORY_SEPARATOR . $name;
 
