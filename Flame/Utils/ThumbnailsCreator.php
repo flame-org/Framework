@@ -16,7 +16,6 @@ class ThumbnailsCreator extends \Nette\Object
 {
 
 	private $thumbDirUri = 'media/images_thumbnails';
-	private $imageDirUri = 'media/images';
 	private $baseDir = WWW_DIR;
 
 	/**
@@ -29,12 +28,12 @@ class ThumbnailsCreator extends \Nette\Object
 	public function thumb($origName, $width, $height = NULL)
 	{
 
-		if(is_null($this->baseDir) or is_null($this->imageDirUri) or is_null($this->thumbDirUri)){
-			throw new \Nette\InvalidArgumentException;
+		if(!$this->baseDir or !$this->thumbDirUri){
+			throw new \Nette\InvalidArgumentException('Invalid parameters: ' . get_class($this) . '::$baseDir or $thumbDirUri');
 		}
 
 		$thumbDirPath = $this->baseDir . '/' . trim($this->thumbDirUri, '/\\');
-		$origPath = $this->baseDir . '/' . $this->imageDirUri . '/' . $origName;
+		$origPath = $this->baseDir . '/' . $origName;
 
 		$this->createDirForThumbnails($thumbDirPath);
 
