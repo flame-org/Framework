@@ -22,10 +22,7 @@ class Form extends \Nette\Application\UI\Form
 		parent::__construct($parent, $name);
 
 		$this->addExtension('addDatePicker', '\Flame\Forms\Controls\DatePicker');
-		$this->addExtension('addMultiUpload', '\Flame\Forms\Controls\MultipleFileUpload');
-
 		$this->getElementPrototype()->addClass('well');
-
 		$this->setRenderer(new \Kdyby\Extension\Forms\BootstrapRenderer\BootstrapRenderer);
 	}
 
