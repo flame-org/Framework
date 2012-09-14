@@ -82,6 +82,33 @@ class FileManager extends \Nette\Object
 	}
 
 	/**
+	 * @param $url
+	 * @return bool|string
+	 */
+	public function downloadFile($url)
+	{
+		if($file = @file_get_contents($url)){
+
+			$folderName = $this->baseDir . $this->fileStorage;
+			$this->createFolder($folderName);
+			$fileStorage = $folderName . DIRECTORY_SEPARATOR . $this->getName($url);
+
+			if(@file_put_contents($fileStorage, $file)){
+				return str_replace($this->baseDir, '', $fileStorage);
+			}
+
+		}
+
+		return false;
+	}
+
+	protected function getName($path)
+	{
+		$parts = explode(DIRECTORY_SEPARATOR, $path);
+		return isset($parts[count($parts) -1]) ? $parts[count($parts) -1] : null;
+	}
+
+	/**
 	 * @return string
 	 */
 	protected function getRandomFilePrefix()
