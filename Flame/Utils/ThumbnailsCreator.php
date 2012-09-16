@@ -61,9 +61,19 @@ class ThumbnailsCreator extends \Nette\Object
 			$origWidth = $image->getWidth();
 			$origHeight = $image->getHeight();
 
+			//crop
+//			if($origWidth > $width and $origHeight > $height){
+//				$image->crop(0, 0, $width, $height);
+//			}else{
+//				$image->resize($width, $height,
+//					$width !== NULL && $height !== NULL ? Image::STRETCH : Image::FIT)
+//					->sharpen();
+//			}
+
 			$image->resize($width, $height,
 				$width !== NULL && $height !== NULL ? Image::STRETCH : Image::FIT)
 				->sharpen();
+
 
 			$newWidth = $image->getWidth();
 			$newHeight = $image->getHeight();
