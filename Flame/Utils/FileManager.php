@@ -32,6 +32,7 @@ class FileManager extends \Nette\Object
 	}
 
 	/**
+	 * Save upladed file and return absolute path
 	 * @param \Nette\Http\FileUpload $file
 	 * @return string
 	 */
@@ -91,7 +92,7 @@ class FileManager extends \Nette\Object
 
 			$folderName = $this->baseDir . $this->fileStorage;
 			$this->createFolder($folderName);
-			$fileStorage = $folderName . DIRECTORY_SEPARATOR . $this->getName($url);
+			$fileStorage = $folderName . DIRECTORY_SEPARATOR . $this->getFileName($url);
 
 			if(@file_put_contents($fileStorage, $file)){
 				return str_replace($this->baseDir, '', $fileStorage);
@@ -102,13 +103,19 @@ class FileManager extends \Nette\Object
 		return false;
 	}
 
-	protected function getName($path)
+	/**
+	 * Return name of file from URL or absolute path
+	 * @param $path
+	 * @return null
+	 */
+	protected function getFileName($path)
 	{
 		$parts = explode(DIRECTORY_SEPARATOR, $path);
 		return isset($parts[count($parts) -1]) ? $parts[count($parts) -1] : null;
 	}
 
 	/**
+	 * Return random prefix for existing file
 	 * @return string
 	 */
 	protected function getRandomFilePrefix()
@@ -117,6 +124,7 @@ class FileManager extends \Nette\Object
 	}
 
 	/**
+	 * Implode BASE DIRECTORY and FILE STORAGE, then return path
 	 * @return string
 	 * @throws \Nette\InvalidStateException
 	 */
