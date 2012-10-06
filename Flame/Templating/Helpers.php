@@ -30,9 +30,11 @@ class Helpers extends \Nette\Object
 	 * @param null $height
 	 * @return string
 	 */
-	public function thumb($origName, $width, $height = NULL)
+	public function thumb($origName, $width, $height = null)
 	{
-		$thumb = new \Flame\Utils\ThumbnailsCreator;
+		$baseDir = (isset($this->imageStorage['baseDir'])) ? $this->imageStorage['baseDir'] : '';
+		$thumbDirUri = (isset($this->imageStorage['thumbDir'])) ? $this->imageStorage['thumbDir'] : '';
+		$thumb = new \Flame\Utils\ThumbnailsCreator($thumbDirUri, $baseDir);
 		return $thumb->thumb($origName, $width, $height);
 	}
 

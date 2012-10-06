@@ -43,7 +43,7 @@ class ThumbnailsCreator extends \Nette\Object
 	 * @return string
 	 * @throws \Nette\InvalidArgumentException
 	 */
-	public function thumb($origName, $width, $height = NULL)
+	public function thumb($origName, $width, $height = null)
 	{
 
 		if(!$this->baseDir or !$this->thumbDirUri){
@@ -55,7 +55,7 @@ class ThumbnailsCreator extends \Nette\Object
 
 		$this->createDirForThumbnails($thumbDirPath);
 
-		if (($width === NULL && $height === NULL) || !is_file($origPath) || !is_dir($thumbDirPath) || !is_writable($thumbDirPath))
+		if (($width === null && $height === null) || !is_file($origPath) || !is_dir($thumbDirPath) || !is_writable($thumbDirPath))
 			return $origName;
 
 		$thumbName = $this->getThumbName($origName, $width, $height, filemtime($origPath));
@@ -73,8 +73,8 @@ class ThumbnailsCreator extends \Nette\Object
 			$image = Image::fromFile($origPath);
 
 			// zachovani pruhlednosti u PNG
-			$image->alphaBlending(FALSE);
-			$image->saveAlpha(TRUE);
+			$image->alphaBlending(false);
+			$image->saveAlpha(true);
 
 			$origWidth = $image->getWidth();
 			$origHeight = $image->getHeight();
@@ -89,7 +89,7 @@ class ThumbnailsCreator extends \Nette\Object
 //			}
 
 			$image->resize($width, $height,
-				$width !== NULL && $height !== NULL ? Image::STRETCH : Image::FIT)
+				$width !== null && $height !== null ? Image::STRETCH : Image::FIT)
 				->sharpen();
 
 
