@@ -111,6 +111,7 @@ class ThumbnailsCreator extends \Nette\Object
 			}
 
 		} catch (Exception $e) {
+			\Nette\Diagnostics\Logger::ERROR($e);
 			return $origName;
 		}
 	}
