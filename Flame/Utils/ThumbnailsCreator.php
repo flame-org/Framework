@@ -15,8 +15,26 @@ use \Nette\Image;
 class ThumbnailsCreator extends \Nette\Object
 {
 
-	private $thumbDirUri = 'media/images_thumbnails';
-	private $baseDir = WWW_DIR;
+	/**
+	 * @var string
+	 */
+	private $thumbDirUri;
+
+	/**
+	 * @var string
+	 */
+	private $baseDir;
+
+
+	/**
+	 * @param string $thumbDirUri
+	 * @param string $baseDir
+	 */
+	public function __construct($thumbDirUri = 'media/images_thumbnails', $baseDir = WWW_DIR)
+	{
+		$this->thumbDirUri = $thumbDirUri;
+		$this->baseDir = $baseDir;
+	}
 
 	/**
 	 * @param $origName
