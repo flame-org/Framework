@@ -148,7 +148,7 @@ class ThumbnailsCreator extends \Nette\Object
 	 */
 	private function createDirForThumbnails($filepath)
 	{
-		if(!file_exists($filepath)) return mkdir($filepath, 0777, true);
+		if(!file_exists($filepath)) return @mkdir($filepath, 0777, true);
 	}
 
 }
