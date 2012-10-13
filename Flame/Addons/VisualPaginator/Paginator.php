@@ -55,6 +55,20 @@ class Paginator extends UI\Control
 	 */
 	public function render()
 	{
+		$this->template->steps = $this->getSteps();
+		$this->template->paginator = $this->getPaginator();
+
+		$template = dirname(__FILE__) . '/template.phtml';
+		$this->template->setFile($template);
+		$this->template->render();
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function getSteps()
+	{
 		$paginator = $this->getPaginator();
 		$page = $paginator->page;
 		if ($paginator->pageCount < 2) {
@@ -71,12 +85,7 @@ class Paginator extends UI\Control
 			$steps = array_values(array_unique($arr));
 		}
 
-		$this->template->steps = $steps;
-		$this->template->paginator = $paginator;
-
-		$template = dirname(__FILE__) . '/template.phtml';
-		$this->template->setFile($template);
-		$this->template->render();
+		return $steps;
 	}
 
 

@@ -14,14 +14,14 @@
     ],
 
     "support":{
-        "email":"sifalda.jiri@gmail.com",
+        "email":"flame@jsifalda.name",
         "issues":"https://github.com/flame-org/framework/issues"
     },
 
 	"require": {
-        "php": ">=5.3.2",
-        "nette/nette": "dev-master",
-	"doctrine/orm": "2.2.*"
+		"php": ">=5.3.2",
+		"nette/nette": "dev-master",
+		"kdyby/bootstrap-form-renderer": "dev-master"
 	},
 
 	"autoload": {

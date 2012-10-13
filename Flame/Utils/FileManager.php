@@ -14,12 +14,17 @@ class FileManager extends \Nette\Object
 {
 
 	/**
-	 * @var array
+	 * @var string
+	 */
+	private $baseDir = WWW_DIR;
+
+	/**
+	 * @var string
 	 */
 	private $fileStorage;
 
 	/**
-	 * @param array $fileStorage
+	 * @param string $fileStorage
 	 */
 	public function setFileStorage($fileStorage)
 	{
@@ -27,21 +32,18 @@ class FileManager extends \Nette\Object
 	}
 
 	/**
+	 * Save upladed file and return absolute path
 	 * @param \Nette\Http\FileUpload $file
 	 * @return string
-	 * @throws \Nette\InvalidStateException
 	 */
 	public function saveFile(\Nette\Http\FileUpload $file)
 	{
 
-		if(!$this->fileStorage){
-			throw new \Nette\InvalidStateException('You must set "fileStorage"');
-		}
-		
-		$name = $file->name;
-		$filePath = $this->fileStorage . DIRECTORY_SEPARATOR . $name;
+		if(!$file->isOk()) return;
 
-		$this->createFolder($this->fileStorage);
+		$this->createFolder($basePath = $this->getBasePath());
+		$name = $file->name;
+		$filePath = $basePath . DIRECTORY_SEPARATOR . $name;
 
 		if(!file_exists($filePath)){
 			$file->move($filePath);
@@ -49,11 +51,15 @@ class FileManager extends \Nette\Object
 			$new_name = $this->getRandomFilePrefix() . '_' . $name;
 			$file->move(str_replace($name, $new_name, $filePath));
 			$name = $new_name;
-
 		}
-		return $name;
+
+		return $this->fileStorage . DIRECTORY_SEPARATOR . $name;
 	}
 
+	/**
+	 * @param $path
+	 * @return bool
+	 */
 	public function createFolder($path)
 	{
 		if(!file_exists($path)){
@@ -63,6 +69,10 @@ class FileManager extends \Nette\Object
 		return true;
 	}
 
+	/**
+	 * @param $filePath
+	 * @return bool
+	 */
 	public function removeFile($filePath)
 	{
 		if(file_exists($filePath)){
@@ -72,9 +82,60 @@ class FileManager extends \Nette\Object
 		return true;
 	}
 
+	/**
+	 * @param $url
+	 * @return bool|string
+	 */
+	public function downloadFile($url)
+	{
+		if($file = @file_get_contents($url)){
+
+			$folderName = $this->baseDir . $this->fileStorage;
+			$this->createFolder($folderName);
+			$fileStorage = $folderName . DIRECTORY_SEPARATOR . $this->getFileName($url);
+
+			if(@file_put_contents($fileStorage, $file)){
+				return str_replace($this->baseDir, '', $fileStorage);
+			}
+
+		}
+
+		return false;
+	}
+
+	/**
+	 * Return name of file from URL or absolute path
+	 * @param $path
+	 * @return null
+	 */
+	protected function getFileName($path)
+	{
+		$parts = explode(DIRECTORY_SEPARATOR, $path);
+		return isset($parts[count($parts) -1]) ? $parts[count($parts) -1] : null;
+	}
+
+	/**
+	 * Return random prefix for existing file
+	 * @return string
+	 */
 	protected function getRandomFilePrefix()
 	{
 		return substr(md5(uniqid(microtime(), true)), 0, 5);
+	}
+
+	/**
+	 * Implode BASE DIRECTORY and FILE STORAGE, then return path
+	 * @return string
+	 * @throws \Nette\InvalidStateException
+	 */
+	protected function getBasePath()
+	{
+
+		if(!$this->fileStorage){
+			throw new \Nette\InvalidStateException('You must set "fileStorage"');
+		}
+
+		return $this->baseDir . DIRECTORY_SEPARATOR . $this->fileStorage;
 	}
 
 }

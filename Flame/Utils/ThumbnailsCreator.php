@@ -15,9 +15,26 @@ use \Nette\Image;
 class ThumbnailsCreator extends \Nette\Object
 {
 
-	private $thumbDirUri = 'media/images_thumbnails';
-	private $imageDirUri = 'media/images';
-	private $baseDir = WWW_DIR;
+	/**
+	 * @var string
+	 */
+	private $thumbDirUri;
+
+	/**
+	 * @var string
+	 */
+	private $baseDir;
+
+
+	/**
+	 * @param string $thumbDirUri
+	 * @param string $baseDir
+	 */
+	public function __construct($thumbDirUri = 'media/images_thumbnails', $baseDir = WWW_DIR)
+	{
+		$this->thumbDirUri = $thumbDirUri;
+		$this->baseDir = $baseDir;
+	}
 
 	/**
 	 * @param $origName
@@ -26,19 +43,19 @@ class ThumbnailsCreator extends \Nette\Object
 	 * @return string
 	 * @throws \Nette\InvalidArgumentException
 	 */
-	public function thumb($origName, $width, $height = NULL)
+	public function thumb($origName, $width, $height = null)
 	{
 
-		if(is_null($this->baseDir) or is_null($this->imageDirUri) or is_null($this->thumbDirUri)){
-			throw new \Nette\InvalidArgumentException;
+		if(!$this->baseDir or !$this->thumbDirUri){
+			throw new \Nette\InvalidArgumentException('Invalid parameters: ' . get_class($this) . '::$baseDir or $thumbDirUri');
 		}
 
 		$thumbDirPath = $this->baseDir . '/' . trim($this->thumbDirUri, '/\\');
-		$origPath = $this->baseDir . '/' . $this->imageDirUri . '/' . $origName;
+		$origPath = $this->baseDir . '/' . $origName;
 
 		$this->createDirForThumbnails($thumbDirPath);
 
-		if (($width === NULL && $height === NULL) || !is_file($origPath) || !is_dir($thumbDirPath) || !is_writable($thumbDirPath))
+		if (($width === null && $height === null) || !is_file($origPath) || !is_dir($thumbDirPath) || !is_writable($thumbDirPath))
 			return $origName;
 
 		$thumbName = $this->getThumbName($origName, $width, $height, filemtime($origPath));
@@ -56,15 +73,16 @@ class ThumbnailsCreator extends \Nette\Object
 			$image = Image::fromFile($origPath);
 
 			// zachovani pruhlednosti u PNG
-			$image->alphaBlending(FALSE);
-			$image->saveAlpha(TRUE);
+			$image->alphaBlending(false);
+			$image->saveAlpha(true);
 
 			$origWidth = $image->getWidth();
 			$origHeight = $image->getHeight();
 
 			$image->resize($width, $height,
-				$width !== NULL && $height !== NULL ? Image::STRETCH : Image::FIT)
+				$width !== null && $height !== null ? Image::STRETCH : Image::FIT)
 				->sharpen();
+
 
 			$newWidth = $image->getWidth();
 			$newHeight = $image->getHeight();
@@ -84,6 +102,7 @@ class ThumbnailsCreator extends \Nette\Object
 			}
 
 		} catch (Exception $e) {
+			\Nette\Diagnostics\Logger::ERROR($e);
 			return $origName;
 		}
 	}
@@ -120,7 +139,7 @@ class ThumbnailsCreator extends \Nette\Object
 	 */
 	private function createDirForThumbnails($filepath)
 	{
-		if(!file_exists($filepath)) return mkdir($filepath, 0777, true);
+		if(!file_exists($filepath)) return @mkdir($filepath, 0777, true);
 	}
 
 }

@@ -8,7 +8,7 @@
  * @date    11.07.12
  */
 
-namespace Flame\Templates;
+namespace Flame\Templating;
 
 class Helpers extends \Nette\Object
 {
@@ -30,11 +30,11 @@ class Helpers extends \Nette\Object
 	 * @param null $height
 	 * @return string
 	 */
-	public function thumb($origName, $width, $height = NULL)
+	public function thumb($origName, $width, $height = null)
 	{
+
 		$thumb = new \Flame\Utils\ThumbnailsCreator;
 		return $thumb->thumb($origName, $width, $height);
 	}
-
 
 }

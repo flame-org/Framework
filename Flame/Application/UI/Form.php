@@ -14,6 +14,11 @@ class Form extends \Nette\Application\UI\Form
 {
 
 	/**
+	 * @var null|int
+	 */
+	private $id;
+
+	/**
 	 * @param \Nette\ComponentModel\IContainer|null $parent
 	 * @param null $name
 	 */
@@ -22,14 +27,7 @@ class Form extends \Nette\Application\UI\Form
 		parent::__construct($parent, $name);
 
 		$this->addExtension('addDatePicker', '\Flame\Forms\Controls\DatePicker');
-		$this->addExtension('addMultiUpload', '\Flame\Forms\Controls\MultipleFileUpload');
-
-		$renderer = $this->getRenderer();
-		$renderer->wrappers['control']['.submit'] = 'btn btn-primary';
-		$renderer->wrappers['control']['.button'] = 'btn btn-primary';
-		$renderer->wrappers['error'] = array('container' => 'div class="alert alert-error"', 'item' => 'h4 class="alert-heading"');
-
-		$this->getElementPrototype()->class[] = 'well';
+		$this->setRenderer(new \Kdyby\Extension\Forms\BootstrapRenderer\BootstrapRenderer);
 	}
 
 	/**
@@ -56,7 +54,7 @@ class Form extends \Nette\Application\UI\Form
 	 */
 	protected function addExtension($name, $class)
 	{
-		\Nette\Forms\Container::extensionMethod($name, function (\Nette\Forms\Container $container, $name, $label = NULL) use ($class){
+		\Nette\Forms\Container::extensionMethod($name, function (\Nette\Forms\Container $container, $name, $label = null) use ($class){
 			return $container[$name] = new $class($label);
 		});
 	}
@@ -74,7 +72,7 @@ class Form extends \Nette\Application\UI\Form
 		} elseif ($this->isSubmitted() instanceof ISubmitterControl) {
 			if (!$this->isSubmitted()->getValidationScope() || $this->isValid()) {
 				$this->dispatchEvent($this->isSubmitted()->onClick, $this->isSubmitted());
-				$valid = TRUE;
+				$valid = true;
 
 			} else {
 				$this->dispatchEvent($this->isSubmitted()->onInvalidClick, $this->isSubmitted());
@@ -96,7 +94,7 @@ class Form extends \Nette\Application\UI\Form
 	 * @param array|\Traversable $listeners
 	 * @param mixed $arg
 	 */
-	protected function dispatchEvent($listeners, $arg = NULL)
+	protected function dispatchEvent($listeners, $arg = null)
 	{
 		$args = func_get_args();
 		$listeners = array_shift($args);
@@ -107,7 +105,7 @@ class Form extends \Nette\Application\UI\Form
 				$refl = $handler->getReflection();
 				/** @var \Nette\Reflection\ClassType $refl */
 				$compRefl = $refl->getProperty('component');
-				$compRefl->accessible = TRUE;
+				$compRefl->accessible = true;
 				/** @var \Nette\Application\UI\PresenterComponent $component */
 				$component = $compRefl->getValue($handler);
 				$component->redirect($handler->getDestination(), $handler->getParameters());
@@ -132,7 +130,7 @@ class Form extends \Nette\Application\UI\Form
 	 * @param bool $erase
 	 * @return \Nette\Forms\Container
 	 */
-	public function setDefaults($values, $erase = FALSE)
+	public function setDefaults($values, $erase = false)
 	{
 		$values = array_map(function ($value){
 			if(is_object($value) and (method_exists($value, '__toString'))){
@@ -147,6 +145,26 @@ class Form extends \Nette\Application\UI\Form
 		}, $values);
 
 		return parent::setDefaults($values, $erase);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function generateId()
+	{
+		return md5(uniqid(microtime(), true));
+	}
+
+	/**
+	 * @return int|null|void
+	 */
+	public function getId()
+	{
+		if($this->id === null){
+			$this->id = $this->generateId();
+		}
+
+		return $this->id;
 	}
 
 }
