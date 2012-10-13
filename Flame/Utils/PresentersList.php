@@ -26,7 +26,7 @@ class PresentersList extends \Nette\Object
 	/**
 	 * @param \Nette\Loaders\RobotLoader $robotLoader
 	 */
-	public function __construct(\Nette\Loaders\RobotLoader $robotLoader)
+	public function injectRobotLoader(\Nette\Loaders\RobotLoader $robotLoader)
 	{
 		$this->robotLoader = $robotLoader;
 	}
