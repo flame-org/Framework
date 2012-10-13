@@ -48,7 +48,7 @@ class PresentersList extends \Nette\Object
 		$modulePath = $this->appDir . DIRECTORY_SEPARATOR . $namespace . DIRECTORY_SEPARATOR . 'presenters';
 
 		if(!file_exists($modulePath))
-			throw new \Nette\FileNotFoundException;
+			throw new \Nette\FileNotFoundException('Module path ' . $modulePath . ' not found!');
 
 		$this->robotLoader->addDirectory($modulePath);
 		$this->robotLoader->setCacheStorage(new \Nette\Caching\Storages\FileStorage($this->appDir . '/../temp/cache'));
