@@ -58,7 +58,7 @@ class Paginator extends UI\Control
 		$this->template->steps = $this->getSteps();
 		$this->template->paginator = $this->getPaginator();
 
-		$template = dirname(__FILE__) . '/template.phtml';
+		$template = __DIR__ . '/template.latte';
 		$this->template->setFile($template);
 		$this->template->render();
 	}
