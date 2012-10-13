@@ -25,7 +25,7 @@ abstract class FormFactory extends \Nette\Object implements IFormFactory
 	{
 
 		if(!$this->form instanceof \Nette\Application\UI\Form){
-			throw new \Nette\InvalidStateException;
+			throw new \Nette\InvalidStateException(__CLASS__ . '::$form must be instance of \Nette\Application\UI\Form. ' . gettype($this->form) . ' given.');
 		}
 
 		return $this->form;
