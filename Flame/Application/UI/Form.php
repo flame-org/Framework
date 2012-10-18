@@ -25,9 +25,7 @@ class Form extends \Nette\Application\UI\Form
 	public function __construct(\Nette\ComponentModel\IContainer $parent = null,  $name = null)
 	{
 		parent::__construct($parent, $name);
-
 		$this->addExtension('addDatePicker', '\Flame\Forms\Controls\DatePicker');
-		$this->setRenderer(new \Kdyby\Extension\Forms\BootstrapRenderer\BootstrapRenderer);
 	}
 
 	/**

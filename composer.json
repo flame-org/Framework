@@ -20,8 +20,7 @@
 
 	"require": {
 		"php": ">=5.3.2",
-		"nette/nette": "dev-master",
-		"kdyby/bootstrap-form-renderer": "dev-master"
+		"nette/nette": "dev-master"
 	},
 
 	"autoload": {
