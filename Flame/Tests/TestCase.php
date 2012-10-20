@@ -13,4 +13,20 @@ namespace Flame\Tests;
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
 
+	/**
+	 * @return \Nette\DI\Container
+	 */
+	public function getContainer()
+	{
+		return Environment::getService('container');
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getContext()
+	{
+		return Environment::getContext();
+	}
+
 }
