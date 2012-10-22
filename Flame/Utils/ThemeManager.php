@@ -15,7 +15,7 @@ class ThemeManager extends \Nette\Object
 	/**
 	 * @var array
 	 */
-	private $parameters;
+	protected $parameters;
 	
 	/**
 	 * @param array $parameters
