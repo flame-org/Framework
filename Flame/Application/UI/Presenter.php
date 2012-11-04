@@ -10,8 +10,6 @@
 
 namespace Flame\Application\UI;
 
-use Flame\Application\UI\Form;
-
 abstract class Presenter extends \Nette\Application\UI\Presenter
 {
 
