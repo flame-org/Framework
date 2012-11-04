@@ -99,6 +99,7 @@ class Form extends \Nette\Application\UI\Form
 
 		foreach ((array)$listeners as $handler) {
 			if ($handler instanceof \Nette\Application\UI\Link) {
+				if (!$this->isValid()) continue;
 				/** @var \Nette\Application\UI\Link $handler */
 				$refl = $handler->getReflection();
 				/** @var \Nette\Reflection\ClassType $refl */
