@@ -10,6 +10,8 @@
 
 namespace Flame\Application\UI;
 
+use Nette\Forms\Rules;
+
 class Form extends \Nette\Application\UI\Form
 {
 
@@ -25,6 +27,18 @@ class Form extends \Nette\Application\UI\Form
 	public function __construct(\Nette\ComponentModel\IContainer $parent = null,  $name = null)
 	{
 		parent::__construct($parent, $name);
+
+		Rules::$defaultMessages = array(
+			Form::EQUAL => 'Please enter %s.',
+			Form::FILLED => 'Field "%label" is required.',
+			Form::MIN_LENGTH => 'Field "%label" must be longer than %d chars.',
+			Form::MAX_LENGTH => 'Field "%label" must be shorter than %d chars.',
+			Form::LENGTH => 'Value of field "%label" must be longer than %d and shorter than %d chars.',
+			Form::EMAIL => 'Field "%label" must be valid email address.',
+			Form::URL => 'Field "%label" must be valid URL address.',
+			Form::IMAGE => 'You can upload only JPEG, GIF or PNG files.'
+		);
+
 		$this->addExtension('addDatePicker', '\Flame\Forms\Controls\DatePicker');
 	}
 
@@ -84,8 +98,6 @@ class Form extends \Nette\Application\UI\Form
 			$this->dispatchEvent($this->onError, $this);
 		}
 	}
-
-
 
 	/**
 	 * @author Filip Procházka (filip.prochazka@kdyby.org)
