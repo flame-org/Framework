@@ -24,14 +24,14 @@ class Form extends \Nette\Application\UI\Form
 		parent::__construct($parent, $name);
 
 		Rules::$defaultMessages = array(
-			Form::EQUAL => 'Please enter %s.',
-			Form::FILLED => 'Field "%label" is required.',
-			Form::MIN_LENGTH => 'Field "%label" must be longer than %d chars.',
-			Form::MAX_LENGTH => 'Field "%label" must be shorter than %d chars.',
-			Form::LENGTH => 'Value of field "%label" must be longer than %d and shorter than %d chars.',
-			Form::EMAIL => 'Field "%label" must be valid email address.',
-			Form::URL => 'Field "%label" must be valid URL address.',
-			Form::IMAGE => 'You can upload only JPEG, GIF or PNG files.'
+			$this::EQUAL => 'Please enter %s.',
+			$this::FILLED => 'Field "%label" is required.',
+			$this::MIN_LENGTH => 'Field "%label" must be longer than %d chars.',
+			$this::MAX_LENGTH => 'Field "%label" must be shorter than %d chars.',
+			$this::LENGTH => 'Value of field "%label" must be longer than %d and shorter than %d chars.',
+			$this::EMAIL => 'Field "%label" must be valid email address.',
+			$this::URL => 'Field "%label" must be valid URL address.',
+			$this::IMAGE => 'You can upload only JPEG, GIF or PNG files.'
 		);
 
 		$this->addExtension('addDatePicker', '\Flame\Forms\Controls\DatePicker');
