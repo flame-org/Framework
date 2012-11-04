@@ -14,11 +14,6 @@ class Form extends \Nette\Application\UI\Form
 {
 
 	/**
-	 * @var null|int
-	 */
-	private $id;
-
-	/**
 	 * @param \Nette\ComponentModel\IContainer|null $parent
 	 * @param null $name
 	 */
@@ -143,26 +138,6 @@ class Form extends \Nette\Application\UI\Form
 		}, $values);
 
 		return parent::setDefaults($values, $erase);
-	}
-
-	/**
-	 * @return string
-	 */
-	public function generateId()
-	{
-		return md5(uniqid(microtime(), true));
-	}
-
-	/**
-	 * @return int|null|void
-	 */
-	public function getId()
-	{
-		if($this->id === null){
-			$this->id = $this->generateId();
-		}
-
-		return $this->id;
 	}
 
 }
