@@ -33,8 +33,6 @@ class Form extends \Nette\Application\UI\Form
 			$this::URL => 'Field "%label" must be valid URL address.',
 			$this::IMAGE => 'You can upload only JPEG, GIF or PNG files.'
 		);
-
-		$this->addExtension('addDatePicker', '\Flame\Forms\Controls\DatePicker');
 	}
 
 	/**
