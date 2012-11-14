@@ -42,7 +42,7 @@ class FileManager extends \Nette\Object
 		if(!$file->isOk()) return;
 
 		$this->createFolder($basePath = $this->getBasePath());
-		$name = $file->name;
+		$name = Strings::createSlug($file->name);
 		$filePath = $basePath . DIRECTORY_SEPARATOR . $name;
 
 		if(!file_exists($filePath)){
