@@ -138,4 +138,24 @@ class FileManager extends \Nette\Object
 		return $this->baseDir . DIRECTORY_SEPARATOR . $this->fileStorage;
 	}
 
+	/**
+	 * @param $name
+	 * @return null
+	 */
+	protected function getFileType($name)
+	{
+		$neeadles = explode('.', $name);
+		$last = count($neeadles) - 1;
+		return (isset($neeadles[$last])) ? $neeadles[$last] : null;
+	}
+
+	/**
+	 * @param $name
+	 * @return mixed
+	 */
+	private function removeFileType($name)
+	{
+		return str_replace('.' . $this->getFileType($name), '', $name);
+	}
+
 }
