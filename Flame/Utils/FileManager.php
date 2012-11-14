@@ -120,7 +120,7 @@ class FileManager extends \Nette\Object
 	 */
 	protected function getRandomFilePrefix()
 	{
-		return substr(md5(uniqid(microtime(), true)), 0, 5);
+		return Strings::random(5);
 	}
 
 	/**
