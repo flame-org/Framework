@@ -10,6 +10,8 @@
 
 namespace Flame\Tests;
 
+use Flame\Tools\FileSystem;
+
 class Configurator extends \Flame\Config\Configurator
 {
 
