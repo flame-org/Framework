@@ -27,4 +27,15 @@ class Configurator extends \Nette\Config\Configurator
 			)
 		));
 	}
+
+	/**
+	 * @param $name
+	 * @return Configurator
+	 */
+	public function setEnvironment($name)
+	{
+		$this->parameters['environment'] = $name;
+		$this->parameters['consoleMode'] = $name === 'console' ?: PHP_SAPI === 'cli';
+		return $this;
+	}
 }
