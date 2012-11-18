@@ -25,7 +25,6 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 	 */
 	public function __construct($name = null, array $data = array(), $dataName = '')
 	{
-		new \Flame\Tests\Configurator;
 		$this->context = Configurator::getTestsContainer();
 
 		parent::__construct($name, $data, $dataName);
@@ -54,7 +53,6 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 		list($post, $files) = $this->separateFilesFromPost($post);
 
 		$presenter = new Tools\UIFormTestingPresenter($form);
-
 		$this->getContext()->callMethod(array($presenter, 'injectPrimary'));
 		return $presenter->run(new \Nette\Application\Request(
 			'presenter',
