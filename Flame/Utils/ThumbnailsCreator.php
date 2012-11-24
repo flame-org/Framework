@@ -10,19 +10,15 @@
 
 namespace Flame\Utils;
 
-use \Nette\Image;
+use Nette\Image;
 
 class ThumbnailsCreator extends \Nette\Object
 {
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $thumbDirUri;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $baseDir;
 
 
@@ -30,10 +26,10 @@ class ThumbnailsCreator extends \Nette\Object
 	 * @param string $thumbDirUri
 	 * @param string $baseDir
 	 */
-	public function __construct($thumbDirUri = 'media/images_thumbnails', $baseDir = WWW_DIR)
+	public function __construct($baseDir, $thumbDirUri = 'media/images_thumbnails')
 	{
-		$this->thumbDirUri = $thumbDirUri;
-		$this->baseDir = $baseDir;
+		$this->thumbDirUri = (string) $thumbDirUri;
+		$this->baseDir = (string) $baseDir;
 	}
 
 	/**
