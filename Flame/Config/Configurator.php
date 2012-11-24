@@ -38,4 +38,19 @@ class Configurator extends \Nette\Config\Configurator
 		$this->parameters['consoleMode'] = $name === 'console' ?: PHP_SAPI === 'cli';
 		return $this;
 	}
+
+	/**
+	 * When given NULL, the debug mode gets detected automatically
+	 *
+	 * @param null $value
+	 * @return Configurator
+	 */
+	public function setDebugMode($value = null)
+	{
+		$this->parameters['debugMode'] = is_bool($value) ? $value
+			: \Nette\Config\Configurator::detectDebugMode($value);
+		$this->parameters['productionMode'] = !$this->parameters['debugMode'];
+		$this->parameters['kdyby']['debug'] = $this->parameters['debugMode'];
+		return $this;
+	}
 }
