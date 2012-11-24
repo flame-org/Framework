@@ -23,17 +23,6 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 	}
 
 	/**
-	 * @param null $class
-	 * @return \Nette\Templating\ITemplate
-	 */
-	public function createTemplate($class = null)
-	{
-		$template = parent::createTemplate($class);
-		$template->registerHelperLoader(\Nette\Callback::create(new \Flame\Templating\Helpers, 'loader'));
-		return $template;
-	}
-
-	/**
 	 * @param $name
 	 * @param null $default
 	 * @return null
