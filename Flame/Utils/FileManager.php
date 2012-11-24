@@ -13,22 +13,20 @@ namespace Flame\Utils;
 class FileManager extends \Nette\Object
 {
 
-	/**
-	 * @var string
-	 */
-	private $baseDir = WWW_DIR;
-
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $fileStorage;
 
+	/** @var string */
+	private $baseDir;
+
 	/**
-	 * @param string $fileStorage
+	 * @param $baseDir
+	 * @param $storage
 	 */
-	public function setFileStorage($fileStorage)
+	public function __construct($baseDir, $storage)
 	{
-		$this->fileStorage = (string) $fileStorage;
+		$this->baseDir = (string) $baseDir;
+		$this->fileStorage = (string) $storage;
 	}
 
 	/**
@@ -91,7 +89,7 @@ class FileManager extends \Nette\Object
 	{
 		if($file = @file_get_contents($url)){
 
-			$folderName = $this->baseDir . $this->fileStorage;
+			$folderName = $this->getBasePath();
 			$this->createFolder($folderName);
 			$fileStorage = $folderName . DIRECTORY_SEPARATOR . $this->getFileName($url);
 
@@ -136,7 +134,7 @@ class FileManager extends \Nette\Object
 			throw new \Nette\InvalidStateException('You must set "fileStorage"');
 		}
 
-		return $this->baseDir . DIRECTORY_SEPARATOR . $this->fileStorage;
+		return $this->baseDir . $this->fileStorage;
 	}
 
 	/**
