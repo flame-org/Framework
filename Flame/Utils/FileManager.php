@@ -23,7 +23,7 @@ class FileManager extends \Nette\Object
 	 * @param $baseDir
 	 * @param $storage
 	 */
-	public function __construct($baseDir, $storage)
+	public function __construct($baseDir, $storage = '/media/images')
 	{
 		$this->baseDir = (string) $baseDir;
 		$this->fileStorage = (string) $storage;
