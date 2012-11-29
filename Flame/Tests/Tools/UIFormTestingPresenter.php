@@ -17,9 +17,9 @@ class UIFormTestingPresenter extends \Flame\Application\UI\Presenter
 	private $form;
 
 	/**
-	 * @param \Flame\Application\UI\Form $form
+	 * @param \Nette\Application\UI\Form $form
 	 */
-	public function __construct(\Flame\Application\UI\Form $form)
+	public function __construct(\Nette\Application\UI\Form $form)
 	{
 		parent::__construct();
 		$this->form = $form;
