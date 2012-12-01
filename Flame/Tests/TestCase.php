@@ -15,30 +15,13 @@ use Nette\Application\UI\Form;
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
 
-	/** @var \Flame\Tests\Configurator */
-	private $context;
-
 	/**
-	 * @param null $name
-	 * @param array $data
-	 * @param string $dataName
-	 */
-	public function __construct($name = null, array $data = array(), $dataName = '')
-	{
-		$this->context = \Nette\Environment::getContext();
-		parent::__construct($name, $data, $dataName);
-	}
-
-	/**
-	 * @return Configurator
+	 * @return \Nette\DI\Container|\SystemContainer
 	 */
 	public function getContext()
 	{
-		return $this->context;
+		return \Nette\Environment::getContext();
 	}
-
-	/********************* Nette Forms *********************/
-
 
 	/**
 	 * @param \Nette\Application\UI\Form $form
