@@ -136,17 +136,19 @@ class Form extends \Nette\Application\UI\Form
 	 */
 	public function setDefaults($values, $erase = false)
 	{
-		$values = array_map(function ($value){
-			if(is_object($value) and (method_exists($value, '__toString'))){
-				if(isset($value->id)){
-					return (string) $value->id;
-				}else{
-					return (string) $value;
-				}
+		if(is_array($values)){
+			$values = array_map(function ($value){
+				if(is_object($value) and (method_exists($value, '__toString'))){
+					if(isset($value->id)){
+						return (string) $value->id;
+					}else{
+						return (string) $value;
+					}
 
-			}
-			return $value;
-		}, $values);
+				}
+				return $value;
+			}, $values);
+		}
 
 		return parent::setDefaults($values, $erase);
 	}
