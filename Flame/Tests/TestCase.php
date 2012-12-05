@@ -24,6 +24,17 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * @param $name
+	 * @param null $default
+	 * @return null
+	 */
+	protected function getContextParameter($name, $default = null)
+	{
+		$params = $this->getContext()->getParameters();
+		return (isset($params[$name])) ? $params[$name] : $default;
+	}
+
+	/**
 	 * @param \Nette\Application\UI\Form $form
 	 * @param array $values
 	 * @return \Nette\Application\IResponse
