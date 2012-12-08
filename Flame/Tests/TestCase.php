@@ -88,4 +88,17 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 		return array($post, $files);
 	}
 
+	/**
+	 * @param string $class
+	 * @param string $name
+	 * @return \ReflectionMethod
+	 */
+	protected function getProtectedClassMethod($class, $name) {
+		$class = new \ReflectionClass($class);
+		$method = $class->getMethod($name);
+		$method->setAccessible(true);
+		return $method;
+	}
+
+
 }
