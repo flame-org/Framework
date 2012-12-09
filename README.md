@@ -1,8 +1,8 @@
 #FLAME:FRAMEWORK
 
-Flame is simple and smart **FRAMEWORK**
+##Flame is simple and smart FRAMEWORK
 
-Flame is available over Composer. Please visit [PACKAGIST](http://packagist.org/packages/flame/framework)
+###Flame is available over Composer. Please visit [PACKAGIST](http://packagist.org/packages/flame/framework)
 
 ### Requirements
 * PHP 5.3+
