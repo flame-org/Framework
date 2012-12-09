@@ -9,7 +9,6 @@ Flame is available over Composer. Please visit [PACKAGIST](http://packagist.org/
 * MySQL 5+
 * [Nette Framework](http://nette.org/)
 * Composer (dependencies manager)
-* kdyby/bootstrap-form-renderer (Forms Renderer for Nette Framework)
 
 ### Required Settings
 **Install dependencies with composer**
