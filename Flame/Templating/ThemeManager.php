@@ -8,7 +8,7 @@
  * @date    06.08.12
  */
 
-namespace Flame\Utils;
+namespace Flame\Templating;
 
 class ThemeManager extends \Nette\Object
 {
@@ -16,7 +16,7 @@ class ThemeManager extends \Nette\Object
 	 * @var array
 	 */
 	protected $parameters;
-	
+
 	/**
 	 * @param array $parameters
 	 */
@@ -30,7 +30,7 @@ class ThemeManager extends \Nette\Object
 	 */
 	public function getTheme()
 	{
-		return $this->getDefaultThemeFolder() . '/' . $this->getDefaultTheme();
+		return $this->getDefaultThemeFolder() . DIRECTORY_SEPARATOR . $this->getDefaultTheme();
 
 	}
 
