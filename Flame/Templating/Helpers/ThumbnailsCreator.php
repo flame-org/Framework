@@ -8,7 +8,7 @@
  * @date    02.08.12
  */
 
-namespace Flame\Utils;
+namespace Flame\Templating\Helpers;
 
 use Nette\Image;
 
