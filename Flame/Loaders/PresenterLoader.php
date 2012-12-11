@@ -1,16 +1,16 @@
 <?php
 /**
- * PresentersList.php
+ * PresenterLoader.php
  *
  * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
  * @package Flame
  *
- * @date    24.08.12
+ * @date    11.12.12
  */
 
-namespace Flame\Utils;
+namespace Flame\Loaders;
 
-class PresentersList extends \Nette\Object
+class PresenterLoader extends \Nette\Object
 {
 
 	/**
