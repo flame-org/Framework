@@ -7,7 +7,7 @@
  * This source file is subject to the GNU Lesser General Public License. For more information please see http://nella-project.org
  */
 
-namespace Flame\Utils;
+namespace Flame\Addons\Doctrine\Diagnostics;
 
 use Nette\Diagnostics\Debugger;
 
@@ -105,7 +105,7 @@ class ConnectionPanel extends \Nette\Object implements \Nette\Diagnostics\IBarPa
 
 		return empty($this->queries) ? '' :
 			$this->renderStyles() .
-			'<h1>Queries: ' . count($this->queries) . ($this->totalTime ? ', time: ' . sprintf('%0.3f', $this->totalTime * 1000) . ' ms' : '') . '</h1>
+				'<h1>Queries: ' . count($this->queries) . ($this->totalTime ? ', time: ' . sprintf('%0.3f', $this->totalTime * 1000) . ' ms' : '') . '</h1>
 			<div class="nette-inner nette-Doctrine2Panel">
 			<table>
 			<tr><th>Time&nbsp;ms</th><th>SQL</th><th>Params</th></tr>' . $s . '
