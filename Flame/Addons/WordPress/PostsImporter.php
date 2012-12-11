@@ -1,16 +1,16 @@
 <?php
 /**
- * WordPressImporter.php
+ * PostsImporter.php
  *
  * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
  * @package Flame
  *
- * @date    18.07.12
+ * @date    11.12.12
  */
 
-namespace Flame\Utils;
+namespace Flame\Addons\WordPress;
 
-class WordPressImporter extends \Nette\Object
+class PostsImporter extends \Nette\Object
 {
 
 	/**
