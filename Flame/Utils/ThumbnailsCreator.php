@@ -2,7 +2,7 @@
 /**
  * ThumbnailsCreator.php
  *
- * @author  uestla
+ * @author  uestla <http://forum.nette.org/cs/profile.php?id=2325>
  * @package Flame
  *
  * @date    02.08.12
