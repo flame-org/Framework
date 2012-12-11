@@ -12,63 +12,38 @@ namespace Flame\Utils;
 
 use Nette\Image;
 
-class ThumbnailsCreator extends \Nette\Object
+abstract class ThumbnailsCreator extends \Nette\Object
 {
 
 	/** @var string */
-	private $thumbDirUri;
-
-	/** @var string */
-	private $baseDir;
-
-
-	/**
-	 * @param string $thumbDirUri
-	 * @param string $baseDir
-	 */
-	public function __construct($baseDir, $thumbDirUri = 'media/images_thumbnails')
-	{
-		$this->thumbDirUri = (string) $thumbDirUri;
-		$this->baseDir = (string) $baseDir;
-	}
+	public static $thumbDirUri = 'thumbs';
 
 	/**
 	 * @param $origName
 	 * @param $width
 	 * @param null $height
 	 * @return string
-	 * @throws \Nette\InvalidArgumentException
 	 */
-	public function thumb($origName, $width, $height = null)
+	public static function thumb($origName, $width, $height = null)
 	{
 
-		if(!$this->baseDir or !$this->thumbDirUri){
-			throw new \Nette\InvalidArgumentException('Invalid parameters: ' . get_class($this) . '::$baseDir or $thumbDirUri');
-		}
+		$thumbDirPath = WWW_DIR . '/' . trim(static::$thumbDirUri, '/\\');
+		$origPath = WWW_DIR . '/' . $origName;
 
-		$thumbDirPath = $this->baseDir . '/' . trim($this->thumbDirUri, '/\\');
-		$origPath = $this->baseDir . '/' . $origName;
-
-		$this->createDirForThumbnails($thumbDirPath);
-
+		if(!is_dir($thumbDirPath)) static::createDir($thumbDirPath);
 		if (($width === null && $height === null) || !is_file($origPath) || !is_dir($thumbDirPath) || !is_writable($thumbDirPath))
 			return $origName;
 
-		$thumbName = $this->getThumbName($origName, $width, $height, filemtime($origPath));
-		$thumbUri = trim($this->thumbDirUri, '/\\') . '/' . $thumbName;
+		$thumbName = static::getThumbName($origName, $width, $height, filemtime($origPath));
+
+		$thumbUri = trim(static::$thumbDirUri, '/\\') . '/' . $thumbName;
 		$thumbPath = $thumbDirPath . '/' . $thumbName;
 
-		// miniatura jiz existuje
-		if (is_file($thumbPath)) {
-			return $thumbUri;
-		}
-
+		if (is_file($thumbPath)) return $thumbUri;
 
 		try {
 
 			$image = Image::fromFile($origPath);
-
-			// zachovani pruhlednosti u PNG
 			$image->alphaBlending(false);
 			$image->saveAlpha(true);
 
@@ -79,11 +54,9 @@ class ThumbnailsCreator extends \Nette\Object
 				$width !== null && $height !== null ? Image::STRETCH : Image::FIT)
 				->sharpen();
 
-
 			$newWidth = $image->getWidth();
 			$newHeight = $image->getHeight();
 
-			// doslo ke zmenseni -> ulozime miniaturu
 			if ($newWidth !== $origWidth || $newHeight !== $origHeight) {
 
 				$image->save($thumbPath);
@@ -111,7 +84,7 @@ class ThumbnailsCreator extends \Nette\Object
 	 * @param $mtime
 	 * @return string
 	 */
-	private function getThumbName($relPath, $width, $height, $mtime)
+	protected static function getThumbName($relPath, $width, $height, $mtime)
 	{
 		$sep = '.';
 		$tmp = explode($sep, $relPath);
@@ -130,12 +103,12 @@ class ThumbnailsCreator extends \Nette\Object
 	}
 
 	/**
-	 * @param $filepath
+	 * @param $path
 	 * @return bool
 	 */
-	private function createDirForThumbnails($filepath)
+	protected static function createDir($path)
 	{
-		if(!file_exists($filepath)) return @mkdir($filepath, 0777, true);
+		if(!file_exists($path)) return @mkdir($path, 0777, true);
 	}
 
 }
