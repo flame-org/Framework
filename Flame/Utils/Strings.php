@@ -14,6 +14,8 @@ class Strings extends \Nette\Utils\Strings
 {
 
 	/**
+	 * The same as self::webalize
+	 * @deprecated
 	 * @param $name
 	 * @return mixed
 	 */
