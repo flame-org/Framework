@@ -12,11 +12,25 @@ namespace Flame\Utils;
 
 use Nette\Image;
 
-abstract class ThumbnailsCreator extends \Nette\Object
+class ThumbnailsCreator extends \Nette\Object
 {
 
 	/** @var string */
-	public static $thumbDirUri = 'thumbs';
+	private $thumbDirUri;
+
+	/** @var string */
+	private $baseDir;
+
+
+	/**
+	 * @param string $thumbDirUri
+	 * @param string $baseDir
+	 */
+	public function __construct($baseDir, $thumbDirUri = 'media/images_thumbnails')
+	{
+		$this->thumbDirUri = (string) $thumbDirUri;
+		$this->baseDir = (string) $baseDir;
+	}
 
 	/**
 	 * @param $origName
@@ -24,19 +38,19 @@ abstract class ThumbnailsCreator extends \Nette\Object
 	 * @param null $height
 	 * @return string
 	 */
-	public static function thumb($origName, $width, $height = null)
+	public function thumb($origName, $width, $height = null)
 	{
 
-		$thumbDirPath = WWW_DIR . '/' . trim(static::$thumbDirUri, '/\\');
-		$origPath = WWW_DIR . '/' . $origName;
+		$thumbDirPath = $this->baseDir . '/' . trim($this->thumbDirUri, '/\\');
+		$origPath = $this->baseDir . '/' . $origName;
 
-		if(!is_dir($thumbDirPath)) static::createDir($thumbDirPath);
+		$this->createDir($thumbDirPath);
+
 		if (($width === null && $height === null) || !is_file($origPath) || !is_dir($thumbDirPath) || !is_writable($thumbDirPath))
 			return $origName;
 
-		$thumbName = static::getThumbName($origName, $width, $height, filemtime($origPath));
-
-		$thumbUri = trim(static::$thumbDirUri, '/\\') . '/' . $thumbName;
+		$thumbName = $this->getThumbName($origName, $width, $height, filemtime($origPath));
+		$thumbUri = trim($this->thumbDirUri, '/\\') . '/' . $thumbName;
 		$thumbPath = $thumbDirPath . '/' . $thumbName;
 
 		if (is_file($thumbPath)) return $thumbUri;
@@ -58,14 +72,8 @@ abstract class ThumbnailsCreator extends \Nette\Object
 			$newHeight = $image->getHeight();
 
 			if ($newWidth !== $origWidth || $newHeight !== $origHeight) {
-
 				$image->save($thumbPath);
-
-				if (is_file($thumbPath))
-					return $thumbUri;
-				else
-					return $origName;
-
+				return (is_file($thumbPath)) ? $thumbUri : $origName;
 			} else {
 				return $origName;
 			}
@@ -84,31 +92,27 @@ abstract class ThumbnailsCreator extends \Nette\Object
 	 * @param $mtime
 	 * @return string
 	 */
-	protected static function getThumbName($relPath, $width, $height, $mtime)
+	protected function getThumbName($relPath, $width, $height, $mtime)
 	{
 		$sep = '.';
 		$tmp = explode($sep, $relPath);
 		$ext = array_pop($tmp);
-
 		// cesta k obrazku (ale bez pripony)
 		$relPath = implode($sep, $tmp);
-
 		// pripojime rozmery a mtime
 		$relPath .= $width . 'x' . $height . '-' . $mtime;
-
 		// zahashujeme a vratime priponu
 		$relPath = md5($relPath) . $sep . $ext;
-
 		return $relPath;
 	}
 
 	/**
-	 * @param $path
+	 * @param $filepath
 	 * @return bool
 	 */
-	protected static function createDir($path)
+	protected function createDir($filepath)
 	{
-		if(!file_exists($path)) return @mkdir($path, 0777, true);
+		if(!file_exists($filepath)) return @mkdir($filepath, 0777, true);
 	}
 
 }
