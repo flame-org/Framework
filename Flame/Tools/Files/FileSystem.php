@@ -8,7 +8,7 @@
  * @date    18.11.12
  */
 
-namespace Flame\Tools;
+namespace Flame\Tools\Files;
 
 use Flame;
 
