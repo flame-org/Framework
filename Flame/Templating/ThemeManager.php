@@ -10,7 +10,7 @@
 
 namespace Flame\Templating;
 
-class ThemeManager extends \Nette\Object
+abstract class ThemeManager extends \Nette\Object
 {
 	/**
 	 * @var array
@@ -19,9 +19,13 @@ class ThemeManager extends \Nette\Object
 
 	/**
 	 * @param array $parameters
+	 * @throws \Nette\InvalidStateException
 	 */
 	public function __construct(array $parameters)
 	{
+		if(!isset($parameters['baseDir']))
+			throw new \Nette\InvalidStateException(__METHOD__ . ' require set baseDir parametr.');
+
 		$this->parameters = $parameters;
 	}
 
@@ -35,12 +39,13 @@ class ThemeManager extends \Nette\Object
 	}
 
 	/**
-	 * @param $path
+	 * @param $themeName
 	 * @return bool
 	 */
-	protected function existTheme($path)
+	protected function existTheme($themeName)
 	{
-		return file_exists($path);
+		return file_exists(
+			$this->getBaseDir() . DIRECTORY_SEPARATOR . $this->getDefaultThemeFolder() . DIRECTORY_SEPARATOR . $themeName);
 	}
 
 	/**
@@ -57,6 +62,14 @@ class ThemeManager extends \Nette\Object
 	protected function getDefaultThemeFolder()
 	{
 		return (isset($this->parameters['baseFolder'])) ? $this->parameters['baseFolder'] : 'themes';
+	}
+
+	/**
+	 * @return mixed
+	 */
+	protected function getBaseDir()
+	{
+		return $this->parameters['baseDir'];
 	}
 
 }
