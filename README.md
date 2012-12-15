@@ -6,9 +6,8 @@
 
 ### Requirements
 * PHP 5.3+
-* MySQL 5+
 * [Nette Framework](http://nette.org/)
-* Composer (dependencies manager)
+* [Composer (dependencies manager)](http://getcomposer.org/)
 
 ### Required Settings
 **Install dependencies with composer**
