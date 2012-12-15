@@ -6,8 +6,8 @@
 
 ### Requirements
 * PHP 5.3+
-* [Nette Framework](http://nette.org/)
-* [Composer (dependencies manager)](http://getcomposer.org/)
+* [Nette](http://nette.org/) (php framework)
+* [Composer](http://getcomposer.org/) (dependencies manager)
 
 ### Required Settings
 **Install dependencies with composer**
