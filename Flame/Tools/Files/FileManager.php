@@ -32,7 +32,7 @@ class FileManager extends \Nette\Object
 	 * @return string
 	 * @throws \Nette\InvalidArgumentException
 	 */
-	public static function saveFile(\Nette\Http\FileUpload $file, $dir = 'images')
+	public static function saveFile(\Nette\Http\FileUpload $file, $dir = 'media/images')
 	{
 
 		if(!$file->isOk())
@@ -58,7 +58,7 @@ class FileManager extends \Nette\Object
 	 * @param string $dir
 	 * @return bool|int
 	 */
-	public static function downloadFile($url, $dir = 'images')
+	public static function downloadFile($url, $dir = 'media/images_downloaded')
 	{
 		$fileDir = $dir . DIRECTORY_SEPARATOR . static::getFileName($url);
 
