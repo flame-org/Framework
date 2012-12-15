@@ -16,31 +16,48 @@ class FileManager extends \Nette\Object
 {
 
 	/**
-	 * Static class - cannot be instantiated.
-	 *
-	 * @throws \Flame\StaticClassException
+	 * @var string
 	 */
-	final public function __construct()
+	protected $baseDirPath;
+
+	/**
+	 * @var string
+	 */
+	protected $filesDirPath;
+
+	/**
+	 * @param $baseDirPath
+	 * @param string $filesDirPath
+	 */
+	public function __construct($baseDirPath, $filesDirPath = 'media/images')
 	{
-		throw new \Flame\StaticClassException;
+		$this->baseDirPath = (string) $baseDirPath;
+		$this->filesDirPath = (string) $filesDirPath;
+	}
+
+	/**
+	 * @param $path
+	 */
+	public function setFilesDir($path)
+	{
+		$this->filesDirPath = (string) $path;
 	}
 
 	/**
 	 * Save upladed file and return absolute path
 	 * @param \Nette\Http\FileUpload $file
-	 * @param string $dir
 	 * @return string
 	 * @throws \Nette\InvalidArgumentException
 	 */
-	public static function saveFile(\Nette\Http\FileUpload $file, $dir = 'media/images')
+	public function saveFile(\Nette\Http\FileUpload $file)
 	{
 
 		if(!$file->isOk())
 			throw new \Nette\InvalidArgumentException('File ' . $file->name . ' is not valid.');
 
-		FileSystem::mkDir($dir, true, 0777, false);
-		$name = Strings::webalize(static::removeFileType($file->name)) . '.' . static::getFileType($file->name);
-		$filePath = $dir . DIRECTORY_SEPARATOR . $name;
+		FileSystem::mkDir($this->getAbsolutePath(), true, 0777, false);
+		$name = Strings::webalize($this->removeFileType($file->name)) . '.' . $this->getFileType($file->name);
+		$filePath = $this->getAbsolutePath() . DIRECTORY_SEPARATOR . $name;
 
 		if(!file_exists($filePath)){
 			$file->move($filePath);
@@ -50,17 +67,17 @@ class FileManager extends \Nette\Object
 			$name = $new_name;
 		}
 
-		return $dir . DIRECTORY_SEPARATOR . $name;
+		return $this->filesDirPath . DIRECTORY_SEPARATOR . $name;
 	}
 
 	/**
+	 * Save file from url on server
 	 * @param $url
-	 * @param string $dir
 	 * @return bool|int
 	 */
-	public static function downloadFile($url, $dir = 'media/images_downloaded')
+	public function downloadFile($url)
 	{
-		$fileDir = $dir . DIRECTORY_SEPARATOR . static::getFileName($url);
+		$fileDir = $this->getAbsolutePath() . $this->getFileName($url);
 
 		if($file = FileSystem::read($url, false))
 			return FileSystem::write($fileDir, $file, true, 0777, false);
@@ -73,7 +90,7 @@ class FileManager extends \Nette\Object
 	 * @param $name
 	 * @return null
 	 */
-	public static function getFileType($name)
+	protected function getFileType($name)
 	{
 		$neeadles = explode('.', $name);
 		$last = count($neeadles) - 1;
@@ -85,9 +102,9 @@ class FileManager extends \Nette\Object
 	 * @param $name
 	 * @return mixed
 	 */
-	public static function removeFileType($name)
+	protected function removeFileType($name)
 	{
-		return str_replace('.' . static::getFileType($name), '', $name);
+		return str_replace('.' . $this->getFileType($name), '', $name);
 	}
 
 	/**
@@ -95,11 +112,19 @@ class FileManager extends \Nette\Object
 	 * @param $path
 	 * @return null
 	 */
-	public static function getFileName($path)
+	protected function getFileName($path)
 	{
 		$parts = explode(DIRECTORY_SEPARATOR, $path);
 		$index = count($parts) - 1;
 		return isset($parts[$index]) ? $parts[$index] : null;
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function getAbsolutePath()
+	{
+		return $this->baseDirPath . $this->filesDirPath;
 	}
 
 }
