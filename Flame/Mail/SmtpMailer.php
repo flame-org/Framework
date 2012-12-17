@@ -36,4 +36,20 @@ class SmtpMailer extends \Nette\Mail\SmtpMailer
 		return $this->options;
 	}
 
+	/**
+	 * @return null
+	 */
+	public function getUserName()
+	{
+		return (isset($this->options['username'])) ? $this->options['username'] : null;
+	}
+
+	/**
+	 * @return null
+	 */
+	public function getHostName()
+	{
+		return (isset($this->options['host'])) ? $this->options['host'] : null;
+	}
+
 }
