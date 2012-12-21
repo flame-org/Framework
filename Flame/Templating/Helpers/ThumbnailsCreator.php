@@ -112,7 +112,7 @@ class ThumbnailsCreator extends \Nette\Object
 	 */
 	protected function createDir($filepath)
 	{
-		if(!file_exists($filepath)) return @mkdir($filepath, 0777, true);
+		return \Flame\Tools\Files\FileSystem::mkDir($filepath);
 	}
 
 }
