@@ -10,6 +10,8 @@
 
 namespace Flame\Config;
 
+use Nette\Config\Extensions;
+
 class Configurator extends \Nette\Config\Configurator
 {
 
@@ -26,5 +28,15 @@ class Configurator extends \Nette\Config\Configurator
 				'parent' => $containerClass
 			)
 		));
+	}
+
+	protected function createCompiler()
+	{
+		$compiler = new \Nette\Config\Compiler();
+		$compiler->addExtension('php', new Extensions\PhpExtension)
+			->addExtension('constants', new Extensions\ConstantsExtension)
+			->addExtension('nette', new \Flame\Config\Extensions\NetteExtension)
+			->addExtension('extensions', new Extensions\ExtensionsExtension);
+		return $compiler;
 	}
 }
