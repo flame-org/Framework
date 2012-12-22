@@ -13,12 +13,18 @@ namespace Flame\Config\Extensions;
 class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 {
 
+	public $helpersDefauls = array(
+		'template' => array(
+			'helperLoaders' => '\Nette\Templating\Helpers',
+		)
+	);
+
 	public function loadConfiguration()
 	{
 		parent::loadConfiguration();
 
 		$container = $this->getContainerBuilder();
-		$config = $this->getConfig($this->defaults);
+		$config = $this->getConfig($this->helpersDefauls);
 
 		$this->setupTemplating($container, $config);
 	}
@@ -28,13 +34,15 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 		/** @var $latte \Nette\Latte\Engine */
 		$latte = $container->getDefinition($this->prefix('latte'));
 
+
+		//Prepared for configuration of helpers
 //		if(isset($config['template']['helpers']) and count($config['template']['helpers'])){
 //			foreach($config['template']['helpers'] as $helper){
 //				$latte->addSetup($helper . '(?->compiler)', array('@self'));
 //			}
 //		}
 
-		$helperLoaders = (isset($config['template']['helperLoaders'])) ? $config['template']['helperLoaders'] : 'Nette\Templating\Helpers';
+		$helperLoaders = $config['template']['helperLoaders'];
 
 		if (strpos($helperLoaders, '::') === false) {
 			$helperLoaders .= '::loader';
