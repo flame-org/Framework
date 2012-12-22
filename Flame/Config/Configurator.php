@@ -30,6 +30,9 @@ class Configurator extends \Nette\Config\Configurator
 		));
 	}
 
+	/**
+	 * @return \Nette\Config\Compiler
+	 */
 	protected function createCompiler()
 	{
 		$compiler = new \Nette\Config\Compiler();
