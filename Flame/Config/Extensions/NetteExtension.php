@@ -15,6 +15,9 @@ use Nette;
 class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 {
 
+	/**
+	 * @var array
+	 */
 	public $helpersDefauls = array(
 		'template' => array(
 			'helperLoaders' => '',
@@ -22,24 +25,26 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 		)
 	);
 
+	/**
+	 * @var \Nette\DI\ContainerBuilder $container
+	 */
+	private $containerBuilder;
+
 	public function loadConfiguration()
 	{
 		parent::loadConfiguration();
 
-		$container = $this->getContainerBuilder();
-		$config = $this->getConfig($this->helpersDefauls);
-		$this->compiler->parseServices($container, array());
-
-		$this->setupTemplating($container, $config);
+		$this->containerBuilder = $this->getContainerBuilder();
+		$this->setupTemplating($this->getConfig($this->helpersDefauls));
 	}
 
-	private function setupTemplating(\Nette\DI\ContainerBuilder $container, array $config)
+	private function setupTemplating(array $config)
 	{
 
-		$latte = $container->getDefinition($this->prefix('latte'));
+		$latte = $this->containerBuilder->getDefinition($this->prefix('latte'));
 
-		$container->removeDefinition($this->prefix('template'));
-		$template = $container->addDefinition($this->prefix('template'))
+		$this->containerBuilder->removeDefinition($this->prefix('template'));
+		$template = $this->containerBuilder->addDefinition($this->prefix('template'))
 			->setClass('Nette\Templating\ITemplate')
 			->setFactory('? ? new ? : new Nette\Templating\FileTemplate', array('%class%', new Nette\PhpGenerator\PhpLiteral('?'), '%class%'))
 			->setParameters(array('class' => null))
@@ -58,10 +63,10 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 
 		if(count($config['template']['helpers'])){
 			foreach($config['template']['helpers'] as $helper){
-				$attributes = $this->expandAttributes($container, $helper['class']->{'attributes'});
-				$helperService = new \ReflectionClass($helper['class']->{'value'});
-				$helperService = $helperService->newInstanceArgs($attributes);
-				$template->addSetup('registerHelper', array($helper['method'], array($helperService, $helper['method'])));
+				$template->addSetup(
+					'registerHelper',
+					array($helper['method'], array($this->createHelperService($helper), $helper['method']))
+				);
 			}
 		}
 
@@ -77,16 +82,26 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 	}
 
 	/**
-	 * @param \Nette\DI\ContainerBuilder $container
+	 * @param $helper
+	 * @return object
+	 */
+	private function createHelperService($helper)
+	{
+		$attributes = $this->expandAttributes($this->containerBuilder, $helper['class']->{'attributes'});
+		$helperService = new \ReflectionClass($helper['class']->{'value'});
+		return $helperService->newInstance($attributes);
+	}
+
+	/**
 	 * @param $atributes
 	 * @return array
 	 */
-	private function expandAttributes(\Nette\DI\ContainerBuilder $container, $atributes)
+	private function expandAttributes($atributes)
 	{
 		$prepared = array();
 		if(count($atributes)){
 			foreach($atributes as $atribute){
-				$prepared[] = $container->expand($atribute);
+				$prepared[] = $this->containerBuilder->expand($atribute);
 			}
 		}
 
