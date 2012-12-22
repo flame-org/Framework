@@ -17,7 +17,7 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 
 	public $helpersDefauls = array(
 		'template' => array(
-			'helperLoaders' => '\Nette\Templating\Helpers',
+			'helperLoaders' => '',
 			'helpers' => array(),
 		)
 	);
@@ -37,11 +37,6 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 	{
 
 		$latte = $container->getDefinition($this->prefix('latte'));
-		$helperLoaders = $config['template']['helperLoaders'];
-
-		if (strpos($helperLoaders, '::') === false) {
-			$helperLoaders .= '::loader';
-		}
 
 		$container->removeDefinition($this->prefix('template'));
 		$template = $container->addDefinition($this->prefix('template'))
@@ -50,7 +45,7 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 			->setParameters(array('class' => null))
 			->setImplement('Flame\Templating\ITemplateFactory')
 			->addSetup('registerFilter', array($latte))
-			->addSetup('registerHelperLoader', array($helperLoaders))
+			->addSetup('registerHelperLoader', array('\Nette\Templating\Helpers::loader'))
 			->addSetup('setCacheStorage', array($this->prefix('@templateCacheStorage')))
 			->addSetup('$service->presenter = $service->_presenter = ?', array(new Nette\DI\Statement('@application::getPresenter')))
 			->addSetup('$service->control = $service->_control = ?', array(new Nette\DI\Statement('@application::getPresenter')))
@@ -67,6 +62,15 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 				$helperService = new \ReflectionClass($helper['class']->{'value'});
 				$helperService = $helperService->newInstanceArgs($attributes);
 				$template->addSetup('registerHelper', array($helper['method'], array($helperService, $helper['method'])));
+			}
+		}
+
+		if(!empty($config['template']['helperLoaders'])){
+			$helperLoaders = $config['template']['helperLoaders'];
+
+			if (strpos($helperLoaders, '::') === false) {
+				$helperLoaders .= '::loader';
+				$template->addSetup('registerHelperLoader', array($helperLoaders));
 			}
 		}
 
