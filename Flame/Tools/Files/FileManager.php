@@ -92,9 +92,7 @@ class FileManager extends \Nette\Object
 	 */
 	protected function getFileType($name)
 	{
-		$neeadles = explode('.', $name);
-		$last = count($neeadles) - 1;
-		return (isset($neeadles[$last])) ? $neeadles[$last] : null;
+		str_replace('.', '', strrchr($name, '.'));
 	}
 
 	/**
@@ -114,9 +112,7 @@ class FileManager extends \Nette\Object
 	 */
 	protected function getFileName($path)
 	{
-		$parts = explode(DIRECTORY_SEPARATOR, $path);
-		$index = count($parts) - 1;
-		return isset($parts[$index]) ? $parts[$index] : null;
+		return str_replace(DIRECTORY_SEPARATOR, '', strrchr($path, DIRECTORY_SEPARATOR));
 	}
 
 	/**
