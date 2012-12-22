@@ -17,10 +17,10 @@ class Helpers extends \Nette\Object
 	 * @param $helper
 	 * @return \Nette\Callback
 	 */
-	public function loader($helper)
+	public static function loader($helper)
 	{
-		if (method_exists($this, $helper)) {
-			return \Nette\Callback::create($this, $helper);
+		if (method_exists(__CLASS__, $helper)) {
+			return new \Nette\Callback(__CLASS__, $helper);
 		}
 	}
 
