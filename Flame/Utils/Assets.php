@@ -15,13 +15,11 @@ class Assets extends \Nette\Object
 
 	/**
 	 * @param $path
-	 * @return null
+	 * @return mixed
 	 */
 	public static function getFileNameFromPath($path)
 	{
-		$pieces = explode('/', $path);
-		$index = count($pieces) - 1;
-		return (isset($pieces[$index]) ? $pieces[$index] : null);
+		return str_replace(DIRECTORY_SEPARATOR, '', strrchr($path, DIRECTORY_SEPARATOR));
 	}
 
 	/**
