@@ -20,7 +20,7 @@ interface IFacade
 
 	/**
 	 * @param $id
-	 * @return mixed
+	 * @return \Flame\Doctrine\Entity
 	 */
 	public function getOne($id);
 
