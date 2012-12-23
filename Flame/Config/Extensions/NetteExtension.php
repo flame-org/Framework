@@ -59,9 +59,9 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 			->setAutowired(true);
 
 		if(count($config['template']['helpers'])){
-			foreach($config['template']['helpers'] as $helper){
+			foreach($config['template']['helpers'] as $helperName => $helper){
 				list($helperClass, $helperMethod) = $this->getClassMethod($helper);
-				$template->addSetup('registerHelper', array($helperMethod, array($helperClass, $helperMethod)));
+				$template->addSetup('registerHelper', array($helperName, array($helperClass, $helperMethod)));
 			}
 		}
 
