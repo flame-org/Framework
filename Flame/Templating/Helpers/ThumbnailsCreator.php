@@ -2,7 +2,7 @@
 /**
  * ThumbnailsCreator.php
  *
- * @author  uestla <http://forum.nette.org/cs/profile.php?id=2325>
+ * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
  * @package Flame
  *
  * @date    02.08.12
@@ -11,6 +11,8 @@
 namespace Flame\Templating\Helpers;
 
 use Nette\Image;
+use Flame\Tools\Files\FileSystem;
+use Nette\InvalidArgumentException;
 
 class ThumbnailsCreator extends \Nette\Object
 {
@@ -26,36 +28,43 @@ class ThumbnailsCreator extends \Nette\Object
 	 * @param string $thumbDirUri
 	 * @param string $baseDir
 	 */
-	public function __construct($baseDir, $thumbDirUri = 'media/images_thumbnails')
+	public function __construct($baseDir, $thumbDirUri = '/media/images_thumbnails')
 	{
-		$this->thumbDirUri = (string) $thumbDirUri;
 		$this->baseDir = (string) $baseDir;
+		$this->thumbDirUri = (string) $thumbDirUri;
 	}
 
 	/**
-	 * @param $origName
+	 * @param $imagePath
 	 * @param $width
 	 * @param null $height
+	 * @param null $flags
 	 * @return string
+	 * @throws \Nette\InvalidArgumentException
 	 */
-	public function thumb($origName, $width, $height = null)
+	public function thumb($imagePath, $width, $height = null, $flags = null)
 	{
 
-		$thumbDirPath = $this->baseDir . '/' . trim($this->thumbDirUri, '/\\');
-		$origPath = $this->baseDir . '/' . $origName;
+		$thumbDirPath = $this->getThumbDirPath();
+		$origPath = $this->getAbsPathToImage($imagePath);
 
-		$this->createDir($thumbDirPath);
+		FileSystem::mkDir($thumbDirPath);
 
-		if (($width === null && $height === null) || !is_file($origPath) || !is_dir($thumbDirPath) || !is_writable($thumbDirPath))
-			return $origName;
+		if(($width === null && $height === null)){
+			throw new InvalidArgumentException('Width of image must be set');
+		}elseif(!is_dir($thumbDirPath) || !is_writable($thumbDirPath)){
+			throw new InvalidArgumentException('Folder ' . $thumbDirPath . ' does not exist or is not writable');
+		}elseif(!file_exists($origPath)){
+			return $imagePath;
+		}
 
-		$thumbName = $this->getThumbName($origName, $width, $height, filemtime($origPath));
-		$thumbUri = trim($this->thumbDirUri, '/\\') . '/' . $thumbName;
-		$thumbPath = $thumbDirPath . '/' . $thumbName;
+		$thumbName = $this->getThumbName($imagePath, $width, $height, filemtime($origPath));
+		$thumbUri = $this->thumbDirUri . DIRECTORY_SEPARATOR . $thumbName;
+		$thumbPath = $thumbDirPath . DIRECTORY_SEPARATOR . $thumbName;
 
-		if (is_file($thumbPath)) return $thumbUri;
-
-		try {
+		if(file_exists($thumbPath)){
+			return $thumbUri;
+		}else{
 
 			$image = Image::fromFile($origPath);
 			$image->alphaBlending(false);
@@ -64,24 +73,22 @@ class ThumbnailsCreator extends \Nette\Object
 			$origWidth = $image->getWidth();
 			$origHeight = $image->getHeight();
 
-			$image->resize($width, $height,
-				$width !== null && $height !== null ? Image::STRETCH : Image::FIT)
-				->sharpen();
+			if($flags === null)
+				$flags = ($width !== null && $height !== null) ? Image::STRETCH : Image::FIT;
+
+			$image->resize($width, $height, $flags)->sharpen();
 
 			$newWidth = $image->getWidth();
 			$newHeight = $image->getHeight();
 
 			if ($newWidth !== $origWidth || $newHeight !== $origHeight) {
 				$image->save($thumbPath);
-				return (is_file($thumbPath)) ? $thumbUri : $origName;
+				return $thumbUri;
 			} else {
-				return $origName;
+				return $imagePath;
 			}
-
-		} catch (Exception $e) {
-			\Nette\Diagnostics\Logger::ERROR($e);
-			return $origName;
 		}
+
 	}
 
 
@@ -97,22 +104,32 @@ class ThumbnailsCreator extends \Nette\Object
 		$sep = '.';
 		$tmp = explode($sep, $relPath);
 		$ext = array_pop($tmp);
-		// cesta k obrazku (ale bez pripony)
 		$relPath = implode($sep, $tmp);
-		// pripojime rozmery a mtime
 		$relPath .= $width . 'x' . $height . '-' . $mtime;
-		// zahashujeme a vratime priponu
 		$relPath = md5($relPath) . $sep . $ext;
 		return $relPath;
 	}
 
 	/**
-	 * @param $filepath
-	 * @return bool
+	 * @return string
 	 */
-	protected function createDir($filepath)
+	protected function getThumbDirPath()
 	{
-		return \Flame\Tools\Files\FileSystem::mkDir($filepath);
+		return $this->baseDir . $this->thumbDirUri;
+	}
+
+	/**
+	 * @param $relativePath
+	 * @return string
+	 */
+	protected function getAbsPathToImage($relativePath)
+	{
+		if(\Nette\Utils\Strings::startsWith($relativePath, DIRECTORY_SEPARATOR)){
+			return $this->baseDir . $relativePath;
+		}else{
+			return $this->baseDir . DIRECTORY_SEPARATOR . $relativePath;
+		}
+
 	}
 
 }
