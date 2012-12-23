@@ -28,7 +28,6 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 	public function loadConfiguration()
 	{
 		parent::loadConfiguration();
-
 		$this->setupTemplating($this->getConfig($this->helpersDefauls));
 	}
 
@@ -38,10 +37,11 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 	private function setupTemplating(array $config)
 	{
 
-		$latte = $this->getContainerBuilder()->getDefinition($this->prefix('latte'));
+		$container = $this->getContainerBuilder();
+		$latte = $container->getDefinition($this->prefix('latte'));
 
-		$this->getContainerBuilder()->removeDefinition($this->prefix('template'));
-		$template = $this->getContainerBuilder()->addDefinition($this->prefix('template'))
+		$container->removeDefinition($this->prefix('template'));
+		$template = $container->addDefinition($this->prefix('template'))
 			->setClass('Nette\Templating\ITemplate')
 			->setFactory('? ? new ? : new Nette\Templating\FileTemplate', array('%class%', new Nette\PhpGenerator\PhpLiteral('?'), '%class%'))
 			->setParameters(array('class' => null))
@@ -97,8 +97,9 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 	{
 		$prepared = array();
 		if(count($atributes)){
+			$container = $this->getContainerBuilder();
 			foreach($atributes as $atribute){
-				$prepared[] = $this->getContainerBuilder()->expand($atribute);
+				$prepared[] = $container->expand($atribute);
 			}
 		}
 
