@@ -38,6 +38,9 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 		$this->setupTemplating($this->getConfig($this->helpersDefauls));
 	}
 
+	/**
+	 * @param array $config
+	 */
 	private function setupTemplating(array $config)
 	{
 
