@@ -27,12 +27,4 @@ class Container extends \Nette\DI\Container
 		}
 	}
 
-	/**
-	 * @return array
-	 */
-	public function getModules()
-	{
-		return $this->findByTag('module');
-	}
-
 }
