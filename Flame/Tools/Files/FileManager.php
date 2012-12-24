@@ -10,7 +10,7 @@
 
 namespace Flame\Tools\Files;
 
-use Flame\Utils\Strings;
+use Nette\Utils\Strings;
 
 class FileManager extends \Nette\Object
 {
