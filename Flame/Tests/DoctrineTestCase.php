@@ -13,13 +13,22 @@ namespace Flame\Tests;
 class DoctrineTestCase extends TestCase
 {
 
-	protected function getEmMock()
+	/**
+	 * @param \PHPUnit_Framework_MockObject_MockObject $fakeRepository
+	 * @return \PHPUnit_Framework_MockObject_MockObject
+	 */
+	protected function getEmMock(\PHPUnit_Framework_MockObject_MockObject $fakeRepository = null)
 	{
-		$emMock  = $this->getMock('\Doctrine\ORM\EntityManager',
-			array('getRepository', 'getClassMetadata', 'persist', 'flush'), array(), '', false);
+		if($fakeRepository === null)
+			$fakeRepository = $this->getRepositoryMock();
+
+		$emMock = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
+			->setMethods(array('getRepository', 'getClassMetadata', 'persist', 'flush'))
+			->disableOriginalConstructor()
+			->getMock();
 		$emMock->expects($this->any())
-			->method('getRepository');
-			//->will($this->returnValue(new FakeRepository()));
+			->method('getRepository')
+			->will($this->returnValue($fakeRepository));
 		$emMock->expects($this->any())
 			->method('getClassMetadata')
 			->will($this->returnValue((object)array('name' => 'aClass')));
@@ -29,7 +38,16 @@ class DoctrineTestCase extends TestCase
 		$emMock->expects($this->any())
 			->method('flush')
 			->will($this->returnValue(null));
-		return $emMock;  // it tooks 13 lines to achieve mock!
+		return $emMock;
 	}
 
+	/**
+	 * @return \PHPUnit_Framework_MockObject_MockObject
+	 */
+	protected function getRepositoryMock()
+	{
+		$repositoryMock = $this->getMockBuilder('\Doctrine\ORM\EntityRepository')
+			->disableOriginalConstructor()->getMock();
+		return $repositoryMock;
+	}
 }
