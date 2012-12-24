@@ -1,5 +1,6 @@
 {
 	"name": "flame/framework",
+	"type": "library",
     "description": "Flame is simple and smart FRAMEWORK based on Nette and Doctrine2",
     "keywords": ["framework", "nette", "simple", "flame", "jsifalda", "tools", "doctrine"],
     "homepage": "https://github.com/flame-org/framework",
