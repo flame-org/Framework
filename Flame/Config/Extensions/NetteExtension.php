@@ -28,16 +28,16 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 	public function loadConfiguration()
 	{
 		parent::loadConfiguration();
-		$this->setupTemplating($this->getConfig($this->helpersDefauls));
+		$this->setupTemplating($this->getContainerBuilder(), $this->getConfig($this->helpersDefauls));
 	}
 
 	/**
+	 * @param \Nette\DI\ContainerBuilder $container
 	 * @param array $config
 	 */
-	private function setupTemplating(array $config)
+	private function setupTemplating(\Nette\DI\ContainerBuilder $container, array $config)
 	{
 
-		$container = $this->getContainerBuilder();
 		$latte = $container->getDefinition($this->prefix('latte'));
 
 		$container->removeDefinition($this->prefix('template'));
