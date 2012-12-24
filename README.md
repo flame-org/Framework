@@ -1,4 +1,4 @@
-#FLAME:FRAMEWORK [![Build Status](https://secure.travis-ci.org/flame-org/Framework.png?branch=master)](https://travis-ci.org/flame-org/Framework)
+#FLAME:FRAMEWORK [![Build Status](https://travis-ci.org/flame-org/Framework.png?branch=master)](https://travis-ci.org/flame-org/Framework)
 
 ####Flame is simple and smart FRAMEWORK
 
