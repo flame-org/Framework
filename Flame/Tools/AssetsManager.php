@@ -20,41 +20,55 @@ class AssetsManager extends \Nette\Object
 	/**
 	 * @var string
 	 */
-	protected $outputDirPath;
+	protected $wwwDir;
 
 	/**
-	 * @param $outputDirPath
+	 * @param $wwwDir
 	 */
-	public function __construct($outputDirPath)
+	public function __construct($wwwDir)
 	{
-		$this->outputDirPath = (string) $outputDirPath;
-	}
-
-	/**
-	 * @param $path
-	 */
-	public function setOutputDir($path)
-	{
-		$this->outputDirPath = (string) $path;
+		$this->wwwDir = (string) $wwwDir;
 	}
 
 	/**
 	 * @param $filesPattern
 	 * @param $directory
+	 * @param string $publicDir
 	 * @return array
 	 */
-	public function minify($filesPattern, $directory)
+	public function minify($filesPattern, $directory, $publicDir = '/css')
 	{
 		$failed = array();
 		foreach (Finder::findFiles($filesPattern)->in($directory) as $filePath => $file) {
 			$fileName = Assets::getFileNameFromPath($filePath);
 			$content = FileSystem::read($filePath);
 			$minifyContent = Assets::minifyCss($content);
-			$path = $this->outputDirPath . DIRECTORY_SEPARATOR . $fileName;
+			$path = $this->wwwDir . $publicDir . DIRECTORY_SEPARATOR . $fileName;
 			if(!FileSystem::write($path, $minifyContent))
 				$failed[] = array($filePath, $path);
 		}
 		return $failed;
+	}
+
+	public function minifyJS($directory, $publicDir)
+	{
+		$failed = array();
+		foreach (Finder::findFiles('*.js')->in($directory) as $filePath => $file) {
+			$fileName = Assets::getFileNameFromPath($filePath);
+			$content = FileSystem::read($filePath);
+			$path = $this->wwwDir . $publicDir . DIRECTORY_SEPARATOR . $fileName;
+			try {
+				$minifyContent = \JsMin\Minify::minify($content);
+			}catch (\Exception $ex){
+				$failed[] = array($filePath, $path);
+			}
+
+			FileSystem::write($path, $minifyContent);
+
+		}
+
+		return $failed;
+
 	}
 
 	/**
@@ -66,10 +80,10 @@ class AssetsManager extends \Nette\Object
 	public function cp($runScriptPath, $directory, $filesPattern = '*')
 	{
 		$failed = array();
-		foreach (Finder::findFiles($filesPattern)->in($runScriptPath . $directory) as $filePath => $file) {
+		foreach (Finder::findFiles($filesPattern)->from($runScriptPath . $directory) as $filePath => $file) {
 			$fileName = Assets::getFileNameFromPath($filePath);
 			$content = FileSystem::read($filePath);
-			$path = $this->outputDirPath . str_replace($runScriptPath, '', $filePath);
+			$path = $this->wwwDir . str_replace($runScriptPath, '', $filePath);
 			if(!FileSystem::write($path, $content))
 				$failed[] = array($filePath, $path);
 		}
