@@ -59,12 +59,10 @@ class AssetsManager extends \Nette\Object
 			$path = $this->wwwDir . $publicDir . DIRECTORY_SEPARATOR . $fileName;
 			try {
 				$minifyContent = \JsMin\Minify::minify($content);
+				FileSystem::write($path, $minifyContent);
 			}catch (\Exception $ex){
 				$failed[] = array($filePath, $path);
 			}
-
-			FileSystem::write($path, $minifyContent);
-
 		}
 
 		return $failed;
