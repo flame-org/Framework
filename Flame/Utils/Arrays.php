@@ -10,8 +10,6 @@
 
 namespace Flame\Utils;
 
-use Flame;
-
 final class Arrays extends \Nette\Object
 {
 
@@ -22,7 +20,7 @@ final class Arrays extends \Nette\Object
 	 */
 	final public function __construct()
 	{
-		throw new Flame\StaticClassException;
+		throw new \Flame\StaticClassException;
 	}
 
 	/**
@@ -34,7 +32,7 @@ final class Arrays extends \Nette\Object
 	 */
 	public static function __callStatic($name, $args)
 	{
-		return callback('Nette\Utils\Arrays', $name)->invokeArgs($args);
+		return \Nette\Callback::create('Nette\Utils\Arrays', $name)->invokeArgs($args);
 	}
 
 	/**
