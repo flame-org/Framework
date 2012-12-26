@@ -31,7 +31,8 @@ class Form extends \Nette\Application\UI\Form
 			$this::LENGTH => 'Value of field "%label" must be longer than %d and shorter than %d chars.',
 			$this::EMAIL => 'Field "%label" must be valid email address.',
 			$this::URL => 'Field "%label" must be valid URL address.',
-			$this::IMAGE => 'You can upload only JPEG, GIF or PNG files.'
+			$this::IMAGE => 'You can upload only JPEG, GIF or PNG files.',
+			$this::MAX_FILE_SIZE => 'File size must be less than %d KB'
 		);
 	}
 
