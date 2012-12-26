@@ -66,25 +66,29 @@ class ThumbnailsCreator extends \Nette\Object
 			return $thumbUri;
 		}else{
 
-			$image = Image::fromFile($origPath);
-			$image->alphaBlending(false);
-			$image->saveAlpha(true);
+			try {
+				$image = Image::fromFile($origPath);
+				$image->alphaBlending(false);
+				$image->saveAlpha(true);
 
-			$origWidth = $image->getWidth();
-			$origHeight = $image->getHeight();
+				$origWidth = $image->getWidth();
+				$origHeight = $image->getHeight();
 
-			if($flags === null)
-				$flags = ($width !== null && $height !== null) ? Image::STRETCH : Image::FIT;
+				if($flags === null)
+					$flags = ($width !== null && $height !== null) ? Image::STRETCH : Image::FIT;
 
-			$image->resize($width, $height, $flags)->sharpen();
+				$image->resize($width, $height, $flags)->sharpen();
 
-			$newWidth = $image->getWidth();
-			$newHeight = $image->getHeight();
+				$newWidth = $image->getWidth();
+				$newHeight = $image->getHeight();
 
-			if ($newWidth !== $origWidth || $newHeight !== $origHeight) {
-				$image->save($thumbPath);
-				return $thumbUri;
-			} else {
+				if ($newWidth !== $origWidth || $newHeight !== $origHeight) {
+					$image->save($thumbPath);
+					return $thumbUri;
+				} else {
+					return $imagePath;
+				}
+			}catch (\Exception $ex){
 				return $imagePath;
 			}
 		}
