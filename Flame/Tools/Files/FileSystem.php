@@ -159,4 +159,34 @@ class FileSystem extends \Nette\Object
 		return $contents;
 	}
 
+	/**
+	 * @param $source
+	 * @param $dest
+	 * @param bool $need
+	 * @return bool
+	 */
+	public static function cp($source, $dest, $need = true)
+	{
+		$destFolder = str_replace(DIRECTORY_SEPARATOR . static::getFileName($dest), '', $dest);
+
+		if(!file_exists($destFolder)){
+			static::mkDir($destFolder, true, 0777, $need);
+		}
+
+		return copy($source, $dest);
+	}
+
+	/**
+	 * @param $path
+	 * @return mixed
+	 */
+	public static function getFileName($path)
+	{
+		if(strpos($path, DIRECTORY_SEPARATOR) === false){
+			return $path;
+		}else{
+			return str_replace(DIRECTORY_SEPARATOR, '', strrchr($path, DIRECTORY_SEPARATOR));
+		}
+	}
+
 }

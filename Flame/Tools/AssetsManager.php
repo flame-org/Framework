@@ -79,10 +79,8 @@ class AssetsManager extends \Nette\Object
 	{
 		$failed = array();
 		foreach (Finder::findFiles($filesPattern)->from($runScriptPath . $directory) as $filePath => $file) {
-			$fileName = Assets::getFileNameFromPath($filePath);
-			$content = FileSystem::read($filePath);
 			$path = $this->wwwDir . str_replace($runScriptPath, '', $filePath);
-			if(!FileSystem::write($path, $content))
+			if(!FileSystem::cp($filePath, $path))
 				$failed[] = array($filePath, $path);
 		}
 		return $failed;
