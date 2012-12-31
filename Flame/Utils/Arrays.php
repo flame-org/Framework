@@ -39,12 +39,23 @@ final class Arrays extends \Nette\Object
 	 * @param $array
 	 * @param $subkey
 	 * @param int $sortType
+	 * @param string $type
 	 * @return mixed
+	 * @throws \Nette\InvalidArgumentException
 	 */
-	public static function sortBySubkey(&$array, $subkey, $sortType = SORT_ASC) {
-		foreach ($array as $subarray) {
-			$keys[] = $subarray->$subkey;
+	public static function sortBySubkey(&$array, $subkey, $sortType = SORT_ASC, $type = 'array') {
+		if($type == 'array'){
+			foreach ($array as $subarray) {
+				$keys[] = $subarray[$subkey];
+			}
+		}elseif($type == 'object'){
+			foreach ($array as $subarray) {
+				$keys[] = $subarray->$subkey;
+			}
+		}else{
+			throw new \Nette\InvalidArgumentException('Wrong parameter $type. Is allowed only "array" or "object"');
 		}
+
 
 		array_multisort($keys, $sortType, $array);
 		return $array;
