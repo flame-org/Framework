@@ -24,4 +24,22 @@ class Helpers extends \Nette\Object
 		}
 	}
 
+	/**
+	 * @param $string
+	 * @return string
+	 */
+	public static function urlencode($string)
+	{
+		return urlencode($string);
+	}
+
+	/**
+	 * @param $string
+	 * @return string
+	 */
+	public static function urldecode($string)
+	{
+		return urldecode($string);
+	}
+
 }
