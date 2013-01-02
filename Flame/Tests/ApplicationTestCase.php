@@ -69,4 +69,19 @@ abstract class ApplicationTestCase extends TestCase
 		return array($post, $files);
 	}
 
+	/**
+	 * @param \Nette\ComponentModel\IComponent $component
+	 * @param array $methods
+	 * @param string $name
+	 * @return \Flame\Application\UI\Presenter|\PHPUnit_Framework_MockObject_MockObject
+	 */
+	public function attachToPresenter(\Nette\ComponentModel\IComponent $component, $methods = array(), $name = 'component')
+	{
+		/** @var \PHPUnit_Framework_MockObject_MockObject|\Flame\Application\UI\Presenter $presenter */
+		$presenter = $this->getMock('Flame\Application\UI\Presenter', (array)$methods, array());
+		$this->getContext()->callMethod(array($presenter, 'injectPrimary'));
+		$component->setParent($presenter, $name);
+		return $presenter;
+	}
+
 }
