@@ -77,7 +77,7 @@ class FileManager extends \Nette\Object
 	 */
 	public function downloadFile($url)
 	{
-		$fileDir = $this->getAbsolutePath() . $this->getFileName($url);
+		$fileDir = $this->getAbsolutePath() . DIRECTORY_SEPARATOR . $this->getFileName($url);
 
 		if($file = FileSystem::read($url, false))
 			return FileSystem::write($fileDir, $file, true, 0777, false);
