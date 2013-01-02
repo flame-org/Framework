@@ -41,7 +41,7 @@ final class Arrays extends \Nette\Object
 	 * @param int $sortType
 	 * @return mixed
 	 */
-	public static function sortArraysBySubkey(&$array, $subkey, $sortType = SORT_ASC) {
+	public static function sortBySubkey(&$array, $subkey, $sortType = SORT_ASC) {
 		if(count($array)){
 			foreach ($array as $subarray) {
 				$keys[] = $subarray[$subkey];
@@ -57,7 +57,7 @@ final class Arrays extends \Nette\Object
 	 * @param int $sortType
 	 * @return mixed
 	 */
-	public static function sortObjectsBySubkey(&$array, $subkey, $sortType = SORT_ASC) {
+	public static function sortByProperty(&$array, $subkey, $sortType = SORT_ASC) {
 		if(count($array)){
 			foreach ($array as $subarray) {
 				$keys[] = $subarray->$subkey;
