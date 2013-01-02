@@ -29,7 +29,7 @@ class FileManager extends \Nette\Object
 	 * @param $baseDirPath
 	 * @param string $filesDirPath
 	 */
-	public function __construct($baseDirPath, $filesDirPath = 'media/images')
+	public function __construct($baseDirPath, $filesDirPath = '/media/images')
 	{
 		$this->baseDirPath = (string) $baseDirPath;
 		$this->filesDirPath = (string) $filesDirPath;
