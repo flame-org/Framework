@@ -20,7 +20,7 @@ class ArraysTest extends \Flame\Tests\TestCase
 	 */
 	public function testConstructor()
 	{
-		new Arrays();
+		$arrays = new Arrays();
 	}
 
 	public function testCallNetteArrays()
@@ -30,7 +30,34 @@ class ArraysTest extends \Flame\Tests\TestCase
 
 	public function testSortBySubkey()
 	{
-		//TODO
+		$input = array(
+			array('order' => 1),
+			array('order' => 0),
+		);
+
+		$output = array(
+			array('order' => 0),
+			array('order' => 1)
+		);
+
+		$this->assertEquals($output, Arrays::sortBySubkey($input, 'order'));
+	}
+
+	public function testSortByProperty()
+	{
+
+		$input = array(
+			(object) array('order' => 1),
+			(object) array('order' => 0),
+		);
+
+		$output = array(
+			(object) array('order' => 0),
+			(object) array('order' => 1)
+		);
+
+		$this->assertEquals($output, Arrays::sortByProperty($input, 'order'));
+
 	}
 
 }
