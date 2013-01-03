@@ -84,4 +84,21 @@ abstract class ApplicationTestCase extends TestCase
 		return $presenter;
 	}
 
+	/**
+	 * @param \Nette\Application\UI\Form $form
+	 * @return string
+	 * @throws \Exception
+	 */
+	public function renderTemplate(Form $form)
+	{
+		ob_start();
+		try {
+			$form->render();
+		} catch (\Exception $e) {
+			ob_end_clean();
+			throw $e;
+		}
+		return \Nette\Utils\Strings::normalize(ob_get_clean());
+	}
+
 }
