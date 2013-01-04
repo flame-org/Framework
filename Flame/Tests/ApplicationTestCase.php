@@ -89,7 +89,7 @@ abstract class ApplicationTestCase extends TestCase
 	 * @return string
 	 * @throws \Exception
 	 */
-	public function renderTemplate(Form $form)
+	public function renderFormTemplate(Form $form)
 	{
 		ob_start();
 		try {
