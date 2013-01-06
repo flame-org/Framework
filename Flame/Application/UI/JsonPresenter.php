@@ -17,6 +17,8 @@ namespace Flame\Application\UI;
 abstract class JsonPresenter extends Presenter
 {
 
+	/** @var bool */
+	protected $compileVariables = false;
 
 	/** @var \Flame\Templating\Json\Response */
 	private $response;
@@ -26,7 +28,7 @@ abstract class JsonPresenter extends Presenter
 	 */
 	protected function createResponse()
 	{
-		return new \Flame\Templating\Json\Response;
+		return new \Flame\Templating\Json\Response($this->compileVariables);
 	}
 
 	/**

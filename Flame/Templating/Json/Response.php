@@ -22,11 +22,16 @@ class Response extends \Nette\Object implements \Nette\Application\IResponse
 	/** @var array */
 	private $payload = array();
 
+	/** @var bool */
+	private $compileVariables;
+
 	/**
+	 * @param $compileVariables
 	 * @param string $contentType
 	 */
-	public function __construct($contentType = 'application/json')
+	public function __construct($compileVariables, $contentType = 'application/json')
 	{
+		$this->compileVariables = (bool) $compileVariables;
 		$this->contentType = $contentType;
 	}
 
@@ -67,6 +72,9 @@ class Response extends \Nette\Object implements \Nette\Application\IResponse
 	 */
 	public function set($name, $value)
 	{
+		if($value instanceof \DateTime)
+			$value = $value->getTimestamp();
+
 		$this->payload[$name] = $value;
 		return $this;
 	}
@@ -121,6 +129,10 @@ class Response extends \Nette\Object implements \Nette\Application\IResponse
 	{
 		$httpResponse->setContentType($this->contentType);
 		$httpResponse->setExpiration(false);
+		if($this->compileVariables and count($this->payload) === 1){
+			$keys = array_keys($this->payload);
+			$this->payload = $this->payload[$keys[0]];
+		}
 		echo \Nette\Utils\Json::encode($this->payload);
 	}
 
