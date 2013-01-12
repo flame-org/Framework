@@ -45,7 +45,11 @@ class Configurator extends \Nette\Config\Configurator
 		return $compiler;
 	}
 
-	protected function buildContainer(& $dependencies = NULL)
+	/**
+	 * @param null $dependencies
+	 * @return string
+	 */
+	protected function buildContainer(& $dependencies = null)
 	{
 		$loader = $this->createLoader();
 		$config = array();
@@ -54,7 +58,7 @@ class Configurator extends \Nette\Config\Configurator
 			list($file, $section) = $tmp;
 			$code .= "// source: $file $section\n";
 			try {
-				if ($section === NULL) { // back compatibility
+				if ($section === null) { // back compatibility
 					$config = Helpers::merge($loader->load($file), $config);
 					continue;
 				}
