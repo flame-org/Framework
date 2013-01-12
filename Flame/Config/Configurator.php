@@ -12,6 +12,7 @@ namespace Flame\Config;
 
 use Nette;
 use Nette\Config\Extensions;
+use Nette\Config\Helpers;
 
 class Configurator extends \Nette\Config\Configurator
 {
