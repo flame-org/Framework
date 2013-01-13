@@ -9,9 +9,21 @@
 namespace Flame\Config;
 
 use Nette;
+use Nette\Utils\Validators;
+use Nette\Config\Helpers;
 
 class Loader extends \Nette\Config\Loader
 {
+
+	/** @var array */
+	private $adapters = array(
+		'php' => 'Nette\Config\Adapters\PhpAdapter',
+		'ini' => 'Nette\Config\Adapters\IniAdapter',
+		'neon' => 'Nette\Config\Adapters\NeonAdapter',
+	);
+
+	/** @var array */
+	private $dependencies = array();
 
 	/**
 	 * @param $file
@@ -43,4 +55,33 @@ class Loader extends \Nette\Config\Loader
 		return Helpers::merge($data, $merged);
 	}
 
+	/**
+	 * @param $file
+	 * @return \Nette\Config\IAdapter
+	 * @throws \Nette\InvalidArgumentException
+	 */
+	private function getAdapter($file)
+	{
+		$extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+		if (!isset($this->adapters[$extension])) {
+			throw new Nette\InvalidArgumentException("Unknown file extension '$file'.");
+		}
+		return is_object($this->adapters[$extension]) ? $this->adapters[$extension] : new $this->adapters[$extension];
+	}
+
+	/**
+	 * @param array $data
+	 * @param $key
+	 * @param $file
+	 * @return array
+	 */
+	private function getSection(array $data, $key, $file)
+	{
+		Validators::assertField($data, $key, 'array|null', "section '%' in file '$file'");
+		$item = $data[$key];
+		if ($parent = Helpers::takeParent($item)) {
+			$item = Helpers::merge($item, $this->getSection($data, $parent, $file));
+		}
+		return $item;
+	}
 }
