@@ -46,42 +46,10 @@ class Configurator extends \Nette\Config\Configurator
 	}
 
 	/**
-	 * @param null $dependencies
-	 * @return string
+	 * @return Loader
 	 */
-	protected function buildContainer(& $dependencies = null)
+	protected function createLoader()
 	{
-		$loader = $this->createLoader();
-		$config = array();
-		$code = "<?php\n";
-		foreach ($this->files as $tmp) {
-			list($file, $section) = $tmp;
-			$code .= "// source: $file $section\n";
-			try {
-				if ($section === null) { // back compatibility
-					$config = Helpers::merge($loader->load($file), $config);
-					continue;
-				}
-			} catch (Nette\Utils\AssertionException $e) {}
-
-			$config = Helpers::merge($loader->load($file, $section), $config);
-		}
-		$code .= "\n";
-
-		if (!isset($config['parameters'])) {
-			$config['parameters'] = array();
-		}
-		$config['parameters'] = Helpers::merge($config['parameters'], $this->parameters);
-
-		$compiler = $this->createCompiler();
-		$this->onCompile($this, $compiler);
-
-		$code .= $compiler->compile(
-			$config,
-			$this->parameters['container']['class'],
-			$config['parameters']['container']['parent']
-		);
-		$dependencies = array_merge($loader->getDependencies(), $this->parameters['debugMode'] ? $compiler->getContainerBuilder()->getDependencies() : array());
-		return $code;
+		return new Loader();
 	}
 }
