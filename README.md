@@ -4,6 +4,16 @@
 
 ###Flame is available over Composer. Please visit [PACKAGIST](http://packagist.org/packages/flame/framework)
 
+###Basic features
+* Theme manager
+* REST JSON response (template + presenter)
+* Thumbnaills creator
+* Doctrine implements
+* Simple REST router
+* Step form
+* Wordpress importer
+* Application\UI extensions
+
 ### Requirements
 * PHP 5.3+
 * [Nette](http://nette.org/) (php framework)
