@@ -13,7 +13,7 @@
 * Step form
 * Wordpress importer
 * Application\UI extensions
-* Anti spam control form forms
+* Anti spam control for forms
 * Multiple files upload for forms
 
 ### Requirements
