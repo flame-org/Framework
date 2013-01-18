@@ -13,6 +13,7 @@
 * Step form
 * Wordpress importer
 * Application\UI extensions
+* Anti spam control form forms
 
 ### Requirements
 * PHP 5.3+
