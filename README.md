@@ -14,6 +14,7 @@
 * Wordpress importer
 * Application\UI extensions
 * Anti spam control form forms
+* Multiple files upload for forms
 
 ### Requirements
 * PHP 5.3+
