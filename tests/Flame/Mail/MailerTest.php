@@ -33,7 +33,7 @@ class MailerTest extends \Flame\Tests\TestCase
 			->method('registerFilter');
 		$fileTemplateMock->expects($this->once())
 			->method('registerHelperLoader')
-			->with($this->equalTo('registerHelperLoader'));
+			->with($this->equalTo('Nette\Templating\Helpers::loader'));
 		$this->mailer->injectFileTemplate($fileTemplateMock);
 
 		$this->assertInstanceOf('\Nette\Templating\FileTemplate', $this->mailer->getFileTemplate());
