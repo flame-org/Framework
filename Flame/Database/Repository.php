@@ -12,7 +12,7 @@ namespace Flame\Database;
 
 use Nette;
 
-abstract class Table extends Nette\Object
+abstract class Repository extends Nette\Object
 {
 
 	/**
