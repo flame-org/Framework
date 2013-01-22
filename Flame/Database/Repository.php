@@ -25,8 +25,6 @@ abstract class Repository extends Nette\Object
 	 */
 	protected $tableName;
 
-
-
 	/**
 	 * @param Nette\Database\Connection $db
 	 * @throws \Nette\InvalidStateException
@@ -39,7 +37,6 @@ abstract class Repository extends Nette\Object
 			throw new Nette\InvalidStateException('Name of table must be defined ' . __CLASS__ .'::' . $this->tableName);
 	}
 
-
 	/**
 	 * @return mixed
 	 */
@@ -48,7 +45,6 @@ abstract class Repository extends Nette\Object
 		return $this->connection->table($this->tableName);
 	}
 
-
 	/**
 	 * @return \Nette\Database\Table\Selection
 	 */
@@ -56,7 +52,6 @@ abstract class Repository extends Nette\Object
 	{
 		return $this->getTable();
 	}
-
 
 	/**
 	 * @param array $by
@@ -67,7 +62,6 @@ abstract class Repository extends Nette\Object
 		return $this->getTable()->where($by);
 	}
 
-
 	/**
 	 * @param array $by
 	 * @return \Nette\Database\Table\ActiveRow
@@ -76,7 +70,6 @@ abstract class Repository extends Nette\Object
 	{
 		return $this->findBy($by)->limit(1)->fetch();
 	}
-
 
 	/**
 	 * @param $id
