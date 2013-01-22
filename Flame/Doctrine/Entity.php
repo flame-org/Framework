@@ -35,10 +35,12 @@ abstract class Entity extends \Nette\Object
 
 	/**
 	 * @param $id
+	 * @return Entity
 	 */
 	public function setId($id)
 	{
 		$this->id = $id;
+		return $this;
 	}
 
 	/**
