@@ -38,7 +38,7 @@ abstract class Repository extends Nette\Object
 	}
 
 	/**
-	 * @return mixed
+	 * @return \Nette\Database\Table\Selection
 	 */
 	protected function getTable()
 	{
