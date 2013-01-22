@@ -80,4 +80,39 @@ abstract class Repository extends Nette\Object
 		return $this->getTable()->get($id);
 	}
 
+	/**
+	 * @param ITable $table
+	 * @return \Nette\Database\Table\ActiveRow
+	 */
+	public function create(ITable $table)
+	{
+		return $this->getTable()->insert($table->toArray());
+	}
+
+	/**
+	 * @param ITable $table
+	 * @return bool|int
+	 */
+	public function update(ITable $table)
+	{
+		if($row = $this->getTable()->get($table->getId())){
+			return $row->update($table->toArray());
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param ITable $table
+	 * @return bool|int
+	 */
+	public function delete(ITable $table)
+	{
+		if($row = $this->getTable()->get($table->getId())){
+			return $row->delete();
+		}
+
+		return false;
+	}
+
 }
