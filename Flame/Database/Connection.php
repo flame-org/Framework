@@ -25,6 +25,7 @@ class Connection extends \Nette\Database\Connection
 		'dbname' => null,
 		'user' => null,
 		'password' => null,
+		'prefix' => null,
 		'options' => array(),
 		'driver_class' => null
 	);
@@ -42,6 +43,14 @@ class Connection extends \Nette\Database\Connection
 			$this->options['options'],
 			$this->options['driver_class']
 		);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getOptions()
+	{
+		return $this->options;
 	}
 
 	/**
