@@ -8,42 +8,12 @@
  * @date    15.08.12
  */
 
-namespace Flame\Database;
+namespace Flame\Database\Repository;
 
 use Nette;
 
-abstract class Repository extends Nette\Object
+abstract class Base extends \Flame\Database\Repository\Driver
 {
-
-	/**
-	 * @var Nette\Database\Connection
-	 */
-	protected $connection;
-
-	/**
-	 * @var string
-	 */
-	protected $tableName;
-
-	/**
-	 * @param Nette\Database\Connection $db
-	 * @throws \Nette\InvalidStateException
-	 */
-	public function __construct(Nette\Database\Connection $db)
-	{
-		$this->connection = $db;
-
-		if ($this->tableName === null)
-			throw new Nette\InvalidStateException('Name of table must be defined ' . __CLASS__ .'::' . $this->tableName);
-	}
-
-	/**
-	 * @return \Nette\Database\Table\Selection
-	 */
-	protected function getTable()
-	{
-		return $this->connection->table($this->tableName);
-	}
 
 	/**
 	 * @return \Nette\Database\Table\Selection
