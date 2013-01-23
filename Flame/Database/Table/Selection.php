@@ -9,6 +9,7 @@
 namespace Flame\Database\Table;
 
 use Nette;
+use PDO;
 
 class Selection extends \Nette\Database\Table\Selection
 {

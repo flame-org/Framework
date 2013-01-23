@@ -11,6 +11,7 @@
 namespace Flame\Database\Repository;
 
 use Nette;
+use Flame\Database\ITable;
 
 abstract class Base extends \Flame\Database\Repository\Driver
 {
