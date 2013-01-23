@@ -49,11 +49,10 @@ class Selection extends \Nette\Database\Table\Selection
 		$re = $re->newInstanceWithoutConstructor();
 		if(count($row)){
 			foreach($row as $key => $value){
-				$methodName = 'set' . lcfirst($key);
+				$methodName = 'set' . ucfirst($key);
 				$re->$methodName($value);
 			}
 		}
-
 		return $re;
 	}
 
