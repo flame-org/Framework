@@ -13,11 +13,11 @@ namespace Flame\Database\Repository;
 use Nette;
 use Flame\Database\ITable;
 
-abstract class Base extends \Flame\Database\Repository\Driver
+abstract class Model extends \Flame\Database\Repository\Driver
 {
 
 	/**
-	 * @return \Nette\Database\Table\Selection
+	 * @return \Flame\Database\Table\Selection
 	 */
 	public function findAll()
 	{
