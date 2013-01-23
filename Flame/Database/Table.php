@@ -8,7 +8,7 @@
 
 namespace Flame\Database;
 
-class Table extends \Nette\Object implements \Flame\Database\ITable
+class Table extends \Flame\Database\Table\ActiveRow implements \Flame\Database\ITable
 {
 
 	/**

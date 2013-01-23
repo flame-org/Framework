@@ -47,14 +47,16 @@ class Selection extends \Nette\Database\Table\Selection
 	protected function createRow(array $row)
 	{
 		$re = new \ReflectionClass($this->tableClass);
-		$re = $re->newInstanceWithoutConstructor();
+		/** @var $table \Flame\Database\Table */
+		$table = $re->newInstanceWithoutConstructor();
 		if(count($row)){
 			foreach($row as $key => $value){
 				$methodName = 'set' . ucfirst($key);
-				$re->$methodName($value);
+				$table->$methodName($value);
 			}
 		}
-		return $re;
+		$table->initParent($row, $this);
+		return $table;
 	}
 
 }
