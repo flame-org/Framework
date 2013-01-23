@@ -15,16 +15,6 @@ class Connection extends \Nette\Database\Connection
 	 * @var \Flame\Database\Table\SelectionFactory
 	 */
 	private $selectionFactory;
-//
-//	/**
-//	 * @param Table\SelectionFactory $selectionFactory
-//	 * @return Connection|\Nette\Database\Connection
-//	 */
-//	public function setSelectionFactory(Table\SelectionFactory $selectionFactory)
-//	{
-//		$this->selectionFactory = $selectionFactory;
-//		return $this;
-//	}
 
 	/**
 	 * Creates selector for table.
