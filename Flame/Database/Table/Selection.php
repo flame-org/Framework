@@ -42,7 +42,7 @@ class Selection extends \Nette\Database\Table\Selection
 
 	/**
 	 * @param array $row
-	 * @return \Nette\Database\Table\ActiveRow|void
+	 * @return \Flame\Database\ITable
 	 */
 	protected function createRow(array $row)
 	{
