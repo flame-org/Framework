@@ -54,16 +54,16 @@ class Connection extends \Nette\Database\Connection
 	}
 
 	/**
-	 * Creates selector for table.
-	 * @param  string
-	 * @return \Nette\Database\Table\Selection
+	 * @param $table
+	 * @param $tableClass
+	 * @return Table\Selection
 	 */
-	public function table($table)
+	public function repository($table, $tableClass)
 	{
 		if (!$this->selectionFactory) {
 			$this->selectionFactory = new Table\SelectionFactory($this);
 		}
-		return $this->selectionFactory->create($table);
+		return $this->selectionFactory->create($table, $tableClass);
 	}
 
 	/**

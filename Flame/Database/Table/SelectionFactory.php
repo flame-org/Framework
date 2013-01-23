@@ -33,14 +33,14 @@ class SelectionFactory extends \Nette\Object
 		$this->cacheStorage = $cacheStorage;
 	}
 
-
 	/**
 	 * @param $table
+	 * @param $tableClass
 	 * @return Selection
 	 */
-	public function create($table)
+	public function create($table, $tableClass)
 	{
-		return new Selection($this->connection, $table, $this->reflection, $this->cacheStorage);
+		return new Selection($this->connection, $table, $tableClass, $this->reflection, $this->cacheStorage);
 	}
 
 }
