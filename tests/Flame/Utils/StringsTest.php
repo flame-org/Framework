@@ -27,7 +27,7 @@ class StringsTest extends \Flame\Tests\TestCase
 	}
 
 	/**
-	 * @expectedExcpeption \Nette\InvalidArgumentException
+	 * @expectedException \Nette\InvalidArgumentException
 	 */
 	public function testNoDelimiterInGetLastPiece()
 	{
