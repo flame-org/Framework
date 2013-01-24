@@ -20,7 +20,7 @@ class Connection extends \Nette\Database\Connection
 	 * @var array
 	 */
 	private $options = array(
-		'driver' => null,
+		'driver' => 'mysql',
 		'host' => null,
 		'dbname' => null,
 		'user' => null,
