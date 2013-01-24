@@ -35,7 +35,7 @@ abstract class Model extends \Flame\Database\Repository\Driver
 
 	/**
 	 * @param array $by
-	 * @return \Nette\Database\Table\ActiveRow
+	 * @return \Flame\Database\Table
 	 */
 	public function findOneBy(array $by)
 	{
@@ -44,7 +44,7 @@ abstract class Model extends \Flame\Database\Repository\Driver
 
 	/**
 	 * @param $id
-	 * @return \Nette\Database\Table\ActiveRow
+	 * @return \Flame\Database\Table
 	 */
 	public function find($id)
 	{
@@ -52,8 +52,8 @@ abstract class Model extends \Flame\Database\Repository\Driver
 	}
 
 	/**
-	 * @param ITable $table
-	 * @return \Nette\Database\Table\ActiveRow
+	 * @param \Flame\Database\ITable $table
+	 * @return \Flame\Database\Table
 	 */
 	public function create(ITable $table)
 	{
@@ -61,29 +61,21 @@ abstract class Model extends \Flame\Database\Repository\Driver
 	}
 
 	/**
-	 * @param ITable $table
-	 * @return bool|int
+	 * @param \Flame\Database\ITable $table
+	 * @return mixed
 	 */
 	public function update(ITable $table)
 	{
-		if($row = $this->getTable()->get($table->getId())){
-			return $row->update($table->toArray());
-		}
-
-		return false;
+		return $table->update($table->toArray());
 	}
 
 	/**
-	 * @param ITable $table
-	 * @return bool|int
+	 * @param \Flame\Database\ITable $table
+	 * @return mixed
 	 */
 	public function delete(ITable $table)
 	{
-		if($row = $this->getTable()->get($table->getId())){
-			return $row->delete();
-		}
-
-		return false;
+		return $table->delete();
 	}
 
 }
