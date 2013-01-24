@@ -22,6 +22,16 @@ class StringsTest extends \Flame\Tests\TestCase
 		$anotherS = ':random:string:';
 		$this->assertEquals('', Strings::getLastPiece($anotherS, ':'));
 		$this->assertEquals(':', Strings::getLastPiece($anotherS, ':', false));
+
+		$this->assertEquals('', Strings::getLastPiece('hello', 'd', true, false));
+	}
+
+	/**
+	 * @expectedExcpeption \Nette\InvalidArgumentException
+	 */
+	public function testNoDelimiterInGetLastPiece()
+	{
+		Strings::getLastPiece('hello', 'd');
 	}
 
 }

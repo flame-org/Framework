@@ -53,7 +53,7 @@ abstract class Driver extends \Nette\Object
 	public function getTableName()
 	{
 		if($this->tableName === null){
-			$this->tableName = strtolower($this->getTablePrefix() . \Flame\Utils\Strings::getLastPiece($this->repositoryName, '\\'));
+			$this->tableName = strtolower($this->getTablePrefix() . \Flame\Utils\Strings::getLastPiece($this->repositoryName, '\\', true, false));
 		}
 
 		return $this->tableName;
