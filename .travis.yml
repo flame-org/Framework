@@ -5,6 +5,7 @@ php:
 services:
   - mysql
 before_script:
+  - mysql -e 'create database testdb;'
   - composer self-update
   - composer install --no-interaction --quiet --dev
 script: "cd tests/ && ../libs/bin/phpunit Flame/"
