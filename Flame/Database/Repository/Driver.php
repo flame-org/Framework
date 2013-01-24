@@ -8,6 +8,8 @@
 
 namespace Flame\Database\Repository;
 
+use Flame\Utils\Strings;
+
 abstract class Driver extends \Nette\Object
 {
 
@@ -53,7 +55,11 @@ abstract class Driver extends \Nette\Object
 	public function getTableName()
 	{
 		if($this->tableName === null){
-			$this->tableName = strtolower($this->getTablePrefix() . \Flame\Utils\Strings::getLastPiece($this->repositoryName, '\\', true, false));
+			$name = $this->repositoryName;
+			if(Strings::contains($this->repositoryName, '\\')){
+				$name = $this->getTablePrefix() . Strings::getLastPiece($this->repositoryName, '\\', true, false);
+			}
+			$this->tableName = strtolower($name);
 		}
 
 		return $this->tableName;
