@@ -47,10 +47,9 @@ class Selection extends \Nette\Database\Table\Selection
 	protected function createRow(array $row)
 	{
 		$re = new \ReflectionClass($this->tableClass);
-		//$table = $re->newInstanceWithoutConstructor(); #PHP 5.4 only
-		$parameters = $re->getConstructor()->getParameters();
 		/** @var $table \Flame\Database\Table */
-		$table = $re->newInstanceArgs($this->getTableClassParameters($row, $parameters));
+		$table = $re->newInstanceArgs($this->getTableClassParameters($row, $re));
+		//$table = $re->newInstanceWithoutConstructor(); #PHP 5.4 only
 		$table = $this->setTableProperties($row, $table);
 		$table->initParent($row, $this);
 		return $table;
@@ -58,17 +57,24 @@ class Selection extends \Nette\Database\Table\Selection
 
 	/**
 	 * @param array $row
-	 * @param $parameters
+	 * @param \ReflectionClass $class
 	 * @return array
 	 */
-	private function getTableClassParameters(array $row, $parameters)
+	private function getTableClassParameters(array $row, \ReflectionClass $class)
 	{
 		$invokeParametes = array();
-		if(count($parameters)){
-			foreach($parameters as $parameter){
-				if($parameter instanceof \ReflectionParameter and isset($row[$parameter->getName()]))
-					$invokeParametes[] = $row[$parameter->getName()];
+		if($class->isInstantiable()){
+			$parameters = $class->getConstructor()->getParameters();
+
+			if(count($parameters)){
+				foreach($parameters as $parameter){
+					if($parameter instanceof \ReflectionParameter and isset($row[$parameter->getName()]))
+						$invokeParametes[] = $row[$parameter->getName()];
+				}
 			}
+
+			if(count($parameters) !== count($invokeParametes))
+				throw new \Nette\InvalidStateException('Name of parameters in ' . $class->getName() . ' must be used from name of properties');
 		}
 		return $invokeParametes;
 	}
