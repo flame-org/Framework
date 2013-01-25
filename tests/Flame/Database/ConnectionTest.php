@@ -47,6 +47,15 @@ class ConnectionTest extends \Flame\Tests\TestCase
 		$this->assertEquals($expected, $r);
 	}
 
+	public function testSetSelectionFactory()
+	{
+		$this->assertAttributeEquals(null, 'selectionFactory', $this->connection);
+		$factory = new \Nette\Database\Table\SelectionFactory($this->connection);
+		$r = $this->connection->setSelectionFactory($factory);
+		$this->assertAttributeEquals($factory, 'selectionFactory', $this->connection);
+		$this->assertEquals($this->connection, $r);
+	}
+
 	public function testCreateDns()
 	{
 		$expected = 'mysql:host=127.0.0.1;dbname=testdb';

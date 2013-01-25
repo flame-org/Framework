@@ -54,6 +54,16 @@ class Connection extends \Nette\Database\Connection
 	}
 
 	/**
+	 * @param \Nette\Database\Table\SelectionFactory $selectionFactory
+	 * @return Connection|\Nette\Database\Connection
+	 */
+	public function setSelectionFactory(\Nette\Database\Table\SelectionFactory $selectionFactory)
+	{
+		$this->selectionFactory = $selectionFactory;
+		return $this;
+	}
+
+	/**
 	 * @param $table
 	 * @param $tableClass
 	 * @return Table\Selection
