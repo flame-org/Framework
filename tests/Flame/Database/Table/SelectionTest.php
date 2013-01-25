@@ -38,7 +38,7 @@ class SelectionTest extends \Flame\Tests\TestCase
 	{
 		$failSelection = new \Flame\Database\Table\Selection(
 			$this->connection, 'table', 'noTableClass', new \Nette\Database\Reflection\ConventionalReflection);
-		$method = $this->getProtectedClassMethod('\Flame\Database\Table\Selection', 'createRow');
+		$method = $this->getAccessibleMethod('\Flame\Database\Table\Selection', 'createRow');
 		try {
 			$method->invoke($failSelection, array('id' => 1));
 			$this->fail('Expected exception ReflectionException');

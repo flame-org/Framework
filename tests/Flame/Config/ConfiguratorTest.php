@@ -37,13 +37,13 @@ class ConfiguratorTest extends \Flame\Tests\TestCase
 			->addExtension('nette', new \Flame\Config\Extensions\NetteExtension)
 			->addExtension('extensions', new Extensions\ExtensionsExtension);
 
-		$createCompilerMethod = $this->getProtectedClassMethod('\Flame\Config\Configurator', 'createCompiler');
+		$createCompilerMethod = $this->getAccessibleMethod('\Flame\Config\Configurator', 'createCompiler');
 		$this->assertEquals($compiler, $createCompilerMethod->invoke($this->configurator));
 	}
 
 	public function testCreateLoader()
 	{
-		$method = $this->getProtectedClassMethod('\Flame\Config\Configurator', 'createLoader');
+		$method = $this->getAccessibleMethod('\Flame\Config\Configurator', 'createLoader');
 		$this->assertInstanceOf('\Flame\Config\Loader', $method->invoke($this->configurator));
 	}
 

@@ -36,14 +36,14 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @param string $class
-	 * @param string $name
+	 * @param string $method
 	 * @return \ReflectionMethod
 	 */
-	protected function getProtectedClassMethod($class, $name) {
+	protected function getAccessibleMethod($class, $method) {
 		$class = new \ReflectionClass($class);
-		$method = $class->getMethod($name);
-		$method->setAccessible(true);
-		return $method;
+		$methodI = $class->getMethod($method);
+		$methodI->setAccessible(true);
+		return $methodI;
 	}
 
 	/********************* Nette\Object behaviour ****************d*g**/

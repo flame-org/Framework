@@ -59,7 +59,7 @@ class ConnectionTest extends \Flame\Tests\TestCase
 	public function testCreateDns()
 	{
 		$expected = 'mysql:host=127.0.0.1;dbname=testdb';
-		$method = $this->getProtectedClassMethod('\Flame\Database\Connection', 'createDns');
+		$method = $this->getAccessibleMethod('\Flame\Database\Connection', 'createDns');
 		$this->assertEquals($expected, $method->invoke($this->connection));
 	}
 

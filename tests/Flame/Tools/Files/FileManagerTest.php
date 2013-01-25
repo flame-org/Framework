@@ -76,7 +76,7 @@ class FileManagerTest extends \Flame\Tests\TestCase
 
 	public function testGetFileType()
 	{
-		$getFileTypeMethod = $this->getProtectedClassMethod('\Flame\Tools\Files\FileManager', 'getFileType');
+		$getFileTypeMethod = $this->getAccessibleMethod('\Flame\Tools\Files\FileManager', 'getFileType');
 		$result = $getFileTypeMethod->invoke($this->fileManager, 'img.jpg');
 		$this->assertEquals('jpg', $result);
 
@@ -89,37 +89,37 @@ class FileManagerTest extends \Flame\Tests\TestCase
 
 	public function testRemoveFileType()
 	{
-		$removeFileTypeMethod = $this->getProtectedClassMethod('\Flame\Tools\Files\FileManager', 'removeFileType');
+		$removeFileTypeMethod = $this->getAccessibleMethod('\Flame\Tools\Files\FileManager', 'removeFileType');
 		$result = $removeFileTypeMethod->invoke($this->fileManager, 'file.txt');
 		$this->assertEquals('file', $result);
 
-		$removeFileTypeMethod = $this->getProtectedClassMethod('\Flame\Tools\Files\FileManager', 'removeFileType');
+		$removeFileTypeMethod = $this->getAccessibleMethod('\Flame\Tools\Files\FileManager', 'removeFileType');
 		$result = $removeFileTypeMethod->invoke($this->fileManager, '/dir/file_.txt');
 		$this->assertEquals('/dir/file_', $result);
 
-		$removeFileTypeMethod = $this->getProtectedClassMethod('\Flame\Tools\Files\FileManager', 'removeFileType');
+		$removeFileTypeMethod = $this->getAccessibleMethod('\Flame\Tools\Files\FileManager', 'removeFileType');
 		$result = $removeFileTypeMethod->invoke($this->fileManager, '/dir/file_.txt.temp');
 		$this->assertEquals('/dir/file_.txt', $result);
 	}
 
 	public function testGetFileName()
 	{
-		$getFileNameMethod = $this->getProtectedClassMethod('\Flame\Tools\Files\FileManager', 'getFileName');
+		$getFileNameMethod = $this->getAccessibleMethod('\Flame\Tools\Files\FileManager', 'getFileName');
 		$result = $getFileNameMethod->invoke($this->fileManager, '/dir/file.txt');
 		$this->assertEquals('file.txt', $result);
 
-		$getFileNameMethod = $this->getProtectedClassMethod('\Flame\Tools\Files\FileManager', 'getFileName');
+		$getFileNameMethod = $this->getAccessibleMethod('\Flame\Tools\Files\FileManager', 'getFileName');
 		$result = $getFileNameMethod->invoke($this->fileManager, '/dir/file.txt/img.jpg');
 		$this->assertEquals('img.jpg', $result);
 
-		$getFileNameMethod = $this->getProtectedClassMethod('\Flame\Tools\Files\FileManager', 'getFileName');
+		$getFileNameMethod = $this->getAccessibleMethod('\Flame\Tools\Files\FileManager', 'getFileName');
 		$result = $getFileNameMethod->invoke($this->fileManager, 'file.txt');
 		$this->assertEquals('file.txt', $result);
 	}
 
 	public function testGetAbsolutePath()
 	{
-		$getAbsolutePathMethod = $this->getProtectedClassMethod('\Flame\Tools\Files\FileManager', 'getAbsolutePath');
+		$getAbsolutePathMethod = $this->getAccessibleMethod('\Flame\Tools\Files\FileManager', 'getAbsolutePath');
 		$result = $getAbsolutePathMethod->invoke($this->fileManager);
 		$this->assertEquals(vfsStream::url('root') . '/media/images', $result);
 	}

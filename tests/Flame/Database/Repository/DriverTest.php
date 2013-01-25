@@ -53,7 +53,7 @@ class DriverTest extends \Flame\Tests\TestCase
 
 	public function testGetTable()
 	{
-		$method = $this->getProtectedClassMethod('\Flame\Tests\Database\Reposiroty\FakeDriver', 'getTable');
+		$method = $this->getAccessibleMethod('\Flame\Tests\Database\Reposiroty\FakeDriver', 'getTable');
 		$this->assertInstanceOf('\Flame\Database\Table\Selection', $method->invoke($this->driver));
 	}
 
