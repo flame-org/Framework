@@ -10,7 +10,7 @@ namespace Flame\Tests\Database\Reposiroty;
 
 class FakeDriver extends \Flame\Database\Repository\Driver
 {
-	protected $repositoryName = 'repoName';
+	protected $repositoryName = '\some\namespace\repoName';
 }
 
 class FakeFailDriver extends \Flame\Database\Repository\Driver
