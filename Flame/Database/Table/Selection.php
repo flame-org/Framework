@@ -21,7 +21,7 @@ class Selection extends \Nette\Database\Table\Selection
 
 	/**
 	 * @param \Nette\Database\Connection $connection
-	 * @param strign $table
+	 * @param string $table
 	 * @param string $tableClass
 	 * @param \Nette\Database\IReflection $reflection
 	 * @param \Nette\Caching\IStorage $cacheStorage
