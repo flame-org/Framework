@@ -21,7 +21,7 @@
 * PHP 5.3+
 * [Nette](http://nette.org/) (php framework)
 * [Composer](http://getcomposer.org/) (dependencies manager)
-* [Doctrine](http://www.doctrine-project.org/) [optional]
+* [optional] [Doctrine](http://www.doctrine-project.org/)
 
 ### Required Settings
 **Install dependencies with composer**
