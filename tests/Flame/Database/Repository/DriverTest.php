@@ -33,7 +33,8 @@ class DriverTest extends \Flame\Tests\TestCase
 
 	public function setUp()
 	{
-		$this->connection = new \Flame\Database\Connection(array('user' => 'root', 'password' => 'root'));
+		$this->connection = new \Flame\Database\Connection(
+			array('host' => '127.0.0.1', 'dbname' => 'testdb', 'user' => 'root', 'password' => 'root'));
 		$this->driver = new FakeDriver($this->connection);
 	}
 

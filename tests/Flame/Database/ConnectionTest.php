@@ -18,15 +18,17 @@ class ConnectionTest extends \Flame\Tests\TestCase
 
 	public function setUp()
 	{
-		$this->connection = new \Flame\Database\Connection(array('user' => 'root', 'password' => 'root'));
+		$this->connection = new \Flame\Database\Connection(
+			array('host' => '127.0.0.1', 'dbname' => 'testdb', 'user' => 'root', 'password' => 'root')
+		);
 	}
 
 	public function testDefaultProperties()
 	{
 		$options = array(
 			'driver' => 'mysql',
-			'host' => null,
-			'dbname' => null,
+			'host' => '127.0.0.1',
+			'dbname' =>'testdb',
 			'user' => 'root',
 			'password' => 'root',
 			'prefix' => null,
@@ -47,7 +49,7 @@ class ConnectionTest extends \Flame\Tests\TestCase
 
 	public function testCreateDns()
 	{
-		$expected = 'mysql:host=;dbname=';
+		$expected = 'mysql:host=127.0.0.1;dbname=testdb';
 		$method = $this->getProtectedClassMethod('\Flame\Database\Connection', 'createDns');
 		$this->assertEquals($expected, $method->invoke($this->connection));
 	}
