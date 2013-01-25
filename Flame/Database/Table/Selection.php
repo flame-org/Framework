@@ -66,7 +66,7 @@ class Selection extends \Nette\Database\Table\Selection
 		$invokeParametes = array();
 		if(count($parameters)){
 			foreach($parameters as $parameter){
-				if(isset($row[$parameter->getName()]))
+				if($parameter instanceof \ReflectionParameter and isset($row[$parameter->getName()]))
 					$invokeParametes[] = $row[$parameter->getName()];
 			}
 		}
