@@ -8,7 +8,7 @@
  * @date    24.12.12
  */
 
-namespace Flame\Tests\Model;
+namespace Flame\Tests\Doctrine\Model;
 
 use Nette;
 
@@ -20,7 +20,7 @@ class FacadeTest extends \Flame\Tests\DoctrineTestCase
 	 */
 	public function testAbstractConstructor()
 	{
-		$stub = $this->getMockForAbstractClass('\Flame\Model\Facade', array($this->getEmMock()));
+		$stub = $this->getMockForAbstractClass('\Flame\Doctrine\Model\Facade', array($this->getEmMock()));
 	}
 
 	public function testProperties()
@@ -54,7 +54,7 @@ class FacadeTest extends \Flame\Tests\DoctrineTestCase
 	public function testSave()
 	{
 		$entityMock = $this->getMock('Flame\Doctrine\Entity');
-		$repositoryMock = $this->getMockBuilder('\Flame\Model\Repository')
+		$repositoryMock = $this->getMockBuilder('\Flame\Doctrine\Model\Repository')
 			->disableOriginalConstructor()
 			->getMock();
 		$repositoryMock->expects($this->once())
@@ -71,7 +71,7 @@ class FacadeTest extends \Flame\Tests\DoctrineTestCase
 	{
 
 		$entityMock = $this->getMock('Flame\Doctrine\Entity');
-		$repositoryMock = $this->getMockBuilder('\Flame\Model\Repository')
+		$repositoryMock = $this->getMockBuilder('\Flame\Doctrine\Model\Repository')
 			->disableOriginalConstructor()
 			->getMock();
 		$repositoryMock->expects($this->once())
@@ -87,7 +87,7 @@ class FacadeTest extends \Flame\Tests\DoctrineTestCase
 
 }
 
-class FakeFacade extends \Flame\Model\Facade
+class FakeFacade extends \Flame\Doctrine\Model\Facade
 {
 	protected $repositoryName = 'test';
 }

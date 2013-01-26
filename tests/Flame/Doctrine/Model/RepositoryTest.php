@@ -8,7 +8,7 @@
  * @date    24.12.12
  */
 
-namespace Flame\Tests\Model;
+namespace Flame\Tests\Doctrine\Model;
 
 class RepositoryTest extends \Flame\Tests\DoctrineTestCase
 {
@@ -19,7 +19,7 @@ class RepositoryTest extends \Flame\Tests\DoctrineTestCase
 		$classMetadataMock = $this->getMockBuilder('\Doctrine\ORM\Mapping\ClassMetadata')
 			->disableOriginalConstructor()
 			->getMock();
-		$repository = new \Flame\Model\Repository($emMock, $classMetadataMock);
+		$repository = new \Flame\Doctrine\Model\Repository($emMock, $classMetadataMock);
 
 		$this->assertAttributeEquals($emMock, '_em', $repository);
 		$this->assertAttributeEquals($classMetadataMock, '_class', $repository);

@@ -8,7 +8,7 @@
  * @date    24.08.12
  */
 
-namespace Flame\Model;
+namespace Flame\Doctrine\Model;
 
 use Flame\Doctrine\Entity;
 

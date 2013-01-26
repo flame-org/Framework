@@ -8,7 +8,7 @@
  * @date    12.07.12
  */
 
-namespace Flame\Model;
+namespace Flame\Doctrine\Model;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Flame\Doctrine\Entity;
