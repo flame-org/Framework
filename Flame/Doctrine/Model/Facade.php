@@ -12,7 +12,7 @@ namespace Flame\Doctrine\Model;
 
 use Flame\Doctrine\Entity;
 
-abstract class Facade extends \Nette\Object implements \Flame\Model\IFacade
+abstract class Facade extends \Nette\Object implements IFacade
 {
 
 	/**
