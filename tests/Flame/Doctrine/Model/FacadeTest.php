@@ -37,7 +37,7 @@ class FacadeTest extends \Flame\Tests\DoctrineTestCase
 		//TODO: Fix: Method was expected to be called 1 times, actually called 0 times.
 //		$id = 23;
 //
-//		$repositoryMock = $this->getMockBuilder('\Flame\Model\Repository')
+//		$repositoryMock = $this->getMockBuilder('\Flame\Doctrine\Model\Repository')
 //			->disableOriginalConstructor()
 //			->getMock();
 //		$repositoryMock->expects($this->once())
