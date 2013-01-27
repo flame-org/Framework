@@ -12,9 +12,13 @@ namespace Flame\Application\UI;
 
 use Nette;
 use Nette\Reflection\Property;
+use Nette\Reflection\ClassType;
 
 abstract class Presenter extends \Nette\Application\UI\Presenter
 {
+
+	
+	/****************************** AUTOWIRE EXTENSION **********************************/
 
 	/**
 	 * @var array
@@ -28,19 +32,25 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 
 	/**
 	 * @param \Nette\DI\Container $dic
-	 * @throws \Nette\InvalidStateException
-	 * @throws \Nette\DI\MissingServiceException
+	 * @throws Nette\InvalidStateException
+	 * @throws Nette\MemberAccessException
+	 * @throws Nette\DI\MissingServiceException
 	 */
 	public function injectProperties(Nette\DI\Container $dic)
 	{
+		if (!$this instanceof Nette\Application\UI\PresenterComponent) {
+			throw new Nette\MemberAccessException('Class ' . __CLASS__ . ' can be used only in descendants of PresenterComponent.');
+		}
+
 		$this->serviceLocator = $dic;
 		$cache = new Nette\Caching\Cache($this->serviceLocator->getByType('Nette\Caching\IStorage'), 'Presenter.Autowire');
 		if (($this->autowire = $cache->load($presenterClass = get_class($this))) === null) {
 			$this->autowire = array();
 
-			$rc = $this->getReflection();
+			$rc = ClassType::from($this);
 			$ignore = class_parents('Nette\Application\UI\Presenter') + array('ui' => 'Nette\Application\UI\Presenter');
 			foreach ($rc->getProperties(Property::IS_PUBLIC | Property::IS_PROTECTED) as $prop) {
+				/** @var Property $prop */
 				if (in_array($prop->getDeclaringClass()->getName(), $ignore) || !$prop->hasAnnotation('autowire')) {
 					continue;
 				}
@@ -67,12 +77,12 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 				unset($this->{$prop->getName()});
 				$this->autowire[$prop->getName()] = array(
 					'value' => null,
-					'type' => Nette\Reflection\ClassType::from($type)->getName()
+					'type' => ClassType::from($type)->getName()
 				);
 			}
 
 			$files = array_map(function ($class) {
-				return Nette\Reflection\ClassType::from($class)->getFileName();
+				return ClassType::from($class)->getFileName();
 			}, array_diff(array_values(class_parents($presenterClass) + array('me' => $presenterClass)), $ignore));
 
 			$cache->save($presenterClass, $this->autowire, array(
@@ -90,7 +100,7 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 	/**
 	 * @param $name
 	 * @param $value
-	 * @throws Nette\MemberAccessException
+	 * @throws \Nette\MemberAccessException
 	 */
 	public function __set($name, $value)
 	{
@@ -106,8 +116,6 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 
 		return $this->autowire[$name]['value'] = $value;
 	}
-
-
 
 	/**
 	 * @param $name
@@ -126,6 +134,11 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 
 		return $this->autowire[$name]['value'];
 	}
+
+	/****************************** END OF AUTOWIRE EXTENSION **********************************/
+
+
+
 
 	public function beforeRender()
 	{
@@ -178,7 +191,7 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 
 	protected function createTemplate($class = null)
 	{
-		$presenter = $this->getPresenter(FALSE);
+		$presenter = $this->getPresenter(false);
 		$template = $presenter->getContext()->getService('nette.template')->create($class);
 		$template->onPrepareFilters[] = $this->templatePrepareFilters;
 
