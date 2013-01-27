@@ -23,6 +23,14 @@ class ThumbnailsCreator extends \Nette\Object
 	/** @var string */
 	private $baseDir;
 
+	/** @var array */
+	private $flags = array(
+		'fit' => Image::FIT,
+		'fill' => Image::FILL,
+		'exact' => Image::EXACT,
+		'shrink' => Image::SHRINK_ONLY,
+		'stretch' => Image::STRETCH,
+	);
 
 	/**
 	 * @param string $thumbDirUri
@@ -38,12 +46,14 @@ class ThumbnailsCreator extends \Nette\Object
 	 * @param $imagePath
 	 * @param $width
 	 * @param null $height
-	 * @param null $flags
+	 * @param null $flag
 	 * @return string
 	 * @throws \Nette\InvalidArgumentException
 	 */
-	public function thumb($imagePath, $width, $height = null, $flags = null)
+	public function thumb($imagePath, $width, $height = null, $flag = null)
 	{
+
+		$flag = $this->flagsConverter($width, $height, $flag);
 
 		$thumbDirPath = $this->getThumbDirPath();
 		$origPath = $this->getAbsPathToImage($imagePath);
@@ -51,14 +61,14 @@ class ThumbnailsCreator extends \Nette\Object
 		FileSystem::mkDir($thumbDirPath);
 
 		if(($width === null && $height === null)){
-			throw new InvalidArgumentException('Width of image must be set');
+			throw new InvalidArgumentException('Width or height of image must be set');
 		}elseif(!is_dir($thumbDirPath) || !is_writable($thumbDirPath)){
 			throw new InvalidArgumentException('Folder ' . $thumbDirPath . ' does not exist or is not writable');
 		}elseif(!file_exists($origPath)){
 			return $imagePath;
 		}
 
-		$thumbName = $this->getThumbName($imagePath, $width, $height, filemtime($origPath));
+		$thumbName = $this->getThumbName($imagePath, $width, $height, $flag, filemtime($origPath));
 		$thumbUri = $this->thumbDirUri . DIRECTORY_SEPARATOR . $thumbName;
 		$thumbPath = $thumbDirPath . DIRECTORY_SEPARATOR . $thumbName;
 
@@ -74,10 +84,7 @@ class ThumbnailsCreator extends \Nette\Object
 				$origWidth = $image->getWidth();
 				$origHeight = $image->getHeight();
 
-				if($flags === null)
-					$flags = ($width !== null && $height !== null) ? Image::STRETCH : Image::FIT;
-
-				$image->resize($width, $height, $flags)->sharpen();
+				$image->resize($width, $height, $flag)->sharpen();
 
 				$newWidth = $image->getWidth();
 				$newHeight = $image->getHeight();
@@ -101,15 +108,16 @@ class ThumbnailsCreator extends \Nette\Object
 	 * @param $width
 	 * @param $height
 	 * @param $mtime
+	 * @param $flag
 	 * @return string
 	 */
-	protected function getThumbName($relPath, $width, $height, $mtime)
+	protected function getThumbName($relPath, $width, $height, $flag, $mtime)
 	{
 		$sep = '.';
 		$tmp = explode($sep, $relPath);
 		$ext = array_pop($tmp);
 		$relPath = implode($sep, $tmp);
-		$relPath .= $width . 'x' . $height . '-' . $mtime;
+		$relPath .= $width . 'x' . $height . '-' . $mtime . '-' . $flag;
 		$relPath = md5($relPath) . $sep . $ext;
 		return $relPath;
 	}
@@ -133,7 +141,21 @@ class ThumbnailsCreator extends \Nette\Object
 		}else{
 			return $this->baseDir . DIRECTORY_SEPARATOR . $relativePath;
 		}
+	}
 
+	/**
+	 * @param $width
+	 * @param $height
+	 * @param $flag
+	 * @return int
+	 */
+	protected function flagsConverter($width, $height, $flag)
+	{
+		if($flag === null)
+			$flag = ($width !== null && $height !== null) ? 'STRETCH' : 'FIT';
+
+		$flag = strtolower((string) $flag);
+		return (isset($this->flags[$flag])) ? $this->flags[$flag] : Image::FIT;
 	}
 
 }
