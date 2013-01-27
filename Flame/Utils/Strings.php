@@ -14,19 +14,28 @@ class Strings extends \Nette\Utils\Strings
 	/**
 	 * @param $s
 	 * @param $delimiter
-	 * @param bool $replace
-	 * @param bool $need
-	 * @return mixed|string
-	 * @throws \Nette\InvalidArgumentException
+	 * @return mixed
 	 */
-	public static function getLastPiece($s, $delimiter, $replace = true, $need = true)
+	public static function getLastPiece($s, $delimiter)
 	{
-		if(!\Nette\Utils\Strings::contains($s, $delimiter) and $need)
-			throw new \Nette\InvalidArgumentException('String ' . $s . ' does not contain ' . $delimiter);
-
+		if(!static::contains($s, $delimiter)) return;
 		$lastOne = strrchr($s, $delimiter);
-		if($replace) $lastOne = str_replace($delimiter, '', $lastOne);
+		$lastOne = str_replace($delimiter, '', $lastOne);
 		return $lastOne;
+	}
+
+	/**
+	 * @param $s
+	 * @param $delimiter
+	 * @param $index
+	 * @return mixed
+	 */
+	public static function getPiece($s, $delimiter, $index)
+	{
+		if(!static::contains($s, $delimiter)) return;
+		$pieces = explode($delimiter, $s);
+		if(!isset($pieces[$index])) return;
+		return $pieces[$index];
 	}
 
 }

@@ -13,25 +13,41 @@ use Flame\Utils\Strings;
 class StringsTest extends \Flame\Tests\TestCase
 {
 
-	public function testGetLastPiece()
+	/**
+	 * @dataProvider stringsProviderGetLast
+	 */
+	public function testGetLastPiece($s, $expected)
 	{
-		$s = 'random\string\to\exam';
-		$this->assertEquals('exam', Strings::getLastPiece($s, '\\'));
-		$this->assertEquals('\exam', Strings::getLastPiece($s, '\\', false));
-
-		$anotherS = ':random:string:';
-		$this->assertEquals('', Strings::getLastPiece($anotherS, ':'));
-		$this->assertEquals(':', Strings::getLastPiece($anotherS, ':', false));
-
-		$this->assertEquals('', Strings::getLastPiece('hello', 'd', true, false));
+		$this->assertEquals($expected, Strings::getLastPiece($s, '/'));
 	}
 
 	/**
-	 * @expectedException \Nette\InvalidArgumentException
+	 * @dataProvider stringsProviderGetByIndex
 	 */
-	public function testNoDelimiterInGetLastPiece()
+	public function testGetPiece($s, $expected)
 	{
-		Strings::getLastPiece('hello', 'd');
+		$this->assertEquals($expected, Strings::getPiece($s, '/', 3));
+	}
+
+	public function stringsProviderGetLast()
+	{
+		return array(
+			array('random/string/to/exam', 'exam'),
+			array('random/string/to/exam ', 'exam '),
+			array('/random/string/', '')
+		);
+	}
+
+	public function stringsProviderGetByIndex()
+	{
+
+		return array(
+			array('random/string/to/exam', 'exam'),
+			array('random/string/to/exam ', 'exam '),
+			array('/random/string/', ''),
+			array('/string', null),
+		);
+
 	}
 
 }
