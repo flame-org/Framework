@@ -10,22 +10,25 @@
 
 namespace Flame\Tests\Utils;
 
+require_once __DIR__ . '/../bootstrap.php';
+
+use Tester\Assert;
 use Flame\Utils\Arrays;
 
 class ArraysTest extends \Flame\Tests\TestCase
 {
 
-	/**
-	 * @expectedException \Flame\StaticClassException
-	 */
 	public function testConstructor()
 	{
-		$arrays = new Arrays();
+		Assert::exception(function (){
+			$arrays = new Arrays();
+		}, '\Flame\StaticClassException');
+
 	}
 
 	public function testCallNetteArrays()
 	{
-		$this->assertEquals('test', Arrays::get(array('k' => 'test'), 'k'));
+		Assert::equal('test', Arrays::get(array('k' => 'test'), 'k'));
 	}
 
 	public function testSortBySubkey()
@@ -40,7 +43,7 @@ class ArraysTest extends \Flame\Tests\TestCase
 			array('order' => 1)
 		);
 
-		$this->assertEquals($output, Arrays::sortBySubkey($input, 'order'));
+		Assert::equal($output, Arrays::sortBySubkey($input, 'order'));
 	}
 
 	public function testSortByProperty()
@@ -56,8 +59,9 @@ class ArraysTest extends \Flame\Tests\TestCase
 			(object) array('order' => 1)
 		);
 
-		$this->assertEquals($output, Arrays::sortByProperty($input, 'order'));
-
+		Assert::equal($output, Arrays::sortByProperty($input, 'order'));
 	}
 
 }
+
+\run(new ArraysTest());

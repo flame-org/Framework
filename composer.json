@@ -27,7 +27,8 @@
 	"require-dev": {
 		"phpunit/phpunit": "3.7.*",
 		"doctrine/orm": "2.3.0",
-		"mikey179/vfsStream": "1.1.*"
+		"mikey179/vfsStream": "1.1.*",
+		"nette/tester": "@dev"
 	},
 
 	"suggest": {
