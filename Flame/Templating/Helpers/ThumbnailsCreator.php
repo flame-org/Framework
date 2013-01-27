@@ -96,6 +96,7 @@ class ThumbnailsCreator extends \Nette\Object
 					return $imagePath;
 				}
 			}catch (\Exception $ex){
+				\Nette\Diagnostics\Debugger::log($ex);
 				return $imagePath;
 			}
 		}
