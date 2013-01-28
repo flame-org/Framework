@@ -2,13 +2,17 @@
 /**
  * StringsTest.php
  *
+ * @testCase \Flame\Tests\Utils\StringsTest
  * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
  * @date    23.01.13
  */
 
 namespace Flame\Tests\Utils;
 
+require_once __DIR__ . '/../bootstrap.php';
+
 use Flame\Utils\Strings;
+use Tester\Assert;
 
 class StringsTest extends \Flame\Tests\TestCase
 {
@@ -18,7 +22,7 @@ class StringsTest extends \Flame\Tests\TestCase
 	 */
 	public function testGetLastPiece($s, $expected)
 	{
-		$this->assertEquals($expected, Strings::getLastPiece($s, '/'));
+		Assert::equal($expected, Strings::getLastPiece($s, '/'));
 	}
 
 	/**
@@ -26,9 +30,12 @@ class StringsTest extends \Flame\Tests\TestCase
 	 */
 	public function testGetPiece($s, $expected)
 	{
-		$this->assertEquals($expected, Strings::getPiece($s, '/', 3));
+		Assert::equal($expected, Strings::getPiece($s, '/', 3));
 	}
 
+	/**
+	 * @return array
+	 */
 	public function stringsProviderGetLast()
 	{
 		return array(
@@ -38,6 +45,9 @@ class StringsTest extends \Flame\Tests\TestCase
 		);
 	}
 
+	/**
+	 * @return array
+	 */
 	public function stringsProviderGetByIndex()
 	{
 
@@ -51,3 +61,5 @@ class StringsTest extends \Flame\Tests\TestCase
 	}
 
 }
+
+run(new StringsTest());

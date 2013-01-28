@@ -2,6 +2,7 @@
 /**
  * ArraysTest.php
  *
+ * @testCase \Flame\Tests\Utils\ArraysTest
  * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
  * @package Flame
  *
@@ -64,4 +65,4 @@ class ArraysTest extends \Flame\Tests\TestCase
 
 }
 
-\run(new ArraysTest());
+run(new ArraysTest());
