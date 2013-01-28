@@ -24,6 +24,18 @@ abstract class TestCase extends \Tester\TestCase
 	}
 
 	/**
+	 * @return bool
+	 */
+	protected function isInternetConnection()
+	{
+		if ('pong' !== @file_get_contents('http://ping.jsifalda.name/')) {
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+	/**
 	 * @param $name
 	 * @param null $default
 	 * @return null
