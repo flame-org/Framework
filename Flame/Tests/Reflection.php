@@ -9,6 +9,7 @@
 namespace Flame\Tests;
 
 use Nette\InvalidArgumentException;
+use Nette\ObjectMixin;
 
 class Reflection extends \Tester\TestCase
 {

@@ -10,8 +10,6 @@
 
 namespace Flame\Tests;
 
-use Nette\ObjectMixin;
-
 abstract class TestCase extends Reflection
 {
 
