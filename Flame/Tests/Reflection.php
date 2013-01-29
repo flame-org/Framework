@@ -8,19 +8,23 @@
 
 namespace Flame\Tests;
 
+use Nette\InvalidArgumentException;
+
 class Reflection extends \Tester\TestCase
 {
 
 	/**
-	 * @param mixed $object
-	 * @param string $methodName
-	 * @return \ReflectionMethod
+	 * @param $object
+	 * @param $methodName
+	 * @param array $parameters
+	 * @return mixed
 	 */
-	protected function getAccessibleMethod($object, $methodName) {
-		$reflaction = new \ReflectionClass($object);
-		$method = $reflaction->getMethod($methodName);
+	protected function invokeMethod($object, $methodName, array $parameters = array()) {
+
+		$reflection = new \ReflectionClass($object);
+		$method = $reflection->getMethod($methodName);
 		$method->setAccessible(true);
-		return $method;
+		return $method->invokeArgs($object, $parameters);
 	}
 
 	/**
