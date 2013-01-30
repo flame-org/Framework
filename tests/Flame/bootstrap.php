@@ -18,7 +18,9 @@ $_SERVER = array_intersect_key($_SERVER, array_flip(array('PHP_SELF', 'SCRIPT_NA
 $_SERVER['REQUEST_TIME'] = 1234567890;
 $_ENV = $_GET = $_POST = array();
 
-\Nette\Diagnostics\Debugger::$logDirectory = __DIR__ . '/../log';
+$logDir = __DIR__ . '/../log';
+Flame\Tools\Files\FileSystem::mkDir($logDir);
+\Nette\Diagnostics\Debugger::$logDirectory = $logDir;
 
 if (extension_loaded('xdebug')) {
 	xdebug_disable();
