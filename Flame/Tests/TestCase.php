@@ -44,11 +44,4 @@ abstract class TestCase extends Reflection
 		return (isset($params[$name])) ? $params[$name] : $default;
 	}
 
-	protected function tearDown()
-	{
-		if(class_exists('\Mockery')){
-			\Mockery::close();
-		}
-	}
-
 }
