@@ -18,7 +18,7 @@ class FakeMailer extends \Flame\Mail\Mailer
 
 }
 
-class MailerTest extends \Flame\Tests\TestCase
+class MailerTest extends \Flame\Tests\MockTestCase
 {
 
 	/**
@@ -26,14 +26,11 @@ class MailerTest extends \Flame\Tests\TestCase
 	 */
 	private $mailer;
 
-	/**
-	 * @var \Mockista\Registry
-	 */
-	protected $mockista;
 
 	public function setUp()
 	{
-		$this->mockista = new \Mockista\Registry();
+		parent::setUp();
+
 		$this->mailer = new FakeMailer;
 	}
 
@@ -57,10 +54,6 @@ class MailerTest extends \Flame\Tests\TestCase
 		Assert::true($r instanceof \Nette\Templating\FileTemplate);
 	}
 
-	protected function tearDown()
-	{
-		$this->mockista->assertExpectations();
-	}
 }
 
 run(new MailerTest());
