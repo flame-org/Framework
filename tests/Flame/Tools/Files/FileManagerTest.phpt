@@ -14,6 +14,7 @@ namespace Flame\Tests\Tools\Files;
 require_once __DIR__ . '/../../bootstrap.php';
 
 use Tester\Assert;
+use Flame\Tools\Files\FileSystem;
 
 class FileManagerTest extends \Flame\Tests\TestCase
 {
@@ -144,12 +145,11 @@ class FileManagerTest extends \Flame\Tests\TestCase
 
 	public function testDownloadFile()
 	{
-		//TODO
-//		vfsStream::create(array('file.txt' => 'content'));
-//		$this->assertTrue($this->root->hasChild('file.txt'));
-//		$this->assertNotEquals(false, $this->fileManager->downloadFile(vfsStream::url('root') . '/file.txt'));
-//		//Return false instead of true
-//		$this->assertTrue($this->root->hasChild(vfsStream::url('root') . '/media/images/file.txt'));
+		$file = TEMP_DIR . '/test/file.txt';
+		FileSystem::write($file, 'content');
+		Assert::true(file_exists($file));
+		$this->fileManager->downloadFile($file);
+		Assert::true(file_exists($this->dir . '/media/images/file.txt'));
 	}
 }
 
