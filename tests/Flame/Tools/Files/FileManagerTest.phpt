@@ -145,7 +145,7 @@ class FileManagerTest extends \Flame\Tests\TestCase
 
 	public function testDownloadFile()
 	{
-		$file = TEMP_DIR . '/test/file.txt';
+		$file = $this->dir . '/file.txt';
 		FileSystem::write($file, 'content');
 		Assert::true(file_exists($file));
 		$this->fileManager->downloadFile($file);
