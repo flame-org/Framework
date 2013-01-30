@@ -26,7 +26,8 @@
 
 	"require-dev": {
 		"doctrine/orm": "2.3.0",
-		"nette/tester": "@dev"
+		"nette/tester": "@dev",
+		"janmarek/mockista": "@dev"
 	},
 
 	"suggest": {
