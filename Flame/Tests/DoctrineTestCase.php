@@ -14,7 +14,7 @@ class DoctrineTestCase extends MockTestCase
 {
 
 	/**
-	 * @param \Mockista\MockInterface $fakeRepository
+	 * @param null $fakeRepository
 	 * @return \Mockista\MockInterface
 	 */
 	protected function getEmMock($fakeRepository = null)
@@ -23,10 +23,11 @@ class DoctrineTestCase extends MockTestCase
 			$fakeRepository = $this->getRepositoryMock();
 
 		$emMock = $this->mockista->create(
-			'\Doctrine\ORM\EntityManager', array('getRepository', 'persist', 'flush'));
+			'\Doctrine\ORM\EntityManager', array('getRepository', 'getClassMetadata', 'persist', 'flush'));
 		$emMock->expects('getRepository')
-			->andReturn($fakeRepository)
-			->once();
+			->andReturn($fakeRepository);
+		$emMock->expects('getClassMetadata')
+			->andReturn((object) array('name' => 'aClass'));
 		$emMock->expects('persist')
 			->andReturn(null);
 		$emMock->expects('flush')
@@ -35,10 +36,15 @@ class DoctrineTestCase extends MockTestCase
 	}
 
 	/**
+	 * @param string $method
+	 * @param null $returnVal
 	 * @return \Mockista\MockInterface
 	 */
-	protected function getRepositoryMock()
+	protected function getRepositoryMock($method = '', $returnVal = null)
 	{
-		return $this->mockista->create('\Doctrine\ORM\EntityRepository');
+		$mock = $this->mockista->create('\Doctrine\ORM\EntityRepository');
+		$mock->expects($method)
+			->andReturn($returnVal);
+		return $mock;
 	}
 }
