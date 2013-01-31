@@ -55,5 +55,3 @@ class MailerTest extends \Flame\Tests\MockTestCase
 	}
 
 }
-
-run(new MailerTest());

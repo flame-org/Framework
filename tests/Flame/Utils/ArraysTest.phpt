@@ -64,5 +64,3 @@ class ArraysTest extends \Flame\Tests\TestCase
 	}
 
 }
-
-run(new ArraysTest());

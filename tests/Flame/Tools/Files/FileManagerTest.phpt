@@ -152,5 +152,3 @@ class FileManagerTest extends \Flame\Tests\TestCase
 		Assert::true(file_exists($this->dir . '/media/images/file.txt'));
 	}
 }
-
-run(new FileManagerTest);

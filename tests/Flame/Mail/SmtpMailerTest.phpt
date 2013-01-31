@@ -51,5 +51,3 @@ class SmtpMailerTest extends \Flame\Tests\TestCase
 		);
 	}
 }
-
-run(new SmtpMailerTest());
