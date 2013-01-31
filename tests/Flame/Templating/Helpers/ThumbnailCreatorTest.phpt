@@ -92,12 +92,14 @@ class ThumbnailCreatorTest extends \Flame\Tests\TestCase
 
 	public function testThumb()
 	{
-		//TODO: add test of existing thumbnail
-		$file = $this->dir . '/image.gif';
-		FileSystem::write($file, 'R0lGODlhEAAQANUsAPz6AABEAAB3AEBckvDw8eTk5IOQqtDV3/f39+Xk5OTk5enp6RgxYvHw8f//zBs1Zvr6+jBKfztWjTVQhvv8+9Ta5PHx8DZQhfDx8QqfBtna2TtWjB86a/f29yU/cUBbkypFeJKgu/Hx8dbW1prG5ktnoIYAAMsAABUuXgAAAP9mZv///////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACwALAAAAAAQABAAAAaJQFZpSCyWWEjWwEFqOp+DJGpKrVKTn5V2y11FkZKVYLw6mc2jTfIizgQoJ5XcNJokI6uAvmPq90chSSArIg0iBBYiGCIiCxVmLB4rVARVBghxJyYcKwkKBQkFBQoiEJmaD5NTlSgGB6cmLAwaI7W1C5gqZrFIVq6wScFJAAC7wscpxLzHwSnJx0EAOw%3D%3D');
-		Assert::true(file_exists($file));
-		$this->thumbnailsCreator->thumb('/image.gif', 56, null);
+		$source = realpath(TEMP_DIR . '/../../data/images/apple.jpg');
+		Assert::true(file_exists($source));
+		$image = $this->dir . '/apple.jpg';
+		FileSystem::cp($source, $image);
+		Assert::true(file_exists($image));
+		$this->thumbnailsCreator->thumb('/apple.jpg', 56, null);
 		Assert::true(file_exists($this->dir . $this->thumbDir));
+		//Assert::false(FileSystem::cleanDir($this->dir . $this->thumbDir));
 	}
 
 	public function testGgetAbsPathToImage()
