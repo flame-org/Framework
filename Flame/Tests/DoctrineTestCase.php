@@ -10,44 +10,35 @@
 
 namespace Flame\Tests;
 
-class DoctrineTestCase extends TestCase
+class DoctrineTestCase extends MockTestCase
 {
 
 	/**
-	 * @param \PHPUnit_Framework_MockObject_MockObject $fakeRepository
-	 * @return \PHPUnit_Framework_MockObject_MockObject
+	 * @param \Mockista\MockInterface $fakeRepository
+	 * @return \Mockista\MockInterface
 	 */
-	protected function getEmMock(\PHPUnit_Framework_MockObject_MockObject $fakeRepository = null)
+	protected function getEmMock($fakeRepository = null)
 	{
 		if($fakeRepository === null)
 			$fakeRepository = $this->getRepositoryMock();
 
-		$emMock = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
-			->setMethods(array('getRepository', 'getClassMetadata', 'persist', 'flush'))
-			->disableOriginalConstructor()
-			->getMock();
-		$emMock->expects($this->any())
-			->method('getRepository')
-			->will($this->returnValue($fakeRepository));
-		$emMock->expects($this->any())
-			->method('getClassMetadata')
-			->will($this->returnValue((object)array('name' => 'aClass')));
-		$emMock->expects($this->any())
-			->method('persist')
-			->will($this->returnValue(null));
-		$emMock->expects($this->any())
-			->method('flush')
-			->will($this->returnValue(null));
+		$emMock = $this->mockista->create(
+			'\Doctrine\ORM\EntityManager', array('getRepository', 'persist', 'flush'));
+		$emMock->expects('getRepository')
+			->andReturn($fakeRepository)
+			->once();
+		$emMock->expects('persist')
+			->andReturn(null);
+		$emMock->expects('flush')
+			->andReturn(null);
 		return $emMock;
 	}
 
 	/**
-	 * @return \PHPUnit_Framework_MockObject_MockObject
+	 * @return \Mockista\MockInterface
 	 */
 	protected function getRepositoryMock()
 	{
-		$repositoryMock = $this->getMockBuilder('\Doctrine\ORM\EntityRepository')
-			->disableOriginalConstructor()->getMock();
-		return $repositoryMock;
+		return $this->mockista->create('\Doctrine\ORM\EntityRepository');
 	}
 }
