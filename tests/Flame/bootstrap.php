@@ -7,7 +7,6 @@ if (@!include __DIR__ . '/../../libs/autoload.php') {
 
 // configure environment
 Tester\Helpers::setup();
-class_alias('Tester\Assert', 'Assert');
 date_default_timezone_set('Europe/Prague');
 
 // create temporary directory
@@ -21,14 +20,11 @@ $_ENV = $_GET = $_POST = array();
 $logDir = __DIR__ . '/../log';
 Flame\Tools\Files\FileSystem::mkDir($logDir);
 \Nette\Diagnostics\Debugger::$logDirectory = $logDir;
+\Nette\Diagnostics\Debugger::$productionMode = false;
 
 if (extension_loaded('xdebug')) {
 	xdebug_disable();
 	Tester\CodeCoverage\Collector::start(__DIR__ . '/coverage.dat');
-}
-
-function id($val) {
-	return $val;
 }
 
 function run(Tester\TestCase $testCase) {
