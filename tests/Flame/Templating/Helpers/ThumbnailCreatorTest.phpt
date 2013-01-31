@@ -106,3 +106,5 @@ class ThumbnailCreatorTest extends \Flame\Tests\TestCase
 		Assert::equal($this->dir . '/image.jpg', $this->invokeMethod($this->thumbnailsCreator, 'getAbsPathToImage', array('image.jpg')));
 	}
 }
+
+run(new ThumbnailCreatorTest());

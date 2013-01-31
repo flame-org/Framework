@@ -61,3 +61,5 @@ class StringsTest extends \Flame\Tests\TestCase
 	}
 
 }
+
+run(new StringsTest());

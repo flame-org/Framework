@@ -9,4 +9,4 @@ before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
   - composer self-update
   - composer install --no-progress --dev
-script: "./libs/bin/tester -s -j 20 ./tests/Flame/"
+script: "./tests/run-tests.sh -s tests/Flame/"

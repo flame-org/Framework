@@ -115,3 +115,5 @@ class AssetsTest extends \Flame\Tests\TestCase
 	}
 
 }
+
+run(new AssetsTest());
