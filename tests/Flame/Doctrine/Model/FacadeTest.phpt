@@ -56,7 +56,7 @@ class FacadeTest extends \Flame\Tests\DoctrineTestCase
 
 		$emMock = $this->getEmMock($repositoryMock);
 		$facade = new FakeFacade($emMock);
-		Assert::same(null, $facade->getOne($id));
+		Assert::null($facade->getOne($id));
 	}
 
 	public function testSave()
@@ -70,7 +70,7 @@ class FacadeTest extends \Flame\Tests\DoctrineTestCase
 		$emMock = $this->getEmMock($repositoryMock);
 		$facade = new FakeFacade($emMock);
 
-		Assert::same(null, $facade->save($entityMock, false));
+		Assert::null($facade->save($entityMock, false));
 	}
 
 	public function testDelete()
@@ -84,7 +84,7 @@ class FacadeTest extends \Flame\Tests\DoctrineTestCase
 		$emMock = $this->getEmMock($repositoryMock);
 		$facade = new FakeFacade($emMock);
 
-		Assert::same(null, $facade->delete($entityMock, true));
+		Assert::null($facade->delete($entityMock, true));
 	}
 
 }
