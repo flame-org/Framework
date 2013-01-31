@@ -41,8 +41,8 @@ class FacadeTest extends \Flame\Tests\DoctrineTestCase
 		$repositoryMock = $this->getRepositoryMock();
 		$emMock = $this->getEmMock($repositoryMock);
 		$facade = new FakeFacade($emMock);
-		Assert::equal($facade->repositoryName, $this->getAttributeValue($facade, 'repositoryName'));
-		Assert::equal($repositoryMock, $this->getAttributeValue($facade, 'repository'));
+		Assert::same($facade->repositoryName, $this->getAttributeValue($facade, 'repositoryName'));
+		Assert::same($repositoryMock, $this->getAttributeValue($facade, 'repository'));
 	}
 
 	public function testGetOne()
