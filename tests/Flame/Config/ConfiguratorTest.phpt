@@ -2,6 +2,7 @@
 /**
  * ConfiguratorTest.php
  *
+ * @testCase
  * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
  * @package Flame
  *
@@ -10,7 +11,10 @@
 
 namespace Flame\Tests\Config;
 
+require_once __DIR__ . '/../bootstrap.php';
+
 use Nette\Config\Extensions;
+use Tester\Assert;
 
 class ConfiguratorTest extends \Flame\Tests\TestCase
 {
@@ -21,7 +25,7 @@ class ConfiguratorTest extends \Flame\Tests\TestCase
 	public function setUp()
 	{
 		$this->configurator = new \Flame\Config\Configurator();
-		$this->configurator->setTempDirectory(__DIR__ . '/../../temp');
+		$this->configurator->setTempDirectory(TEMP_DIR);
 	}
 
 	public function testProperties()
@@ -37,14 +41,18 @@ class ConfiguratorTest extends \Flame\Tests\TestCase
 			->addExtension('nette', new \Flame\Config\Extensions\NetteExtension)
 			->addExtension('extensions', new Extensions\ExtensionsExtension);
 
-		$createCompilerMethod = $this->getAccessibleMethod('\Flame\Config\Configurator', 'createCompiler');
-		$this->assertEquals($compiler, $createCompilerMethod->invoke($this->configurator));
+		$r = $this->invokeMethod($this->configurator, 'createCompiler');
+		$extension = $this->getAttributeValue($r, 'extensions');
+		Assert::false(empty($extension));
+		Assert::true(count($extension) == 4);
 	}
 
 	public function testCreateLoader()
 	{
-		$method = $this->getAccessibleMethod('\Flame\Config\Configurator', 'createLoader');
-		$this->assertInstanceOf('\Flame\Config\Loader', $method->invoke($this->configurator));
+		$r = $this->invokeMethod($this->configurator, 'createLoader');
+		Assert::true($r instanceof \Flame\Config\Loader);
 	}
 
 }
+
+run(new ConfiguratorTest());
