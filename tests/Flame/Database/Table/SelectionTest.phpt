@@ -2,11 +2,16 @@
 /**
  * SelectionTest.php
  *
+ * @testCase
  * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
  * @date    25.01.13
  */
 
 namespace Flame\Tests\Database\Table;
+
+require_once __DIR__ . '/../../bootstrap.php';
+
+use Tester\Assert;
 
 class FakeTable extends \Flame\Database\Table
 {
@@ -56,11 +61,10 @@ class SelectionTest extends \Flame\Tests\TestCase
 	{
 		$failSelection = new \Flame\Database\Table\Selection(
 			$this->connection, 'table', 'noTableClass', new \Nette\Database\Reflection\ConventionalReflection);
-		$method = $this->getAccessibleMethod('\Flame\Database\Table\Selection', 'createRow');
-		try {
-			$method->invoke($failSelection, array('id' => 1));
-			$this->fail('Expected exception ReflectionException');
-		}catch (\ReflectionException $ex){}
+
+		Assert::throws(function () use ($failSelection) {
+			$this->invokeMethod($failSelection, 'createRow', array(array('id' => 1)));
+		}, '\ReflectionException');
 	}
 
 	public function testSetTableProperties()
@@ -73,10 +77,10 @@ class SelectionTest extends \Flame\Tests\TestCase
 
 		$fakeTable = new FakeTable($row['name']);
 
-		$method = $this->getAccessibleMethod('\Flame\Database\Table\Selection', 'setTableProperties');
-		$r = $method->invoke($this->selection, $row, $fakeTable);
-		$this->assertInstanceOf('\Flame\Database\Table', $r);
-		$this->assertAttributeEquals(1, 'id', $r);
+
+		$r = $this->invokeMethod($this->selection, 'setTableProperties', array($row, $fakeTable));
+		Assert::true($r instanceof \Flame\Database\Table);
+		Assert::equal(1, $this->getAttributeValue($r, 'id'));
 	}
 
 	public function testGetTableClassParameters()
@@ -88,10 +92,10 @@ class SelectionTest extends \Flame\Tests\TestCase
 		);
 
 		$reflection = new \ReflectionClass('\Flame\Tests\Database\Table\FakeTable');
-
-		$method = $this->getAccessibleMethod('\Flame\Database\Table\Selection', 'getTableClassParameters');
-		$r = $method->invoke($this->selection, $row, $reflection);
-		$this->assertEquals(array('George'), $r);
+		$r = $this->invokeMethod($this->selection, 'getTableClassParameters', array($row, $reflection));
+		Assert::equal(array('George'), $r);
 	}
 
 }
+
+run(new SelectionTest());
