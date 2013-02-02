@@ -42,4 +42,12 @@ class Helpers extends \Nette\Object
 		return urldecode($string);
 	}
 
+	/**
+	 * @param $var
+	 * @return mixed
+	 */
+	public static function dump($var)
+	{
+		return \Nette\Diagnostics\Debugger::dump($var);
+	}
 }
