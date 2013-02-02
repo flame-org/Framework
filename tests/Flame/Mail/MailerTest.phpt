@@ -48,6 +48,9 @@ class MailerTest extends \Flame\Tests\MockTestCase
 		$fileTemplateMock->expects('registerHelperLoader')
 			->with('Nette\Templating\Helpers::loader')
 			->once();
+		$fileTemplateMock->expects('registerHelperLoader')
+			->with('Flame\Templating\Helpers::loader')
+			->once();
 		$this->mailer->injectFileTemplate($fileTemplateMock);
 
 		$r = $this->mailer->getFileTemplate();

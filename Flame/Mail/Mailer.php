@@ -31,6 +31,7 @@ abstract class Mailer extends \Nette\Object
 	{
 		$this->fileTemplate->registerFilter(\Nette\Callback::create(new \Nette\Latte\Engine()));
 		$this->fileTemplate->registerHelperLoader('Nette\Templating\Helpers::loader');
+		$this->fileTemplate->registerHelperLoader('Flame\Templating\Helpers::loader');
 		$fileTemplate = clone $this->fileTemplate;
 		return $fileTemplate;
 	}
