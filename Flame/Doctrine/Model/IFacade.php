@@ -14,14 +14,23 @@ interface IFacade
 {
 
 	/**
-	 * @param \Doctrine\ORM\EntityManager $entityManager
-	 */
-	public function __construct(\Doctrine\ORM\EntityManager $entityManager);
-
-	/**
 	 * @param $id
 	 * @return \Flame\Doctrine\Entity
 	 */
 	public function getOne($id);
+
+	/**
+	 * @param \Flame\Doctrine\Entity $reference
+	 * @param bool $flush
+	 * @return mixed
+	 */
+	public function save(\Flame\Doctrine\Entity $reference, $flush = true);
+
+	/**
+	 * @param \Flame\Doctrine\Entity $reference
+	 * @param bool $flush
+	 * @return mixed
+	 */
+	public function delete(\Flame\Doctrine\Entity $reference, $flush = true);
 
 }

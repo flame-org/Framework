@@ -31,8 +31,8 @@ abstract class Facade extends \Nette\Object implements IFacade
 	 */
 	public function __construct(\Doctrine\ORM\EntityManager $entityManager)
 	{
-		if ($this->repositoryName === null or empty($this->repositoryName))
-			throw new \Nette\InvalidStateException('Name of repository must be defined ' . __CLASS__ . '::$reposityName.');
+		if (!$this->repositoryName)
+			throw new \Nette\InvalidStateException('Name of repository must be defined and valid string. ' . __CLASS__ . '::$reposityName.');
 
 		$this->repository = $entityManager->getRepository($this->repositoryName);
 	}
