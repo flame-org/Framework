@@ -13,9 +13,17 @@ use Flame\Utils\Strings;
 abstract class RestPresenter extends JsonPresenter
 {
 
+	/**
+	 * @var array
+	 */
+	protected $requestData;
+
 	protected function startup()
 	{
+
 		parent::startup();
+
+		$this->requestData = $this->getHttpRequest()->getPost();
 
 		try {
 			$this->checkMethodRequest();
