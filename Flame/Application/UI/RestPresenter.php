@@ -8,6 +8,8 @@
 
 namespace Flame\Application\UI;
 
+use Flame\Utils\Strings;
+
 abstract class RestPresenter extends JsonPresenter
 {
 
@@ -46,7 +48,7 @@ abstract class RestPresenter extends JsonPresenter
 
 	protected function checkMethodRequest()
 	{
-		$methodName = 'action' . \Flame\Utils\Strings::firstUpper($this->action);
+		$methodName = 'action' . Strings::firstUpper($this->action);
 		$rc = $this->getReflection();
 		if($rc->hasMethod($methodName) &&
 			$method = $rc->getMethod($methodName)){
@@ -55,7 +57,7 @@ abstract class RestPresenter extends JsonPresenter
 				$anot = $method->getAnnotation('method')){
 
 				$reguest = $this->getHttpRequest();
-				if($anot != $reguest->getMethod()){
+				if(Strings::lower($anot) !== Strings::lower($reguest->getMethod())){
 					throw new \Nette\InvalidStateException('Bad method for this request. ' . __CLASS__ . '::' . $methodName);
 				}
 			}
