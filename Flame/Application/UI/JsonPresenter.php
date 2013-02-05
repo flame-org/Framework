@@ -36,9 +36,9 @@ abstract class JsonPresenter extends Presenter
 	 */
 	public function getResponse()
 	{
-		if (!$this->response) {
+		if (!$this->response)
 			$this->response = $this->createResponse();
-		}
+		
 		return $this->response;
 	}
 
@@ -54,6 +54,6 @@ abstract class JsonPresenter extends Presenter
 
 	public function sendTemplate()
 	{
-		$this->sendResponse($this->response);
+		$this->sendResponse($this->getResponse());
 	}
 }
