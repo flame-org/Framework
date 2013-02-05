@@ -12,7 +12,7 @@ use Nette;
 use Nette\Reflection\Property;
 use Nette\Reflection\ClassType;
 
-class AutowirePresenter extends \Nette\Application\UI\Presenter
+abstract class AutowirePresenter extends \Nette\Application\UI\Presenter
 {
 
 	/**

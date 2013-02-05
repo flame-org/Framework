@@ -10,7 +10,7 @@
 
 namespace Flame\Application\UI;
 
-class SecuredPresenter extends Presenter
+abstract class SecuredPresenter extends Presenter
 {
 
 	/**
