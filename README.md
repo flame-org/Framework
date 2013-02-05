@@ -8,9 +8,8 @@
 * Theme manager
 * REST JSON response (template + presenter)
 * Thumbnaills creator
-* Doctrine implements
-* Simple REST router
-* Step form
+* Basic Doctrine implements
+* Step form control
 * Wordpress importer
 * Application\UI extensions
 * Anti spam control for forms
