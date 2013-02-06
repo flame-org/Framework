@@ -20,7 +20,7 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 	 */
 	public $helpersDefauls = array(
 		'template' => array(
-			'helperLoaders' => '',
+			'helperLoaders' => array(),
 			'helpers' => array(),
 		)
 	);
@@ -58,19 +58,27 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 			->addSetup('$service->basePath = preg_replace(?, "", $service->baseUrl)', array('#https?://[^/]+#A'))
 			->setAutowired(true);
 
-		if(count($config['template']['helpers'])){
-			foreach($config['template']['helpers'] as $helperName => $helper){
+		$helpers = $config['template']['helpers'];
+		if(!is_array($helpers))
+			throw new \Nette\InvalidStateException('Configuration of "template: helpers" must be array. ' . gettype($helpers) . ' given.');
+
+		if(count($helpers)){
+			foreach($helpers as $helperName => $helper){
 				list($helperClass, $helperMethod) = $this->getClassMethod($helper);
 				$template->addSetup('registerHelper', array($helperName, array($helperClass, $helperMethod)));
 			}
 		}
 
-		if(!empty($config['template']['helperLoaders'])){
-			$helperLoaders = $config['template']['helperLoaders'];
+		$helperLoaders = $config['template']['helperLoaders'];
+		if(!is_array($helperLoaders))
+			throw new \Nette\InvalidStateException('Configuration of "template: helperLoaders" must be array. ' . gettype($helperLoaders) . ' given.');
 
-			if (strpos($helperLoaders, '::') === false) {
-				$helperLoaders .= '::loader';
-				$template->addSetup('registerHelperLoader', array($helperLoaders));
+		if(count($helperLoaders)){
+			foreach($config['template']['helperLoaders'] as $loader){
+				if (strpos($loader, '::') === false) {
+					$loader .= '::loader';
+					$template->addSetup('registerHelperLoader', array($loader));
+				}
 			}
 		}
 
@@ -88,22 +96,4 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 
 		return array($helperClass, 'run');
 	}
-
-	/**
-	 * @param $atributes
-	 * @return array
-	 */
-	private function expandAttributes($atributes)
-	{
-		$prepared = array();
-		if(count($atributes)){
-			$container = $this->getContainerBuilder();
-			foreach($atributes as $atribute){
-				$prepared[] = $container->expand($atribute);
-			}
-		}
-
-		return $prepared;
-	}
-
 }
