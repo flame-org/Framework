@@ -50,4 +50,13 @@ class Helpers extends \Nette\Object
 	{
 		return \Nette\Diagnostics\Debugger::dump($var);
 	}
+
+	/**
+	 * @param $string
+	 * @return string
+	 */
+	public static function br($string)
+	{
+		return nl2br((string) $string);
+	}
 }

@@ -66,6 +66,15 @@ class HelpersTestTest extends \Flame\Tests\TestCase
 		Helpers::dump($var);
 		return \Nette\Utils\Strings::normalize(ob_get_clean());
 	}
+
+	protected function testBr()
+	{
+		$s = 'Hello
+		world!
+		How are you today?';
+		
+		Assert::equal(nl2br($s), Helpers::br($s));
+	}
 }
 
 run(new HelpersTestTest());
