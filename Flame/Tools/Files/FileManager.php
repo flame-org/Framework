@@ -73,14 +73,17 @@ class FileManager extends \Nette\Object
 	/**
 	 * Save file from url on server
 	 * @param $url
-	 * @return bool|int
+	 * @return bool|string
 	 */
 	public function downloadFile($url)
 	{
-		$fileDir = $this->getAbsolutePath() . DIRECTORY_SEPARATOR . $this->getFileName($url);
+		$fileName = $this->getFileName($url);
+		$fileDir = $this->getAbsolutePath() . DIRECTORY_SEPARATOR . $fileName;
 
-		if($file = FileSystem::read($url, false))
-			return FileSystem::write($fileDir, $file, true, 0777, false);
+		if($file = FileSystem::read($url, false)){
+			if(FileSystem::write($fileDir, $file, true, 0777, false))
+				return $this->filesDirPath . DIRECTORY_SEPARATOR . $fileName;
+		}
 
 		return false;
 	}
