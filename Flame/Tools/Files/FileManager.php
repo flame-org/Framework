@@ -15,14 +15,10 @@ use Nette\Utils\Strings;
 class FileManager extends \Nette\Object
 {
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	protected $baseDirPath;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	protected $filesDirPath;
 
 	/**
@@ -41,6 +37,14 @@ class FileManager extends \Nette\Object
 	public function setFilesDir($path)
 	{
 		$this->filesDirPath = (string) $path;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getFilesDir()
+	{
+		return $this->filesDirPath;
 	}
 
 	/**
