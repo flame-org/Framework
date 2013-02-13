@@ -24,9 +24,13 @@ abstract class Control extends \Nette\Application\UI\Control
 
 	}
 
+	/**
+	 * @param null $class
+	 * @return \Nette\Templating\FileTemplate|\Nette\Templating\ITemplate
+	 */
 	protected function createTemplate($class = null)
 	{
-		$presenter = $this->getPresenter(FALSE);
+		$presenter = $this->getPresenter(false);
 		$template = $presenter->getContext()->getService('nette.template')->create($class);
 
 		if ($template instanceof \Nette\Templating\FileTemplate)
