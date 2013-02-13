@@ -15,7 +15,13 @@ abstract class Control extends \Nette\Application\UI\Control
 	
 	public function render()
 	{
+		$this->beforeRender();
 		$this->template->render();
+	}
+
+	protected function beforeRender()
+	{
+
 	}
 
 	protected function createTemplate($class = null)
