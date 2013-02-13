@@ -28,6 +28,10 @@ abstract class Control extends \Nette\Application\UI\Control
 	{
 		$presenter = $this->getPresenter(FALSE);
 		$template = $presenter->getContext()->getService('nette.template')->create($class);
+
+		if ($template instanceof \Nette\Templating\FileTemplate)
+			$template->setFile($this->getTemplateFile());
+
 		$template->onPrepareFilters[] = $this->templatePrepareFilters;
 
 		// default parameters
@@ -49,5 +53,14 @@ abstract class Control extends \Nette\Application\UI\Control
 	public function templatePrepareFilters($template)
 	{
 
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function getTemplateFile()
+	{
+		$reflection = $this->getReflection();
+		return dirname($reflection->getFileName()) . DIRECTORY_SEPARATOR . $reflection->getShortName() . '.latte';
 	}
 }
