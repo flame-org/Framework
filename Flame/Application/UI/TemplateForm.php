@@ -19,21 +19,12 @@ class TemplateForm extends Form
 	protected $template;
 
 	/**
-	 * @param \Nette\ComponentModel\IContainer|null $parent
-	 * @param null $name
-	 */
-	public function __construct(\Nette\ComponentModel\IContainer $parent = null,  $name = null)
-	{
-		parent::__construct($parent, $name);
-	}
-
-	/**
 	 * @return string
 	 */
 	protected function getTemplateFile()
 	{
 		$reflection = $this->getReflection();
-		return dirname($reflection->getFileName()) . "/" . $reflection->getShortName() . ".latte";
+		return dirname($reflection->getFileName()) . DIRECTORY_SEPARATOR . $reflection->getShortName() . ".latte";
 	}
 
 	/**
