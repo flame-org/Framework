@@ -33,8 +33,8 @@ abstract class Control extends \Nette\Application\UI\Control
 		$presenter = $this->getPresenter(false);
 		$template = $presenter->getContext()->getService('nette.template')->create($class);
 
-		if ($template instanceof \Nette\Templating\FileTemplate)
-			$template->setFile($this->getTemplateFile());
+		if (file_exists($file = $this->getTemplateFile()))
+			$template->setFile($file);
 
 		$template->onPrepareFilters[] = $this->templatePrepareFilters;
 
