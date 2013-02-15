@@ -53,11 +53,14 @@ abstract class Presenter extends AutowirePresenter
 		return parent::createComponent($name);
 	}
 
+	/**
+	 * @param null $class
+	 * @return \Nette\Templating\ITemplate
+	 */
 	protected function createTemplate($class = null)
 	{
 		$presenter = $this->getPresenter(false);
 		$template = $presenter->getContext()->getService('nette.template')->create($class);
-		$template->onPrepareFilters[] = $this->templatePrepareFilters;
 
 		// default parameters
 		$template->control = $template->_control = $this;
@@ -68,16 +71,6 @@ abstract class Presenter extends AutowirePresenter
 		}
 
 		return $template;
-	}
-
-	/**
-	 * Descendant can override this method to customize template compile-time filters.
-	 * @param  Nette\Templating\Template
-	 * @return void
-	 */
-	public function templatePrepareFilters($template)
-	{
-
 	}
 
 }
