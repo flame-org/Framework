@@ -13,12 +13,26 @@ namespace Flame\Tests;
 abstract class TestCase extends Reflection
 {
 
+	/** @var \Nette\DI\Container */
+	protected $contenxt;
+
 	/**
-	 * @return \Nette\DI\Container|\SystemContainer
+	 * @param \Nette\DI\Container $container
 	 */
-	protected function getContext()
+	public function __construct(\Nette\DI\Container $container = null)
 	{
-		return \Nette\Environment::getContext();
+		$this->contenxt = $container;
+	}
+
+	/**
+	 * @param $name
+	 * @param null $default
+	 * @return null
+	 */
+	protected function getContextParameter($name, $default = null)
+	{
+		$params = $this->contenxt->getParameters();
+		return (isset($params[$name])) ? $params[$name] : $default;
 	}
 
 	/**
@@ -31,17 +45,6 @@ abstract class TestCase extends Reflection
 		}else{
 			return true;
 		}
-	}
-
-	/**
-	 * @param $name
-	 * @param null $default
-	 * @return null
-	 */
-	protected function getContextParameter($name, $default = null)
-	{
-		$params = $this->getContext()->getParameters();
-		return (isset($params[$name])) ? $params[$name] : $default;
 	}
 
 }
