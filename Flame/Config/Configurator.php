@@ -44,12 +44,4 @@ class Configurator extends \Nette\Config\Configurator
 			->addExtension('extensions', new Extensions\ExtensionsExtension);
 		return $compiler;
 	}
-
-	/**
-	 * @return Loader
-	 */
-	protected function createLoader()
-	{
-		return new Loader();
-	}
 }
