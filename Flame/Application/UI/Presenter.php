@@ -60,9 +60,11 @@ abstract class Presenter extends AutowirePresenter
 	protected function createTemplate($class = null)
 	{
 		$presenter = $this->getPresenter(false);
-		$template = $presenter->getContext()->getService('nette.template')->create($class);
+		$context = $presenter->getContext();
+		$template = $context->getService('nette.template')->create($class);
 
 		// default parameters
+		$template->currentUrl = $context->getByType('\Nette\Http\IRequest')->getUrl();
 		$template->control = $template->_control = $this;
 		$template->flashes = array();
 		if ($presenter instanceof Presenter && $presenter->hasFlashSession()) {
