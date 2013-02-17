@@ -25,7 +25,7 @@
 	{foreach $item as $key => $property}
         <{$key}>
 			{if $property instanceof \Datetime}
-				{$property|date:'%d %m %Y at %X'}
+				{$property->getTimestamp()}
 			{else}
 				{$property}
 			{/if}
