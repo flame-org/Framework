@@ -1,6 +1,12 @@
-{contentType 'application/rss+xml', 'utf-8'}
-<<?php ?>?xml version="1.0"?>
-<rss version="2.0">
+{contentType text/xml, 'charset=UTF-8'}
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+     xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
 <channel>
 {block #properties}
 	{foreach $channelProperties as $key => $property}
@@ -15,7 +21,7 @@
 {/block}
 
 {foreach $items as $item}
-<item>
+	<item>
 	{foreach $item as $key => $property}
         <{$key}>
 			{if $property instanceof \Datetime}
