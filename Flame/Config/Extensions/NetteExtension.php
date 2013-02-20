@@ -20,7 +20,7 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 	 */
 	public $helpersDefauls = array(
 		'template' => array(
-			'helperLoaders' => array(),
+			'helperLoaders' => array('\Flame\Templating\Helpers'),
 			'helpers' => array(),
 		)
 	);
