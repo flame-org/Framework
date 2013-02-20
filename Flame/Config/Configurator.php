@@ -30,6 +30,8 @@ class Configurator extends \Nette\Config\Configurator
 				'parent' => $containerClass
 			)
 		));
+
+		$this->registerModulesExtension();
 	}
 
 	/**
@@ -43,5 +45,12 @@ class Configurator extends \Nette\Config\Configurator
 			->addExtension('nette', new \Flame\Config\Extensions\NetteExtension)
 			->addExtension('extensions', new Extensions\ExtensionsExtension);
 		return $compiler;
+	}
+
+	protected function registerModulesExtension()
+	{
+		$this->onCompile[] = function ($configurator, $compiler) {
+			$compiler->addExtension('modules', new \Flame\Config\Extensions\ModulesExtension);
+		};
 	}
 }
