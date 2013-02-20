@@ -8,6 +8,9 @@
 
 namespace Flame\Config\Extensions;
 
+use Nette\InvalidArgumentException;
+use Nette\InvalidStateException;
+
 class ModulesExtension extends \Nette\Config\CompilerExtension
 {
 
@@ -19,41 +22,47 @@ class ModulesExtension extends \Nette\Config\CompilerExtension
 			if(count($config)){
 				foreach($config as $name => $extension){
 					if(!is_string($name))
-						$name = $this->getExtensionName($extension);
+						throw new InvalidStateException('Must be defined extension name');
+
 					$this->compiler->addExtension($name, $this->invokeExtension($extension));
 				}
 			}
 		}else{
-			throw new \Nette\InvalidStateException('Modules configuration must be array.' . gettype($config) . ' given');
+			throw new InvalidStateException('Modules configuration must be array.' . gettype($config) . ' given');
 		}
 	}
 
 	/**
 	 * @param $class
-	 * @return string
-	 */
-	protected function getExtensionName($class)
-	{
-		$ref = \Nette\Reflection\ClassType::from($class);
-		return $ref->getShortName();
-	}
-
-	/**
-	 * @param $class
-	 * @return mixed
+	 * @return ModuleExtension|object
 	 * @throws \Nette\InvalidStateException
+	 * @throws \Nette\InvalidArgumentException
 	 */
 	protected function invokeExtension($class)
 	{
 		$builder = $this->getContainerBuilder();
-		if(is_object($class)){
+		if(is_array($class)){
+			return $this->createExtension($class);
+		}elseif(is_object($class)){
 			$ref = new \ReflectionClass($class->value);
 			return $ref->newInstance(property_exists($class, 'attributes') ? $builder->expand($class->attributes) : array());
 		}elseif(is_string($class)){
-			return new $class;
+			$extension = new $class;
+			if(!$extension instanceof ModuleExtension)
+				throw new InvalidArgumentException('Extension must be instance of \Flame\Config\Extensions\ModuleExtension' );
+			return $extension;
 		}else{
-			throw new \Nette\InvalidStateException('Definition of extension must be valid class (string or object). ' . gettype($class) . ' given.');
+			throw new InvalidStateException('Definition of extension must be valid class (string or object). ' . gettype($class) . ' given.');
 		}
+	}
+
+	/**
+	 * @param array $configs
+	 * @return ModuleExtension
+	 */
+	protected function createExtension(array $configs = array())
+	{
+		return new ModuleExtension($configs);
 	}
 
 }
