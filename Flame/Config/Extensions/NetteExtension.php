@@ -28,12 +28,14 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 	public function loadConfiguration()
 	{
 		parent::loadConfiguration();
+		$this->defaults = \Nette\Config\Helpers::merge($this->defaults, $this->helpersDefauls);
 		$this->setupTemplating($this->getContainerBuilder(), $this->getConfig($this->helpersDefauls));
 	}
 
 	/**
 	 * @param \Nette\DI\ContainerBuilder $container
 	 * @param array $config
+	 * @throws \Nette\InvalidStateException
 	 */
 	private function setupTemplating(\Nette\DI\ContainerBuilder $container, array $config)
 	{
