@@ -65,6 +65,17 @@ class ModuleExtension extends \Nette\Config\CompilerExtension
 	}
 
 	/**
+	 * @param $class
+	 * @param string $method
+	 */
+	public function registerLatteMacro($class, $method = 'install')
+	{
+		$builder = $this->getContainerBuilder();
+		$latte = $builder->getDefinition('nette.latte');
+		$latte->addSetup($class . '::' . $method . '(?->compiler)', array('@self'));
+	}
+
+	/**
 	 * @return array
 	 */
 	protected function getConfigFiles()
