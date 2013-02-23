@@ -24,12 +24,7 @@
 	<item>
 	{foreach $item as $key => $property}
         <{$key}>
-			{if $property instanceof \Datetime}
-				{$property->getTimestamp()}
-			{else}
-				{$property}
-			{/if}
-
+			{$property}
 		</{$key}>
 	{/foreach}
     </item>

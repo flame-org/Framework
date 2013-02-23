@@ -26,21 +26,6 @@ class RssControl extends \Flame\Application\UI\Control
 	/** @var array */
 	private $items;
 
-	/** @var array */
-	public $onPrepareProperties;
-
-	/** @var array */
-	public $onPrepareItem;
-
-	public function __construct()
-	{
-		parent::__construct();
-
-		// set default prepare handlers
-		$this->onPrepareProperties[] = array($this, "prepareProperties");
-		$this->onPrepareItem[] = array($this, "prepareItem");
-	}
-
 	/**
 	 * Render control
 	 */
@@ -48,7 +33,8 @@ class RssControl extends \Flame\Application\UI\Control
 	{
 		// properties
 		$properties = $this->getProperties();
-		$this->onPrepareProperties($properties);
+		$properties = $this->prepareProperties($properties);
+
 		// check
 		if (empty($properties["title"]) || empty($properties["description"]) || empty($properties["link"])) {
 			throw new InvalidStateException("At least one of mandatory properties title, description or link was not set.");
@@ -57,7 +43,7 @@ class RssControl extends \Flame\Application\UI\Control
 		// items
 		$items = $this->getItems();
 		foreach ($items as &$item) {
-			$this->onPrepareItem($item);
+			$item = $this->prepareItem($item);
 
 			// check
 			if (empty($item["title"]) && empty($item["description"])) {
@@ -89,6 +75,10 @@ class RssControl extends \Flame\Application\UI\Control
 			$date = gmdate('D, d M Y H:i:s', $date) . " GMT";
 		}
 
+		if($date instanceof \DateTime){
+			$date = gmdate('D, d M Y H:i:s', $date->getTimestamp()) . " GMT";
+		}
+
 		return $date;
 	}
 
@@ -105,6 +95,8 @@ class RssControl extends \Flame\Application\UI\Control
 		if (isset($properties["lastBuildDate"])) {
 			$properties["lastBuildDate"] = self::prepareDate($properties["lastBuildDate"]);
 		}
+
+		return $properties;
 	}
 
 	/**
@@ -126,6 +118,8 @@ class RssControl extends \Flame\Application\UI\Control
 		if (isset($item["pubDate"])) {
 			$item["pubDate"] = self::prepareDate($item["pubDate"]);
 		}
+
+		return $item;
 	}
 
 	// getters & setters
