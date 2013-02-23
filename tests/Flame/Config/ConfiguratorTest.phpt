@@ -47,12 +47,6 @@ class ConfiguratorTest extends \Flame\Tests\TestCase
 		Assert::true(count($extension) == 4);
 	}
 
-	public function testCreateLoader()
-	{
-		$r = $this->invokeMethod($this->configurator, 'createLoader');
-		Assert::true($r instanceof \Flame\Config\Loader);
-	}
-
 }
 
 run(new ConfiguratorTest());
