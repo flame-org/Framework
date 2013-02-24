@@ -32,9 +32,20 @@ class Configurator extends \Nette\Config\Configurator
 			'rootDir' => '%appDir%/..',
 			'wwwDir' => '%appDir%/../www'
 		));
+	}
 
-		$this->registerModulesExtension();
-		$this->registerDoctrineExtension();
+	public function registerModulesExtension()
+	{
+		$this->onCompile[] = function ($configurator, $compiler) {
+			$compiler->addExtension('modules', new \Flame\Config\Extensions\ModulesExtension);
+		};
+	}
+
+	public function registerDoctrineExtension()
+	{
+		$this->onCompile[] = function ($configurator, $compiler) {
+			$compiler->addExtension('doctrine', new \Flame\Doctrine\Config\Extension);
+		};
 	}
 
 	/**
@@ -48,19 +59,5 @@ class Configurator extends \Nette\Config\Configurator
 			->addExtension('nette', new \Flame\Config\Extensions\NetteExtension)
 			->addExtension('extensions', new Extensions\ExtensionsExtension);
 		return $compiler;
-	}
-
-	protected function registerModulesExtension()
-	{
-		$this->onCompile[] = function ($configurator, $compiler) {
-			$compiler->addExtension('modules', new \Flame\Config\Extensions\ModulesExtension);
-		};
-	}
-
-	protected function registerDoctrineExtension()
-	{
-		$this->onCompile[] = function ($configurator, $compiler) {
-			$compiler->addExtension('doctrine', new \Flame\Doctrine\Config\Extension);
-		};
 	}
 }
