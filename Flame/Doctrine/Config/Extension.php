@@ -24,11 +24,7 @@ class Extension extends \Nette\Config\CompilerExtension
 			'autowired' => false,
 		),
 		'entityDirs' => array('%appDir%'),
-		'proxy' => array(
-			'dir' => '%rootDir%/temp/proxy',
-			'namespace' => 'App\Model\Proxies',
-			'autogenerate' => null,
-		),
+		'proxyDir' => '%rootDir%/temp/proxy',
 		'repositoryClass' => 'Flame\Doctrine\Model\Repository',
 	);
 
@@ -41,9 +37,6 @@ class Extension extends \Nette\Config\CompilerExtension
 
 		if ($config['debugger'] === null)
 			$config['debugger'] = $builder->parameters['debugMode'];
-
-		if ($config['proxy']['autogenerate'] === null)
-			$config['proxy']['autogenerate'] = $builder->parameters['debugMode'];
 
 		$this->compiler->parseServices($builder, $config, $this->name);
 
@@ -66,11 +59,9 @@ class Extension extends \Nette\Config\CompilerExtension
 
 		$configuration = $builder->addDefinition($this->prefix('configuration'))
 			->setClass('\Doctrine\ORM\Configuration')
-			->addSetup('setProxyDir', array($config['proxy']['dir']))
+			->addSetup('setProxyDir', array($config['proxyDir']))
 			->addSetup('setNamingStrategy', array($mappingStrategy))
 			->addSetup('setDefaultRepositoryClassName', array($config['repositoryClass']))
-			->addSetup('setProxyNamespace', array($config['proxy']['namespace']))
-			->addSetup('setAutoGenerateProxyClasses', array($config['proxy']['autogenerate']))
 			->addSetup('setMetadataCacheImpl', array($cache))
 			->addSetup('setQueryCacheImpl', array($cache))
 			->addSetup('setResultCacheImpl', array($cache));
