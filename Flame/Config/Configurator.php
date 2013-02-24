@@ -28,7 +28,9 @@ class Configurator extends \Nette\Config\Configurator
 			'container' => array(
 				'class' => 'SystemContainer',
 				'parent' => $containerClass
-			)
+			),
+			'rootDir' => '%appDir%/..',
+			'wwwDir' => '%appDir%/../www'
 		));
 
 		$this->registerModulesExtension();
