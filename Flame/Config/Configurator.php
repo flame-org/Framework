@@ -36,15 +36,22 @@ class Configurator extends \Nette\Config\Configurator
 
 	public function registerModulesExtension()
 	{
-		$this->onCompile[] = function ($configurator, $compiler) {
-			$compiler->addExtension('modules', new \Flame\Config\Extensions\ModulesExtension);
-		};
+		$this->registerExtension('modules', '\Flame\Config\Extensions\ModulesExtension');
 	}
 
 	public function registerDoctrineExtension()
 	{
-		$this->onCompile[] = function ($configurator, $compiler) {
-			$compiler->addExtension('doctrine', new \Flame\Doctrine\Config\Extension);
+		$this->registerExtension('doctrine', '\Flame\Doctrine\Config\Extension');
+	}
+
+	/**
+	 * @param $name
+	 * @param $class
+	 */
+	public function registerExtension($name, $class)
+	{
+		$this->onCompile[] = function ($configurator, $compiler) use ($name, $class) {
+			$compiler->addExtension($name, new $class);
 		};
 	}
 
