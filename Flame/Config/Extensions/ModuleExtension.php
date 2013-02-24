@@ -27,7 +27,6 @@ class ModuleExtension extends \Nette\Config\CompilerExtension
 	public function loadConfiguration()
 	{
 		$builder = $this->getContainerBuilder();
-		$neonParser = new \Nette\Config\Adapters\NeonAdapter;
 		foreach($this->getConfigFiles() as $configFile){
 			$config = $this->loadFromFile($configFile);
 			$this->compiler->parseServices($builder, $config);
