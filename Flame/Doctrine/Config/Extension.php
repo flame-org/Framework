@@ -66,8 +66,6 @@ class Extension extends \Nette\Config\CompilerExtension
 
 		$configuration = $builder->addDefinition($this->prefix('configuration'))
 			->setClass('\Doctrine\ORM\Configuration')
-			->setFactory('Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration',
-				array($config['entityDirs'], $builder->parameters['debugMode']))
 			->addSetup('setProxyDir', array($config['proxy']['dir']))
 			->addSetup('setNamingStrategy', array($mappingStrategy))
 			->addSetup('setDefaultRepositoryClassName', array($config['repositoryClass']))
@@ -88,6 +86,15 @@ class Extension extends \Nette\Config\CompilerExtension
 			->setClass('Doctrine\ORM\EntityManager')
 			->setFactory('Doctrine\ORM\EntityManager::create', array($config['connection'], $configuration, $eventManager));
 
+	}
+
+	public function beforeCompile()
+	{
+		$config = $this->getConfig($this->defaults);
+		$builder = $this->getContainerBuilder();
+		$configuration = $builder->getDefinition($this->prefix('configuration'));
+		$configuration->setFactory('Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration',
+				array($config['entityDirs'], $builder->parameters['debugMode']));
 	}
 
 	/**
