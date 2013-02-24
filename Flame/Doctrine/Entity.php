@@ -25,6 +25,11 @@ abstract class Entity extends \Nette\Object
      */
     private $id;
 
+	public function __construct()
+	{
+
+	}
+
 	/**
 	 * @return int
 	 */
@@ -61,6 +66,16 @@ abstract class Entity extends \Nette\Object
 		}else{
 			return (string) $this->id;
 		}
+	}
+
+	/**
+	 * @param string
+	 * @return string
+	 */
+	protected static function normalizeString($input)
+	{
+		$input = trim($input);
+		return $input === '' ? NULL : $input;
 	}
 
 }
