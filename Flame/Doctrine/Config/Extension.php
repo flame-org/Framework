@@ -83,9 +83,10 @@ class Extension extends \Nette\Config\CompilerExtension
 	{
 		$config = $this->getConfig($this->defaults);
 		$builder = $this->getContainerBuilder();
+		$cache = $builder->getDefinition($this->prefix('cache'));
 		$configuration = $builder->getDefinition($this->prefix('configuration'));
 		$configuration->setFactory('Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration',
-				array($config['entityDirs'], $builder->parameters['debugMode']));
+				array($config['entityDirs'], !$builder->parameters['debugMode'], $config['proxyDir'], $cache));
 	}
 
 	/**
