@@ -8,7 +8,7 @@
 * Theme manager
 * REST JSON response (template + presenter)
 * Thumbnaills creator
-* Basic Doctrine implements
+* Basic Doctrine implements (Extension included)
 * Step form control
 * Wordpress importer
 * Application\UI extensions
