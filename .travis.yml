@@ -8,5 +8,5 @@ before_script:
   - mysql -e 'create database testdb;'
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
   - composer self-update
-  - composer install --no-progress --dev
-script: "./tests/run-tests.sh -s tests/Flame/"
+  - composer install --no-interaction --quiet --dev
+script: "VERBOSE=true ./tests/run-tests.sh -s tests/Flame/"
