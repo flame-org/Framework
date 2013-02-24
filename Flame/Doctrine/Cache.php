@@ -8,8 +8,9 @@
 
 namespace Flame\Doctrine;
 
-use	Doctrine\ORM\Mapping\ClassMetadata,
-	Nette\Reflection\ClassType;
+use \Nette\Caching\Cache as NCache;
+use	Doctrine\ORM\Mapping\ClassMetadata;
+use Nette\Reflection\ClassType;
 
 class Cache extends \Doctrine\Common\Cache\CacheProvider
 {
@@ -26,7 +27,7 @@ class Cache extends \Doctrine\Common\Cache\CacheProvider
 	 */
 	public function __construct(\Nette\Caching\IStorage $cacheStorage, $name = self::CACHE_NAMESPACE)
 	{
-		$this->storage = new \Nette\Caching\Cache($cacheStorage, $name);
+		$this->storage = new NCache($cacheStorage, $name);
 	}
 
 	/**
