@@ -34,6 +34,7 @@ class Configurator extends \Nette\Config\Configurator
 		));
 
 		$this->registerModulesExtension();
+		$this->registerDoctrineExtension();
 	}
 
 	/**
@@ -53,6 +54,13 @@ class Configurator extends \Nette\Config\Configurator
 	{
 		$this->onCompile[] = function ($configurator, $compiler) {
 			$compiler->addExtension('modules', new \Flame\Config\Extensions\ModulesExtension);
+		};
+	}
+
+	protected function registerDoctrineExtension()
+	{
+		$this->onCompile[] = function ($configurator, $compiler) {
+			$compiler->addExtension('doctrine', new \Flame\Doctrine\Config\Extension);
 		};
 	}
 }
