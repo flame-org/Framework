@@ -8,6 +8,8 @@
 
 namespace Flame\Bundles;
 
+use Nette\Config\Helpers;
+
 class BundleExtension extends \Nette\Config\CompilerExtension implements IBundle
 {
 
