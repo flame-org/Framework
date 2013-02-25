@@ -1,16 +1,14 @@
 <?php
 /**
- * ModuleExtension.php
+ * BundleExtension.php
  *
  * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
- * @date    20.02.13
+ * @date    25.02.13
  */
 
-namespace Flame\Config\Extensions;
+namespace Flame\Bundles;
 
-use Nette\Config\Helpers;
-
-class ModuleExtension extends \Nette\Config\CompilerExtension
+class BundleExtension extends \Nette\Config\CompilerExtension implements IBundle
 {
 
 	/** @var array */
@@ -27,12 +25,14 @@ class ModuleExtension extends \Nette\Config\CompilerExtension
 	public function loadConfiguration()
 	{
 		$builder = $this->getContainerBuilder();
-		foreach($this->getConfigFiles() as $configFile){
-			$config = $this->loadFromFile($configFile);
-			$this->compiler->parseServices($builder, $config);
+		if(count($this->configFiles)){
+			foreach($this->configFiles as $configFile){
+				$config = $this->loadFromFile($configFile);
+				$this->compiler->parseServices($builder, $config);
 
-			if(isset($config['parameters'])){
-				$builder->parameters = Helpers::merge($builder->parameters, $config['parameters']);
+				if(isset($config['parameters'])){
+					$builder->parameters = Helpers::merge($builder->parameters, $config['parameters']);
+				}
 			}
 		}
 	}
@@ -73,21 +73,4 @@ class ModuleExtension extends \Nette\Config\CompilerExtension
 		$latte = $builder->getDefinition('nette.latte');
 		$latte->addSetup($class . '::' . $method . '(?->compiler)', array('@self'));
 	}
-
-	/**
-	 * @return array
-	 */
-	protected function getConfigFiles()
-	{
-		if(count($this->configFiles)){
-			return array_map(function ($config) {
-				if(is_array($config))
-					$config = array_shift($config);
-				return $config;
-			}, $this->configFiles);
-		}else{
-			return array();
-		}
-	}
 }
-
