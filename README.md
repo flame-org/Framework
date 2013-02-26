@@ -8,7 +8,6 @@
 * Theme manager
 * REST JSON response (template + presenter)
 * Thumbnaills creator
-* Basic Doctrine implements (Extension included)
 * Step form control
 * Wordpress importer
 * Application\UI extensions
@@ -20,7 +19,6 @@
 * PHP 5.3+
 * [Nette](http://nette.org/) (php framework)
 * [Composer](http://getcomposer.org/) (dependencies manager)
-* [optional] [Doctrine](http://www.doctrine-project.org/)
 
 ### Required Settings
 **Install dependencies with composer**
