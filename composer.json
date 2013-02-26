@@ -1,8 +1,8 @@
 {
 	"name": "flame/framework",
 	"type": "library",
-    "description": "Flame is simple and smart FRAMEWORK based on Nette and Doctrine2",
-    "keywords": ["framework", "nette", "simple", "flame", "jsifalda", "tools", "doctrine"],
+    "description": "Flame is simple and smart FRAMEWORK based on Nette",
+    "keywords": ["framework", "nette", "simple", "flame", "jsifalda", "tools"],
     "homepage": "https://github.com/flame-org/framework",
     "license": "BSD-2-Clause-FreeBSD",
     "minimum-stability":"dev",
@@ -25,13 +25,8 @@
 	},
 
 	"require-dev": {
-		"doctrine/orm": "2.3.0",
 		"nette/tester": "@dev",
 		"janmarek/mockista": "@dev"
-	},
-
-	"suggest": {
-		"doctrine/orm": ">=2.3.0"
 	},
 
 	"config": {
