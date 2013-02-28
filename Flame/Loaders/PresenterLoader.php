@@ -59,8 +59,7 @@ class PresenterLoader extends \Nette\Object
 			}
 		}
 
-		$this->robotLoader->addDirectory($dir);
-		$this->robotLoader->register();
+		$this->robotLoader->addDirectory($dir)->register();
 		return $this;
 	}
 
