@@ -72,17 +72,23 @@ class PresenterLoader extends \Nette\Object
 	}
 
 	/**
+	 * @param null $namespace
 	 * @return array
 	 */
-	public function getPresenters()
+	public function getPresenters($namespace = null)
 	{
 		$classes = $this->getCLasses();
 
 		if(count($classes)){
 			$classes = array_keys($classes);
-			$classes = array_map(function ($class){
+			$classes = array_map(function ($class) use ($namespace) {
 				if(Strings::contains($class, 'Presenter')){
-					return str_replace('Presenter', '', Strings::getLastPiece($class, '\\'));
+					if($namespace === null){
+						return $class;
+					}else{
+						if(Strings::contains($class, $namespace))
+							return $class;
+					}
 				}
 
 			}, $classes);
@@ -91,6 +97,18 @@ class PresenterLoader extends \Nette\Object
 		}else{
 			return array();
 		}
+	}
+
+	/**
+	 * @param null $namespace
+	 * @return array
+	 */
+	public function getPresentersName($namespace = null)
+	{
+		$presenters = $this->getPresenters($namespace);
+		return array_map(function ($presenter) {
+			return str_replace('Presenter', '', Strings::getLastPiece($presenter, '\\'));
+		}, $presenters);
 	}
 
 }
