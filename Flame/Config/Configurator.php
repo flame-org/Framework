@@ -34,16 +34,6 @@ class Configurator extends \Nette\Config\Configurator
 		));
 	}
 
-	public function registerBundlesExtension()
-	{
-		$this->registerExtension('bundles', 'Flame\Bundles\Config\Extension');
-	}
-
-	public function registerDoctrineExtension()
-	{
-		$this->registerExtension('doctrine', '\Flame\Doctrine\Config\Extension');
-	}
-
 	/**
 	 * @param $name
 	 * @param $class

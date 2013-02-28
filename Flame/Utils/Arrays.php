@@ -66,4 +66,19 @@ final class Arrays extends \Nette\Object
 		}
 		return $array;
 	}
+
+	/**
+	 * @param $needle
+	 * @param $haystack
+	 * @return bool|int|string
+	 */
+	public static function recursiveSearch($needle, $haystack) {
+		foreach($haystack as $key=>$value) {
+			$current_key=$key;
+			if($needle===$value OR (is_array($value) && static::recursiveSearch($needle,$value) !== false)) {
+				return $current_key;
+			}
+		}
+		return false;
+	}
 }
