@@ -25,18 +25,16 @@ class PresenterLoader extends \Nette\Object
 
 	/**
 	 * @param \Nette\Loaders\RobotLoader $robotLoader
-	 * @param string $appDir
 	 */
-	public function __construct(\Nette\Loaders\RobotLoader $robotLoader, $appDir = '')
+	public function __construct(\Nette\Loaders\RobotLoader $robotLoader)
 	{
 		$this->robotLoader = $robotLoader;
-		$this->appDir = realpath((string) $appDir);
 	}
 
 	/**
 	 * @param $appDir
 	 */
-	public function setAppDirectory($appDir)
+	public function setAppDir($appDir)
 	{
 		$this->appDir = realpath((string) $appDir);
 	}
