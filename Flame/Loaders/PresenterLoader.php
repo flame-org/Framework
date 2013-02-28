@@ -10,17 +10,15 @@
 
 namespace Flame\Loaders;
 
+use Flame\Utils\Strings;
+
 class PresenterLoader extends \Nette\Object
 {
 
-	/**
-	 * @var \Nette\Loaders\RobotLoader
-	 */
+	/** @var \Nette\Loaders\RobotLoader */
 	private $robotLoader;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	private $appDir;
 
 	/**
@@ -33,26 +31,34 @@ class PresenterLoader extends \Nette\Object
 
 	/**
 	 * @param $appDir
+	 * @return PresenterLoader
 	 */
 	public function setAppDir($appDir)
 	{
 		$this->appDir = realpath((string) $appDir);
+		return $this;
 	}
 
 	/**
-	 * @param $namespace
-	 * @throws \Nette\FileNotFoundException
+	 * @param string $subDir
+	 * @return PresenterLoader
 	 */
-	public function load($namespace)
+	public function load($subDir = '')
 	{
-		$modulePath = $this->appDir . DIRECTORY_SEPARATOR . $namespace . DIRECTORY_SEPARATOR . 'presenters';
+		$dir = $this->appDir;
+		if(!empty($subDir)){
+			if(Strings::startsWith($subDir, DIRECTORY_SEPARATOR)){
+				$dir .= $subDir;
+			}else{
+				$dir .= DIRECTORY_SEPARATOR . $subDir;
+			}
+		}
 
-		if(!file_exists($modulePath))
-			throw new \Nette\FileNotFoundException('Module path ' . $modulePath . ' not found!');
-
-		$this->robotLoader->addDirectory($modulePath);
+		$this->robotLoader->addDirectory($dir);
 		$this->robotLoader->setCacheStorage(new \Nette\Caching\Storages\FileStorage($this->appDir . '/../temp/cache'));
 		$this->robotLoader->register();
+
+		return $this;
 	}
 
 	/**
@@ -68,18 +74,21 @@ class PresenterLoader extends \Nette\Object
 	 */
 	public function getPresenters()
 	{
-		$classes = $this->robotLoader->getIndexedClasses();
+		$classes = $this->getCLasses();
 
 		if(count($classes)){
 			$classes = array_keys($classes);
 			$classes = array_map(function ($class){
-				$parts = explode('\\', $class);
-				$class = (isset($parts[count($parts) - 1])) ? $parts[count($parts) - 1] : $class;
-				return str_replace('Presenter', '', $class);
-			}, $classes);
-		}
+				if(Strings::contains($class, 'Presenter')){
+					return str_replace('Presenter', '', Strings::getLastPiece($class, '\\'));
+				}
 
-		return $classes;
+			}, $classes);
+
+			return \Flame\Utils\Arrays::getValidValues($classes);
+		}else{
+			return array();
+		}
 	}
 
 }
