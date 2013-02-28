@@ -23,10 +23,15 @@ class PresenterLoader extends \Nette\Object
 
 	/**
 	 * @param \Nette\Loaders\RobotLoader $robotLoader
+	 * @param \Nette\Caching\Storages\FileStorage $fileStorage
 	 */
-	public function __construct(\Nette\Loaders\RobotLoader $robotLoader)
+	public function __construct(
+		\Nette\Loaders\RobotLoader $robotLoader,
+		\Nette\Caching\Storages\FileStorage $fileStorage
+	)
 	{
 		$this->robotLoader = $robotLoader;
+		$this->robotLoader->setCacheStorage($fileStorage);
 	}
 
 	/**
@@ -55,9 +60,7 @@ class PresenterLoader extends \Nette\Object
 		}
 
 		$this->robotLoader->addDirectory($dir);
-		$this->robotLoader->setCacheStorage(new \Nette\Caching\Storages\FileStorage($this->appDir . '/../temp/cache'));
 		$this->robotLoader->register();
-
 		return $this;
 	}
 
