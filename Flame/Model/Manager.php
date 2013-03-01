@@ -51,4 +51,13 @@ abstract class Manager extends \Nette\Object
 		return \Nette\ArrayHash::from($input);
 	}
 
+	/**
+	 * @param $input
+	 * @return null
+	 */
+	protected function getId($input)
+	{
+		return (isset($input['id'])) ? $input['id'] : null;
+	}
+
 }
