@@ -15,6 +15,9 @@ use Nette\Forms\Rules;
 class Form extends \Nette\Application\UI\Form
 {
 
+	/** @var int */
+	private $id;
+
 	/**
 	 * @param \Nette\ComponentModel\IContainer|null $parent
 	 * @param null $name
@@ -34,6 +37,33 @@ class Form extends \Nette\Application\UI\Form
 			$this::IMAGE => 'You can upload only JPEG, GIF or PNG files.',
 			$this::MAX_FILE_SIZE => 'File size must be less than %d KB'
 		);
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	/**
+	 * @param int $id
+	 */
+	public function setId($id)
+	{
+		$this->id = (int) $id;
+	}
+
+	/**
+	 * @param bool $asArray
+	 * @return array|\Nette\ArrayHash
+	 */
+	public function getValues($asArray = false)
+	{
+		$values = (array) parent::getValues($asArray);
+		$values['id'] = $this->getId();
+		return \Nette\ArrayHash::from($values);
 	}
 
 	/**
@@ -137,6 +167,15 @@ class Form extends \Nette\Application\UI\Form
 	 */
 	public function setDefaults($values, $erase = false)
 	{
+
+		// Set form ID
+		if(isset($values['id'])){
+			$this->setId($values['id']);
+		}elseif(isset($values->id)){
+			$this->setId($values->id);
+		}
+
+		// Get object to string for values compatibility
 		if(is_array($values) and count($values)){
 			$values = array_map(function ($value){
 				if(is_object($value) and (method_exists($value, '__toString'))){
