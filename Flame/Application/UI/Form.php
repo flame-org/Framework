@@ -137,7 +137,7 @@ class Form extends \Nette\Application\UI\Form
 	 */
 	public function setDefaults($values, $erase = false)
 	{
-		if(is_array($values)){
+		if(is_array($values) and count($values)){
 			$values = array_map(function ($value){
 				if(is_object($value) and (method_exists($value, '__toString'))){
 					if(isset($value->id)){
