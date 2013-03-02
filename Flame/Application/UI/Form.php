@@ -193,4 +193,15 @@ class Form extends \Nette\Application\UI\Form
 		return parent::setDefaults($values, $erase);
 	}
 
+
+	public function render()
+	{
+		$this->beforeRender();
+		parent::render();
+	}
+
+	protected function beforeRender()
+	{
+
+	}
 }
