@@ -34,23 +34,34 @@ abstract class Presenter extends AutowirePresenter
 
 	/**
 	 * @param $name
-	 * @return \Nette\Application\UI\Multiplier|\Nette\ComponentModel\IComponent
+	 * @return \Nette\ComponentModel\IComponent
+	 * @throws \Nette\UnexpectedValueException
 	 */
 	protected function createComponent($name)
 	{
-		$method = 'createComponent' . ucfirst($name);
-		if (method_exists($this, $method) && \Nette\Reflection\Method::from($this, $method)->hasAnnotation('multiple')) {
-			$presenter = $this;
-			return new \Nette\Application\UI\Multiplier(function ($id) use ($presenter, $method) {
-				$defaultArgs = array($presenter, $id);
-				return call_user_func_array(array($presenter, $method), $defaultArgs);
-			});
-			# in PHP 5.4 factory for multiplied component can be protected
-			# return new UI\Multiplier(function ($id) use ($name) {
-			#	return $this->$method($this, $id, $this->getDataset($name));
-			# });
+		$ucname = ucfirst($name);
+		$method = 'createComponent' . $ucname;
+		if ($ucname !== $name && method_exists($this, $method)) {
+			$reflection = $this->getReflection()->getMethod($method);
+			if($reflection->getName() !== $method) {
+				return;
+			}
+			$class = get_class($this);
+			$parameters = $reflection->parameters;
+
+			$args = array();
+			if (isset($parameters[0]) and !$parameters[0]->className) {
+				$args[] = $name;
+			}
+
+			$args = \Nette\DI\Helpers::autowireArguments($reflection, $args, $this->context);
+			$component = call_user_func_array(array($this, $method), $args);
+			if (!$component instanceof \Nette\ComponentModel\IComponent && !isset($this->components[$name])) {
+				throw new \Nette\UnexpectedValueException("Method $class::$method() did not return or create the desired component.");
+			}
+
+			return $component;
 		}
-		return parent::createComponent($name);
 	}
 
 	/**
