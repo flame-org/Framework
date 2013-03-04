@@ -71,7 +71,7 @@ abstract class Control extends \Nette\Application\UI\Control
 				$args[] = $name;
 			}
 
-			$args = \Nette\DI\Helpers::autowireArguments($reflection, $args, $this->context);
+			$args = \Nette\DI\Helpers::autowireArguments($reflection, $args, $this->presenter->context);
 			$component = call_user_func_array(array($this, $method), $args);
 			if (!$component instanceof \Nette\ComponentModel\IComponent && !isset($this->components[$name])) {
 				throw new \Nette\UnexpectedValueException("Method $class::$method() did not return or create the desired component.");
