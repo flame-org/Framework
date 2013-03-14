@@ -34,14 +34,16 @@ abstract class Mailer extends \Nette\Object
 	}
 
 	/**
+	 * @param string $templatePath
 	 * @return \Nette\Templating\FileTemplate
 	 */
-	public function getFileTemplate()
+	public function getFileTemplate($templatePath = '')
 	{
 		$this->fileTemplate->registerFilter(\Nette\Callback::create(new \Nette\Latte\Engine()));
 		$this->fileTemplate->registerHelperLoader('Nette\Templating\Helpers::loader');
 		$this->fileTemplate->registerHelperLoader('Flame\Templating\Helpers::loader');
 		$fileTemplate = clone $this->fileTemplate;
+		$fileTemplate->setFile($templatePath);
 		return $fileTemplate;
 	}
 
