@@ -45,20 +45,20 @@ abstract class Mailer extends \Nette\Object
 		return $fileTemplate;
 	}
 
-//	/**
-//	 * @param \Nette\Mail\Message $message
-//	 * @return bool
-//	 */
-//	public function send(\Nette\Mail\Message $message)
-//	{
-//		try{
-//			$this->mailer->send($message);
-//			return true;
-//		}catch (\Exception $e){
-//			\Nette\Diagnostics\Debugger::log($e);
-//			return false;
-//		}
-//	}
+	/**
+	 * @param \Nette\Mail\Message $message
+	 * @return bool
+	 */
+	public function send(\Nette\Mail\Message $message)
+	{
+		try{
+			$this->getMailer()->send($message);
+			return true;
+		}catch (\Exception $e){
+			\Nette\Diagnostics\Debugger::log($e);
+			return false;
+		}
+	}
 
 	/**
 	 * @return \Nette\Mail\Message
