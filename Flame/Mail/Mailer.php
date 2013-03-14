@@ -11,10 +11,19 @@ namespace Flame\Mail;
 abstract class Mailer extends \Nette\Object
 {
 
-	/**
-	 * @var \Nette\Templating\FileTemplate $fileTemplate
-	 */
+	/** @var \Nette\Templating\FileTemplate $fileTemplate */
 	private $fileTemplate;
+
+	/** @var \Nette\Mail\IMailer */
+	private $mailer;
+
+	/**
+	 * @param \Nette\Mail\IMailer $mailer
+	 */
+	public function injectMailer(\Nette\Mail\IMailer $mailer)
+	{
+		$this->mailer = $mailer;
+	}
 
 	/**
 	 * @param \Nette\Templating\FileTemplate $fileTemplate
@@ -57,6 +66,14 @@ abstract class Mailer extends \Nette\Object
 	public function createMessage()
 	{
 		return new \Nette\Mail\Message;
+	}
+
+	/**
+	 * @return \Nette\Mail\SendmailMailer
+	 */
+	protected function getMailer()
+	{
+		return $this->mailer;
 	}
 
 }
