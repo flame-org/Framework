@@ -14,14 +14,14 @@ abstract class TestCase extends Reflection
 {
 
 	/** @var \Nette\DI\Container */
-	protected $contenxt;
+	protected $context;
 
 	/**
 	 * @param \Nette\DI\Container $container
 	 */
 	public function __construct(\Nette\DI\Container $container = null)
 	{
-		$this->contenxt = $container;
+		$this->context = $container;
 	}
 
 	/**
@@ -31,7 +31,7 @@ abstract class TestCase extends Reflection
 	 */
 	protected function getContextParameter($name, $default = null)
 	{
-		$params = $this->contenxt->getParameters();
+		$params = $this->context->getParameters();
 		return (isset($params[$name])) ? $params[$name] : $default;
 	}
 
