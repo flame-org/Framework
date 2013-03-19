@@ -36,7 +36,7 @@ class ThumbnailsCreator extends \Nette\Object
 	 * @param string $thumbDirUri
 	 * @param string $baseDir
 	 */
-	public function __construct($baseDir, $thumbDirUri = '/media/images_thumbnails')
+	public function __construct($baseDir, $thumbDirUri = '/media/thumbnails')
 	{
 		$this->baseDir = (string) $baseDir;
 		$this->thumbDirUri = (string) $thumbDirUri;

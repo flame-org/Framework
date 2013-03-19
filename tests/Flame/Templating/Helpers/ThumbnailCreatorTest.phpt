@@ -32,7 +32,7 @@ class ThumbnailCreatorTest extends \Flame\Tests\TestCase
 	/**
 	 * @var string
 	 */
-	private $thumbDir = '/media/images_thumbnails';
+	private $thumbDir = '/media/thumbnails';
 
 
 	public function setUp()
