@@ -38,7 +38,6 @@ abstract class Control extends \Nette\Application\UI\Control
 			$template->setFile($file);
 
 		// default parameters
-		$template->currentUrl = $context->getByType('\Nette\Http\IRequest')->getUrl();
 		$template->control = $template->_control = $this;
 		$template->flashes = array();
 		if ($presenter instanceof Presenter && $presenter->hasFlashSession()) {

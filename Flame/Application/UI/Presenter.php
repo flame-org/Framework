@@ -75,7 +75,6 @@ abstract class Presenter extends AutowirePresenter
 		$template = $context->getService('nette.template')->create($class);
 
 		// default parameters
-		$template->currentUrl = $context->getByType('\Nette\Http\IRequest')->getUrl();
 		$template->control = $template->_control = $this;
 		$template->flashes = array();
 		if ($presenter instanceof Presenter && $presenter->hasFlashSession()) {

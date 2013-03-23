@@ -57,6 +57,7 @@ class NetteExtension extends \Nette\Config\Extensions\NetteExtension
 			->addSetup('$netteHttpResponse', array('@httpResponse'))
 			->addSetup('$netteCacheStorage', array('@cacheStorage'))
 			->addSetup('$service->baseUri = $service->baseUrl = rtrim(?->getBaseUrl(), "/")', array(new Nette\DI\Statement('@httpRequest::getUrl')))
+			->addSetup('$service->currentUrl = ?', array(new Nette\DI\Statement('@httpRequest::getUrl')))
 			->addSetup('$service->basePath = preg_replace(?, "", $service->baseUrl)', array('#https?://[^/]+#A'))
 			->setAutowired(true);
 
