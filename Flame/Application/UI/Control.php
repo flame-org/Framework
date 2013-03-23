@@ -32,7 +32,7 @@ abstract class Control extends \Nette\Application\UI\Control
 	{
 		$presenter = $this->getPresenter(false);
 		$context = $presenter->getContext();
-		$template = $context->getService('nette.template')->create($class);
+		$template = clone $context->getService('nette.template')->create($class);
 
 		if (file_exists($file = $this->getTemplateFile()))
 			$template->setFile($file);
