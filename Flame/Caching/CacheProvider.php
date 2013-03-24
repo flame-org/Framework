@@ -9,6 +9,7 @@
 namespace Flame\Caching;
 
 use \Nette\Caching\Cache;
+use \Nette\Caching\Storages\IJournal;
 
 class CacheProvider extends \Nette\Object
 {
@@ -35,15 +36,16 @@ class CacheProvider extends \Nette\Object
 	/**
 	 * @param $dir
 	 * @param null $namespace
+	 * @param \Nette\Caching\Storages\IJournal $journal
 	 * @return \Nette\Caching\Cache
 	 */
-	public function createCache($dir, $namespace = null)
+	public function createCache($dir, $namespace = null, IJournal $journal = null)
 	{
 		if(!file_exists($dir))
 			\Flame\Tools\Files\FileSystem::mkDir($dir);
 
 		return new Cache(
-			new \Nette\Caching\Storages\FileStorage($dir),
+			new \Nette\Caching\Storages\FileStorage($dir, $journal),
 			$namespace
 		);
 	}
