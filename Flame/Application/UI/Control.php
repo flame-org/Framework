@@ -21,7 +21,8 @@ abstract class Control extends \Nette\Application\UI\Control
 	public function render()
 	{
 		$params = func_get_args();
-		$method = (array_shift($params)) ? 'render' . ucfirst(array_shift($params)) : 'renderDefault';
+		$type = array_shift($params);
+		$method = ($type !== null) ? 'render' . ucfirst($type) : 'renderDefault';
 
 		if(count($this->onBeforeRender)){
 			foreach($this->onBeforeRender as $callback){
