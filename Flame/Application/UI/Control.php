@@ -42,6 +42,11 @@ abstract class Control extends \Nette\Application\UI\Control
 		return Callback::create($this, $method)->invokeArgs($params);
 	}
 
+	public function renderDefault()
+	{
+		$this->template->render();
+	}
+
 	/**
 	 * @param null $class
 	 * @return \Nette\Templating\FileTemplate|\Nette\Templating\ITemplate
