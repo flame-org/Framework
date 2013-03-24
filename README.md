@@ -8,11 +8,23 @@
 * Theme manager
 * REST JSON response (template + presenter)
 * Thumbnaills creator
-* Step form control
-* Wordpress importer
 * Application\UI extensions
 * Anti spam control for forms
 * Multiple files upload for forms
+* Bundles support
+
+**Addons**
+* Step form control
+* Wordpress importer
+* Basic Flash messages control
+* Rss feed control
+* Visual paginator
+
+**Utils**
+* Arrays
+* Strings
+* Assets
+
 
 ### Requirements
 * PHP 5.3+
