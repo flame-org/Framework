@@ -17,12 +17,23 @@ class CacheProvider extends \Nette\Object
 	/** @var \Nette\Caching\Cache */
 	private $cache;
 
+	/** @var string */
+	private $tempDir;
+
 	/**
 	 * @param \Nette\Caching\Cache $cache
 	 */
-	public function __construct(Cache $cache = null)
+	public function injectCache(Cache $cache = null)
 	{
 		$this->cache = $cache;
+	}
+
+	/**
+	 * @param $tempDir
+	 */
+	public function __construct($tempDir)
+	{
+		$this->tempDir = (string) $tempDir;
 	}
 
 	/**
@@ -41,6 +52,8 @@ class CacheProvider extends \Nette\Object
 	 */
 	public function createCache($dir, $namespace = null, IJournal $journal = null)
 	{
+		$dir = $this->tempDir . DIRECTORY_SEPARATOR . $dir;
+
 		if(!file_exists($dir))
 			\Flame\Tools\Files\FileSystem::mkDir($dir);
 
