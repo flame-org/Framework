@@ -23,8 +23,6 @@ abstract class Control extends \Nette\Application\UI\Control
 		$params = func_get_args();
 		$method = (array_shift($params)) ? 'render' . ucfirst(array_shift($params)) : 'renderDefault';
 
-		$this->beforeRender();
-
 		if(count($this->onBeforeRender)){
 			foreach($this->onBeforeRender as $callback){
 				if($callback instanceof Callback){
@@ -38,14 +36,6 @@ abstract class Control extends \Nette\Application\UI\Control
 		}
 
 		return Callback::create($this, $method)->invokeArgs($params);
-	}
-
-	/**
-	 * @Deprecated
-	 */
-	protected function beforeRender()
-	{
-
 	}
 
 	/**
