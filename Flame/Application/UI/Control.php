@@ -30,9 +30,9 @@ abstract class Control extends \Nette\Application\UI\Control
 		if(count($this->onBeforeRender)){
 			foreach($this->onBeforeRender as $callback){
 				if($callback instanceof Callback){
-					$callback->invoke();
+					$callback->invokeArgs($params);
 				}elseif(is_array($callback) && count($callback)){
-					Callback::create($callback)->invoke();
+					Callback::create($callback)->invokeArgs($params);
 				}else{
 					throw new \Nette\InvalidStateException('Invalid before render hook callback');
 				}
