@@ -12,6 +12,9 @@ namespace Flame\Application\UI;
 
 use Nette\Callback;
 
+/**
+ * @property \Nette\Templating\FileTemplate template
+ */
 abstract class Control extends \Nette\Application\UI\Control
 {
 
