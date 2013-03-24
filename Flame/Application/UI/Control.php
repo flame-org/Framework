@@ -10,15 +10,36 @@
 
 namespace Flame\Application\UI;
 
+use Nette\Callback;
+
 abstract class Control extends \Nette\Application\UI\Control
 {
-	
+
+	/** @var array */
+	public $onBeforeRender = array();
+
 	public function render()
 	{
 		$this->beforeRender();
+
+		if(count($this->onBeforeRender)){
+			foreach($this->onBeforeRender as $callback){
+				if($callback instanceof Callback){
+					$callback->invoke();
+				}elseif(is_array($callback) && count($callback)){
+					Callback::create($callback)->invoke();
+				}else{
+					throw new \Nette\InvalidStateException('Invalid before render hook callback');
+				}
+			}
+		}
+
 		$this->template->render();
 	}
 
+	/**
+	 * @Deprecated
+	 */
 	protected function beforeRender()
 	{
 
