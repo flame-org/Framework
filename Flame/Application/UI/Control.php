@@ -21,6 +21,10 @@ abstract class Control extends \Nette\Application\UI\Control
 	/** @var array */
 	public $onBeforeRender = array();
 
+	/**
+	 * @return mixed
+	 * @throws \Nette\InvalidStateException
+	 */
 	public function render()
 	{
 		$params = func_get_args();
