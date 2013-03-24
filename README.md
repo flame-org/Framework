@@ -13,7 +13,6 @@
 * Application\UI extensions
 * Anti spam control for forms
 * Multiple files upload for forms
-* Improve of nette\database (like Doctrine but easier and simpler)
 
 ### Requirements
 * PHP 5.3+
