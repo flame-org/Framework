@@ -20,6 +20,9 @@ abstract class Control extends \Nette\Application\UI\Control
 
 	public function render()
 	{
+		$params = func_get_args();
+		$method = (array_shift($params)) ? 'render' . ucfirst(array_shift($params)) : 'renderDefault';
+
 		$this->beforeRender();
 
 		if(count($this->onBeforeRender)){
@@ -34,7 +37,7 @@ abstract class Control extends \Nette\Application\UI\Control
 			}
 		}
 
-		$this->template->render();
+		return Callback::create($this, $method)->invokeArgs($params);
 	}
 
 	/**
