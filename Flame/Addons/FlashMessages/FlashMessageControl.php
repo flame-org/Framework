@@ -29,10 +29,11 @@ class FlashMessageControl extends \Flame\Application\UI\Control
 			$this->templateFile = __DIR__ . '/FlashMessageControl.latte';
 	}
 
-	public function render()
+	public function renderDefault()
 	{
 		$this->template->flashes = $this->parent->getTemplate()->flashes;
 		$this->template->setFile($this->templateFile)->render();
+		$this->template->render();
 	}
 
 }
