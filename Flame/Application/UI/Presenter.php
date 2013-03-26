@@ -10,7 +10,7 @@
 
 namespace Flame\Application\UI;
 
-abstract class Presenter extends AutowirePresenter
+abstract class Presenter extends \Nette\Application\UI\Presenter
 {
 
 	/**
