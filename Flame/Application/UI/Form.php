@@ -62,7 +62,8 @@ class Form extends \Nette\Application\UI\Form
 	public function getValues($asArray = false)
 	{
 		$values = (array) parent::getValues($asArray);
-		$values['id'] = $this->getId();
+		if(!isset($values['id']))
+			$values['id'] = $this->getId();
 		return \Nette\ArrayHash::from($values);
 	}
 

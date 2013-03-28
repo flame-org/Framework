@@ -12,7 +12,7 @@ namespace Flame\Tests;
 
 use Nette\Application\UI\Form;
 
-abstract class ApplicationTestCase extends TestCase
+abstract class ApplicationTestCase extends MockTestCase
 {
 
 	/**
