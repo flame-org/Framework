@@ -14,6 +14,19 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 {
 
 	/**
+	 * @param $element
+	 * @throws \Nette\Application\ForbiddenRequestException
+	 */
+	public function checkRequirements($element)
+	{
+		try {
+			parent::checkRequirements($element);
+		}catch (\Nette\Application\ForbiddenRequestException $ex) {
+			throw new \Nette\Application\ForbiddenRequestException('Access denied');
+		}
+	}
+
+	/**
 	 * @param $name
 	 * @param null $default
 	 * @return null
