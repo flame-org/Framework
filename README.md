@@ -6,7 +6,6 @@
 
 ###Basic features
 * Theme manager
-* REST JSON response (template + presenter)
 * Thumbnaills creator
 * Application\UI extensions
 * Anti spam control for forms
