@@ -10,7 +10,7 @@ namespace Flame\Application\UI;
 
 use Flame\Utils\Strings;
 
-abstract class RestPresenter extends JsonPresenter
+abstract class RestPresenter extends Presenter
 {
 
 	/**
@@ -39,9 +39,8 @@ abstract class RestPresenter extends JsonPresenter
 	protected function returnException(\Exception $ex)
 	{
 		\Nette\Diagnostics\Debugger::log($ex);
-		$this->response->status = 'error';
-		$this->response->message = $ex->getMessage();
-		$this->sendResponse($this->getResponse());
+		$this->payload->status = 'error';
+		$this->payload->message = $ex->getMessage();
 	}
 
 	/**
@@ -50,8 +49,13 @@ abstract class RestPresenter extends JsonPresenter
 	 */
 	protected function returnResponse($data = array())
 	{
-		$this->response->status = 'success';
-		$this->response->data = $data;
+		$this->payload->status = 'success';
+		$this->payload->data = $data;
+	}
+
+	protected function beforeRender()
+	{
+		$this->sendJson($this->getPayload());
 	}
 
 	protected function checkMethodRequest()
