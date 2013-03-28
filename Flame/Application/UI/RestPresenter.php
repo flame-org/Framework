@@ -60,10 +60,6 @@ abstract class RestPresenter extends Presenter
 	{
 		$this->payload->status = 'success';
 		$this->payload->data = $data;
-	}
-
-	protected function beforeRender()
-	{
 		$this->sendJson($this->getPayload());
 	}
 
@@ -80,5 +76,4 @@ abstract class RestPresenter extends Presenter
 			}
 		}
 	}
-
 }
