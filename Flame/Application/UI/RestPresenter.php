@@ -18,20 +18,28 @@ abstract class RestPresenter extends Presenter
 	 */
 	protected $requestData;
 
-	protected function startup()
+	/**
+	 * @param $element
+	 */
+	public function checkRequirements($element)
 	{
 
+		try {
+			parent::checkRequirements($element);
+			$this->checkMethodRequest($element);
+
+		}catch (\Nette\Application\ForbiddenRequestException $ex) {
+			$this->returnException($ex);
+		}
+	}
+
+	protected function startup()
+	{
 		parent::startup();
 
 		$this->requestData = $this->getHttpRequest()->getPost();
-
-		try {
-			$this->checkMethodRequest();
-		}catch (\Nette\InvalidStateException $ex) {
-			$this->returnException($ex);
-		}
-
 	}
+
 	/**
 	 * @param \Exception $ex
 	 * @return string
@@ -41,6 +49,7 @@ abstract class RestPresenter extends Presenter
 		\Nette\Diagnostics\Debugger::log($ex);
 		$this->payload->status = 'error';
 		$this->payload->message = $ex->getMessage();
+		$this->sendJson($this->getPayload());
 	}
 
 	/**
@@ -58,20 +67,16 @@ abstract class RestPresenter extends Presenter
 		$this->sendJson($this->getPayload());
 	}
 
-	protected function checkMethodRequest()
+	/**
+	 * @param $element
+	 * @throws \Nette\Application\ForbiddenRequestException
+	 */
+	protected function checkMethodRequest($element)
 	{
-		$methodName = 'action' . Strings::firstUpper($this->action);
-		$rc = $this->getReflection();
-		if($rc->hasMethod($methodName) &&
-			$method = $rc->getMethod($methodName)){
-
-			if($method->hasAnnotation('method') &&
-				$anot = $method->getAnnotation('method')){
-
-				$reguest = $this->getHttpRequest();
-				if(Strings::lower($anot) !== Strings::lower($reguest->getMethod())){
-					throw new \Nette\InvalidStateException('Bad method for this request. ' . __CLASS__ . '::' . $methodName);
-				}
+		if($anot = $element->getAnnotation('method')){
+			$reguest = $this->getHttpRequest();
+			if(Strings::lower($anot) !== Strings::lower($reguest->getMethod())){
+				throw new \Nette\Application\ForbiddenRequestException('Bad method for this request. ' . __CLASS__ . '::' . $element->getName());
 			}
 		}
 	}
