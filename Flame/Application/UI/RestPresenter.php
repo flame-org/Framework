@@ -13,9 +13,7 @@ use Flame\Utils\Strings;
 abstract class RestPresenter extends Presenter
 {
 
-	/**
-	 * @var array
-	 */
+	/** @var array */
 	protected $requestData;
 
 	/**
@@ -38,6 +36,8 @@ abstract class RestPresenter extends Presenter
 		parent::startup();
 
 		$this->requestData = $this->getHttpRequest()->getPost();
+
+		$this->payload->status = 'success';
 	}
 
 	/**
@@ -49,16 +49,15 @@ abstract class RestPresenter extends Presenter
 		\Nette\Diagnostics\Debugger::log($ex);
 		$this->payload->status = 'error';
 		$this->payload->message = $ex->getMessage();
-		$this->sendJson($this->getPayload());
+		$this->returnResponse();
 	}
 
+
 	/**
-	 * @param $data
-	 * @return string
+	 * @param array $data
 	 */
-	protected function returnResponse($data = array())
+	protected function returnResponse(array $data = array())
 	{
-		$this->payload->status = 'success';
 		$this->payload->data = $data;
 		$this->sendJson($this->getPayload());
 	}
