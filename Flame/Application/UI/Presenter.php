@@ -10,6 +10,9 @@
 
 namespace Flame\Application\UI;
 
+/**
+ * @property-read \Nette\Templating\Template $template
+ */
 abstract class Presenter extends \Nette\Application\UI\Presenter
 {
 
