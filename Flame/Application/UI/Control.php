@@ -53,25 +53,13 @@ abstract class Control extends \Nette\Application\UI\Control
 
 	/**
 	 * @param null $class
-	 * @return \Nette\Templating\FileTemplate|\Nette\Templating\ITemplate
+	 * @return \Nette\Templating\ITemplate
 	 */
 	protected function createTemplate($class = null)
 	{
-		$presenter = $this->getPresenter(false);
-		$context = $presenter->getContext();
-		$template = clone $context->getService('nette.template')->create($class);
-
+		$template = parent::createTemplate($class);
 		if (file_exists($file = $this->getTemplateFile()))
 			$template->setFile($file);
-
-		// default parameters
-		$template->control = $template->_control = $this;
-		$template->flashes = array();
-		if ($presenter instanceof Presenter && $presenter->hasFlashSession()) {
-			$id = $this->getParameterId('flash');
-			$template->flashes = (array) $presenter->getFlashSession()->$id;
-		}
-
 		return $template;
 	}
 

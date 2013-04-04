@@ -44,17 +44,4 @@ class Configurator extends \Nette\Config\Configurator
 			$compiler->addExtension($name, new $class);
 		};
 	}
-
-	/**
-	 * @return \Nette\Config\Compiler
-	 */
-	protected function createCompiler()
-	{
-		$compiler = new \Nette\Config\Compiler();
-		$compiler->addExtension('php', new Extensions\PhpExtension)
-			->addExtension('constants', new Extensions\ConstantsExtension)
-			->addExtension('nette', new \Flame\Config\Extensions\NetteExtension)
-			->addExtension('extensions', new Extensions\ExtensionsExtension);
-		return $compiler;
-	}
 }

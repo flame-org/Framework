@@ -77,25 +77,4 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 		}
 	}
 
-	/**
-	 * @param null $class
-	 * @return \Nette\Templating\ITemplate
-	 */
-	protected function createTemplate($class = null)
-	{
-		$presenter = $this->getPresenter(false);
-		$context = $presenter->getContext();
-		$template = $context->getService('nette.template')->create($class);
-
-		// default parameters
-		$template->control = $template->_control = $this;
-		$template->flashes = array();
-		if ($presenter instanceof Presenter && $presenter->hasFlashSession()) {
-			$id = $this->getParameterId('flash');
-			$template->flashes = (array) $presenter->getFlashSession()->$id;
-		}
-
-		return $template;
-	}
-
 }
