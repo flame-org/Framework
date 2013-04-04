@@ -33,20 +33,6 @@ class ConfiguratorTest extends \Flame\Tests\TestCase
 		//TODO:
 	}
 
-	public function testCreateCompiler()
-	{
-		$compiler = new \Nette\Config\Compiler();
-		$compiler->addExtension('php', new Extensions\PhpExtension)
-			->addExtension('constants', new Extensions\ConstantsExtension)
-			->addExtension('nette', new \Flame\Config\Extensions\NetteExtension)
-			->addExtension('extensions', new Extensions\ExtensionsExtension);
-
-		$r = $this->invokeMethod($this->configurator, 'createCompiler');
-		$extension = $this->getAttributeValue($r, 'extensions');
-		Assert::false(empty($extension));
-		Assert::true(count($extension) == 4);
-	}
-
 }
 
 run(new ConfiguratorTest());
