@@ -33,7 +33,6 @@ class FlashMessageControl extends \Flame\Application\UI\Control
 	{
 		$this->template->flashes = $this->parent->getTemplate()->flashes;
 		$this->template->setFile($this->templateFile)->render();
-		$this->template->render();
 	}
 
 }
