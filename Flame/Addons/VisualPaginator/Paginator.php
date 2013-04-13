@@ -28,18 +28,17 @@ use Nette\Application\UI;
  */
 class Paginator extends UI\Control
 {
-	/** @var Paginator */
+	/** @var \Nette\Utils\Paginator */
 	private $paginator;
 
 	/** @persistent */
 	public $page = 1;
 
 
-
-	/**
-	 * @return Nette\Paginator
-	 */
-	public function getPaginator()
+    /**
+     * @return \Nette\Utils\Paginator
+     */
+    public function getPaginator()
 	{
 		if (!$this->paginator) {
 			$this->paginator = new \Nette\Utils\Paginator;
