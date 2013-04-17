@@ -147,6 +147,9 @@ class Form extends \Nette\Application\UI\Form
 		$args = func_get_args();
 		$listeners = array_shift($args);
 
+        if(class_exists('\Kdyby\Events\Event') && $listeners instanceof \Kdyby\Events\Event)
+            $listeners = $listeners->getListeners();
+
 		foreach ((array)$listeners as $handler) {
 			if ($handler instanceof \Nette\Application\UI\Link) {
 				if (!$this->isValid()) continue;
