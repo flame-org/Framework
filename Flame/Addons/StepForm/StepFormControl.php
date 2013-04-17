@@ -40,9 +40,9 @@ class StepFormControl extends Control
 		parent::attached($obj);
 
 		if ($obj instanceOf Presenter) {
-			$this->position = $this->getPresenter()->getParameter('step') ? (int) $this->getPresenter()->getParameter('step') : 1;
+			$this->position = $this->getPresenter()->getParameter('step') ? (int)$this->getPresenter()->getParameter('step') : 1;
 
-			if(count($this->steps)){
+			if (count($this->steps)) {
 				foreach ($this->steps as $key => $step) {
 					$steps[$key] = $step;
 				}

@@ -20,9 +20,9 @@ class Container extends \Nette\DI\Container
 	 */
 	public function getParam($key, $default = null)
 	{
-		if(isset($this->parameters[$key])){
+		if (isset($this->parameters[$key])) {
 			return $this->parameters[$key];
-		}else{
+		} else {
 			return $default;
 		}
 	}

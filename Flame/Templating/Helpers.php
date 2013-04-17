@@ -57,6 +57,6 @@ class Helpers extends \Nette\Object
 	 */
 	public static function br($string)
 	{
-		return nl2br((string) $string);
+		return nl2br((string)$string);
 	}
 }

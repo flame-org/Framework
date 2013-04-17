@@ -23,7 +23,7 @@ abstract class ThemeManager extends \Nette\Object
 	 */
 	public function __construct(array $parameters)
 	{
-		if(!isset($parameters['baseDir']))
+		if (!isset($parameters['baseDir']))
 			throw new \Nette\InvalidStateException(__METHOD__ . ' require set baseDir parametr.');
 
 		$this->parameters = $parameters;

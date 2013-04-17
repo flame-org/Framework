@@ -19,7 +19,6 @@ class IOException extends \RuntimeException
 }
 
 
-
 /**
  * The exception that is thrown when accessing a file that does not exist on disk.
  */
@@ -37,7 +36,6 @@ class FileNotFoundException extends IOException
 	}
 
 }
-
 
 
 /**
@@ -58,7 +56,6 @@ class FileNotWritableException extends IOException
 }
 
 
-
 /**
  * The exception that is thrown when part of a file or directory cannot be found.
  */
@@ -77,7 +74,6 @@ class DirectoryNotFoundException extends IOException
 }
 
 
-
 /**
  * The exception that is thrown when writing to a directory that is not writable.
  */
@@ -94,7 +90,6 @@ class DirectoryNotWritableException extends IOException
 	}
 
 }
-
 
 
 /**

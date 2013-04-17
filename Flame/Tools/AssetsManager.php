@@ -27,7 +27,7 @@ class AssetsManager extends \Nette\Object
 	 */
 	public function __construct($wwwDir)
 	{
-		$this->wwwDir = (string) $wwwDir;
+		$this->wwwDir = (string)$wwwDir;
 	}
 
 	/**
@@ -44,7 +44,7 @@ class AssetsManager extends \Nette\Object
 			$content = FileSystem::read($filePath);
 			$minifyContent = Assets::minifyCss($content);
 			$path = $this->wwwDir . $publicDir . DIRECTORY_SEPARATOR . $fileName;
-			if(!FileSystem::write($path, $minifyContent))
+			if (!FileSystem::write($path, $minifyContent))
 				$failed[] = array($filePath, $path);
 		}
 		return $failed;
@@ -60,7 +60,7 @@ class AssetsManager extends \Nette\Object
 			try {
 				$minifyContent = \JsMin\Minify::minify($content);
 				FileSystem::write($path, $minifyContent);
-			}catch (\Exception $ex){
+			} catch (\Exception $ex) {
 				$failed[] = array($filePath, $path);
 			}
 		}
@@ -80,7 +80,7 @@ class AssetsManager extends \Nette\Object
 		$failed = array();
 		foreach (Finder::findFiles($filesPattern)->from($runScriptPath . $directory) as $filePath => $file) {
 			$path = $this->wwwDir . str_replace($runScriptPath, '', $filePath);
-			if(!FileSystem::cp($filePath, $path))
+			if (!FileSystem::cp($filePath, $path))
 				$failed[] = array($filePath, $path);
 		}
 		return $failed;

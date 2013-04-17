@@ -33,7 +33,7 @@ class CacheProvider extends \Nette\Object
 	 */
 	public function __construct($tempDir)
 	{
-		$this->tempDir = (string) $tempDir;
+		$this->tempDir = (string)$tempDir;
 	}
 
 	/**
@@ -54,7 +54,7 @@ class CacheProvider extends \Nette\Object
 	{
 		$dir = $this->tempDir . DIRECTORY_SEPARATOR . $dir;
 
-		if(!file_exists($dir))
+		if (!file_exists($dir))
 			\Flame\Tools\Files\FileSystem::mkDir($dir);
 
 		return new Cache(

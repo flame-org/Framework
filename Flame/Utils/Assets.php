@@ -19,9 +19,9 @@ class Assets extends \Nette\Object
 	 */
 	public static function getFileNameFromPath($path)
 	{
-		if(strpos($path, DIRECTORY_SEPARATOR) === false){
+		if (strpos($path, DIRECTORY_SEPARATOR) === false) {
 			return $path;
-		}else{
+		} else {
 			return str_replace(DIRECTORY_SEPARATOR, '', strrchr($path, DIRECTORY_SEPARATOR));
 		}
 	}
@@ -32,7 +32,7 @@ class Assets extends \Nette\Object
 	 * @param string $newType
 	 * @return mixed
 	 */
-	public static function modifyType($name, $oldType =  'less', $newType = 'css')
+	public static function modifyType($name, $oldType = 'less', $newType = 'css')
 	{
 		return str_replace('.' . $oldType, '.' . $newType, $name);
 	}
@@ -43,7 +43,7 @@ class Assets extends \Nette\Object
 	 */
 	public static function minifyCss($content)
 	{
-		return str_replace('; ',';',str_replace(' }','}',str_replace('{ ','{',str_replace(array("\r\n","\r","\n","\t",'  ','    ','    '),"",preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!','',$content)))));
+		return str_replace('; ', ';', str_replace(' }', '}', str_replace('{ ', '{', str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), "", preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content)))));
 	}
 
 }

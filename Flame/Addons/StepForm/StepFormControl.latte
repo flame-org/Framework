@@ -1,10 +1,10 @@
 {if count($menu)}
-	<ul class="nav nav-tabs">
+<ul class="nav nav-tabs">
 
-		{foreach $menu as $key => $step}
-			<li n:class="$key === $position ? active"><a href="{plink this step => $key}">{$step}</a></li>
-		{/foreach}
-	</ul>
+	{foreach $menu as $key => $step}
+        <li n:class="$key === $position ? active"><a href="{plink this step => $key}">{$step}</a></li>
+	{/foreach}
+</ul>
 
 	{control $steps[$position]}
 

@@ -41,26 +41,26 @@ class PostsImporter extends \Nette\Object
 
 		$wp = $item->children($namespaces['wp']);
 
-		$post['slug'] = (string) $wp->post_name;
-		$post['name'] = (string) $item->title;
+		$post['slug'] = (string)$wp->post_name;
+		$post['name'] = (string)$item->title;
 		$post['pubDate'] = new \DateTime($item->pubDate);
-		$post['description'] = (string) $item->description;
-		$post['comment'] = (string) $wp->comment_status;
-		$post['status'] = (string) $wp->status;
+		$post['description'] = (string)$item->description;
+		$post['comment'] = (string)$wp->comment_status;
+		$post['status'] = (string)$wp->status;
 
 		$category = '';
 		$tags = array();
 
-		if ($item->category){
+		if ($item->category) {
 
-			foreach ($item->category as $tag){
+			foreach ($item->category as $tag) {
 
-				if ( (string) $tag['domain'] === 'post_tag'){
-					$tags[] = (string) $tag['nicename'];
+				if ((string)$tag['domain'] === 'post_tag') {
+					$tags[] = (string)$tag['nicename'];
 				}
 
-				if( (string) $tag['domain'] === 'category'){
-					$category = (string) $tag['nicename'];
+				if ((string)$tag['domain'] === 'category') {
+					$category = (string)$tag['nicename'];
 					//continue;
 				}
 			}
@@ -88,8 +88,7 @@ class PostsImporter extends \Nette\Object
 
 		$posts = array();
 
-		foreach ($this->items as $item)
-		{
+		foreach ($this->items as $item) {
 			$posts[] = $this->postToArray($item);
 		}
 
@@ -100,11 +99,12 @@ class PostsImporter extends \Nette\Object
 	 * @param $content
 	 * @return mixed
 	 */
-	private function findImages($content){
+	private function findImages($content)
+	{
 		$pattern = '/<img[^>]+src[\\s=\'"]';
 		$pattern .= '+([^"\'>\\s]+)/is';
 
-		if(preg_match_all($pattern,$content,$match)){
+		if (preg_match_all($pattern, $content, $match)) {
 			return $match;
 		}
 	}

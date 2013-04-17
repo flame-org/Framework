@@ -53,10 +53,10 @@ abstract class Mailer extends \Nette\Object
 	 */
 	public function send(\Nette\Mail\Message $message)
 	{
-		try{
+		try {
 			$this->getMailer()->send($message);
 			return true;
-		}catch (\Exception $e){
+		} catch (\Exception $e) {
 			\Nette\Diagnostics\Debugger::log($e);
 			return false;
 		}

@@ -67,7 +67,6 @@ class FileSystem extends \Nette\Object
 	}
 
 
-
 	/**
 	 * @param string $dir
 	 * @param bool $need
@@ -169,7 +168,7 @@ class FileSystem extends \Nette\Object
 	{
 		$destFolder = str_replace(DIRECTORY_SEPARATOR . static::getFileName($dest), '', $dest);
 
-		if(!file_exists($destFolder)){
+		if (!file_exists($destFolder)) {
 			static::mkDir($destFolder, true, 0777, $need);
 		}
 
@@ -182,9 +181,9 @@ class FileSystem extends \Nette\Object
 	 */
 	public static function getFileName($path)
 	{
-		if(strpos($path, DIRECTORY_SEPARATOR) === false){
+		if (strpos($path, DIRECTORY_SEPARATOR) === false) {
 			return $path;
-		}else{
+		} else {
 			return str_replace(DIRECTORY_SEPARATOR, '', strrchr($path, DIRECTORY_SEPARATOR));
 		}
 	}

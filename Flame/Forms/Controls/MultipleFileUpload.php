@@ -30,7 +30,8 @@ class MultipleFileUpload extends UploadControl
 	 * Generates control's HTML element.
 	 * @return \Nette\Utils\Html
 	 */
-	public function getControl() {
+	public function getControl()
+	{
 		$control = parent::getControl();
 		$control->name = $this->getHtmlName() . "[]";
 		$control->class[] = "multiple-file-upload";
@@ -65,13 +66,13 @@ class MultipleFileUpload extends UploadControl
 	public static function validateFileSize(UploadControl $control, $limit)
 	{
 		$files = $control->getValue();
-		if(is_array($files) and count($files)){
-			foreach($files as $file){
-				if(!$file instanceof FileUpload or $file->getSize() >= $limit) return false;
+		if (is_array($files) and count($files)) {
+			foreach ($files as $file) {
+				if (!$file instanceof FileUpload or $file->getSize() >= $limit) return false;
 			}
 
 			return true;
-		}else{
+		} else {
 			return $files instanceof FileUpload && $files->getSize() <= $limit;
 		}
 
@@ -87,12 +88,12 @@ class MultipleFileUpload extends UploadControl
 	{
 		$files = $control->getValue();
 
-		if(is_array($files) and count($files)){
-			foreach($files as $file){
-				if(self::validateFileMimeType($file, $mimeType)) return true;
+		if (is_array($files) and count($files)) {
+			foreach ($files as $file) {
+				if (self::validateFileMimeType($file, $mimeType)) return true;
 			}
-		}else{
-			if(self::validateFileMimeType($files, $mimeType)) return true;
+		} else {
+			if (self::validateFileMimeType($files, $mimeType)) return true;
 		}
 
 		return FALSE;
@@ -126,13 +127,13 @@ class MultipleFileUpload extends UploadControl
 	{
 		$files = $control->getValue();
 
-		if(is_array($files) and count($files)){
-			foreach($files as $file){
-				if(!$file instanceof FileUpload or !$file->isImage()) return false;
+		if (is_array($files) and count($files)) {
+			foreach ($files as $file) {
+				if (!$file instanceof FileUpload or !$file->isImage()) return false;
 			}
 
 			return true;
-		}else{
+		} else {
 			return $files instanceof FileUpload && $files->isImage();
 		}
 
@@ -145,13 +146,13 @@ class MultipleFileUpload extends UploadControl
 	public function isFilled()
 	{
 
-		if(is_array($this->value) and count($this->value)){
-			foreach($this->value as $file){
-				if(!$file instanceof FileUpload or !$file->isOk()) return false;
+		if (is_array($this->value) and count($this->value)) {
+			foreach ($this->value as $file) {
+				if (!$file instanceof FileUpload or !$file->isOk()) return false;
 			}
 
 			return true;
-		}else{
+		} else {
 			return $this->value instanceof FileUpload && $this->value->isOk();
 		}
 	}

@@ -20,7 +20,8 @@ class Reflection extends \Tester\TestCase
 	 * @param array $parameters
 	 * @return mixed
 	 */
-	protected function invokeMethod($object, $methodName, array $parameters = array()) {
+	protected function invokeMethod($object, $methodName, array $parameters = array())
+	{
 
 		$reflection = new \ReflectionClass($object);
 		$method = $reflection->getMethod($methodName);

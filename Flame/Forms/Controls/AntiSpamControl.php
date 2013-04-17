@@ -17,7 +17,7 @@ class AntiSpamControl extends \Nette\Forms\Controls\HiddenField
 
 	public function getControl()
 	{
-		if(empty($this->value)) $this->value = 'nospam';
+		if (empty($this->value)) $this->value = 'nospam';
 
 		$hiddenControl = parent::getControl();
 
@@ -43,7 +43,7 @@ class AntiSpamControl extends \Nette\Forms\Controls\HiddenField
 
 		$control->setHtml(
 			Html::el('noscript')->setHtml($control) .
-			Html::el('script', array('type' => 'text/javascript'))->setHtml("
+				Html::el('script', array('type' => 'text/javascript'))->setHtml("
 				document.write('" . $hiddenControl . "');
 			")
 		);

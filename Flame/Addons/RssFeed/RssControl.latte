@@ -11,21 +11,21 @@
 {block #properties}
 	{foreach $channelProperties as $key => $property}
         <{$key}>
-			{if is_array($property)}
-				{include #properties 'channelProperties' => $property}
+		{if is_array($property)}
+		{include #properties 'channelProperties' => $property}
 			{else}
-				{$property}
-			{/if}
-		</{$key}>
+			{$property}
+		{/if}
+    </{$key}>
 	{/foreach}
 {/block}
 
 {foreach $items as $item}
-	<item>
+<item>
 	{foreach $item as $key => $property}
         <{$key}>
-			{$property}
-		</{$key}>
+		{$property}
+    </{$key}>
 	{/foreach}
     </item>
 {/foreach}

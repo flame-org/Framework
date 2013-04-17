@@ -31,14 +31,14 @@ class Form extends \Nette\Application\UI\Form
 	 */
 	public function setId($id)
 	{
-		$this->id = (int) $id;
+		$this->id = (int)$id;
 	}
 
 	/**
 	 * @param \Nette\ComponentModel\IContainer|null $parent
 	 * @param null $name
 	 */
-	public function __construct(\Nette\ComponentModel\IContainer $parent = null,  $name = null)
+	public function __construct(\Nette\ComponentModel\IContainer $parent = null, $name = null)
 	{
 		parent::__construct($parent, $name);
 
@@ -61,8 +61,8 @@ class Form extends \Nette\Application\UI\Form
 	 */
 	public function getValues($asArray = false)
 	{
-		$values = (array) parent::getValues($asArray);
-		if(!isset($values['id']))
+		$values = (array)parent::getValues($asArray);
+		if (!isset($values['id']))
 			$values['id'] = $this->getId();
 		return \Nette\ArrayHash::from($values);
 	}
@@ -85,20 +85,20 @@ class Form extends \Nette\Application\UI\Form
 	{
 
 		// Set form ID
-		if(isset($values['id'])){
+		if (isset($values['id'])) {
 			$this->setId($values['id']);
-		}elseif(isset($values->id)){
+		} elseif (isset($values->id)) {
 			$this->setId($values->id);
 		}
 
 		// Get object to string for values compatibility
-		if(is_array($values) and count($values)){
-			$values = array_map(function ($value){
-				if(is_object($value) and (method_exists($value, '__toString'))){
-					if(isset($value->id)){
-						return (string) $value->id;
-					}else{
-						return (string) $value;
+		if (is_array($values) and count($values)) {
+			$values = array_map(function ($value) {
+				if (is_object($value) and (method_exists($value, '__toString'))) {
+					if (isset($value->id)) {
+						return (string)$value->id;
+					} else {
+						return (string)$value;
 					}
 
 				}
@@ -116,9 +116,9 @@ class Form extends \Nette\Application\UI\Form
 	 */
 	protected function prepareForFormItem(array &$items, $filter = 'name')
 	{
-		if(count($items)){
+		if (count($items)) {
 			$prepared = array();
-			foreach($items as $item){
+			foreach ($items as $item) {
 				$prepared[$item->id] = $item->$filter;
 			}
 			return $prepared;
@@ -133,7 +133,7 @@ class Form extends \Nette\Application\UI\Form
 	 */
 	protected function addExtension($name, $class)
 	{
-		\Nette\Forms\Container::extensionMethod($name, function (\Nette\Forms\Container $container, $name, $label = null) use ($class){
+		\Nette\Forms\Container::extensionMethod($name, function (\Nette\Forms\Container $container, $name, $label = null) use ($class) {
 			return $container[$name] = new $class($label);
 		});
 	}

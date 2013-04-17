@@ -38,7 +38,6 @@ abstract class ApplicationTestCase extends MockTestCase
 	}
 
 
-
 	/**
 	 * @param array $post
 	 * @param array $files

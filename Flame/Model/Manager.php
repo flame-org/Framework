@@ -22,9 +22,9 @@ abstract class Manager extends \Nette\Object
 	protected function validateInput($input, array $required = array())
 	{
 
-		if(count($required)){
-			foreach($required as $require){
-				if(!$this->keyExist($require, $input))
+		if (count($required)) {
+			foreach ($required as $require) {
+				if (!$this->keyExist($require, $input))
 					throw new InvalidArgumentException('Missing argument "' . $require . '"');
 			}
 		}

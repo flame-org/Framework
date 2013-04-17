@@ -26,7 +26,7 @@ abstract class RestPresenter extends Presenter
 			parent::checkRequirements($element);
 			$this->checkMethodRequest($element);
 
-		}catch (\Nette\Application\ForbiddenRequestException $ex) {
+		} catch (\Nette\Application\ForbiddenRequestException $ex) {
 			$this->returnException($ex);
 		}
 	}
@@ -58,7 +58,7 @@ abstract class RestPresenter extends Presenter
 	 */
 	protected function returnResponse(array $data = array())
 	{
-		if(count($data))
+		if (count($data))
 			$this->payload->data = $data;
 		$this->sendJson($this->getPayload());
 	}
@@ -69,9 +69,9 @@ abstract class RestPresenter extends Presenter
 	 */
 	protected function checkMethodRequest($element)
 	{
-		if($anot = $element->getAnnotation('method')){
+		if ($anot = $element->getAnnotation('method')) {
 			$reguest = $this->getHttpRequest();
-			if(Strings::lower($anot) !== Strings::lower($reguest->getMethod())){
+			if (Strings::lower($anot) !== Strings::lower($reguest->getMethod())) {
 				throw new \Nette\Application\ForbiddenRequestException('Bad method for this request. ' . __CLASS__ . '::' . $element->getName());
 			}
 		}

@@ -27,8 +27,8 @@ class FileManager extends \Nette\Object
 	 */
 	public function __construct($baseDirPath, $filesDirPath = '/media/images')
 	{
-		$this->baseDirPath = (string) $baseDirPath;
-		$this->filesDirPath = (string) $filesDirPath;
+		$this->baseDirPath = (string)$baseDirPath;
+		$this->filesDirPath = (string)$filesDirPath;
 	}
 
 	/**
@@ -36,7 +36,7 @@ class FileManager extends \Nette\Object
 	 */
 	public function setFilesDir($path)
 	{
-		$this->filesDirPath = (string) $path;
+		$this->filesDirPath = (string)$path;
 	}
 
 	/**
@@ -56,16 +56,16 @@ class FileManager extends \Nette\Object
 	public function saveFile(\Nette\Http\FileUpload $file)
 	{
 
-		if(!$file->isOk())
+		if (!$file->isOk())
 			throw new \Nette\InvalidArgumentException('File ' . $file->name . ' is not valid.');
 
 		FileSystem::mkDir($this->getAbsolutePath(), true, 0777, false);
 		$name = Strings::webalize($this->removeFileType($file->name)) . '.' . $this->getFileType($file->name);
 		$filePath = $this->getAbsolutePath() . DIRECTORY_SEPARATOR . $name;
 
-		if(!file_exists($filePath)){
+		if (!file_exists($filePath)) {
 			$file->move($filePath);
-		}else{
+		} else {
 			$new_name = Strings::random(5) . '_' . $name;
 			$file->move(str_replace($name, $new_name, $filePath));
 			$name = $new_name;
@@ -84,8 +84,8 @@ class FileManager extends \Nette\Object
 		$fileName = $this->getFileName($url);
 		$fileDir = $this->getAbsolutePath() . DIRECTORY_SEPARATOR . $fileName;
 
-		if($file = FileSystem::read($url, false)){
-			if(FileSystem::write($fileDir, $file, true, 0777, false))
+		if ($file = FileSystem::read($url, false)) {
+			if (FileSystem::write($fileDir, $file, true, 0777, false))
 				return $this->filesDirPath . DIRECTORY_SEPARATOR . $fileName;
 		}
 
@@ -119,9 +119,9 @@ class FileManager extends \Nette\Object
 	 */
 	protected function getFileName($path)
 	{
-		if(Strings::contains($path, DIRECTORY_SEPARATOR)){
+		if (Strings::contains($path, DIRECTORY_SEPARATOR)) {
 			return str_replace(DIRECTORY_SEPARATOR, '', strrchr($path, DIRECTORY_SEPARATOR));
-		}else{
+		} else {
 			return $path;
 		}
 

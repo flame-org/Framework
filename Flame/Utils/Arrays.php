@@ -41,8 +41,9 @@ final class Arrays extends \Nette\Object
 	 * @param int $sortType
 	 * @return mixed
 	 */
-	public static function sortBySubkey(&$array, $subkey, $sortType = SORT_ASC) {
-		if(count($array)){
+	public static function sortBySubkey(&$array, $subkey, $sortType = SORT_ASC)
+	{
+		if (count($array)) {
 			foreach ($array as $subarray) {
 				$keys[] = $subarray[$subkey];
 			}
@@ -57,8 +58,9 @@ final class Arrays extends \Nette\Object
 	 * @param int $sortType
 	 * @return mixed
 	 */
-	public static function sortByProperty(&$array, $subkey, $sortType = SORT_ASC) {
-		if(count($array)){
+	public static function sortByProperty(&$array, $subkey, $sortType = SORT_ASC)
+	{
+		if (count($array)) {
 			foreach ($array as $subarray) {
 				$keys[] = $subarray->$subkey;
 			}
@@ -74,10 +76,10 @@ final class Arrays extends \Nette\Object
 	 */
 	public static function recursiveSearch($needle, &$haystack)
 	{
-		if(count($haystack)){
-			foreach($haystack as $key=>$value) {
-				$current_key=$key;
-				if($needle===$value OR (is_array($value) && static::recursiveSearch($needle,$value) !== false)) {
+		if (count($haystack)) {
+			foreach ($haystack as $key => $value) {
+				$current_key = $key;
+				if ($needle === $value OR (is_array($value) && static::recursiveSearch($needle, $value) !== false)) {
 					return $current_key;
 				}
 			}
@@ -92,9 +94,9 @@ final class Arrays extends \Nette\Object
 	public static function getValidValues(&$array)
 	{
 		$valid = array();
-		if(count($array)){
-			foreach($array as $item){
-				if($item) $valid[] = $item;
+		if (count($array)) {
+			foreach ($array as $item) {
+				if ($item) $valid[] = $item;
 			}
 		}
 
@@ -107,6 +109,6 @@ final class Arrays extends \Nette\Object
 	 */
 	public static function xmlToArray($xmlObject)
 	{
-		return json_decode(json_encode((array) $xmlObject), 1);
+		return json_decode(json_encode((array)$xmlObject), 1);
 	}
 }

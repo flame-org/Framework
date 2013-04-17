@@ -40,7 +40,7 @@ class PresenterLoader extends \Nette\Object
 	 */
 	public function setAppDir($appDir)
 	{
-		$this->appDir = realpath((string) $appDir);
+		$this->appDir = realpath((string)$appDir);
 		return $this;
 	}
 
@@ -51,10 +51,10 @@ class PresenterLoader extends \Nette\Object
 	public function load($subDir = '')
 	{
 		$dir = $this->appDir;
-		if(!empty($subDir)){
-			if(Strings::startsWith($subDir, DIRECTORY_SEPARATOR)){
+		if (!empty($subDir)) {
+			if (Strings::startsWith($subDir, DIRECTORY_SEPARATOR)) {
 				$dir .= $subDir;
-			}else{
+			} else {
 				$dir .= DIRECTORY_SEPARATOR . $subDir;
 			}
 		}
@@ -79,14 +79,14 @@ class PresenterLoader extends \Nette\Object
 	{
 		$classes = $this->getCLasses();
 
-		if(count($classes)){
+		if (count($classes)) {
 			$classes = array_keys($classes);
 			$classes = array_map(function ($class) use ($namespace) {
-				if(Strings::contains($class, 'Presenter')){
-					if($namespace === null){
+				if (Strings::contains($class, 'Presenter')) {
+					if ($namespace === null) {
 						return $class;
-					}else{
-						if(Strings::contains($class, $namespace))
+					} else {
+						if (Strings::contains($class, $namespace))
 							return $class;
 					}
 				}
@@ -94,7 +94,7 @@ class PresenterLoader extends \Nette\Object
 			}, $classes);
 
 			return \Flame\Utils\Arrays::getValidValues($classes);
-		}else{
+		} else {
 			return array();
 		}
 	}

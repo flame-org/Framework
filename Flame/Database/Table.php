@@ -26,7 +26,6 @@ abstract class Table extends Nette\Object
 	protected $tableName;
 
 
-
 	/**
 	 * @param Nette\Database\Connection $db
 	 * @throws \Nette\InvalidStateException

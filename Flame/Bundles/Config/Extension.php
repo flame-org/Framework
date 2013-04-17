@@ -22,9 +22,9 @@ class Extension extends \Nette\Config\CompilerExtension
 	public function loadConfiguration()
 	{
 		$config = $this->getConfig($this->defaults);
-		if(count($config)){
-			foreach($config as $name => $extension){
-				if(!is_string($name))
+		if (count($config)) {
+			foreach ($config as $name => $extension) {
+				if (!is_string($name))
 					throw new InvalidStateException('Must be defined extension\'s name');
 
 				$this->compiler->addExtension($name, $this->invokeExtension($extension));
@@ -42,28 +42,28 @@ class Extension extends \Nette\Config\CompilerExtension
 	{
 		$builder = $this->getContainerBuilder();
 
-		if(is_array($class)){
+		if (is_array($class)) {
 			$extension = $this->createExtension($class);
 
-		}elseif(is_object($class)){
+		} elseif (is_object($class)) {
 
 			$ref = new \ReflectionClass($class->value);
 			$args = array();
-			if(property_exists($class, 'attributes')){
+			if (property_exists($class, 'attributes')) {
 				$args = $builder->expand($class->attributes);
 				$args = array_shift($args);
 			}
 			$extension = $ref->newInstance($args);
 
-		}elseif(is_string($class)){
+		} elseif (is_string($class)) {
 			$extension = new $class;
 
-		}else{
+		} else {
 			throw new InvalidStateException('Definition of extension must be valid class (string or object). ' . gettype($class) . ' given.');
 		}
 
-		if(!$extension instanceof \Flame\Bundles\IBundle)
-			throw new InvalidArgumentException('Extension must implment \Flame\Bundles\IBundle' );
+		if (!$extension instanceof \Flame\Bundles\IBundle)
+			throw new InvalidArgumentException('Extension must implment \Flame\Bundles\IBundle');
 
 		return $extension;
 	}

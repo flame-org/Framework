@@ -42,7 +42,7 @@ abstract class TestCase extends Reflection
 	{
 		if ('pong' !== @file_get_contents('http://ping.jsifalda.name/')) {
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	}

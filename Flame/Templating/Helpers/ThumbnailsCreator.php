@@ -38,8 +38,8 @@ class ThumbnailsCreator extends \Nette\Object
 	 */
 	public function __construct($baseDir, $thumbDirUri = '/media/thumbnails')
 	{
-		$this->baseDir = (string) $baseDir;
-		$this->thumbDirUri = (string) $thumbDirUri;
+		$this->baseDir = (string)$baseDir;
+		$this->thumbDirUri = (string)$thumbDirUri;
 	}
 
 	/**
@@ -60,11 +60,11 @@ class ThumbnailsCreator extends \Nette\Object
 
 		FileSystem::mkDir($thumbDirPath);
 
-		if(($width === null && $height === null)){
+		if (($width === null && $height === null)) {
 			throw new InvalidArgumentException('Width or height of image must be set');
-		}elseif(!is_dir($thumbDirPath) || !is_writable($thumbDirPath)){
+		} elseif (!is_dir($thumbDirPath) || !is_writable($thumbDirPath)) {
 			throw new InvalidArgumentException('Folder ' . $thumbDirPath . ' does not exist or is not writable');
-		}elseif(!file_exists($origPath)){
+		} elseif (!file_exists($origPath)) {
 			return $imagePath;
 		}
 
@@ -72,9 +72,9 @@ class ThumbnailsCreator extends \Nette\Object
 		$thumbUri = $this->thumbDirUri . DIRECTORY_SEPARATOR . $thumbName;
 		$thumbPath = $thumbDirPath . DIRECTORY_SEPARATOR . $thumbName;
 
-		if(file_exists($thumbPath)){
+		if (file_exists($thumbPath)) {
 			return $thumbUri;
-		}else{
+		} else {
 
 			try {
 				$image = Image::fromFile($origPath);
@@ -95,7 +95,7 @@ class ThumbnailsCreator extends \Nette\Object
 				} else {
 					return $imagePath;
 				}
-			}catch (\Exception $ex){
+			} catch (\Exception $ex) {
 				\Nette\Diagnostics\Debugger::log($ex);
 				return $imagePath;
 			}
@@ -137,9 +137,9 @@ class ThumbnailsCreator extends \Nette\Object
 	 */
 	protected function getAbsPathToImage($relativePath)
 	{
-		if(\Nette\Utils\Strings::startsWith($relativePath, DIRECTORY_SEPARATOR)){
+		if (\Nette\Utils\Strings::startsWith($relativePath, DIRECTORY_SEPARATOR)) {
 			return $this->baseDir . $relativePath;
-		}else{
+		} else {
 			return $this->baseDir . DIRECTORY_SEPARATOR . $relativePath;
 		}
 	}
@@ -152,10 +152,10 @@ class ThumbnailsCreator extends \Nette\Object
 	 */
 	protected function flagsConverter($width, $height, $flag)
 	{
-		if($flag === null)
+		if ($flag === null)
 			$flag = ($width !== null && $height !== null) ? 'STRETCH' : 'FIT';
 
-		$flag = strtolower((string) $flag);
+		$flag = strtolower((string)$flag);
 		return (isset($this->flags[$flag])) ? $this->flags[$flag] : Image::FIT;
 	}
 

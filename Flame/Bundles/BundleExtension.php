@@ -27,12 +27,12 @@ class BundleExtension extends \Nette\Config\CompilerExtension implements IBundle
 	public function loadConfiguration()
 	{
 		$builder = $this->getContainerBuilder();
-		if(count($this->configFiles)){
-			foreach($this->configFiles as $configFile){
+		if (count($this->configFiles)) {
+			foreach ($this->configFiles as $configFile) {
 				$config = $this->loadFromFile($configFile);
 				$this->compiler->parseServices($builder, $config);
 
-				if(isset($config['parameters'])){
+				if (isset($config['parameters'])) {
 					$builder->parameters = Helpers::merge($builder->parameters, $config['parameters']);
 				}
 			}
@@ -46,7 +46,7 @@ class BundleExtension extends \Nette\Config\CompilerExtension implements IBundle
 	 */
 	public function registerTemplateHelper($name, $class, $method = null)
 	{
-		if($method === null)
+		if ($method === null)
 			$method = $name;
 
 		$builder = $this->getContainerBuilder();

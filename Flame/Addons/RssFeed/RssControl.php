@@ -63,8 +63,8 @@ class RssControl extends \Flame\Application\UI\Control
 	 */
 	public static function prepareDate($date)
 	{
-		if (is_string($date) && $date === (string) (int) $date) {
-			$date = (int) $date;
+		if (is_string($date) && $date === (string)(int)$date) {
+			$date = (int)$date;
 		}
 
 		if (is_string($date) && !String::endsWith($date, "GMT")) {
@@ -75,7 +75,7 @@ class RssControl extends \Flame\Application\UI\Control
 			$date = gmdate('D, d M Y H:i:s', $date) . " GMT";
 		}
 
-		if($date instanceof \DateTime){
+		if ($date instanceof \DateTime) {
 			$date = gmdate('D, d M Y H:i:s', $date->getTimestamp()) . " GMT";
 		}
 

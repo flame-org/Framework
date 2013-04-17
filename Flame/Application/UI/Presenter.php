@@ -24,7 +24,7 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 	{
 		try {
 			parent::checkRequirements($element);
-		}catch (\Nette\Application\ForbiddenRequestException $ex) {
+		} catch (\Nette\Application\ForbiddenRequestException $ex) {
 			throw new \Nette\Application\ForbiddenRequestException('Access denied');
 		}
 	}
@@ -59,7 +59,7 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 		$method = 'createComponent' . $ucname;
 		if ($ucname !== $name && method_exists($this, $method)) {
 			$reflection = $this->getReflection()->getMethod($method);
-			if($reflection->getName() !== $method) {
+			if ($reflection->getName() !== $method) {
 				return;
 			}
 			$class = get_class($this);

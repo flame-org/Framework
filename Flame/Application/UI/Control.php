@@ -31,13 +31,13 @@ abstract class Control extends \Nette\Application\UI\Control
 		$type = array_shift($params);
 		$method = ($type !== null) ? 'render' . ucfirst($type) : 'renderDefault';
 
-		if(count($this->onBeforeRender)){
-			foreach($this->onBeforeRender as $callback){
-				if($callback instanceof Callback){
+		if (count($this->onBeforeRender)) {
+			foreach ($this->onBeforeRender as $callback) {
+				if ($callback instanceof Callback) {
 					$callback->invokeArgs($params);
-				}elseif(is_array($callback) && count($callback)){
+				} elseif (is_array($callback) && count($callback)) {
 					Callback::create($callback)->invokeArgs($params);
-				}else{
+				} else {
 					throw new \Nette\InvalidStateException('Invalid before render hook callback');
 				}
 			}

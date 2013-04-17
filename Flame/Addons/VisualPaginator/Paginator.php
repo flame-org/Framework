@@ -35,17 +35,16 @@ class Paginator extends UI\Control
 	public $page = 1;
 
 
-    /**
-     * @return \Nette\Utils\Paginator
-     */
-    public function getPaginator()
+	/**
+	 * @return \Nette\Utils\Paginator
+	 */
+	public function getPaginator()
 	{
 		if (!$this->paginator) {
 			$this->paginator = new \Nette\Utils\Paginator;
 		}
 		return $this->paginator;
 	}
-
 
 
 	/**
@@ -86,7 +85,6 @@ class Paginator extends UI\Control
 
 		return $steps;
 	}
-
 
 
 	/**

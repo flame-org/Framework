@@ -25,7 +25,7 @@ class FlashMessageControl extends \Flame\Application\UI\Control
 
 		$this->templateFile = $templateFile;
 
-		if(!$templateFile)
+		if (!$templateFile)
 			$this->templateFile = __DIR__ . '/FlashMessageControl.latte';
 	}
 
