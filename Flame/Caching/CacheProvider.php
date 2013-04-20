@@ -14,6 +14,8 @@ use \Nette\Caching\Storages\IJournal;
 class CacheProvider extends \Nette\Object
 {
 
+	const PERSIST_DIR = 'cache-persist';
+
 	/** @var \Nette\Caching\Cache */
 	private $cache;
 
@@ -50,7 +52,7 @@ class CacheProvider extends \Nette\Object
 	 * @param \Nette\Caching\Storages\IJournal $journal
 	 * @return \Nette\Caching\Cache
 	 */
-	public function createCache($dir, $namespace = null, IJournal $journal = null)
+	public function createCache($dir = self::PERSIST_DIR, $namespace = null, IJournal $journal = null)
 	{
 		$dir = $this->tempDir . DIRECTORY_SEPARATOR . $dir;
 
