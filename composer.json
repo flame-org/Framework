@@ -21,7 +21,8 @@
 
 	"require": {
 		"php": ">=5.3.2",
-		"nette/nette": "@dev"
+		"nette/nette": "@dev",
+        "flame/data-type-package": "@dev"
 	},
 
 	"require-dev": {
