@@ -17,6 +17,10 @@ use Nette\Reflection\Method;
 abstract class RestPresenter extends Presenter
 {
 
+	const STATUS_SUCCESS = 'success';
+
+	const STATUS_ERROR = 'error';
+
 	/**
 	 * @return mixed
 	 */
@@ -48,7 +52,7 @@ abstract class RestPresenter extends Presenter
 	{
 		Debugger::log($ex);
 
-		$this->payload->status = 'error';
+		$this->payload->status = self::STATUS_ERROR;
 		$this->payload->message = $ex->getMessage();
 		$this->payload->code = $code;
 
@@ -64,7 +68,7 @@ abstract class RestPresenter extends Presenter
 	{
 		$this->payload->data = $data;
 		$this->payload->code = $code;
-		$this->payload->status = 'success';
+		$this->payload->status = self::STATUS_SUCCESS;
 
 		$this->sendJson($this->getPayload());
 	}
