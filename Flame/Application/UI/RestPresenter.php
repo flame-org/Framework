@@ -20,7 +20,7 @@ abstract class RestPresenter extends Presenter
 	/**
 	 * @return mixed
 	 */
-	public function getRequestData()
+	public function getPostData()
 	{
 		return $this->getHttpRequest()->getPost();
 	}
