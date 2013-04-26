@@ -11,6 +11,8 @@ namespace Flame\Application\UI;
 use Flame\Utils\Strings;
 use Nette\Application\ForbiddenRequestException;
 use Nette\Diagnostics\Debugger;
+use Nette\InvalidStateException;
+use Nette\Reflection\Method;
 
 abstract class RestPresenter extends Presenter
 {
@@ -64,14 +66,17 @@ abstract class RestPresenter extends Presenter
 	/**
 	 * @param $element
 	 * @throws \Nette\Application\ForbiddenRequestException
+	 * @throws \Nette\InvalidStateException
 	 */
 	protected function checkMethodRequest($element)
 	{
 		if ($anot = $element->getAnnotation('method')) {
 			$reguest = $this->getHttpRequest();
-			if (Strings::lower($anot) !== Strings::lower($reguest->getMethod())) {
+			if (Strings::lower($anot) !== Strings::lower($reguest->getMethod()))
 				throw new ForbiddenRequestException('Bad method for this request. ' . __CLASS__ . '::' . $element->getName());
-			}
+		}else{
+			if($element instanceof Method)
+				throw new InvalidStateException('@method annotation is not set for method ' . __CLASS__ . '::' . $element->getName());
 		}
 	}
 }
