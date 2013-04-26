@@ -45,7 +45,7 @@ abstract class RestPresenter extends Presenter
 		\Nette\Diagnostics\Debugger::log($ex);
 		$this->payload->status = 'error';
 		$this->payload->message = $ex->getMessage();
-		$this->returnResponse();
+		$this->sendJson($this->getPayload());
 	}
 
 
