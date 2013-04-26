@@ -9,6 +9,8 @@
 namespace Flame\Application\UI;
 
 use Flame\Utils\Strings;
+use Nette\Application\ForbiddenRequestException;
+use Nette\Diagnostics\Debugger;
 
 abstract class RestPresenter extends Presenter
 {
@@ -31,7 +33,7 @@ abstract class RestPresenter extends Presenter
 			parent::checkRequirements($element);
 			$this->checkMethodRequest($element);
 
-		} catch (\Nette\Application\ForbiddenRequestException $ex) {
+		} catch (ForbiddenRequestException $ex) {
 			$this->returnException($ex);
 		}
 	}
@@ -42,7 +44,7 @@ abstract class RestPresenter extends Presenter
 	 */
 	protected function returnException(\Exception $ex)
 	{
-		\Nette\Diagnostics\Debugger::log($ex);
+		Debugger::log($ex);
 		$this->payload->status = 'error';
 		$this->payload->message = $ex->getMessage();
 		$this->sendJson($this->getPayload());
@@ -68,7 +70,7 @@ abstract class RestPresenter extends Presenter
 		if ($anot = $element->getAnnotation('method')) {
 			$reguest = $this->getHttpRequest();
 			if (Strings::lower($anot) !== Strings::lower($reguest->getMethod())) {
-				throw new \Nette\Application\ForbiddenRequestException('Bad method for this request. ' . __CLASS__ . '::' . $element->getName());
+				throw new ForbiddenRequestException('Bad method for this request. ' . __CLASS__ . '::' . $element->getName());
 			}
 		}
 	}
