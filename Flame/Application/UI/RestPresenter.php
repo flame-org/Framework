@@ -42,24 +42,30 @@ abstract class RestPresenter extends Presenter
 
 	/**
 	 * @param \Exception $ex
-	 * @return string
+	 * @param int $code
 	 */
-	protected function returnException(\Exception $ex)
+	protected function returnException(\Exception $ex, $code = 500)
 	{
 		Debugger::log($ex);
+
 		$this->payload->status = 'error';
 		$this->payload->message = $ex->getMessage();
+		$this->payload->code = $code;
+
 		$this->sendJson($this->getPayload());
 	}
 
 
 	/**
 	 * @param array $data
+	 * @param int $code
 	 */
-	protected function returnResponse(array $data = array())
+	protected function returnResponse(array $data = array(), $code = 200)
 	{
 		$this->payload->data = $data;
+		$this->payload->code = $code;
 		$this->payload->status = 'success';
+
 		$this->sendJson($this->getPayload());
 	}
 
