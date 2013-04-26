@@ -54,9 +54,7 @@ abstract class RestPresenter extends Presenter
 	 */
 	protected function returnResponse(array $data = array())
 	{
-		if (count($data))
-			$this->payload->data = $data;
-
+		$this->payload->data = $data;
 		$this->payload->status = 'success';
 		$this->sendJson($this->getPayload());
 	}
