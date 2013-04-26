@@ -13,8 +13,13 @@ use Flame\Utils\Strings;
 abstract class RestPresenter extends Presenter
 {
 
-	/** @var array */
-	protected $requestData;
+	/**
+	 * @return mixed
+	 */
+	public function getRequestData()
+	{
+		return $this->getHttpRequest()->getPost();
+	}
 
 	/**
 	 * @param $element
@@ -34,8 +39,6 @@ abstract class RestPresenter extends Presenter
 	protected function startup()
 	{
 		parent::startup();
-
-		$this->requestData = $this->getHttpRequest()->getPost();
 
 		$this->payload->status = 'success';
 	}
