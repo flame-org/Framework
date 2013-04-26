@@ -83,10 +83,10 @@ abstract class RestPresenter extends Presenter
 		if ($anot = $element->getAnnotation('method')) {
 			$reguest = $this->getHttpRequest();
 			if (Strings::lower($anot) !== Strings::lower($reguest->getMethod()))
-				throw new ForbiddenRequestException('Bad method for this request. ' . __CLASS__ . '::' . $element->getName());
+				throw new ForbiddenRequestException('Bad method for this request. ' . $element->getDeclaringClass() . '::' . $element->getName());
 		}else{
 			if($element instanceof Method)
-				throw new InvalidStateException('@method annotation is not set for method ' . __CLASS__ . '::' . $element->getName());
+				throw new InvalidStateException('@method annotation is not set for method ' . $element->getDeclaringClass() . '::' . $element->getName());
 		}
 	}
 }
