@@ -36,13 +36,6 @@ abstract class RestPresenter extends Presenter
 		}
 	}
 
-	protected function startup()
-	{
-		parent::startup();
-
-		$this->payload->status = 'success';
-	}
-
 	/**
 	 * @param \Exception $ex
 	 * @return string
@@ -63,6 +56,8 @@ abstract class RestPresenter extends Presenter
 	{
 		if (count($data))
 			$this->payload->data = $data;
+
+		$this->payload->status = 'success';
 		$this->sendJson($this->getPayload());
 	}
 
