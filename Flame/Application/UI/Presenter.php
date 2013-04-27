@@ -10,6 +10,8 @@
 
 namespace Flame\Application\UI;
 
+use Nette\Application\ForbiddenRequestException;
+
 /**
  * @property-read \Nette\Templating\Template $template
  */
@@ -24,8 +26,8 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 	{
 		try {
 			parent::checkRequirements($element);
-		} catch (\Nette\Application\ForbiddenRequestException $ex) {
-			throw new \Nette\Application\ForbiddenRequestException('Access denied');
+		} catch (ForbiddenRequestException $ex) {
+			throw new ForbiddenRequestException('Access denied');
 		}
 	}
 
