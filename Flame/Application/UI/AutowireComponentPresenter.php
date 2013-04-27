@@ -12,7 +12,7 @@ use Nette;
 /**
  * @author matej21
  */
-class AutowireComponentPresenter extends Presenter
+abstract class AutowireComponentPresenter extends Presenter
 {
 
 	/** @var Nette\DI\Container */
