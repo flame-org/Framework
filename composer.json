@@ -21,7 +21,7 @@
 
 	"require": {
 		"php": ">=5.3.2",
-		"nette/nette": "@dev"
+		"nette/nette": "dev-master#24cb986"
 	},
 
 	"require-dev": {
