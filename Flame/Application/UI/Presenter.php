@@ -32,6 +32,22 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 	}
 
 	/**
+	 * Returns destination as Link object.
+	 * @param $destination
+	 * @param array $args
+	 * @return \Nette\Application\UI\Link|Redirect
+	 */
+	public function lazyLink($destination, $args = array())
+	{
+		if (!is_array($args)) {
+			$args = func_get_args();
+			array_shift($args);
+		}
+
+		return new Redirect($this, $destination, $args);
+	}
+
+	/**
 	 * @param $name
 	 * @param null $default
 	 * @return null
