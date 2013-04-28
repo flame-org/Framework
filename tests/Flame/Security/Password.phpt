@@ -8,9 +8,11 @@
  */
 namespace Flame\Tests\Security;
 
+use Flame\Types\Password;
 use Tester\Assert;
 
-require_once __DIR__ . '/../bootstrap.php';
+
+$configurator = require_once __DIR__ . '/../bootstrap.php';
 
 class PasswordTest extends \Flame\Tests\TestCase
 {
@@ -23,18 +25,15 @@ class PasswordTest extends \Flame\Tests\TestCase
 		$this->password = new \Flame\Security\Password;
 	}
 
-	public function testDefault()
-	{
-		Assert::null($this->getAttributeValue($this->password, 'password'));
-		Assert::null($this->getAttributeValue($this->password, 'object'));
-	}
-
 	public function testCreateRandom()
 	{
+		Assert::null($this->password->getObject());
+		Assert::null($this->password->getPassword());
 		$password = $this->password->createRandom();
 		Assert::true($password instanceof \Flame\Security\Password);
-		Assert::true($this->getAttributeValue($this->password, 'object') instanceof \Flame\Types\Password);
+		Assert::true(is_string($password->getPassword()));
+		Assert::true($password->getObject() instanceof Password);
 	}
 }
 
-run(new PasswordTest());
+id(new PasswordTest($configurator))->run();
