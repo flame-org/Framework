@@ -18,7 +18,6 @@ class RouterFactory extends Object
 
 	public function __construct()
 	{
-
 		$this->routeList = new RouteList;
 	}
 
