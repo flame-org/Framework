@@ -29,6 +29,12 @@
 		"janmarek/mockista": "dev-master"
 	},
 
+    "suggest": {
+        "kdyby/doctrine": "*",
+        "kdyby/console": "*",
+        "kdyby/events": "*"
+    },
+
 	"config": {
 		"vendor-dir": "libs"
 	},
