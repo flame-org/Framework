@@ -15,18 +15,11 @@ use Nette;
 class Configurator extends Nette\Configurator
 {
 
-	/**
-	 * @param string $containerClass
-	 */
-	public function __construct($containerClass = 'Flame\DI\Container')
+	public function __construct()
 	{
 		parent::__construct();
 
 		$this->addParameters(array(
-			'container' => array(
-				'class' => 'SystemContainer',
-				'parent' => $containerClass
-			),
 			'rootDir' => '%appDir%/..',
 			'wwwDir' => '%appDir%/../www'
 		));
