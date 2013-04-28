@@ -11,4 +11,8 @@ namespace Flame\Bundles;
 interface IBundle
 {
 
+	/**
+	 * @return array
+	 */
+	public function getConfigFiles();
 }
