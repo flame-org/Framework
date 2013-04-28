@@ -2,13 +2,13 @@
 
 namespace Flame\Security;
 
-use Nette\Security as NS;
-
+use Nette\Object;
+use Nette\Security\IAuthenticator;
 
 /**
  * Users authenticator.
  */
-abstract class Authenticator extends \Nette\Object implements NS\IAuthenticator
+abstract class Authenticator extends Object implements IAuthenticator
 {
 
 	/**

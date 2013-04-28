@@ -8,10 +8,13 @@
 
 namespace Flame\Caching;
 
-use \Nette\Caching\Cache;
-use \Nette\Caching\Storages\IJournal;
+use Flame\Tools\Files\FileSystem;
+use Nette\Caching\Cache;
+use Nette\Caching\Storages\FileStorage;
+use Nette\Caching\Storages\IJournal;
+use Nette\Object;
 
-class CacheProvider extends \Nette\Object
+class CacheProvider extends Object
 {
 
 	const PERSIST_DIR = 'cache-persist';
@@ -35,7 +38,7 @@ class CacheProvider extends \Nette\Object
 	 */
 	public function __construct($tempDir)
 	{
-		$this->tempDir = (string)$tempDir;
+		$this->tempDir = (string) $tempDir;
 	}
 
 	/**
@@ -56,13 +59,11 @@ class CacheProvider extends \Nette\Object
 	{
 		$dir = $this->tempDir . DIRECTORY_SEPARATOR . $dir;
 
-		if (!file_exists($dir))
-			\Flame\Tools\Files\FileSystem::mkDir($dir);
+		if (!file_exists($dir)){
+			FileSystem::mkDir($dir);
+		}
 
-		return new Cache(
-			new \Nette\Caching\Storages\FileStorage($dir, $journal),
-			$namespace
-		);
+		return new Cache(new FileStorage($dir, $journal), $namespace);
 	}
 
 }
