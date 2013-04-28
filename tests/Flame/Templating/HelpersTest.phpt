@@ -77,4 +77,4 @@ class HelpersTestTest extends \Flame\Tests\TestCase
 	}
 }
 
-run(new HelpersTestTest());
+id(new HelpersTestTest())->run();

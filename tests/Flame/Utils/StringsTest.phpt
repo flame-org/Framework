@@ -62,4 +62,4 @@ class StringsTest extends \Flame\Tests\TestCase
 
 }
 
-run(new StringsTest());
+id(new StringsTest())->run();

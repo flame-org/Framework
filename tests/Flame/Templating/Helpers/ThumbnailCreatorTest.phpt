@@ -109,4 +109,4 @@ class ThumbnailCreatorTest extends \Flame\Tests\TestCase
 	}
 }
 
-run(new ThumbnailCreatorTest());
+id(new ThumbnailCreatorTest())->run();

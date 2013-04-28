@@ -153,4 +153,4 @@ class FileManagerTest extends \Flame\Tests\TestCase
 	}
 }
 
-run(new FileManagerTest);
+id(new FileManagerTest)->run();

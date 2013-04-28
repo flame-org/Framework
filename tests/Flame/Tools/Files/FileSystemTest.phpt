@@ -75,4 +75,4 @@ class FileSystemTest extends \Flame\Tests\TestCase
 
 }
 
-run(new FileSystemTest());
+id(new FileSystemTest())->run();

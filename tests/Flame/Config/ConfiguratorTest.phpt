@@ -28,11 +28,7 @@ class ConfiguratorTest extends \Flame\Tests\TestCase
 		$this->configurator->setTempDirectory(TEMP_DIR);
 	}
 
-	public function testProperties()
-	{
-		//TODO:
-	}
 
 }
 
-run(new ConfiguratorTest());
+id(new ConfiguratorTest())->run();
