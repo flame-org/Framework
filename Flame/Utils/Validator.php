@@ -6,11 +6,13 @@
  * @date    15.02.13
  */
 
-namespace Flame\Model;
+namespace Flame\Utils;
 
+use Nette\ArrayHash;
 use Nette\InvalidArgumentException;
+use Nette\Object;
 
-abstract class Manager extends \Nette\Object
+class Validator extends Object
 {
 
 	/**
@@ -19,12 +21,11 @@ abstract class Manager extends \Nette\Object
 	 * @return \Nette\ArrayHash
 	 * @throws \Nette\InvalidArgumentException
 	 */
-	protected function validateInput($input, array $required = array())
+	public function invalidate($input, array $required = array())
 	{
-
 		if (count($required)) {
 			foreach ($required as $require) {
-				if (!$this->keyExist($require, $input))
+				if (!$this->existKey($require, $input))
 					throw new InvalidArgumentException('Missing argument "' . $require . '"');
 			}
 		}
@@ -34,10 +35,10 @@ abstract class Manager extends \Nette\Object
 
 	/**
 	 * @param $key
-	 * @param array $input
+	 * @param $input
 	 * @return bool
 	 */
-	protected function keyExist($key, $input)
+	public function existKey($key, $input)
 	{
 		return array_key_exists($key, $input);
 	}
@@ -46,16 +47,16 @@ abstract class Manager extends \Nette\Object
 	 * @param $input
 	 * @return \Nette\ArrayHash
 	 */
-	protected function getHash($input)
+	public function getHash($input)
 	{
-		return \Nette\ArrayHash::from($input);
+		return ArrayHash::from($input);
 	}
 
 	/**
 	 * @param $input
 	 * @return null
 	 */
-	protected function getId($input)
+	public function getId($input)
 	{
 		return (isset($input['id'])) ? $input['id'] : null;
 	}
