@@ -19,7 +19,7 @@ abstract class TestCase extends Tester\TestCase
 {
 
 	/** @var \Nette\DI\Container */
-	protected $context;
+	private $context;
 
 	/**
 	 * @param \Nette\DI\Container $container
