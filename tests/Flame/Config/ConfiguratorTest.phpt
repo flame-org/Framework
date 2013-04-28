@@ -11,9 +11,8 @@
 
 namespace Flame\Tests\Config;
 
-require_once __DIR__ . '/../bootstrap.php';
+$configurator = require_once __DIR__ . '/../bootstrap.php';
 
-use Nette\Config\Extensions;
 use Tester\Assert;
 
 class ConfiguratorTest extends \Flame\Tests\TestCase
@@ -25,10 +24,15 @@ class ConfiguratorTest extends \Flame\Tests\TestCase
 	public function setUp()
 	{
 		$this->configurator = new \Flame\Config\Configurator();
-		$this->configurator->setTempDirectory(TEMP_DIR);
 	}
 
+	public function testRegisterExtension()
+	{
+		Assert::null($this->configurator->onCompile);
+		$this->configurator->registerExtension('ext', 'ext');
+		Assert::same(1, count($this->configurator->onCompile));
+	}
 
 }
 
-id(new ConfiguratorTest())->run();
+id(new ConfiguratorTest($configurator))->run();
