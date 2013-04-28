@@ -7,6 +7,8 @@ if (!class_exists('Tester\Assert')) {
 	exit(1);
 }
 
+define('TEMP_DIR', __DIR__ . '/../temp');
+
 Tester\Helpers::setup();
 date_default_timezone_set('Europe/Prague');
 
@@ -16,6 +18,6 @@ function id($val) {
 
 $configurator = new \Flame\Config\Configurator;
 $configurator->setDebugMode(FALSE);
-$configurator->setTempDirectory(__DIR__ . '/../temp');
+$configurator->setTempDirectory(TEMP_DIR);
 
 return $configurator->createContainer();
