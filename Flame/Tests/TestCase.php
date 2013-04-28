@@ -10,7 +10,12 @@
 
 namespace Flame\Tests;
 
-abstract class TestCase extends Reflection
+use Nette\DI\Container;
+use Nette\ObjectMixin;
+use Nette\Reflection\ClassType;
+use Tester;
+
+abstract class TestCase extends Tester\TestCase
 {
 
 	/** @var \Nette\DI\Container */
@@ -19,9 +24,17 @@ abstract class TestCase extends Reflection
 	/**
 	 * @param \Nette\DI\Container $container
 	 */
-	public function __construct(\Nette\DI\Container $container = null)
+	public function __construct(Container $container = null)
 	{
 		$this->context = $container;
+	}
+
+	/**
+	 * @return Container
+	 */
+	public function getContext()
+	{
+		return $this->context;
 	}
 
 	/**
@@ -31,7 +44,7 @@ abstract class TestCase extends Reflection
 	 */
 	protected function getContextParameter($name, $default = null)
 	{
-		$params = $this->context->getParameters();
+		$params = $this->getContext()->getParameters();
 		return (isset($params[$name])) ? $params[$name] : $default;
 	}
 
@@ -45,6 +58,63 @@ abstract class TestCase extends Reflection
 		} else {
 			return true;
 		}
+	}
+
+	/********************* Nette\Object behaviour ****************d*g**/
+
+	/**
+	 * @return \Nette\Reflection\ClassType
+	 */
+	public static function getReflection()
+	{
+		return new ClassType(get_called_class());
+	}
+
+	/**
+	 * @param string $name
+	 *
+	 * @return mixed
+	 */
+	public function &__get($name)
+	{
+		return ObjectMixin::get($this, $name);
+	}
+
+	/**
+	 * @param string $name
+	 * @param mixed $value
+	 */
+	public function __set($name, $value)
+	{
+		ObjectMixin::set($this, $name, $value);
+	}
+
+	/**
+	 * @param string $name
+	 * @param array $args
+	 * @return mixed
+	 */
+	public function __call($name, $args)
+	{
+		return ObjectMixin::call($this, $name, $args);
+	}
+
+	/**
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
+	public function __isset($name)
+	{
+		return ObjectMixin::has($this, $name);
+	}
+
+	/**
+	 * @param string $name
+	 */
+	public function __unset($name)
+	{
+		ObjectMixin::remove($this, $name);
 	}
 
 }
