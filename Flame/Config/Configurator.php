@@ -12,7 +12,7 @@ namespace Flame\Config;
 
 use Nette;
 
-class Configurator extends Nette\Config\Configurator
+class Configurator extends Nette\Configurator
 {
 
 	public function __construct()
