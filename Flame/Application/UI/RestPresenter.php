@@ -51,8 +51,11 @@ abstract class RestPresenter extends Presenter
 	{
 		Debugger::log($ex);
 
-		if($code === null)
+		if($code === null && $ex->getCode()){
 			$code = $ex->getCode();
+		}elseif($code === null){
+			$code = 500;
+		}
 
 		$this->payload->status = self::STATUS_ERROR;
 		$this->payload->message = $ex->getMessage();
