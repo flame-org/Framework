@@ -13,6 +13,7 @@ use Nette\Application\ForbiddenRequestException;
 use Nette\Diagnostics\Debugger;
 use Nette\InvalidStateException;
 use Nette\Reflection\Method;
+use Nette;
 
 abstract class RestPresenter extends Presenter
 {
@@ -45,6 +46,35 @@ abstract class RestPresenter extends Presenter
 		}catch (InvalidStateException $ex) {
 			$this->returnException($ex);
 		}
+	}
+
+	/**
+	 * @return Nette\Templating\IFileTemplate|Nette\Templating\ITemplate|void
+	 */
+	public function renderTemplate()
+	{
+		$template = $this->getTemplate();
+		if (!$template) {
+			return;
+		}
+
+		if ($template instanceof Nette\Templating\IFileTemplate && !$template->getFile()) { // content template
+			$files = $this->formatTemplateFiles();
+			foreach ($files as $file) {
+				if (is_file($file)) {
+					$template->setFile($file);
+					break;
+				}
+			}
+
+			if (!$template->getFile()) {
+				$file = preg_replace('#^.*([/\\\\].{1,70})\z#U', "\xE2\x80\xA6\$1", reset($files));
+				$file = strtr($file, '/', DIRECTORY_SEPARATOR);
+				$this->error("Page not found. Missing template '$file'.");
+			}
+		}
+
+		return $template;
 	}
 
 	/**
