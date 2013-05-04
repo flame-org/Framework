@@ -36,9 +36,13 @@ abstract class RestPresenter extends Presenter
 
 		try {
 			parent::checkRequirements($element);
-			$this->checkMethodRequest($element);
-
 		} catch (ForbiddenRequestException $ex) {
+			$this->returnException($ex);
+		}
+
+		try {
+			$this->checkMethodRequest($element);
+		}catch (InvalidStateException $ex) {
 			$this->returnException($ex);
 		}
 	}
@@ -84,7 +88,6 @@ abstract class RestPresenter extends Presenter
 
 	/**
 	 * @param $element
-	 * @throws \Nette\Application\ForbiddenRequestException
 	 * @throws \Nette\InvalidStateException
 	 */
 	protected function checkMethodRequest($element)
@@ -92,7 +95,7 @@ abstract class RestPresenter extends Presenter
 		if ($anot = $element->getAnnotation('method')) {
 			$reguest = $this->getHttpRequest();
 			if (Strings::lower($anot) !== Strings::lower($reguest->getMethod()))
-				throw new ForbiddenRequestException('Bad method for this request. ' . $element->getDeclaringClass() . '::' . $element->getName());
+				throw new InvalidStateException('Bad method for this request. ' . $element->getDeclaringClass() . '::' . $element->getName());
 		}else{
 			if($element instanceof Method)
 				throw new InvalidStateException('@method annotation is not set for method ' . $element->getDeclaringClass() . '::' . $element->getName());
