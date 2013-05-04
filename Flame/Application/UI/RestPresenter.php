@@ -17,9 +17,8 @@ use Nette\Reflection\Method;
 abstract class RestPresenter extends Presenter
 {
 
-	const STATUS_SUCCESS = 'success';
-
-	const STATUS_ERROR = 'error';
+	const STATUS_SUCCESS = 'success',
+		STATUS_ERROR = 'error';
 
 	/**
 	 * @return mixed
