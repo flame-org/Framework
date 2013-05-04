@@ -48,13 +48,18 @@ abstract class RestPresenter extends Presenter
 	 * @param \Exception $ex
 	 * @param int $code
 	 */
-	protected function returnException(\Exception $ex, $code = 500)
+	protected function returnException(\Exception $ex, $code = null)
 	{
 		Debugger::log($ex);
+
+		if($code === null)
+			$code = $ex->getCode();
 
 		$this->payload->status = self::STATUS_ERROR;
 		$this->payload->message = $ex->getMessage();
 		$this->payload->code = $code;
+
+		$this->getHttpResponse()->setCode($code);
 
 		$this->sendJson($this->getPayload());
 	}
@@ -69,6 +74,8 @@ abstract class RestPresenter extends Presenter
 		$this->payload->data = $data;
 		$this->payload->code = $code;
 		$this->payload->status = self::STATUS_SUCCESS;
+
+		$this->getHttpResponse()->setCode($code);
 
 		$this->sendJson($this->getPayload());
 	}
