@@ -72,11 +72,11 @@ class ThumbnailHelper extends Object
 	 */
 	public function getImagePath($relativePath)
 	{
-		if (Strings::startsWith($relativePath, DIRECTORY_SEPARATOR)) {
+		if(Strings::startsWith($relativePath, DIRECTORY_SEPARATOR) || Strings::endsWith($this->baseDir, DIRECTORY_SEPARATOR)) {
 			return $this->baseDir . $relativePath;
-		} else {
-			return $this->baseDir . DIRECTORY_SEPARATOR . $relativePath;
 		}
+		
+		return $this->baseDir . DIRECTORY_SEPARATOR . $relativePath;
 	}
 
 	/**
