@@ -28,6 +28,7 @@ use Nette\Application\UI;
  */
 class Paginator extends UI\Control
 {
+
 	/** @var \Nette\Utils\Paginator */
 	private $paginator;
 
@@ -43,12 +44,14 @@ class Paginator extends UI\Control
 		if (!$this->paginator) {
 			$this->paginator = new \Nette\Utils\Paginator;
 		}
+
 		return $this->paginator;
 	}
 
 
 	/**
 	 * Renders paginator.
+	 *
 	 * @return void
 	 */
 	public function render()
@@ -89,6 +92,7 @@ class Paginator extends UI\Control
 
 	/**
 	 * Loads state informations.
+	 *
 	 * @param  array
 	 * @return void
 	 */

@@ -33,7 +33,8 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 
 	/**
 	 * Returns destination as Link object.
-	 * @param $destination
+	 *
+	 * @param       $destination
 	 * @param array $args
 	 * @return \Nette\Application\UI\Link|Redirect
 	 */
@@ -48,13 +49,14 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 	}
 
 	/**
-	 * @param $name
+	 * @param      $name
 	 * @param null $default
 	 * @return null
 	 */
 	protected function getContextParameter($name, $default = null)
 	{
 		$params = $this->context->getParameters();
+
 		return (isset($params[$name])) ? $params[$name] : $default;
 	}
 

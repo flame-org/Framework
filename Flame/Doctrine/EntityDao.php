@@ -19,6 +19,7 @@ class EntityDao extends \Kdyby\Doctrine\EntityDao
 	public function createEntity()
 	{
 		$reflection = new ClassType($this->getEntityName());
+
 		return $reflection->newInstanceArgs(func_get_args());
 	}
 
@@ -30,6 +31,7 @@ class EntityDao extends \Kdyby\Doctrine\EntityDao
 		$reflection = new ClassType($this->getEntityName());
 		$entity = $reflection->newInstanceArgs(func_get_args());
 		$this->add($entity);
+
 		return $entity;
 	}
 

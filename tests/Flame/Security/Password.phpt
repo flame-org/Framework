@@ -3,7 +3,7 @@
  * Test: Flame\Tests\Security\Password
  *
  * @testCase Flame\Tests\Security\PasswordTest
- * @author Jiří Šifalda <sifalda.jiri@gmail.com>
+ * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
  * @package Flame\Tests\Security
  */
 namespace Flame\Tests\Security;

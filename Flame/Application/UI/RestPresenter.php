@@ -43,7 +43,7 @@ abstract class RestPresenter extends Presenter
 
 		try {
 			$this->checkMethodRequest($element);
-		}catch (InvalidStateException $ex) {
+		} catch (InvalidStateException $ex) {
 			$this->returnException($ex);
 		}
 	}
@@ -79,15 +79,15 @@ abstract class RestPresenter extends Presenter
 
 	/**
 	 * @param \Exception $ex
-	 * @param int $code
+	 * @param int        $code
 	 */
 	protected function returnException(\Exception $ex, $code = null)
 	{
 		Debugger::log($ex);
 
-		if($code === null && $ex->getCode()){
+		if ($code === null && $ex->getCode()) {
 			$code = $ex->getCode();
-		}elseif($code === null){
+		} elseif ($code === null) {
 			$code = 500;
 		}
 
@@ -103,7 +103,7 @@ abstract class RestPresenter extends Presenter
 
 	/**
 	 * @param array $data
-	 * @param int $code
+	 * @param int   $code
 	 */
 	protected function returnResponse(array $data = array(), $code = 200)
 	{
@@ -126,8 +126,8 @@ abstract class RestPresenter extends Presenter
 			$reguest = $this->getHttpRequest();
 			if (Strings::lower($anot) !== Strings::lower($reguest->getMethod()))
 				throw new InvalidStateException('Bad method for this request. ' . $element->getDeclaringClass() . '::' . $element->getName());
-		}else{
-			if($element instanceof Method)
+		} else {
+			if ($element instanceof Method)
 				throw new InvalidStateException('@method annotation is not set for method ' . $element->getDeclaringClass() . '::' . $element->getName());
 		}
 	}

@@ -36,8 +36,8 @@ final class Arrays extends \Nette\Object
 	}
 
 	/**
-	 * @param $array
-	 * @param $subkey
+	 * @param     $array
+	 * @param     $subkey
 	 * @param int $sortType
 	 * @return mixed
 	 */
@@ -49,12 +49,13 @@ final class Arrays extends \Nette\Object
 			}
 			array_multisort($keys, $sortType, $array);
 		}
+
 		return $array;
 	}
 
 	/**
-	 * @param $array
-	 * @param $subkey
+	 * @param     $array
+	 * @param     $subkey
 	 * @param int $sortType
 	 * @return mixed
 	 */
@@ -66,6 +67,7 @@ final class Arrays extends \Nette\Object
 			}
 			array_multisort($keys, $sortType, $array);
 		}
+
 		return $array;
 	}
 
@@ -83,6 +85,7 @@ final class Arrays extends \Nette\Object
 					return $current_key;
 				}
 			}
+
 			return false;
 		}
 	}
@@ -96,7 +99,8 @@ final class Arrays extends \Nette\Object
 		$valid = array();
 		if (count($array)) {
 			foreach ($array as $item) {
-				if ($item) $valid[] = $item;
+				if ($item)
+					$valid[] = $item;
 			}
 		}
 

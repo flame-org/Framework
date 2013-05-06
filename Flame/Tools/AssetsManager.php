@@ -31,8 +31,8 @@ class AssetsManager extends \Nette\Object
 	}
 
 	/**
-	 * @param $filesPattern
-	 * @param $directory
+	 * @param        $filesPattern
+	 * @param        $directory
 	 * @param string $publicDir
 	 * @return array
 	 */
@@ -47,6 +47,7 @@ class AssetsManager extends \Nette\Object
 			if (!FileSystem::write($path, $minifyContent))
 				$failed[] = array($filePath, $path);
 		}
+
 		return $failed;
 	}
 
@@ -70,8 +71,8 @@ class AssetsManager extends \Nette\Object
 	}
 
 	/**
-	 * @param $runScriptPath
-	 * @param $directory
+	 * @param        $runScriptPath
+	 * @param        $directory
 	 * @param string $filesPattern
 	 * @return array
 	 */
@@ -83,6 +84,7 @@ class AssetsManager extends \Nette\Object
 			if (!FileSystem::cp($filePath, $path))
 				$failed[] = array($filePath, $path);
 		}
+
 		return $failed;
 	}
 

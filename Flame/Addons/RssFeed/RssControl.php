@@ -3,14 +3,14 @@
 /**
  * RSS control
  *
- * @author Jan Marek
- * @license MIT
+ * @author    Jan Marek
+ * @license   MIT
  * @copyright (c) Jan Marek 2009
  *
- * @property string $title
- * @property string $description
- * @property string $link
- * @property array $items
+ * @property string     $title
+ * @property string     $description
+ * @property string     $link
+ * @property array      $items
  * @property-read array $properties
  */
 
@@ -20,6 +20,7 @@ use Nette\InvalidStateException;
 
 class RssControl extends \Flame\Application\UI\Control
 {
+
 	/** @var array */
 	private $properties;
 
@@ -58,6 +59,7 @@ class RssControl extends \Flame\Application\UI\Control
 
 	/**
 	 * Convert date to RFC822
+	 *
 	 * @param string|date $date
 	 * @return string
 	 */
@@ -84,6 +86,7 @@ class RssControl extends \Flame\Application\UI\Control
 
 	/**
 	 * Prepare channel properties
+	 *
 	 * @return array
 	 */
 	public function prepareProperties($properties)
@@ -101,6 +104,7 @@ class RssControl extends \Flame\Application\UI\Control
 
 	/**
 	 * Prepare item
+	 *
 	 * @return array
 	 */
 	public function prepareItem($item)
@@ -126,8 +130,9 @@ class RssControl extends \Flame\Application\UI\Control
 
 	/**
 	 * Set channel property
+	 *
 	 * @param string $name
-	 * @param mixed $value
+	 * @param mixed  $value
 	 */
 	public function setChannelProperty($name, $value)
 	{
@@ -136,6 +141,7 @@ class RssControl extends \Flame\Application\UI\Control
 
 	/**
 	 * Get channel property
+	 *
 	 * @param string $name
 	 * @return mixed
 	 */
@@ -146,6 +152,7 @@ class RssControl extends \Flame\Application\UI\Control
 
 	/**
 	 * Get properties
+	 *
 	 * @return array
 	 */
 	public function getProperties()
@@ -155,6 +162,7 @@ class RssControl extends \Flame\Application\UI\Control
 
 	/**
 	 * Set title
+	 *
 	 * @param string $title
 	 */
 	public function setTitle($title)
@@ -164,6 +172,7 @@ class RssControl extends \Flame\Application\UI\Control
 
 	/**
 	 * Get title
+	 *
 	 * @return string
 	 */
 	public function getTitle()
@@ -173,6 +182,7 @@ class RssControl extends \Flame\Application\UI\Control
 
 	/**
 	 * Set description
+	 *
 	 * @param string $description
 	 */
 	public function setDescription($description)
@@ -182,6 +192,7 @@ class RssControl extends \Flame\Application\UI\Control
 
 	/**
 	 * Get description
+	 *
 	 * @return string
 	 */
 	public function getDescription()
@@ -191,6 +202,7 @@ class RssControl extends \Flame\Application\UI\Control
 
 	/**
 	 * Set link
+	 *
 	 * @param string $link
 	 */
 	public function setLink($link)
@@ -200,6 +212,7 @@ class RssControl extends \Flame\Application\UI\Control
 
 	/**
 	 * Get link
+	 *
 	 * @return string
 	 */
 	public function getLink()
@@ -209,6 +222,7 @@ class RssControl extends \Flame\Application\UI\Control
 
 	/**
 	 * Set items
+	 *
 	 * @param array $items
 	 */
 	public function setItems($items)
@@ -218,6 +232,7 @@ class RssControl extends \Flame\Application\UI\Control
 
 	/**
 	 * Get items
+	 *
 	 * @return array
 	 */
 	public function getItems()

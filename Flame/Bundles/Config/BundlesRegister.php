@@ -15,7 +15,7 @@ use Nette\Object;
 class BundlesRegister extends Object
 {
 
-	/** @var \Flame\Bundles\Loaders\BundlesLoader  */
+	/** @var \Flame\Bundles\Loaders\BundlesLoader */
 	private $bundlesLoader;
 
 	/**
@@ -32,10 +32,10 @@ class BundlesRegister extends Object
 	public function processConfigs(Configurator $configurator)
 	{
 		$classes = $this->getBundlesClasses();
-		if(count($classes)) {
-			foreach($classes as $class) {
+		if (count($classes)) {
+			foreach ($classes as $class) {
 				$configs = $class->getConfigFiles();
-				if(count($configs)) {
+				if (count($configs)) {
 					foreach ($configs as $config) {
 						$configurator->addConfig($config);
 					}

@@ -37,7 +37,7 @@ class PostsImporter extends \Nette\Object
 	{
 		$post = array();
 
-		$namespaces = $item->getNameSpaces(TRUE);
+		$namespaces = $item->getNameSpaces(true);
 
 		$wp = $item->children($namespaces['wp']);
 

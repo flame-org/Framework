@@ -41,6 +41,7 @@ class Password extends \Nette\Object
 		$this->password = \Nette\Utils\Strings::random();
 		$this->object = new \Flame\Types\Password;
 		$this->object->setPassword($this->password);
+
 		return $this;
 	}
 

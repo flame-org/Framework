@@ -16,7 +16,7 @@ class Validator extends Object
 {
 
 	/**
-	 * @param $input
+	 * @param       $input
 	 * @param array $required
 	 * @return \Nette\ArrayHash
 	 * @throws \Nette\InvalidArgumentException

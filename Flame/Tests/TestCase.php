@@ -38,13 +38,14 @@ abstract class TestCase extends Tester\TestCase
 	}
 
 	/**
-	 * @param $name
+	 * @param      $name
 	 * @param null $default
 	 * @return null
 	 */
 	protected function getContextParameter($name, $default = null)
 	{
 		$params = $this->getContext()->getParameters();
+
 		return (isset($params[$name])) ? $params[$name] : $default;
 	}
 
@@ -82,7 +83,7 @@ abstract class TestCase extends Tester\TestCase
 
 	/**
 	 * @param string $name
-	 * @param mixed $value
+	 * @param mixed  $value
 	 */
 	public function __set($name, $value)
 	{
@@ -91,7 +92,7 @@ abstract class TestCase extends Tester\TestCase
 
 	/**
 	 * @param string $name
-	 * @param array $args
+	 * @param array  $args
 	 * @return mixed
 	 */
 	public function __call($name, $args)

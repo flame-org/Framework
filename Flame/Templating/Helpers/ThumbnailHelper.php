@@ -35,8 +35,8 @@ class ThumbnailHelper extends Object
 	 */
 	public function __construct($baseDir, $thumbDirUri = '/media/thumbnails')
 	{
-		$this->baseDir = (string) $baseDir;
-		$this->thumbDirUri = (string) $thumbDirUri;
+		$this->baseDir = (string)$baseDir;
+		$this->thumbDirUri = (string)$thumbDirUri;
 	}
 
 	/**
@@ -55,6 +55,7 @@ class ThumbnailHelper extends Object
 		$relPath = implode($sep, $tmp);
 		$relPath .= $width . 'x' . $height . '-' . $mtime . '-' . $flag;
 		$relPath = md5($relPath) . $sep . $ext;
+
 		return $relPath;
 	}
 
@@ -72,10 +73,10 @@ class ThumbnailHelper extends Object
 	 */
 	public function getImagePath($relativePath)
 	{
-		if(Strings::startsWith($relativePath, DIRECTORY_SEPARATOR) || Strings::endsWith($this->baseDir, DIRECTORY_SEPARATOR)) {
+		if (Strings::startsWith($relativePath, DIRECTORY_SEPARATOR) || Strings::endsWith($this->baseDir, DIRECTORY_SEPARATOR)) {
 			return $this->baseDir . $relativePath;
 		}
-		
+
 		return $this->baseDir . DIRECTORY_SEPARATOR . $relativePath;
 	}
 
@@ -91,6 +92,7 @@ class ThumbnailHelper extends Object
 			$flag = ($width !== null && $height !== null) ? 'STRETCH' : 'FIT';
 
 		$flag = strtolower((string)$flag);
+
 		return (isset($this->flags[$flag])) ? $this->flags[$flag] : Image::FIT;
 	}
 
@@ -100,7 +102,7 @@ class ThumbnailHelper extends Object
 	 */
 	public function getUrl($thumbName)
 	{
-		if(Strings::startsWith($thumbName, '/') || Strings::endsWith($this->thumbDirUri, '/')) {
+		if (Strings::startsWith($thumbName, '/') || Strings::endsWith($this->thumbDirUri, '/')) {
 			return $this->thumbDirUri . $thumbName;
 		}
 

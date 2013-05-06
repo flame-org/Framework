@@ -36,7 +36,7 @@ class Form extends \Nette\Application\UI\Form
 
 	/**
 	 * @param \Nette\ComponentModel\IContainer|null $parent
-	 * @param null $name
+	 * @param null                                  $name
 	 */
 	public function __construct(\Nette\ComponentModel\IContainer $parent = null, $name = null)
 	{
@@ -64,6 +64,7 @@ class Form extends \Nette\Application\UI\Form
 		$values = (array)parent::getValues($asArray);
 		if (!isset($values['id']))
 			$values['id'] = $this->getId();
+
 		return \Nette\ArrayHash::from($values);
 	}
 
@@ -78,7 +79,7 @@ class Form extends \Nette\Application\UI\Form
 
 	/**
 	 * @param array|\Nette\Forms\Traversable $values
-	 * @param bool $erase
+	 * @param bool                           $erase
 	 * @return \Nette\Forms\Container
 	 */
 	public function setDefaults($values, $erase = false)
@@ -102,6 +103,7 @@ class Form extends \Nette\Application\UI\Form
 					}
 
 				}
+
 				return $value;
 			}, $values);
 		}
@@ -110,7 +112,7 @@ class Form extends \Nette\Application\UI\Form
 	}
 
 	/**
-	 * @param array $items
+	 * @param array  $items
 	 * @param string $filter
 	 * @return array
 	 */
@@ -121,6 +123,7 @@ class Form extends \Nette\Application\UI\Form
 			foreach ($items as $item) {
 				$prepared[$item->id] = $item->$filter;
 			}
+
 			return $prepared;
 		}
 

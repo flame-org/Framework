@@ -19,7 +19,7 @@ use Nette\Object;
 class Thumbnail extends Object
 {
 
-	/** @var \Flame\Templating\Helpers\ThumbnailHelper  */
+	/** @var \Flame\Templating\Helpers\ThumbnailHelper */
 	private $helper;
 
 	/**
@@ -31,8 +31,8 @@ class Thumbnail extends Object
 	}
 
 	/**
-	 * @param $imagePath
-	 * @param $width
+	 * @param      $imagePath
+	 * @param      $width
 	 * @param null $height
 	 * @param null $flag
 	 * @return string
@@ -46,7 +46,7 @@ class Thumbnail extends Object
 		$thumbDirPath = $this->helper->getDirPath();
 		$origPath = $this->helper->getImagePath($imagePath);
 
-		if(!file_exists($thumbDirPath)) {
+		if (!file_exists($thumbDirPath)) {
 			FileSystem::mkDir($thumbDirPath);
 		}
 
@@ -82,19 +82,19 @@ class Thumbnail extends Object
 
 				if ($newWidth !== $origWidth || $newHeight !== $origHeight) {
 					$image->save($thumbPath);
+
 					return $thumbUri;
 				} else {
 					return $imagePath;
 				}
 			} catch (\Exception $ex) {
 				Debugger::log($ex);
+
 				return $imagePath;
 			}
 		}
 
 	}
-
-
 
 
 }

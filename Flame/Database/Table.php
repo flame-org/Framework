@@ -34,7 +34,7 @@ abstract class Table extends Nette\Object
 	{
 		$this->connection = $db;
 
-		if ($this->tableName === NULL) {
+		if ($this->tableName === null) {
 			$class = get_class($this);
 			throw new Nette\InvalidStateException("Name of table must be defined $class::\$tableName.");
 		}

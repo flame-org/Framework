@@ -72,7 +72,7 @@ class Password extends \Nette\Object
 	}
 
 	/**
-	 * @param $password
+	 * @param      $password
 	 * @param null $salt
 	 * @return Password
 	 */
@@ -81,6 +81,7 @@ class Password extends \Nette\Object
 		if ($password === null) {
 			$this->value = null;
 			$this->salt = null;
+
 			return $this;
 		}
 
@@ -92,12 +93,13 @@ class Password extends \Nette\Object
 		}
 
 		$this->value = $this->hashPassword($password, $this->salt);
+
 		return $this;
 	}
 
 
 	/**
-	 * @param $password
+	 * @param      $password
 	 * @param null $salt
 	 * @return bool
 	 */

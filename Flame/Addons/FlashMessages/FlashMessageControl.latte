@@ -1,6 +1,6 @@
 {snippet flashMessages}
-<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">
-    <a class="close" data-dismiss="alert" href="#">×</a>
-    <h4 class="alert-heading">{$flash->message}</h4>
-</div>
+	<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">
+		<a class="close" data-dismiss="alert" href="#">×</a>
+		<h4 class="alert-heading">{$flash->message}</h4>
+	</div>
 {/snippet}

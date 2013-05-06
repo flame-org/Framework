@@ -12,6 +12,7 @@ namespace Flame\Templating;
 
 abstract class ThemeManager extends \Nette\Object
 {
+
 	/**
 	 * @var array
 	 */

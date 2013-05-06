@@ -22,7 +22,7 @@ class FileManager extends \Nette\Object
 	protected $filesDirPath;
 
 	/**
-	 * @param $baseDirPath
+	 * @param        $baseDirPath
 	 * @param string $filesDirPath
 	 */
 	public function __construct($baseDirPath, $filesDirPath = '/media/images')
@@ -49,6 +49,7 @@ class FileManager extends \Nette\Object
 
 	/**
 	 * Save upladed file and return absolute path
+	 *
 	 * @param \Nette\Http\FileUpload $file
 	 * @return string
 	 * @throws \Nette\InvalidArgumentException
@@ -76,6 +77,7 @@ class FileManager extends \Nette\Object
 
 	/**
 	 * Save file from url on server
+	 *
 	 * @param $url
 	 * @return bool|string
 	 */
@@ -94,6 +96,7 @@ class FileManager extends \Nette\Object
 
 	/**
 	 * Return ending of filename
+	 *
 	 * @param $name
 	 * @return null
 	 */
@@ -104,6 +107,7 @@ class FileManager extends \Nette\Object
 
 	/**
 	 * Return name of file without ending
+	 *
 	 * @param $name
 	 * @return mixed
 	 */
@@ -114,6 +118,7 @@ class FileManager extends \Nette\Object
 
 	/**
 	 * Return name of file from URL or absolute path
+	 *
 	 * @param $path
 	 * @return null
 	 */

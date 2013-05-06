@@ -21,7 +21,7 @@ class ArraysTest extends \Flame\Tests\TestCase
 
 	public function testConstructor()
 	{
-		Assert::exception(function (){
+		Assert::exception(function () {
 			$arrays = new Arrays();
 		}, '\Flame\StaticClassException');
 
@@ -51,13 +51,13 @@ class ArraysTest extends \Flame\Tests\TestCase
 	{
 
 		$input = array(
-			(object) array('order' => 1),
-			(object) array('order' => 0),
+			(object)array('order' => 1),
+			(object)array('order' => 0),
 		);
 
 		$output = array(
-			(object) array('order' => 0),
-			(object) array('order' => 1)
+			(object)array('order' => 0),
+			(object)array('order' => 1)
 		);
 
 		Assert::equal($output, Arrays::sortByProperty($input, 'order'));

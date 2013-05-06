@@ -22,7 +22,7 @@ class PresenterLoader extends \Nette\Object
 	private $appDir;
 
 	/**
-	 * @param \Nette\Loaders\RobotLoader $robotLoader
+	 * @param \Nette\Loaders\RobotLoader          $robotLoader
 	 * @param \Nette\Caching\Storages\FileStorage $fileStorage
 	 */
 	public function __construct(
@@ -41,6 +41,7 @@ class PresenterLoader extends \Nette\Object
 	public function setAppDir($appDir)
 	{
 		$this->appDir = realpath((string)$appDir);
+
 		return $this;
 	}
 
@@ -60,6 +61,7 @@ class PresenterLoader extends \Nette\Object
 		}
 
 		$this->robotLoader->addDirectory($dir)->register();
+
 		return $this;
 	}
 
@@ -106,6 +108,7 @@ class PresenterLoader extends \Nette\Object
 	public function getPresentersName($namespace = null)
 	{
 		$presenters = $this->getPresenters($namespace);
+
 		return array_map(function ($presenter) {
 			return str_replace('Presenter', '', Strings::getLastPiece($presenter, '\\'));
 		}, $presenters);

@@ -16,7 +16,7 @@ abstract class ApplicationTestCase extends MockTestCase
 {
 
 	/**
-	 * @param Form $form
+	 * @param Form  $form
 	 * @param array $values
 	 * @return \Nette\Application\IResponse
 	 */
@@ -28,6 +28,7 @@ abstract class ApplicationTestCase extends MockTestCase
 
 		$presenter = new Tools\UIFormTestingPresenter($form);
 		$this->getContext()->callMethod(array($presenter, 'injectPrimary'));
+
 		return $presenter->run(new \Nette\Application\Request(
 			'presenter',
 			strtoupper($form->getMethod()),
@@ -70,8 +71,8 @@ abstract class ApplicationTestCase extends MockTestCase
 
 	/**
 	 * @param \Nette\ComponentModel\IComponent $component
-	 * @param array $methods
-	 * @param string $name
+	 * @param array                            $methods
+	 * @param string                           $name
 	 * @return \Flame\Application\UI\Presenter|\PHPUnit_Framework_MockObject_MockObject
 	 */
 	public function attachToPresenter(\Nette\ComponentModel\IComponent $component, $methods = array(), $name = 'component')
@@ -80,6 +81,7 @@ abstract class ApplicationTestCase extends MockTestCase
 		$presenter = $this->getMock('Flame\Application\UI\Presenter', (array)$methods, array());
 		$this->getContext()->callMethod(array($presenter, 'injectPrimary'));
 		$component->setParent($presenter, $name);
+
 		return $presenter;
 	}
 
@@ -97,6 +99,7 @@ abstract class ApplicationTestCase extends MockTestCase
 			ob_end_clean();
 			throw $e;
 		}
+
 		return \Nette\Utils\Strings::normalize(ob_get_clean());
 	}
 

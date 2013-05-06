@@ -38,7 +38,7 @@ class CacheProvider extends Object
 	 */
 	public function __construct($tempDir)
 	{
-		$this->tempDir = (string) $tempDir;
+		$this->tempDir = (string)$tempDir;
 	}
 
 	/**
@@ -50,8 +50,8 @@ class CacheProvider extends Object
 	}
 
 	/**
-	 * @param $dir
-	 * @param null $namespace
+	 * @param                                  $dir
+	 * @param null                             $namespace
 	 * @param \Nette\Caching\Storages\IJournal $journal
 	 * @return \Nette\Caching\Cache
 	 */
@@ -59,7 +59,7 @@ class CacheProvider extends Object
 	{
 		$dir = $this->tempDir . DIRECTORY_SEPARATOR . $dir;
 
-		if (!file_exists($dir)){
+		if (!file_exists($dir)) {
 			FileSystem::mkDir($dir);
 		}
 

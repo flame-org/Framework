@@ -3,7 +3,7 @@
  * Test: Flame\Tests\Templating\HelpersTest
  *
  * @testCase Flame\Tests\Templating\HelpersTestTest
- * @author Jiří Šifalda <sifalda.jiri@gmail.com>
+ * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
  * @package Flame\Tests\Templating
  */
 namespace Flame\Tests\Templating;
@@ -53,6 +53,7 @@ class HelpersTestTest extends \Flame\Tests\TestCase
 	{
 		ob_start();
 		\Nette\Diagnostics\Debugger::dump($var);
+
 		return \Nette\Utils\Strings::normalize(ob_get_clean());
 	}
 
@@ -64,6 +65,7 @@ class HelpersTestTest extends \Flame\Tests\TestCase
 	{
 		ob_start();
 		Helpers::dump($var);
+
 		return \Nette\Utils\Strings::normalize(ob_get_clean());
 	}
 
@@ -72,7 +74,7 @@ class HelpersTestTest extends \Flame\Tests\TestCase
 		$s = 'Hello
 		world!
 		How are you today?';
-		
+
 		Assert::equal(nl2br($s), Helpers::br($s));
 	}
 }

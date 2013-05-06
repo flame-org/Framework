@@ -24,6 +24,7 @@ class TemplateForm extends Form
 	protected function getTemplateFile()
 	{
 		$reflection = $this->getReflection();
+
 		return dirname($reflection->getFileName()) . DIRECTORY_SEPARATOR . $reflection->getShortName() . ".latte";
 	}
 
@@ -53,6 +54,7 @@ class TemplateForm extends Form
 		$args = func_get_args();
 		if ($args) {
 			parent::render($args[0]);
+
 			return;
 		}
 

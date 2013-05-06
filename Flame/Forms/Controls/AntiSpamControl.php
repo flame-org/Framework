@@ -17,7 +17,8 @@ class AntiSpamControl extends \Nette\Forms\Controls\HiddenField
 
 	public function getControl()
 	{
-		if (empty($this->value)) $this->value = 'nospam';
+		if (empty($this->value))
+			$this->value = 'nospam';
 
 		$hiddenControl = parent::getControl();
 

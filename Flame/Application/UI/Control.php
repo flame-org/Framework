@@ -60,6 +60,7 @@ abstract class Control extends \Nette\Application\UI\Control
 		$template = parent::createTemplate($class);
 		if (file_exists($file = $this->getTemplateFile()))
 			$template->setFile($file);
+
 		return $template;
 	}
 
@@ -69,6 +70,7 @@ abstract class Control extends \Nette\Application\UI\Control
 	protected function getTemplateFile()
 	{
 		$reflection = $this->getReflection();
+
 		return dirname($reflection->getFileName()) . DIRECTORY_SEPARATOR . $reflection->getShortName() . '.latte';
 	}
 }

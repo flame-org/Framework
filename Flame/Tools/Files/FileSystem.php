@@ -30,7 +30,7 @@ class FileSystem extends \Nette\Object
 
 
 	/**
-	 * @param $file
+	 * @param      $file
 	 * @param bool $need
 	 * @return bool
 	 * @throws \Flame\FileNotWritableException
@@ -50,7 +50,7 @@ class FileSystem extends \Nette\Object
 
 
 	/**
-	 * @param $dir
+	 * @param      $dir
 	 * @param bool $recursive
 	 * @param bool $need
 	 * @return bool
@@ -69,7 +69,7 @@ class FileSystem extends \Nette\Object
 
 	/**
 	 * @param string $dir
-	 * @param bool $need
+	 * @param bool   $need
 	 *
 	 * @return bool
 	 */
@@ -90,9 +90,9 @@ class FileSystem extends \Nette\Object
 
 
 	/**
-	 * @param $dir
+	 * @param      $dir
 	 * @param bool $recursive
-	 * @param int $chmod
+	 * @param int  $chmod
 	 * @param bool $need
 	 * @return bool
 	 * @throws \Flame\IOException
@@ -122,10 +122,10 @@ class FileSystem extends \Nette\Object
 
 
 	/**
-	 * @param $file
-	 * @param $contents
+	 * @param      $file
+	 * @param      $contents
 	 * @param bool $createDirectory
-	 * @param int $chmod
+	 * @param int  $chmod
 	 * @param bool $need
 	 * @return int
 	 * @throws \Flame\FileNotWritableException
@@ -144,7 +144,7 @@ class FileSystem extends \Nette\Object
 
 
 	/**
-	 * @param $file
+	 * @param      $file
 	 * @param bool $need
 	 * @return string
 	 * @throws \Flame\FileNotFoundException
@@ -159,8 +159,8 @@ class FileSystem extends \Nette\Object
 	}
 
 	/**
-	 * @param $source
-	 * @param $dest
+	 * @param      $source
+	 * @param      $dest
 	 * @param bool $need
 	 * @return bool
 	 */

@@ -7,27 +7,27 @@
      xmlns:atom="http://www.w3.org/2005/Atom"
      xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
      xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
-<channel>
-{block #properties}
-	{foreach $channelProperties as $key => $property}
-        <{$key}>
+	<channel>
+		{block #properties}
+		{foreach $channelProperties as $key => $property}
+		<{$key}>
 		{if is_array($property)}
-		{include #properties 'channelProperties' => $property}
-			{else}
+			{include #properties 'channelProperties' => $property}
+		{else}
 			{$property}
 		{/if}
-    </{$key}>
+	</{$key}>
 	{/foreach}
-{/block}
+	{/block}
 
-{foreach $items as $item}
-<item>
-	{foreach $item as $key => $property}
-        <{$key}>
-		{$property}
-    </{$key}>
+	{foreach $items as $item}
+		<item>
+		{foreach $item as $key => $property}
+			<{$key}>
+			{$property}
+			</{$key}>
+		{/foreach}
+		</item>
 	{/foreach}
-    </item>
-{/foreach}
-    </channel>
+	</channel>
 </rss>

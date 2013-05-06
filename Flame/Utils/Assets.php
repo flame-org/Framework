@@ -27,7 +27,7 @@ class Assets extends \Nette\Object
 	}
 
 	/**
-	 * @param $name
+	 * @param        $name
 	 * @param string $oldType
 	 * @param string $newType
 	 * @return mixed

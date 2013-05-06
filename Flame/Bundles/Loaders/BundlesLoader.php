@@ -19,7 +19,7 @@ class BundlesLoader extends Object
 	/** @var \Nette\Loaders\RobotLoader */
 	private $robotLoader;
 
-	/** @var array  */
+	/** @var array */
 	private $bundles = array();
 
 	/**
@@ -43,12 +43,12 @@ class BundlesLoader extends Object
 	 */
 	public function getBundlesClasses()
 	{
-		if(!count($this->bundles)) {
+		if (!count($this->bundles)) {
 			$classes = $this->getIndexedClasses();
-			if(count($classes)) {
-				foreach($classes as $class => $path) {
+			if (count($classes)) {
+				foreach ($classes as $class => $path) {
 					$classReflection = ClassType::from($class);
-					if($classReflection->is(self::BUNDLE_NAMESPACE)){
+					if ($classReflection->is(self::BUNDLE_NAMESPACE)) {
 						$this->bundles[] = $classReflection->newInstance();
 					}
 				}

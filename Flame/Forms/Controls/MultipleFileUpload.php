@@ -28,6 +28,7 @@ class MultipleFileUpload extends UploadControl
 
 	/**
 	 * Generates control's HTML element.
+	 *
 	 * @return \Nette\Utils\Html
 	 */
 	public function getControl()
@@ -35,11 +36,13 @@ class MultipleFileUpload extends UploadControl
 		$control = parent::getControl();
 		$control->name = $this->getHtmlName() . "[]";
 		$control->class[] = "multiple-file-upload";
+
 		return $control;
 	}
 
 	/**
 	 * Sets control's value.
+	 *
 	 * @param  array|Nette\Http\FileUpload
 	 * @return Nette\Http\FileUpload  provides a fluent interface
 	 */
@@ -52,15 +55,17 @@ class MultipleFileUpload extends UploadControl
 			$this->value = $value;
 
 		} else {
-			$this->value = new FileUpload(NULL);
+			$this->value = new FileUpload(null);
 		}
+
 		return $this;
 	}
 
 	/**
 	 * FileSize validator: is file size in limit?
+	 *
 	 * @param \Nette\Forms\Controls\UploadControl $control
-	 * @param $limit
+	 * @param                                     $limit
 	 * @return bool
 	 */
 	public static function validateFileSize(UploadControl $control, $limit)
@@ -68,7 +73,8 @@ class MultipleFileUpload extends UploadControl
 		$files = $control->getValue();
 		if (is_array($files) and count($files)) {
 			foreach ($files as $file) {
-				if (!$file instanceof FileUpload or $file->getSize() >= $limit) return false;
+				if (!$file instanceof FileUpload or $file->getSize() >= $limit)
+					return false;
 			}
 
 			return true;
@@ -80,8 +86,9 @@ class MultipleFileUpload extends UploadControl
 
 	/**
 	 * MimeType validator: has file specified mime type?
+	 *
 	 * @param UploadControl $control
-	 * @param $mimeType
+	 * @param               $mimeType
 	 * @return bool
 	 */
 	public static function validateMimeType(UploadControl $control, $mimeType)
@@ -90,13 +97,15 @@ class MultipleFileUpload extends UploadControl
 
 		if (is_array($files) and count($files)) {
 			foreach ($files as $file) {
-				if (self::validateFileMimeType($file, $mimeType)) return true;
+				if (self::validateFileMimeType($file, $mimeType))
+					return true;
 			}
 		} else {
-			if (self::validateFileMimeType($files, $mimeType)) return true;
+			if (self::validateFileMimeType($files, $mimeType))
+				return true;
 		}
 
-		return FALSE;
+		return false;
 
 	}
 
@@ -110,11 +119,11 @@ class MultipleFileUpload extends UploadControl
 		if ($file instanceof FileUpload) {
 			$type = strtolower($file->getContentType());
 			$mimeTypes = is_array($mimeType) ? $mimeType : explode(',', $mimeType);
-			if (in_array($type, $mimeTypes, TRUE)) {
-				return TRUE;
+			if (in_array($type, $mimeTypes, true)) {
+				return true;
 			}
-			if (in_array(preg_replace('#/.*#', '/*', $type), $mimeTypes, TRUE)) {
-				return TRUE;
+			if (in_array(preg_replace('#/.*#', '/*', $type), $mimeTypes, true)) {
+				return true;
 			}
 		}
 	}
@@ -129,7 +138,8 @@ class MultipleFileUpload extends UploadControl
 
 		if (is_array($files) and count($files)) {
 			foreach ($files as $file) {
-				if (!$file instanceof FileUpload or !$file->isImage()) return false;
+				if (!$file instanceof FileUpload or !$file->isImage())
+					return false;
 			}
 
 			return true;
@@ -141,6 +151,7 @@ class MultipleFileUpload extends UploadControl
 
 	/**
 	 * Has been any file uploaded?
+	 *
 	 * @return bool
 	 */
 	public function isFilled()
@@ -148,7 +159,8 @@ class MultipleFileUpload extends UploadControl
 
 		if (is_array($this->value) and count($this->value)) {
 			foreach ($this->value as $file) {
-				if (!$file instanceof FileUpload or !$file->isOk()) return false;
+				if (!$file instanceof FileUpload or !$file->isOk())
+					return false;
 			}
 
 			return true;

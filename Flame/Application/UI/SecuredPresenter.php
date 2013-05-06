@@ -31,7 +31,7 @@ abstract class SecuredPresenter extends Presenter
 
 	public function handleLogout()
 	{
-		$this->getUser()->logout(TRUE);
+		$this->getUser()->logout(true);
 		$this->redirect($this->loginLink);
 	}
 

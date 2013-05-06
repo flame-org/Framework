@@ -12,12 +12,13 @@ define('TEMP_DIR', __DIR__ . '/../temp');
 Tester\Helpers::setup();
 date_default_timezone_set('Europe/Prague');
 
-function id($val) {
+function id($val)
+{
 	return $val;
 }
 
 $configurator = new \Flame\Config\Configurator;
-$configurator->setDebugMode(FALSE);
+$configurator->setDebugMode(false);
 $configurator->setTempDirectory(TEMP_DIR);
 
 return $configurator->createContainer();
