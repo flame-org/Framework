@@ -11,43 +11,42 @@ namespace Flame\Utils;
 use Nette\ArrayHash;
 use Nette\InvalidArgumentException;
 use Nette\Object;
+use Flame\StaticClassException;
 
 class Validator extends Object
 {
 
 	/**
-	 * @param       $input
+	 * @throws StaticClassException
+	 */
+	final public function __construct()
+	{
+		throw new StaticClassException;
+	}
+
+	/**
+	 * @param $input
 	 * @param array $required
 	 * @return \Nette\ArrayHash
 	 * @throws \Nette\InvalidArgumentException
 	 */
-	public function invalidate($input, array $required = array())
+	public static function invalidate($input, array $required = array())
 	{
 		if (count($required)) {
 			foreach ($required as $require) {
-				if (!$this->existKey($require, $input))
+				if (!array_key_exists($require, $input))
 					throw new InvalidArgumentException('Missing argument "' . $require . '"');
 			}
 		}
 
-		return $this->getHash($input);
-	}
-
-	/**
-	 * @param $key
-	 * @param $input
-	 * @return bool
-	 */
-	public function existKey($key, $input)
-	{
-		return array_key_exists($key, $input);
+		return static::getHash($input);
 	}
 
 	/**
 	 * @param $input
 	 * @return \Nette\ArrayHash
 	 */
-	public function getHash($input)
+	public static function getHash($input)
 	{
 		return ArrayHash::from($input);
 	}
@@ -56,7 +55,7 @@ class Validator extends Object
 	 * @param $input
 	 * @return null
 	 */
-	public function getId($input)
+	public static function getId($input)
 	{
 		return (isset($input['id'])) ? $input['id'] : null;
 	}
