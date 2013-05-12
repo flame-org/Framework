@@ -69,15 +69,6 @@ class Form extends \Nette\Application\UI\Form
 	}
 
 	/**
-	 * @param array $defaults
-	 */
-	public function restore(array $defaults = array())
-	{
-		$this->setDefaults($defaults, true);
-		$this->setValues($defaults, true);
-	}
-
-	/**
 	 * @param array|\Nette\Forms\Traversable $values
 	 * @param bool                           $erase
 	 * @return \Nette\Forms\Container
