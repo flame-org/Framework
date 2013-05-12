@@ -12,7 +12,7 @@ use Nette\InvalidArgumentException;
 use Nette\Object;
 use Nette\Reflection\ClassType;
 
-class RESTHelper extends Object
+class Invalidator extends Object
 {
 
 	/**
@@ -24,12 +24,12 @@ class RESTHelper extends Object
 	}
 
 	/**
-	 * @param      $var
+	 * @param object $var
 	 * @param bool $getPrivate
 	 * @return array
 	 * @throws \Nette\InvalidArgumentException
 	 */
-	public static function invalidateObject($var, $getPrivate = true)
+	public static function object($var, $getPrivate = true)
 	{
 		if(is_object($var)) {
 
