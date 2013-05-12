@@ -9,6 +9,7 @@
 * Anti spam control for forms
 * Multiple files upload for forms
 * Bundles support
+* UI\Form with own template
 
 **Addons**
 * Step form control
