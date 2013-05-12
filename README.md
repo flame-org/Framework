@@ -5,8 +5,6 @@
 ###Flame is available over Composer. Please visit [PACKAGIST](http://packagist.org/packages/flame/framework)
 
 ###Basic features
-* Theme manager
-* Thumbnaills creator
 * Application\UI extensions
 * Anti spam control for forms
 * Multiple files upload for forms
