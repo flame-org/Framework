@@ -32,15 +32,16 @@ class Invalidator extends Object
 	public static function object($var, $getPrivate = true)
 	{
 		if(is_object($var)) {
-
-			if($getPrivate) {
-				/** @var  $valid */
-				$valid = array();
-				$vars = ClassType::from($var)->getProperties();
-				if(count($vars)) {
-					/** @var \Nette\Reflection\Property $property */
-					foreach($vars as $property) {
+			$valid = array();
+			$vars = ClassType::from($var)->getProperties();
+			if(count($vars)) {
+				/** @var \Nette\Reflection\Property $property */
+				foreach($vars as $property) {
+					if(!$property->accessible && $getPrivate) {
 						$property->setAccessible(true);
+					}
+
+					if($property->accessible) {
 						$value = $property->getValue($var);
 						if($value instanceof \DateTime){
 							$valid[$property->getName()] = $value->getTimestamp();
@@ -49,11 +50,9 @@ class Invalidator extends Object
 						}
 					}
 				}
-
-				return $valid;
-			}else{
-				return get_object_vars($var);
 			}
+
+			return $valid;
 		}else{
 			throw new InvalidArgumentException('Parameter must be object. Given ' . gettype($var));
 		}
