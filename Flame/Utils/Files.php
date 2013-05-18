@@ -10,14 +10,27 @@
 
 namespace Flame\Utils;
 
-class Assets extends \Nette\Object
+use Flame\StaticClassException;
+use Nette\Object;
+
+class Files extends Object
 {
+
+	/**
+	 * Static class - cannot be instantiated.
+	 *
+	 * @throws \Flame\StaticClassException
+	 */
+	final public function __construct()
+	{
+		throw new StaticClassException;
+	}
 
 	/**
 	 * @param $path
 	 * @return mixed
 	 */
-	public static function getFileNameFromPath($path)
+	public static function getFileName($path)
 	{
 		if (strpos($path, DIRECTORY_SEPARATOR) === false) {
 			return $path;
@@ -35,15 +48,6 @@ class Assets extends \Nette\Object
 	public static function modifyType($name, $oldType = 'less', $newType = 'css')
 	{
 		return str_replace('.' . $oldType, '.' . $newType, $name);
-	}
-
-	/**
-	 * @param $content
-	 * @return mixed
-	 */
-	public static function minifyCss($content)
-	{
-		return str_replace('; ', ';', str_replace(' }', '}', str_replace('{ ', '{', str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), "", preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content)))));
 	}
 
 }
