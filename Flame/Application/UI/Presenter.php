@@ -51,4 +51,12 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 		return $this->getHttpRequest()->url->baseUrl;
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function isDebugMode()
+	{
+		return $this->getContextParameter('debugMode', false);
+	}
+
 }
