@@ -36,7 +36,7 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 	 * @param null $default
 	 * @return null
 	 */
-	protected function getContextParameter($name, $default = null)
+	public function getContextParameter($name, $default = null)
 	{
 		$params = $this->context->getParameters();
 
@@ -46,7 +46,7 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 	/**
 	 * @return mixed
 	 */
-	protected function getBaseUrl()
+	public function getBaseUrl()
 	{
 		return $this->getHttpRequest()->url->baseUrl;
 	}
