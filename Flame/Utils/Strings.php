@@ -18,12 +18,11 @@ class Strings extends \Nette\Utils\Strings
 	 */
 	public static function getLastPiece($s, $delimiter)
 	{
-		if (!static::contains($s, $delimiter))
-			return;
-		$lastOne = strrchr($s, $delimiter);
-		$lastOne = str_replace($delimiter, '', $lastOne);
-
-		return $lastOne;
+		if (static::contains($s, $delimiter)) {
+			$lastOne = strrchr($s, $delimiter);
+			$lastOne = str_replace($delimiter, '', $lastOne);
+			return $lastOne;
+		}
 	}
 
 	/**
@@ -34,13 +33,11 @@ class Strings extends \Nette\Utils\Strings
 	 */
 	public static function getPiece($s, $delimiter, $index)
 	{
-		if (!static::contains($s, $delimiter))
-			return;
-		$pieces = explode($delimiter, $s);
-		if (!isset($pieces[$index]))
-			return;
-
-		return $pieces[$index];
+		if (static::contains($s, $delimiter)) {
+			$pieces = explode($delimiter, $s);
+			if (isset($pieces[$index]))
+				return $pieces[$index];
+		}
 	}
 
 }
