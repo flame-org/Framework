@@ -13,27 +13,20 @@ namespace Flame\Application\UI;
 class TemplateForm extends Form
 {
 
-	/**
-	 * @var string
-	 */
+	/** @var  string */
+	private $templatePath;
+
+	/** @var  string */
 	protected $template;
 
 	/**
-	 * @return string
+	 * @param $path
+	 * @return $this
 	 */
-	protected function getTemplateFile()
+	public function setTemplateFile($path)
 	{
-		$reflection = $this->getReflection();
-
-		return dirname($reflection->getFileName()) . DIRECTORY_SEPARATOR . $reflection->getShortName() . ".latte";
-	}
-
-	/**
-	 * @return mixed
-	 */
-	protected function createTemplate()
-	{
-		return $this->getPresenter()->getTemplate()->setFile($this->getTemplateFile());
+		$this->templatePath = (string) $path;
+		return $this;
 	}
 
 	/**
@@ -60,5 +53,26 @@ class TemplateForm extends Form
 
 		$this->getTemplate()->form = $this;
 		$this->getTemplate()->render();
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function getTemplateFile()
+	{
+		if($this->templatePath === null) {
+			$reflection = $this->getReflection();
+			return dirname($reflection->getFileName()) . DIRECTORY_SEPARATOR . $reflection->getShortName() . ".latte";
+		}
+
+		return $this->templatePath;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	protected function createTemplate()
+	{
+		return $this->getPresenter()->getTemplate()->setFile($this->getTemplateFile());
 	}
 }
