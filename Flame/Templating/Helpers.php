@@ -10,17 +10,32 @@
 
 namespace Flame\Templating;
 
-class Helpers extends \Nette\Object
+use Nette\Callback;
+use Nette\Diagnostics\Debugger;
+use Nette\Object;
+
+class Helpers extends Object
 {
 
 	/**
 	 * @param $helper
 	 * @return \Nette\Callback
 	 */
-	public static function loader($helper)
+	public function loader($helper)
+	{
+		if (method_exists($this, $helper)) {
+			return Callback::create($this, $helper);
+		}
+	}
+
+	/**
+	 * @param $helper
+	 * @return \Nette\Callback
+	 */
+	public function staticLoader($helper)
 	{
 		if (method_exists(__CLASS__, $helper)) {
-			return new \Nette\Callback(__CLASS__, $helper);
+			return Callback::create(__CLASS__, $helper);
 		}
 	}
 
@@ -48,7 +63,7 @@ class Helpers extends \Nette\Object
 	 */
 	public static function dump($var)
 	{
-		return \Nette\Diagnostics\Debugger::dump($var);
+		return Debugger::dump($var);
 	}
 
 	/**
