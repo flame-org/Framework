@@ -44,14 +44,6 @@ abstract class Presenter extends \Nette\Application\UI\Presenter
 	}
 
 	/**
-	 * @return mixed
-	 */
-	public function getBaseUrl()
-	{
-		return $this->getHttpRequest()->url->baseUrl;
-	}
-
-	/**
 	 * @return bool
 	 */
 	public function isDebugMode()
