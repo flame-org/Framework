@@ -32,7 +32,7 @@ class Helpers extends Object
 	 * @param $helper
 	 * @return \Nette\Callback
 	 */
-	public function staticLoader($helper)
+	public static function staticLoader($helper)
 	{
 		if (method_exists(__CLASS__, $helper)) {
 			return Callback::create(__CLASS__, $helper);
