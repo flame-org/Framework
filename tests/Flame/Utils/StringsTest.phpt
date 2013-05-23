@@ -14,7 +14,7 @@ require_once __DIR__ . '/../bootstrap.php';
 use Flame\Utils\Strings;
 use Tester\Assert;
 
-class StringsTest extends \Flame\Tests\TestCase
+class StringsTest extends \Flame\Tester\TestCase
 {
 
 	/**

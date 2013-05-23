@@ -16,7 +16,7 @@ require_once __DIR__ . '/../bootstrap.php';
 use Tester\Assert;
 use Flame\Utils\Arrays;
 
-class ArraysTest extends \Flame\Tests\TestCase
+class ArraysTest extends \Flame\Tester\TestCase
 {
 
 	public function testConstructor()

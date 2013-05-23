@@ -16,7 +16,7 @@ require_once __DIR__ . '/../../bootstrap.php';
 use Tester\Assert;
 use Flame\Tools\Files\FileSystem;
 
-class FileManagerTest extends \Flame\Tests\TestCase
+class FileManagerTest extends \Flame\Tester\TestCase
 {
 
 	/**

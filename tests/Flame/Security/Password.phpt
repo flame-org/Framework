@@ -14,7 +14,7 @@ use Tester\Assert;
 
 $configurator = require_once __DIR__ . '/../bootstrap.php';
 
-class PasswordTest extends \Flame\Tests\TestCase
+class PasswordTest extends \Flame\Tester\TestCase
 {
 
 	/** @var \Flame\Security\Password */

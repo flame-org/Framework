@@ -15,7 +15,7 @@ $configurator = require_once __DIR__ . '/../bootstrap.php';
 
 use Tester\Assert;
 
-class ConfiguratorTest extends \Flame\Tests\TestCase
+class ConfiguratorTest extends \Flame\Tester\TestCase
 {
 
 	/** @var \Flame\Config\Configurator */

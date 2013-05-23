@@ -15,7 +15,7 @@ require_once __DIR__ . '/../bootstrap.php';
 use Flame\Utils\Css;
 use Tester\Assert;
 
-class CssTest extends \Flame\Tests\TestCase
+class CssTest extends \Flame\Tester\TestCase
 {
 	public function testMinifyCss()
 	{

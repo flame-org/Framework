@@ -13,7 +13,7 @@ use Flame\Templating\Helpers;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class HelpersTest extends \Flame\Tests\TestCase
+class HelpersTest extends \Flame\Tester\TestCase
 {
 
 	public function testLoader()

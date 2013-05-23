@@ -25,7 +25,7 @@
 	},
 
 	"require-dev": {
-		"nette/tester": "dev-master",
+		"flame/tester": "dev-master",
 		"janmarek/mockista": "dev-master"
 	},
 
