@@ -2,7 +2,7 @@
 /**
  * Test: Flame\Tests\Templating\HelpersTest
  *
- * @testCase Flame\Tests\Templating\HelpersTestTest
+ * @testCase Flame\Tests\Templating\HelpersTest
  * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
  * @package Flame\Tests\Templating
  */
@@ -13,18 +13,18 @@ use Flame\Templating\Helpers;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class HelpersTestTest extends \Flame\Tests\TestCase
+class HelpersTest extends \Flame\Tests\TestCase
 {
 
 	public function testLoader()
 	{
 		$method = 'urlencode';
 		$expected = \Nette\Callback::create('Flame\Templating\Helpers', $method);
-		Assert::equal($expected, Helpers::loader($method));
+		Assert::equal($expected, Helpers::staticLoader($method));
 
 		$method = 'missingMethod';
 		$expected = \Nette\Callback::create('Flame\Templating\Helpers', $method);
-		Assert::null(Helpers::loader($method));
+		Assert::null(Helpers::staticLoader($method));
 	}
 
 	public function testUrldecode()
@@ -79,4 +79,4 @@ class HelpersTestTest extends \Flame\Tests\TestCase
 	}
 }
 
-id(new HelpersTestTest())->run();
+id(new HelpersTest())->run();
