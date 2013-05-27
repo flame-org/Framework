@@ -11,6 +11,7 @@
 namespace Flame\Tools\Files;
 
 use Nette\Utils\Strings;
+use Flame\Utils\Files;
 
 class FileManager extends \Nette\Object
 {
@@ -124,12 +125,7 @@ class FileManager extends \Nette\Object
 	 */
 	protected function getFileName($path)
 	{
-		if (Strings::contains($path, DIRECTORY_SEPARATOR)) {
-			return str_replace(DIRECTORY_SEPARATOR, '', strrchr($path, DIRECTORY_SEPARATOR));
-		} else {
-			return $path;
-		}
-
+		return Files::getFileName($path);
 	}
 
 	/**
