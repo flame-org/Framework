@@ -32,6 +32,7 @@ class Files extends Object
 	 */
 	public static function getFileName($path)
 	{
+		$path = preg_replace("#\\/#", DIRECTORY_SEPARATOR, $path);
 		if (strpos($path, DIRECTORY_SEPARATOR) === false) {
 			return $path;
 		} else {
