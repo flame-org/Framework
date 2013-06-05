@@ -102,4 +102,13 @@ class Paginator extends UI\Control
 		$this->getPaginator()->page = $this->page;
 	}
 
+	/**
+	 * @param array $items
+	 * @return array
+	 */
+	public function applyFor(array &$items)
+	{
+		return array_slice($items, $this->getPaginator()->getOffset(), $this->getPaginator()->getLength());
+	}
+
 }
