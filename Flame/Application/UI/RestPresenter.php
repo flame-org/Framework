@@ -11,7 +11,6 @@ namespace Flame\Application\UI;
 use Flame\Utils\Strings;
 use Nette\Application\ForbiddenRequestException;
 use Nette\Diagnostics\Debugger;
-use Nette\InvalidStateException;
 use Nette\Reflection\Method;
 use Nette;
 
@@ -37,13 +36,8 @@ abstract class RestPresenter extends Presenter
 
 		try {
 			parent::checkRequirements($element);
+			$this->checkRequestMethod($element);
 		} catch (ForbiddenRequestException $ex) {
-			$this->returnException($ex);
-		}
-
-		try {
-			$this->checkMethodRequest($element);
-		} catch (InvalidStateException $ex) {
 			$this->returnException($ex);
 		}
 	}
@@ -112,23 +106,24 @@ abstract class RestPresenter extends Presenter
 		$this->payload->status = self::STATUS_SUCCESS;
 
 		$this->getHttpResponse()->setCode($code);
+		$this->payload->html = (string) $this->renderTemplate();
 
 		$this->sendJson($this->getPayload());
 	}
 
 	/**
 	 * @param $element
-	 * @throws \Nette\InvalidStateException
+	 * @throws \Nette\Application\ForbiddenRequestException
 	 */
-	protected function checkMethodRequest($element)
+	protected function checkRequestMethod($element)
 	{
 		if ($anot = $element->getAnnotation('method')) {
 			$reguest = $this->getHttpRequest();
 			if (Strings::lower($anot) !== Strings::lower($reguest->getMethod()))
-				throw new InvalidStateException('Bad method for this request. ' . $element->getDeclaringClass() . '::' . $element->getName());
+				throw new ForbiddenRequestException('Bad method for this request. ' . $element->getDeclaringClass() . '::' . $element->getName());
 		} else {
 			if ($element instanceof Method)
-				throw new InvalidStateException('@method annotation is not set for method ' . $element->getDeclaringClass() . '::' . $element->getName());
+				throw new ForbiddenRequestException('@method annotation is not set for method ' . $element->getDeclaringClass() . '::' . $element->getName());
 		}
 	}
 }
