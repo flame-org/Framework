@@ -87,11 +87,8 @@ abstract class RestPresenter extends Presenter
 
 		$this->payload->status = self::STATUS_ERROR;
 		$this->payload->message = $ex->getMessage();
-		$this->payload->code = $code;
 
-		$this->getHttpResponse()->setCode($code);
-
-		$this->sendJson($this->getPayload());
+		$this->sendResource($code);
 	}
 
 
@@ -102,11 +99,18 @@ abstract class RestPresenter extends Presenter
 	protected function returnResponse(array $data = array(), $code = 200)
 	{
 		$this->payload->data = $data;
-		$this->payload->code = $code;
 		$this->payload->status = self::STATUS_SUCCESS;
 
-		$this->getHttpResponse()->setCode($code);
+		$this->sendResource($code);
+	}
 
+	/**
+	 * @param int $code
+	 */
+	protected function sendResource($code = 200)
+	{
+		$this->payload->code = $code;
+		$this->getHttpResponse()->setCode($code);
 		$this->sendJson($this->getPayload());
 	}
 
