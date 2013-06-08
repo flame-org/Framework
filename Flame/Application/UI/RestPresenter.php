@@ -106,7 +106,6 @@ abstract class RestPresenter extends Presenter
 		$this->payload->status = self::STATUS_SUCCESS;
 
 		$this->getHttpResponse()->setCode($code);
-		$this->payload->html = (string) $this->renderTemplate();
 
 		$this->sendJson($this->getPayload());
 	}
