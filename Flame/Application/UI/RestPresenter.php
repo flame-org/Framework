@@ -120,13 +120,9 @@ abstract class RestPresenter extends Presenter
 	 */
 	protected function checkRequestMethod($element)
 	{
-		$anot = $element->getAnnotation('method');
-
-		if(!$anot) {
-			$anot = 'GET';
+		if($anot = $element->getAnnotation('method')) {
+			if (Strings::lower($anot) !== Strings::lower($this->getHttpRequest()->getMethod()))
+				throw new ForbiddenRequestException('Bad HTTP method for the request.');
 		}
-
-		if (Strings::lower($anot) !== Strings::lower($this->getHttpRequest()->getMethod()))
-			throw new ForbiddenRequestException('Bad HTTP method for the request.');
 	}
 }
