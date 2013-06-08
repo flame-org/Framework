@@ -20,13 +20,19 @@ use Nette\Application\UI\Presenter;
 class StepFormControl extends Control
 {
 
-	private $steps;
+	/** @var array  */
+	private $steps = array();
 
-	private $menu;
+	/** @var array  */
+	private $menu = array();
 
+	/** @var  int */
 	private $position;
 
-
+	/**
+	 * @param $linkName
+	 * @param $componentName
+	 */
 	public function addStep($linkName, $componentName)
 	{
 		$counter = count($this->menu) + 1;
@@ -34,13 +40,17 @@ class StepFormControl extends Control
 		$this->steps[$counter] = $componentName;
 	}
 
-
+	/**
+	 * @param $obj
+	 */
 	protected function attached($obj)
 	{
 		parent::attached($obj);
 
 		if ($obj instanceOf Presenter) {
 			$this->position = $this->getPresenter()->getParameter('step') ? (int)$this->getPresenter()->getParameter('step') : 1;
+
+			$steps = array();
 
 			if (count($this->steps)) {
 				foreach ($this->steps as $key => $step) {
@@ -55,14 +65,13 @@ class StepFormControl extends Control
 
 	public function render()
 	{
-		$template = $this->getTemplate();
-		$template->setFile(__DIR__ . '/StepFormControl.latte');
+		$this->template->setFile(__DIR__ . '/StepFormControl.latte');
 
-		$template->steps = $this->steps;
-		$template->menu = $this->menu;
-		$template->position = $this->position;
+		$this->template->steps = $this->steps;
+		$this->template->menu = $this->menu;
+		$this->template->position = $this->position;
 
-		$template->render();
+		$this->template->render();
 	}
 
 }

@@ -58,10 +58,10 @@ class FileManager extends \Nette\Object
 	{
 
 		if (!$file->isOk())
-			throw new \Nette\InvalidArgumentException('File ' . $file->name . ' is not valid.');
+			throw new \Nette\InvalidArgumentException('File ' . $file->getName() . ' is not valid.');
 
 		FileSystem::mkDir($this->getAbsolutePath(), true, 0777, false);
-		$name = Strings::webalize($this->removeFileType($file->name)) . '.' . $this->getFileType($file->name);
+		$name = Strings::webalize($this->removeFileType($file->getName())) . '.' . $this->getFileType($file->getName());
 		$filePath = $this->getAbsolutePath() . DIRECTORY_SEPARATOR . $name;
 
 		if (!file_exists($filePath)) {
