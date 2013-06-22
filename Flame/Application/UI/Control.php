@@ -30,8 +30,10 @@ abstract class Control extends \Nette\Application\UI\Control
 	protected function createTemplate($class = null)
 	{
 		$template = parent::createTemplate($class);
-		if (file_exists($file = $this->getTemplateFile()))
+		$file = $this->getTemplateFile();
+		if (file_exists($file)) {
 			$template->setFile($file);
+		}
 
 		return $template;
 	}
@@ -42,7 +44,6 @@ abstract class Control extends \Nette\Application\UI\Control
 	protected function getTemplateFile()
 	{
 		$reflection = $this->getReflection();
-
 		return dirname($reflection->getFileName()) . DIRECTORY_SEPARATOR . $reflection->getShortName() . '.latte';
 	}
 }
