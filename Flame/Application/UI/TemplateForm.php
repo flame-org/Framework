@@ -47,7 +47,6 @@ class TemplateForm extends Form
 		$args = func_get_args();
 		if ($args) {
 			parent::render($args[0]);
-
 			return;
 		}
 
@@ -69,10 +68,13 @@ class TemplateForm extends Form
 	}
 
 	/**
-	 * @return mixed
+	 * @return \Nette\Templating\ITemplate
 	 */
 	protected function createTemplate()
 	{
-		return $this->getPresenter()->getTemplate()->setFile($this->getTemplateFile());
+		/** @var \Nette\Templating\ITemplate $template */
+		$template = clone $this->getPresenter()->getTemplate();
+		$template->setFile($this->getTemplateFile());
+		return $template;
 	}
 }
