@@ -36,6 +36,7 @@
 	"autoload": {
 		"psr-0": {"Flame": ""},
 		"classmap": [
+            "Tools",
 			"Flame/exceptions.php"
 		]
 	}
