@@ -9,7 +9,7 @@
 namespace Flame\Bundles\Config;
 
 use Flame\Bundles\Loaders\BundlesLoader;
-use Nette\Config\Configurator;
+use Nette\Configurator;
 use Nette\Object;
 
 class BundlesRegister extends Object
