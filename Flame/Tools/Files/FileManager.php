@@ -105,7 +105,7 @@ class FileManager extends \Nette\Object
 	 * @param $name
 	 * @return null
 	 */
-	protected function getFileType($name)
+	public function getFileType($name)
 	{
 		return str_replace('.', '', strrchr($name, '.'));
 	}
