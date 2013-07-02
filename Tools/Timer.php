@@ -49,7 +49,7 @@ class Timer
 	 * @param $name
 	 * @return float|int
 	 */
-	static public function getAveregeFor($name)
+	static public function getAverageFor($name)
 	{
 		$values = \TimerLogger::getCacheBy($name);
 		$sum = 0;
