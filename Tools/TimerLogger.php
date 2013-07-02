@@ -13,7 +13,7 @@ class TimerLogger
 	const FILE = './timer.txt';
 
 	/**
-	 * @return mixed
+	 * @return array
 	 */
 	static public function getCache()
 	{
@@ -24,7 +24,7 @@ class TimerLogger
 			return array();
 		}
 
-		return json_decode($content);
+		return (array) json_decode($content);
 	}
 
 	/**
@@ -54,7 +54,7 @@ class TimerLogger
 	 */
 	static public function writeToCache($name, $value)
 	{
-		$cache = (array) static::getCache();
+		$cache = static::getCache();
 
 		if(!isset($cache[$name]) || !is_array($cache[$name])) {
 			$cache[$name] = array();
