@@ -108,6 +108,7 @@ class Paginator extends UI\Control
 	 */
 	public function applyFor(array &$items)
 	{
+		$this->getPaginator()->setItemCount(count($items));
 		return array_slice($items, $this->getPaginator()->getOffset(), $this->getPaginator()->getLength());
 	}
 
