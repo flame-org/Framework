@@ -6,12 +6,12 @@
  * @date    05.02.13
  */
 
-namespace Flame\Application\UI;
+namespace Flame\Rest\Application\UI;
 
+use Flame\Application\UI\Presenter;
 use Flame\Utils\Strings;
 use Nette\Application\ForbiddenRequestException;
 use Nette\Diagnostics\Debugger;
-use Nette\Reflection\Method;
 use Nette;
 
 abstract class RestPresenter extends Presenter
