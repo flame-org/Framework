@@ -17,9 +17,6 @@ use Nette;
 abstract class RestPresenter extends Presenter
 {
 
-	const STATUS_SUCCESS = 'success',
-		STATUS_ERROR = 'error';
-
 	/**
 	 * @return mixed
 	 */
