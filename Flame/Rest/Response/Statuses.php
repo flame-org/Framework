@@ -12,8 +12,8 @@ use Nette\Object;
 class Statuses extends Object
 {
 
-	const STATUS_SUCCESS = 'success';
+	const SUCCESS = 'success';
 
-	const STATUS_ERROR = 'error';
+	const ERROR = 'error';
 
 }
