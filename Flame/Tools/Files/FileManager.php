@@ -28,8 +28,8 @@ class FileManager extends \Nette\Object
 	 */
 	public function __construct($baseDirPath, $filesDirPath = '/media/images')
 	{
-		$this->baseDirPath = (string)$baseDirPath;
-		$this->filesDirPath = (string)$filesDirPath;
+		$this->baseDirPath = (string) $baseDirPath;
+		$this->filesDirPath = (string) $filesDirPath;
 	}
 
 	/**
@@ -49,6 +49,14 @@ class FileManager extends \Nette\Object
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getBaseDir()
+	{
+		return $this->baseDirPath;
+	}
+
+	/**
 	 * Save upladed file and return absolute path
 	 *
 	 * @param \Nette\Http\FileUpload $file
@@ -58,8 +66,9 @@ class FileManager extends \Nette\Object
 	public function saveFile(\Nette\Http\FileUpload $file)
 	{
 
-		if (!$file->isOk())
+		if (!$file->isOk()) {
 			throw new \Nette\InvalidArgumentException('File ' . $file->getName() . ' is not valid.');
+		}
 
 		FileSystem::mkDir($this->getAbsolutePath(), true, 0777, false);
 		$name = Strings::webalize($this->removeFileType($file->getName())) . '.' . $this->getFileType($file->getName());
@@ -100,6 +109,14 @@ class FileManager extends \Nette\Object
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getAbsolutePath()
+	{
+		return $this->baseDirPath . $this->filesDirPath;
+	}
+
+	/**
 	 * Return ending of filename
 	 *
 	 * @param $name
@@ -130,14 +147,6 @@ class FileManager extends \Nette\Object
 	protected function getFileName($path)
 	{
 		return Files::getFileName($path);
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function getAbsolutePath()
-	{
-		return $this->baseDirPath . $this->filesDirPath;
 	}
 
 }
