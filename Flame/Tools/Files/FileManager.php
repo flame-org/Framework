@@ -57,21 +57,26 @@ class FileManager extends \Nette\Object
 	}
 
 	/**
-	 * Save upladed file and return absolute path
+	 * Save uploaded file and return absolute path
 	 *
 	 * @param \Nette\Http\FileUpload $file
+	 * @param null $name
 	 * @return string
 	 * @throws \Nette\InvalidArgumentException
 	 */
-	public function saveFile(\Nette\Http\FileUpload $file)
+	public function saveFile(\Nette\Http\FileUpload $file, $name = null)
 	{
+
+		FileSystem::mkDir($this->getAbsolutePath(), true, 0777, false);
 
 		if (!$file->isOk()) {
 			throw new \Nette\InvalidArgumentException('File ' . $file->getName() . ' is not valid.');
 		}
 
-		FileSystem::mkDir($this->getAbsolutePath(), true, 0777, false);
-		$name = Strings::webalize($this->removeFileType($file->getName())) . '.' . $this->getFileType($file->getName());
+		if(!$name) {
+			$name = $file->getSanitizedName();
+		}
+
 		$filePath = $this->getAbsolutePath() . DIRECTORY_SEPARATOR . $name;
 
 		if (!file_exists($filePath)) {
@@ -114,28 +119,6 @@ class FileManager extends \Nette\Object
 	public function getAbsolutePath()
 	{
 		return $this->baseDirPath . $this->filesDirPath;
-	}
-
-	/**
-	 * Return ending of filename
-	 *
-	 * @param $name
-	 * @return null
-	 */
-	public function getFileType($name)
-	{
-		return str_replace('.', '', strrchr($name, '.'));
-	}
-
-	/**
-	 * Return name of file without ending
-	 *
-	 * @param $name
-	 * @return mixed
-	 */
-	protected function removeFileType($name)
-	{
-		return str_replace('.' . $this->getFileType($name), '', $name);
 	}
 
 	/**
