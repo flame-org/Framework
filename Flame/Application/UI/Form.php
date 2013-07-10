@@ -10,7 +10,10 @@
 
 namespace Flame\Application\UI;
 
+use Nette\ArrayHash;
+use Nette\ComponentModel\IContainer;
 use Nette\Forms\Rules;
+use Nette\Forms\Container;
 
 class Form extends \Nette\Application\UI\Form
 {
@@ -19,26 +22,10 @@ class Form extends \Nette\Application\UI\Form
 	private $id;
 
 	/**
-	 * @return int
+	 * @param IContainer $parent
+	 * @param null $name
 	 */
-	public function getId()
-	{
-		return $this->id;
-	}
-
-	/**
-	 * @param int $id
-	 */
-	public function setId($id)
-	{
-		$this->id = (int)$id;
-	}
-
-	/**
-	 * @param \Nette\ComponentModel\IContainer|null $parent
-	 * @param null                                  $name
-	 */
-	public function __construct(\Nette\ComponentModel\IContainer $parent = null, $name = null)
+	public function __construct(IContainer $parent = null, $name = null)
 	{
 		parent::__construct($parent, $name);
 
@@ -56,6 +43,22 @@ class Form extends \Nette\Application\UI\Form
 	}
 
 	/**
+	 * @return int
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	/**
+	 * @param $id
+	 */
+	public function setId($id)
+	{
+		$this->id = (int)$id;
+	}
+
+	/**
 	 * @param bool $asArray
 	 * @return array|\Nette\ArrayHash
 	 */
@@ -65,7 +68,7 @@ class Form extends \Nette\Application\UI\Form
 		if (!isset($values['id']))
 			$values['id'] = $this->getId();
 
-		return \Nette\ArrayHash::from($values);
+		return ArrayHash::from($values);
 	}
 
 	/**
@@ -127,7 +130,7 @@ class Form extends \Nette\Application\UI\Form
 	 */
 	protected function addExtension($name, $class)
 	{
-		\Nette\Forms\Container::extensionMethod($name, function (\Nette\Forms\Container $container, $name, $label = null) use ($class) {
+		Container::extensionMethod($name, function (Container $container, $name, $label = null) use ($class) {
 			return $container[$name] = new $class($label);
 		});
 	}
