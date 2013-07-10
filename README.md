@@ -13,7 +13,7 @@
 
 **Addons**
 * Step form control
-* Wordpress importer
+* WordPress importer
 * Basic Flash messages control
 * Rss feed control
 * Visual paginator
@@ -21,7 +21,10 @@
 **Utils**
 * Arrays
 * Strings
-* Assets
+* Xml
+* Finder (ordering)
+* Files
+* some Validators
 
 
 ### Requirements
