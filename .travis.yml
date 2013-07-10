@@ -4,4 +4,4 @@ php:
 before_script:
   - composer self-update
   - composer install --no-interaction --quiet --dev
-script: "VERBOSE=true ./tests/run-tests.sh -s tests/Flame/"
+script: "./libs/bin/tester -j 10 tests/"
