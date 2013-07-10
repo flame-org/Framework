@@ -11,7 +11,7 @@ namespace Flame\Utils;
 use Nette\ArrayHash;
 use Nette\InvalidArgumentException;
 use Nette\Object;
-use Flame\StaticClassException;
+use Nette\StaticClassException;
 
 class Validator extends Object
 {

@@ -7,7 +7,7 @@
  */
 namespace Flame\Utils;
 
-use Flame\StaticClassException;
+use Nette\StaticClassException;
 use Nette\Object;
 
 class Css extends Object
@@ -16,7 +16,7 @@ class Css extends Object
 	/**
 	 * Static class - cannot be instantiated.
 	 *
-	 * @throws \Flame\StaticClassException
+	 * @throws \Nette\StaticClassException
 	 */
 	final public function __construct()
 	{

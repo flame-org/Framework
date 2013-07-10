@@ -7,7 +7,7 @@
  */
 namespace Flame\Utils;
 
-use Flame\StaticClassException;
+use Nette\StaticClassException;
 use Nette\InvalidArgumentException;
 use Nette\Object;
 use Nette\Reflection\ClassType;

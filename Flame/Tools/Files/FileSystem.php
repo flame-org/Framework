@@ -11,21 +11,23 @@
 namespace Flame\Tools\Files;
 
 use Flame;
+use Nette\Object;
+use Nette\StaticClassException;
 
 /**
  * @author Filip Procházka <filip@prochazka.su>
  */
-class FileSystem extends \Nette\Object
+class FileSystem extends Object
 {
 
 	/**
 	 * Static class - cannot be instantiated.
 	 *
-	 * @throws \Flame\StaticClassException
+	 * @throws StaticClassException
 	 */
 	final public function __construct()
 	{
-		throw new \Flame\StaticClassException;
+		throw new StaticClassException;
 	}
 
 

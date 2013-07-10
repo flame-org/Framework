@@ -9,18 +9,20 @@
  */
 
 namespace Flame\Utils;
+use Nette\Object;
+use Nette\StaticClassException;
 
-final class Arrays extends \Nette\Object
+final class Arrays extends Object
 {
 
 	/**
 	 * Static class - cannot be instantiated.
 	 *
-	 * @throws \Flame\StaticClassException
+	 * @throws StaticClassException
 	 */
 	final public function __construct()
 	{
-		throw new \Flame\StaticClassException;
+		throw new StaticClassException;
 	}
 
 	/**

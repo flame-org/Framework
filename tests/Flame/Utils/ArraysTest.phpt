@@ -23,7 +23,7 @@ class ArraysTest extends \Flame\Tester\TestCase
 	{
 		Assert::exception(function () {
 			$arrays = new Arrays();
-		}, '\Flame\StaticClassException');
+		}, '\Nette\StaticClassException');
 
 	}
 
