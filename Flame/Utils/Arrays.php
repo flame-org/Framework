@@ -106,13 +106,4 @@ final class Arrays extends \Nette\Object
 
 		return $valid;
 	}
-
-	/**
-	 * @param $xmlObject
-	 * @return mixed
-	 */
-	public static function xmlToArray($xmlObject)
-	{
-		return json_decode(json_encode((array)$xmlObject), 1);
-	}
 }
