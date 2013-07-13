@@ -15,16 +15,6 @@ use Nette;
 class Configurator extends Nette\Configurator
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->addParameters(array(
-			'rootDir' => '%appDir%/..',
-			'wwwDir' => '%appDir%/../www'
-		));
-	}
-
 	/**
 	 * @param $name
 	 * @param $default
