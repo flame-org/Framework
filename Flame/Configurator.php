@@ -8,7 +8,7 @@
  * @date    21.07.12
  */
 
-namespace Flame\Config;
+namespace Flame;
 
 use Nette;
 
