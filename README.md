@@ -8,7 +8,7 @@
 * Application\UI extensions
 * Anti spam control for forms
 * Multiple files upload for forms
-* Bundles support
+* [Bundles support](https://github.com/flame-org/Bundles)
 * UI\Form with own template
 
 **Addons**
