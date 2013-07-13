@@ -9,21 +9,21 @@
  * @date    24.12.12
  */
 
-namespace Flame\Tests\Config;
+namespace Flame\Tests;
 
-$configurator = require_once __DIR__ . '/../bootstrap.php';
+$configurator = require_once __DIR__ . '/bootstrap.php';
 
 use Tester\Assert;
 
 class ConfiguratorTest extends \Flame\Tester\TestCase
 {
 
-	/** @var \Flame\Config\Configurator */
+	/** @var \Flame\Configurator */
 	private $configurator;
 
 	public function setUp()
 	{
-		$this->configurator = new \Flame\Config\Configurator();
+		$this->configurator = new \Flame\Configurator();
 	}
 
 	public function testRegisterExtension()
