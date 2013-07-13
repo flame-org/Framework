@@ -30,7 +30,7 @@ class Configurator extends Nette\Configurator
 	 * @param $default
 	 * @return mixed
 	 */
-	public function getParameter($name, $default)
+	public function getParameter($name, $default = null)
 	{
 		return (isset($this->parameters[$name])) ? $this->parameters[$name] : $default;
 	}
