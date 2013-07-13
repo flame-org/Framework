@@ -41,7 +41,7 @@ class Configurator extends Nette\Configurator
 	 */
 	public function registerExtension($name, $class)
 	{
-		$this->onCompile[] = function ($configurator, $compiler) use ($name, $class) {
+		$this->onCompile[] = function (Nette\Configurator $configurator, Nette\DI\Compiler $compiler) use ($name, $class) {
 			$compiler->addExtension($name, new $class);
 		};
 	}
