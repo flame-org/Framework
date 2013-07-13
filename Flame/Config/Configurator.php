@@ -27,6 +27,16 @@ class Configurator extends Nette\Configurator
 
 	/**
 	 * @param $name
+	 * @param $default
+	 * @return mixed
+	 */
+	public function getParameter($name, $default)
+	{
+		return (isset($this->parameters[$name])) ? $this->parameters[$name] : $default;
+	}
+
+	/**
+	 * @param $name
 	 * @param $class
 	 */
 	public function registerExtension($name, $class)
