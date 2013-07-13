@@ -17,7 +17,7 @@ function id($val)
 	return $val;
 }
 
-$configurator = new \Flame\Config\Configurator;
+$configurator = new \Flame\Configurator;
 $configurator->setDebugMode(false);
 $configurator->setTempDirectory(TEMP_DIR);
 
