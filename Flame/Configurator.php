@@ -38,6 +38,20 @@ class Configurator extends Nette\Configurator
 	}
 
 	/**
+	 * @param $name
+	 * @param $class
+	 */
+	public function registerExtensionOnce($name, $class)
+	{
+		$this->onCompile[] = function (Nette\Configurator $configurator, Nette\DI\Compiler $compiler) use ($name, $class) {
+			$extensions = $compiler->getExtensions();
+			if(!isset($extensions[$name])) {
+				$compiler->addExtension($name, new $class);
+			}
+		};
+	}
+
+	/**
 	 * @param Nette\Loaders\RobotLoader $loader
 	 * @return BundlesLoader
 	 */
