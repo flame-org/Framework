@@ -10,6 +10,7 @@
 
 namespace Flame;
 
+use Flame\Bundles\Loaders\BundlesLoader;
 use Nette;
 
 class Configurator extends Nette\Configurator
@@ -34,5 +35,14 @@ class Configurator extends Nette\Configurator
 		$this->onCompile[] = function (Nette\Configurator $configurator, Nette\DI\Compiler $compiler) use ($name, $class) {
 			$compiler->addExtension($name, new $class);
 		};
+	}
+
+	/**
+	 * @param Nette\Loaders\RobotLoader $loader
+	 * @return BundlesLoader
+	 */
+	public function createBundlesLoader(Nette\Loaders\RobotLoader $loader = null)
+	{
+		return new BundlesLoader($this, $loader);
 	}
 }
