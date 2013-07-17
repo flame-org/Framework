@@ -41,7 +41,7 @@ class Finder extends \Nette\Utils\Finder
 	public function orderByMTime()
 	{
 		$this->order = function($f1, $f2) {
-			return $f2->getMTime() - $f2->getMTime();
+			return $f1->getMTime() < $f2->getMTime();
 		};
 		return $this;
 	}
