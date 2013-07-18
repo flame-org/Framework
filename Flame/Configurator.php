@@ -41,15 +41,6 @@ class Configurator extends Nette\Configurator
 	}
 
 	/**
-	 * @param Nette\Loaders\RobotLoader $loader
-	 * @return BundlesLoader
-	 */
-	public function createBundlesLoader(Nette\Loaders\RobotLoader $loader = null)
-	{
-		return new BundlesLoader($this, $loader);
-	}
-
-	/**
 	 * @return ModulesInstaller
 	 */
 	public function createModulesInstaller()
