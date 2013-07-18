@@ -11,6 +11,8 @@
 namespace Flame;
 
 use Flame\Bundles\Loaders\BundlesLoader;
+use Flame\Modules\Config\Parser;
+use Flame\Modules\DI\ConfiguratorHelper;
 use Flame\Modules\ModulesInstaller;
 use Nette;
 
@@ -52,6 +54,6 @@ class Configurator extends Nette\Configurator
 	 */
 	public function createModulesInstaller()
 	{
-		return new ModulesInstaller($this);
+		return new ModulesInstaller(new ConfiguratorHelper($this), new Parser($this));
 	}
 }
