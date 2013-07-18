@@ -1,43 +1,46 @@
 {
-	"name": "flame/framework",
-	"type": "library",
-	"description": "Flame is simple and smart FRAMEWORK based on Nette",
-	"keywords": ["framework", "nette", "simple", "flame", "jsifalda", "tools"],
-	"homepage": "https://github.com/flame-org/framework",
-	"license": "BSD-2-Clause-FreeBSD",
-	"minimum-stability":"dev",
+  "name": "flame/framework",
+  "type": "library",
+  "description": "Flame is simple and smart FRAMEWORK based on Nette",
+  "keywords": ["framework", "nette", "simple", "flame", "jsifalda", "tools"],
+  "homepage": "https://github.com/flame-org/framework",
+  "license": "BSD-2-Clause-FreeBSD",
+  "minimum-stability": "dev",
 
-	"authors": [
-		{
-			"name": "Jiří Šifalda",
-			"homepage": "http://jsifalda.name/"
-		}
-	],
+  "authors": [
+    {
+      "name": "Jiří Šifalda",
+      "homepage": "http://jsifalda.name/"
+    }
+  ],
 
-	"support":{
-		"email":"flame@jsifalda.name",
-		"issues":"https://github.com/flame-org/framework/issues"
-	},
+  "support": {
+    "email": "flame@jsifalda.name",
+    "issues": "https://github.com/flame-org/framework/issues"
+  },
 
-	"require": {
-		"php": ">=5.3.2",
-		"nette/nette": "@dev"
-	},
+  "require": {
+    "php": ">=5.3.2",
+    "nette/nette": "@dev",
+    "flame/modules": "0.1.*"
+  },
 
-	"require-dev": {
-		"flame/tester": "dev-master",
-		"janmarek/mockista": "dev-master"
-	},
+  "require-dev": {
+    "flame/tester": "dev-master",
+    "janmarek/mockista": "dev-master"
+  },
 
-	"config": {
-		"vendor-dir": "libs"
-	},
+  "config": {
+    "vendor-dir": "libs"
+  },
 
-	"autoload": {
-		"psr-0": {"Flame": ""},
-		"classmap": [
-            "Tools",
-			"Flame/exceptions.php"
-		]
-	}
+  "autoload": {
+    "psr-0": {
+      "Flame": ""
+    },
+    "classmap": [
+      "Tools",
+      "Flame/exceptions.php"
+    ]
+  }
 }
