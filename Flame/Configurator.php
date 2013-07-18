@@ -11,6 +11,7 @@
 namespace Flame;
 
 use Flame\Bundles\Loaders\BundlesLoader;
+use Flame\Modules\ModulesInstaller;
 use Nette;
 
 class Configurator extends Nette\Configurator
@@ -58,5 +59,13 @@ class Configurator extends Nette\Configurator
 	public function createBundlesLoader(Nette\Loaders\RobotLoader $loader = null)
 	{
 		return new BundlesLoader($this, $loader);
+	}
+
+	/**
+	 * @return ModulesInstaller
+	 */
+	public function createModulesInstaller()
+	{
+		return new ModulesInstaller($this);
 	}
 }
