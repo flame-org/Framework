@@ -22,7 +22,7 @@
   "require": {
     "php": ">=5.3.2",
     "nette/nette": "@dev",
-    "flame/modules": "0.1.*"
+    "flame/modules": ">=0.2.0"
   },
 
   "require-dev": {
