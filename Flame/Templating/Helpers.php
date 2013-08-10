@@ -10,7 +10,6 @@
 
 namespace Flame\Templating;
 
-use Nette\Callback;
 use Nette\Diagnostics\Debugger;
 use Nette\Object;
 
@@ -19,23 +18,23 @@ class Helpers extends Object
 
 	/**
 	 * @param $helper
-	 * @return \Nette\Callback
+	 * @return array
 	 */
 	public function loader($helper)
 	{
 		if (method_exists($this, $helper)) {
-			return Callback::create($this, $helper);
+			return array($this, $helper);
 		}
 	}
 
 	/**
 	 * @param $helper
-	 * @return \Nette\Callback
+	 * @return array
 	 */
 	public static function staticLoader($helper)
 	{
 		if (method_exists(__CLASS__, $helper)) {
-			return Callback::create(__CLASS__, $helper);
+			return array(__CLASS__, $helper);
 		}
 	}
 
@@ -72,6 +71,6 @@ class Helpers extends Object
 	 */
 	public static function br($string)
 	{
-		return nl2br((string)$string);
+		return nl2br((string) $string);
 	}
 }
