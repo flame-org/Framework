@@ -27,11 +27,6 @@ class ArraysTest extends \Flame\Tester\TestCase
 
 	}
 
-	public function testCallNetteArrays()
-	{
-		Assert::equal('test', Arrays::get(array('k' => 'test'), 'k'));
-	}
-
 	public function testSortBySubkey()
 	{
 		$input = array(

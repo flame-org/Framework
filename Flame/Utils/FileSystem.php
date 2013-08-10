@@ -28,16 +28,4 @@ class FileSystem extends Object
 		return $contents;
 	}
 
-	/**
-	 * Mirror of Nette\Utils\Arrays
-	 *
-	 * @param $name
-	 * @param $args
-	 * @return mixed
-	 */
-	public static function __callStatic($name, $args)
-	{
-		return \Nette\Callback::create('Nette\Utils\FileSystem', $name)->invokeArgs($args);
-	}
-
 } 

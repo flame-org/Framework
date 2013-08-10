@@ -9,6 +9,7 @@
  */
 
 namespace Flame\Utils;
+
 use Nette\Object;
 use Nette\StaticClassException;
 
@@ -23,18 +24,6 @@ final class Arrays extends Object
 	final public function __construct()
 	{
 		throw new StaticClassException;
-	}
-
-	/**
-	 * Mirror of Nette\Utils\Arrays
-	 *
-	 * @param $name
-	 * @param $args
-	 * @return mixed
-	 */
-	public static function __callStatic($name, $args)
-	{
-		return \Nette\Callback::create('Nette\Utils\Arrays', $name)->invokeArgs($args);
 	}
 
 	/**
