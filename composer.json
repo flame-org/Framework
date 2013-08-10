@@ -26,8 +26,9 @@
   },
 
   "require-dev": {
-    "flame/tester": "dev-master",
-    "janmarek/mockista": "dev-master"
+    "nette/tester": "0.9.3",
+    "flame/tester": "@dev",
+    "janmarek/mockista": "@dev"
   },
 
   "config": {
