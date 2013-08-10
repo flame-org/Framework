@@ -32,7 +32,7 @@ final class Arrays extends Object
 	 * @param int $sortType
 	 * @return mixed
 	 */
-	public static function sortBySubkey(&$array, $subkey, $sortType = SORT_ASC)
+	public static function sortBySubKey(&$array, $subkey, $sortType = SORT_ASC)
 	{
 		if (count($array)) {
 			foreach ($array as $subarray) {
@@ -56,6 +56,7 @@ final class Arrays extends Object
 			foreach ($array as $subarray) {
 				$keys[] = $subarray->$subkey;
 			}
+			
 			array_multisort($keys, $sortType, $array);
 		}
 
@@ -76,8 +77,8 @@ final class Arrays extends Object
 					return $current_key;
 				}
 			}
-
-			return false;
 		}
+
+		return false;
 	}
 }
