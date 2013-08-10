@@ -80,21 +80,4 @@ final class Arrays extends Object
 			return false;
 		}
 	}
-
-	/**
-	 * @param $array
-	 * @return array
-	 */
-	public static function getValidValues(&$array)
-	{
-		$valid = array();
-		if (count($array)) {
-			foreach ($array as $item) {
-				if ($item)
-					$valid[] = $item;
-			}
-		}
-
-		return $valid;
-	}
 }
