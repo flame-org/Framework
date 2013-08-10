@@ -10,8 +10,6 @@
 
 namespace Flame;
 
-use Flame\Bundles\Loaders\BundlesLoader;
-use Flame\Modules\Config\Parser;
 use Flame\Modules\DI\ConfiguratorHelper;
 use Flame\Modules\ModulesInstaller;
 use Nette;
