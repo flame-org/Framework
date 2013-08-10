@@ -11,8 +11,6 @@
 namespace Flame\Application\UI;
 
 use Nette\ArrayHash;
-use Nette\ComponentModel\IContainer;
-use Nette\Forms\Rules;
 use Nette\Forms\Container;
 
 class Form extends \Nette\Application\UI\Form
@@ -20,27 +18,6 @@ class Form extends \Nette\Application\UI\Form
 
 	/** @var int */
 	private $id;
-
-	/**
-	 * @param IContainer $parent
-	 * @param null $name
-	 */
-	public function __construct(IContainer $parent = null, $name = null)
-	{
-		parent::__construct($parent, $name);
-
-		Rules::$defaultMessages = array(
-			$this::EQUAL => 'Please enter %s.',
-			$this::FILLED => 'Field "%label" is required.',
-			$this::MIN_LENGTH => 'Field "%label" must be longer than %d chars.',
-			$this::MAX_LENGTH => 'Field "%label" must be shorter than %d chars.',
-			$this::LENGTH => 'Value of field "%label" must be longer than %d and shorter than %d chars.',
-			$this::EMAIL => 'Field "%label" must be valid email address.',
-			$this::URL => 'Field "%label" must be valid URL address.',
-			$this::IMAGE => 'You can upload only JPEG, GIF or PNG files.',
-			$this::MAX_FILE_SIZE => 'File size must be less than %d KB'
-		);
-	}
 
 	/**
 	 * @return int
