@@ -50,14 +50,13 @@ class Files extends Object
 	}
 
 	/**
-	 * @param        $name
-	 * @param string $oldType
-	 * @param string $newType
+	 * @param $path
+	 * @param string $newExtension
 	 * @return mixed
 	 */
-	public static function modifyType($name, $oldType = 'less', $newType = 'css')
+	public static function modifyExtension($path, $newExtension = 'css')
 	{
-		return str_replace('.' . $oldType, '.' . $newType, $name);
+		return preg_replace('/\..+$/', '.' . $newExtension, $path);
 	}
 
 }

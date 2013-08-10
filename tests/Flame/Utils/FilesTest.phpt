@@ -48,9 +48,9 @@ class FilesTest extends \Flame\Tester\TestCase
 	 * @param $filename
 	 * @param $result
 	 */
-	public function testModifyType($filename, $result)
+	public function testModifyExtension($filename, $result)
 	{
-		Assert::equal($result, Files::modifyType($filename));
+		Assert::equal($result, Files::modifyExtension($filename));
 	}
 
 	/**
