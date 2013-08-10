@@ -41,6 +41,15 @@ class Files extends Object
 	}
 
 	/**
+	 * @param $path
+	 * @return mixed
+	 */
+	public static function getFileExtension($path)
+	{
+		return pathinfo($path, PATHINFO_EXTENSION);
+	}
+
+	/**
 	 * @param        $name
 	 * @param string $oldType
 	 * @param string $newType

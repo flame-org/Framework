@@ -53,6 +53,9 @@ class FilesTest extends \Flame\Tester\TestCase
 		Assert::equal($result, Files::modifyType($filename));
 	}
 
+	/**
+	 * @return array
+	 */
 	public function providerFileNames()
 	{
 		return array(
@@ -60,6 +63,27 @@ class FilesTest extends \Flame\Tester\TestCase
 			array('style.css', 'style.css'),
 			array('style', 'style'),
 			array('/path/to/style.less', '/path/to/style.css')
+		);
+	}
+
+	/**
+	 * @dataProvider providerFileExtensions
+	 * @param $path
+	 * @param $result
+	 */
+	public function testGetFileExtension($path, $result)
+	{
+		Assert::equal($result, Files::getFileExtension($path));
+	}
+
+	/**
+	 * @return array
+	 */
+	public function providerFileExtensions()
+	{
+		return array(
+			array('style.css', 'css'),
+			array('file.fake.txt', 'txt')
 		);
 	}
 
