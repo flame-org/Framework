@@ -10,17 +10,20 @@
 
 namespace Flame\Tools\Files;
 
+use Nette\Http\FileUpload;
+use Nette\InvalidArgumentException;
+use Nette\Object;
 use Nette\Utils\Strings;
-use Flame\Utils\Files;
+use Nette\Utils\FileSystem;
 
-class FileManager extends \Nette\Object
+class FileManager extends Object
 {
 
 	/** @var string */
-	protected $baseDirPath;
+	private $baseDirPath;
 
 	/** @var string */
-	protected $filesDirPath;
+	private $filesDirPath;
 
 	/**
 	 * @param        $baseDirPath
@@ -34,10 +37,12 @@ class FileManager extends \Nette\Object
 
 	/**
 	 * @param $path
+	 * @return $this
 	 */
 	public function setFilesDir($path)
 	{
 		$this->filesDirPath = (string)$path;
+		return $this;
 	}
 
 	/**
@@ -64,13 +69,13 @@ class FileManager extends \Nette\Object
 	 * @return string
 	 * @throws \Nette\InvalidArgumentException
 	 */
-	public function saveFile(\Nette\Http\FileUpload $file, $name = null)
+	public function saveFile(FileUpload $file, $name = null)
 	{
 
-		FileSystem::mkDir($this->getAbsolutePath(), true, 0777, false);
+		FileSystem::createDir($this->getAbsolutePath(), 0777);
 
 		if (!$file->isOk()) {
-			throw new \Nette\InvalidArgumentException('File ' . $file->getName() . ' is not valid.');
+			throw new InvalidArgumentException('File ' . $file->getName() . ' is not valid.');
 		}
 
 		if(!$name) {
@@ -82,35 +87,12 @@ class FileManager extends \Nette\Object
 		if (!file_exists($filePath)) {
 			$file->move($filePath);
 		} else {
-			$new_name = Strings::random(5) . '_' . $name;
+			$new_name = Strings::random(3) . '_' . $name;
 			$file->move(str_replace($name, $new_name, $filePath));
 			$name = $new_name;
 		}
 
 		return $this->filesDirPath . DIRECTORY_SEPARATOR . $name;
-	}
-
-	/**
-	 * Save file from url on server
-	 *
-	 * @param $url
-	 * @param null $fileName
-	 * @return bool|string
-	 */
-	public function downloadFile($url, $fileName = null)
-	{
-		if($fileName === null) {
-			$fileName = $this->getFileName($url);
-		}
-
-		$fileDir = $this->getAbsolutePath() . DIRECTORY_SEPARATOR . $fileName;
-
-		if ($file = FileSystem::read($url, false)) {
-			if (FileSystem::write($fileDir, $file, true, 0777, false))
-				return $this->filesDirPath . DIRECTORY_SEPARATOR . $fileName;
-		}
-
-		return false;
 	}
 
 	/**
@@ -120,16 +102,4 @@ class FileManager extends \Nette\Object
 	{
 		return $this->baseDirPath . $this->filesDirPath;
 	}
-
-	/**
-	 * Return name of file from URL or absolute path
-	 *
-	 * @param $path
-	 * @return null
-	 */
-	protected function getFileName($path)
-	{
-		return Files::getFileName($path);
-	}
-
 }
