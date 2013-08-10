@@ -19,11 +19,10 @@ class HelpersTest extends \Flame\Tester\TestCase
 	public function testLoader()
 	{
 		$method = 'urlencode';
-		$expected = \Nette\Callback::create('Flame\Templating\Helpers', $method);
+		$expected = array('Flame\Templating\Helpers', $method);
 		Assert::equal($expected, Helpers::staticLoader($method));
 
 		$method = 'missingMethod';
-		$expected = \Nette\Callback::create('Flame\Templating\Helpers', $method);
 		Assert::null(Helpers::staticLoader($method));
 	}
 
