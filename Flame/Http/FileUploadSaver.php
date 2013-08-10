@@ -1,14 +1,11 @@
 <?php
 /**
- * FileManager.php
+ * Class FileUploadSaver
  *
- * @author  Jiří Šifalda <sifalda.jiri@gmail.com>
- * @package Flame
- *
- * @date    13.12.12
+ * @author: Jiří Šifalda <sifalda.jiri@gmail.com>
+ * @date: 10.08.13
  */
-
-namespace Flame\Tools\Files;
+namespace Flame\Http;
 
 use Nette\Http\FileUpload;
 use Nette\InvalidArgumentException;
@@ -16,7 +13,7 @@ use Nette\Object;
 use Nette\Utils\Strings;
 use Nette\Utils\FileSystem;
 
-class FileManager extends Object
+class FileUploadSaver extends Object
 {
 
 	/** @var string */
@@ -69,25 +66,24 @@ class FileManager extends Object
 	 * @return string
 	 * @throws \Nette\InvalidArgumentException
 	 */
-	public function saveFile(FileUpload $file, $name = null)
+	public function save(FileUpload $file, $name = null)
 	{
-
-		FileSystem::createDir($this->getAbsolutePath(), 0777);
-
 		if (!$file->isOk()) {
 			throw new InvalidArgumentException('File ' . $file->getName() . ' is not valid.');
 		}
+
+		FileSystem::createDir($this->getAbsolutePath(), 0777);
 
 		if(!$name) {
 			$name = $file->getSanitizedName();
 		}
 
-		$filePath = $this->getAbsolutePath() . DIRECTORY_SEPARATOR . $name;
+		$filePath = $this->getFilePath($name);
 
 		if (!file_exists($filePath)) {
 			$file->move($filePath);
 		} else {
-			$new_name = Strings::random(3) . '_' . $name;
+			$new_name = $this->getPrefixedName($name);
 			$file->move(str_replace($name, $new_name, $filePath));
 			$name = $new_name;
 		}
@@ -102,4 +98,23 @@ class FileManager extends Object
 	{
 		return $this->baseDirPath . $this->filesDirPath;
 	}
-}
+
+	/**
+	 * @param $name
+	 * @return string
+	 */
+	private function getPrefixedName($name)
+	{
+		return Strings::random(3) . '_' . $name;
+	}
+
+	/**
+	 * @param $name
+	 * @return string
+	 */
+	private function getFilePath($name)
+	{
+		return $this->getAbsolutePath() . DIRECTORY_SEPARATOR . $name;
+	}
+
+} 
