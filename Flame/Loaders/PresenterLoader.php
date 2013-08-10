@@ -11,8 +11,11 @@
 namespace Flame\Loaders;
 
 use Flame\Utils\Strings;
+use Nette\Caching\Storages\FileStorage;
+use Nette\Loaders\RobotLoader;
+use Nette\Object;
 
-class PresenterLoader extends \Nette\Object
+class PresenterLoader extends Object
 {
 
 	/** @var \Nette\Loaders\RobotLoader */
@@ -22,13 +25,10 @@ class PresenterLoader extends \Nette\Object
 	private $appDir;
 
 	/**
-	 * @param \Nette\Loaders\RobotLoader          $robotLoader
-	 * @param \Nette\Caching\Storages\FileStorage $fileStorage
+	 * @param RobotLoader $robotLoader
+	 * @param FileStorage $fileStorage
 	 */
-	public function __construct(
-		\Nette\Loaders\RobotLoader $robotLoader,
-		\Nette\Caching\Storages\FileStorage $fileStorage
-	)
+	public function __construct(RobotLoader $robotLoader, FileStorage $fileStorage)
 	{
 		$this->robotLoader = $robotLoader;
 		$this->robotLoader->setCacheStorage($fileStorage);
@@ -83,22 +83,20 @@ class PresenterLoader extends \Nette\Object
 
 		if (count($classes)) {
 			$classes = array_keys($classes);
-			$classes = array_map(function ($class) use ($namespace) {
+			foreach ($classes as $k => $class) {
 				if (Strings::contains($class, 'Presenter')) {
-					if ($namespace === null) {
-						return $class;
-					} else {
-						if (Strings::contains($class, $namespace))
-							return $class;
+					if ($namespace !== null && !Strings::contains($class, $namespace)) {
+						unset($classes[$k]);
 					}
+				}else{
+					unset($classes[$k]);
 				}
+			}
 
-			}, $classes);
-
-			return \Flame\Utils\Arrays::getValidValues($classes);
-		} else {
-			return array();
+			return $classes;
 		}
+
+		return array();
 	}
 
 	/**
