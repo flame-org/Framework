@@ -6,7 +6,7 @@
  * @date: 23.06.13
  */
 
-use \Flame\Tools\Files\FileSystem;
+use Flame\Utils\FileSystem;
 
 class TimerLogger
 {
@@ -71,7 +71,7 @@ class TimerLogger
 	 */
 	static private function write($value)
 	{
-		return FileSystem::write(static::FILE, json_encode($value));
+		return \Nette\Utils\FileSystem::write(static::FILE, json_encode($value));
 	}
 
 }
