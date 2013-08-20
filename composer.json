@@ -39,6 +39,11 @@
     "psr-0": {
       "Flame": ""
     },
+
+    "files": [
+      "Flame/compatibility.php"
+    ],
+
     "classmap": [
       "Tools"
     ]
