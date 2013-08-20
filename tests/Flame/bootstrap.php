@@ -9,7 +9,7 @@ if (!class_exists('Tester\Assert')) {
 
 define('TEMP_DIR', __DIR__ . '/../temp');
 
-Tester\Helpers::setup();
+Tester\Environment::setup();
 date_default_timezone_set('Europe/Prague');
 
 function id($val)
