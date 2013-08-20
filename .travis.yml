@@ -3,5 +3,5 @@ php:
   - 5.4
 before_script:
   - composer self-update
-  - composer install --no-interaction --quiet --dev
+  - composer install --no-interaction --dev
 script: "./libs/bin/tester -j 10 tests/"
