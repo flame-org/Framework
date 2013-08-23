@@ -6,10 +6,10 @@
  * @date: 23.08.13
  */
 
-namespace Flame\Application;
+namespace Flame\Forms;
 
 
-use Flame\Application\IFormFactory;
+use Flame\Forms\IFormFactory;
 
 interface ITemplateFormFactory extends IFormFactory
 {

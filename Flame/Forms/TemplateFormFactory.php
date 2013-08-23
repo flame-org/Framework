@@ -5,7 +5,7 @@
  * @author: Jiří Šifalda <sifalda.jiri@gmail.com>
  * @date: 23.08.13
  */
-namespace Flame\Application;
+namespace Flame\Forms;
 
 use Flame\Application\UI\TemplateForm;
 use Nette\Forms\IFormRenderer;
@@ -24,6 +24,9 @@ class TemplateFormFactory extends Object implements ITemplateFormFactory
 	/** @var \Nette\Forms\IFormRenderer */
 	private $renderer;
 
+	/** @var  IFormProcessor */
+	private $processor;
+
 	/**
 	 * Create base Form
 	 *
@@ -35,6 +38,11 @@ class TemplateFormFactory extends Object implements ITemplateFormFactory
 		$form->setTranslator($this->translator);
 		$form->setRenderer($this->renderer);
 		$form->setTemplateFile($this->templateFile);
+
+		if($this->processor !== null) {
+			$this->processor->attach($form);
+		}
+
 		return $form;
 	}
 
@@ -71,6 +79,18 @@ class TemplateFormFactory extends Object implements ITemplateFormFactory
 	public function setTemplateFile($path)
 	{
 		$this->templateFile = (string) $path;
+		return $this;
+	}
+
+	/**
+	 * Set form processor
+	 *
+	 * @param IFormProcessor $processor
+	 * @return $this
+	 */
+	public function setProcessor(IFormProcessor $processor = null)
+	{
+		$this->processor = $processor;
 		return $this;
 	}
 }

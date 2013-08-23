@@ -5,7 +5,7 @@
  * @author: Jiří Šifalda <sifalda.jiri@gmail.com>
  * @date: 23.08.13
  */
-namespace Flame\Application;
+namespace Flame\Forms;
 
 use Flame\Application\UI\Form;
 use Nette\Forms\IFormRenderer;
@@ -21,6 +21,9 @@ class FormFactory extends Object implements IFormFactory
 	/** @var \Nette\Forms\IFormRenderer */
 	private $renderer;
 
+	/** @var IFormProcessor  */
+	private $processor;
+
 	/**
 	 * Create base Form
 	 *
@@ -31,6 +34,10 @@ class FormFactory extends Object implements IFormFactory
 		$form = new Form;
 		$form->setTranslator($this->translator);
 		$form->setRenderer($this->renderer);
+
+		if($this->processor !== null) {
+			$this->processor->attach($form);
+		}
 		return $form;
 	}
 
@@ -55,6 +62,18 @@ class FormFactory extends Object implements IFormFactory
 	public function setRenderer(IFormRenderer $renderer = null)
 	{
 		$this->renderer = $renderer;
+		return $this;
+	}
+
+	/**
+	 * Set form processor
+	 *
+	 * @param IFormProcessor $processor
+	 * @return $this
+	 */
+	public function setProcessor(IFormProcessor $processor = null)
+	{
+		$this->processor = $processor;
 		return $this;
 	}
 }

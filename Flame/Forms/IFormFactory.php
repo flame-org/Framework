@@ -5,7 +5,7 @@
  * @author: Jiří Šifalda <sifalda.jiri@gmail.com>
  * @date: 23.08.13
  */
-namespace Flame\Application;
+namespace Flame\Forms;
 
 use Nette\Forms\IFormRenderer;
 use Nette\Localization\ITranslator;
@@ -30,11 +30,19 @@ interface IFormFactory
 
 
 	/**
-	 * Sets form renderer
+	 * Set form renderer
 	 *
 	 * @param IFormRenderer $renderer
 	 * @return $this
 	 */
 	public function setRenderer(IFormRenderer $renderer = null);
+
+	/**
+	 * Set form processor
+	 *
+	 * @param IFormProcessor $processor
+	 * @return $this
+	 */
+	public function setProcessor(IFormProcessor $processor = null);
 
 }
