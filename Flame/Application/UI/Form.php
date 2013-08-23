@@ -28,11 +28,13 @@ class Form extends \Nette\Application\UI\Form
 	}
 
 	/**
-	 * @param $id
+	 * @param int $id
+	 * @return $this
 	 */
 	public function setId($id)
 	{
 		$this->id = (int)$id;
+		return $this;
 	}
 
 	/**
