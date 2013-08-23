@@ -29,11 +29,21 @@ use Nette\Application\UI;
 class Paginator extends UI\Control
 {
 
+	const ITEMS_PER_PAGE = 10;
+
 	/** @var \Nette\Utils\Paginator */
 	private $paginator;
 
 	/** @persistent */
 	public $page = 1;
+
+	
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->getPaginator()->setItemsPerPage(self::ITEMS_PER_PAGE);
+	}
 
 
 	/**
@@ -100,6 +110,16 @@ class Paginator extends UI\Control
 	{
 		parent::loadState($params);
 		$this->getPaginator()->page = $this->page;
+	}
+
+	/**
+	 * @param $limit
+	 * @return $this
+	 */
+	public function setItemsPerPage($limit)
+	{
+		$this->getPaginator()->setItemsPerPage($limit);
+		return $this;
 	}
 
 	/**
