@@ -10,12 +10,12 @@
 
 namespace Flame\Application\UI;
 
-use Nette\Callback;
+use Nette;
 
 /**
  * @property \Nette\Templating\FileTemplate template
  */
-abstract class Control extends \Nette\Application\UI\Control
+abstract class Control extends Nette\Application\UI\Control
 {
 
 	public function render()
