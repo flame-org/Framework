@@ -36,7 +36,6 @@ class Paginator extends UI\Control
 
 	/** @persistent */
 	public $page = 1;
-
 	
 	public function __construct()
 	{
@@ -44,7 +43,6 @@ class Paginator extends UI\Control
 
 		$this->getPaginator()->setItemsPerPage(self::ITEMS_PER_PAGE);
 	}
-
 
 	/**
 	 * @return \Nette\Utils\Paginator
@@ -57,7 +55,6 @@ class Paginator extends UI\Control
 
 		return $this->paginator;
 	}
-
 
 	/**
 	 * Renders paginator.
@@ -73,7 +70,6 @@ class Paginator extends UI\Control
 		$this->template->setFile($template);
 		$this->template->render();
 	}
-
 
 	/**
 	 * @return array
@@ -99,7 +95,6 @@ class Paginator extends UI\Control
 		return $steps;
 	}
 
-
 	/**
 	 * Loads state informations.
 	 *
@@ -123,12 +118,22 @@ class Paginator extends UI\Control
 	}
 
 	/**
+	 * @param $count
+	 * @return $this
+	 */
+	public function setItemCount($count)
+	{
+		$this->getPaginator()->setItemCount((int) $count);
+		return $this;
+	}
+
+	/**
 	 * @param array $items
 	 * @return array
 	 */
 	public function applyFor(array &$items)
 	{
-		$this->getPaginator()->setItemCount(count($items));
+		$this->setItemCount(count($items));
 		return array_slice($items, $this->getPaginator()->getOffset(), $this->getPaginator()->getLength());
 	}
 
