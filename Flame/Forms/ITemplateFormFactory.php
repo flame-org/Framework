@@ -8,10 +8,10 @@
 
 namespace Flame\Forms;
 
+use Nette\Localization\ITranslator;
+use Nette\Forms\IFormRenderer;
 
-use Flame\Forms\IFormFactory;
-
-interface ITemplateFormFactory extends IFormFactory
+interface ITemplateFormFactory
 {
 
 	/**
@@ -20,6 +20,31 @@ interface ITemplateFormFactory extends IFormFactory
 	 * @return \Flame\Application\UI\TemplateForm
 	 */
 	public function createForm();
+
+	/**
+	 * Set translate adapter
+	 *
+	 * @param ITranslator $translator
+	 * @return $this
+	 */
+	public function setTranslator(ITranslator $translator = null);
+
+
+	/**
+	 * Set form renderer
+	 *
+	 * @param IFormRenderer $renderer
+	 * @return $this
+	 */
+	public function setRenderer(IFormRenderer $renderer = null);
+
+	/**
+	 * Set form processor
+	 *
+	 * @param IFormProcessor $processor
+	 * @return $this
+	 */
+	public function setProcessor(IFormProcessor $processor = null);
 
 	/**
 	 * Set file template for Form
