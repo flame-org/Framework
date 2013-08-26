@@ -23,7 +23,6 @@
 * Strings
 * Xml
 * Finder (ordering)
-* some Validators
 
 
 ### Requirements
