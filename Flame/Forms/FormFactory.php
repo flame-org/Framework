@@ -16,13 +16,13 @@ class FormFactory extends Object implements IFormFactory
 {
 
 	/** @var \Nette\Localization\ITranslator */
-	private $translator;
+	protected $translator;
 
 	/** @var \Nette\Forms\IFormRenderer */
-	private $renderer;
+	protected $renderer;
 
-	/** @var IFormProcessor  */
-	private $processor;
+	/** @var  array */
+	protected $processors = array();
 
 	/**
 	 * Create base Form
@@ -34,10 +34,7 @@ class FormFactory extends Object implements IFormFactory
 		$form = new Form;
 		$form->setTranslator($this->translator);
 		$form->setRenderer($this->renderer);
-
-		if($this->processor !== null) {
-			$this->processor->attach($form);
-		}
+		$this->attachProcessors($form);
 		return $form;
 	}
 
@@ -73,7 +70,23 @@ class FormFactory extends Object implements IFormFactory
 	 */
 	public function setProcessor(IFormProcessor $processor = null)
 	{
-		$this->processor = $processor;
+		if($processor !== null) {
+			$this->processors[] = $processor;
+		}
+
 		return $this;
+	}
+
+	/**
+	 * @param Form $form
+	 */
+	protected function attachProcessors(Form &$form)
+	{
+		if(count($this->processors)) {
+			foreach ($this->processors as $processor) {
+				/** @var IFormProcessor $processor */
+				$processor->attach($form);
+			}
+		}
 	}
 }
