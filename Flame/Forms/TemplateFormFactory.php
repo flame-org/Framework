@@ -9,7 +9,7 @@ namespace Flame\Forms;
 
 use Flame\Application\UI\TemplateForm;
 
-class TemplateFormFactory extends FormFactory implements ITemplateFormFactory
+class TemplateFormFactory extends Factory implements ITemplateFormFactory
 {
 
 	/** @var  string */
