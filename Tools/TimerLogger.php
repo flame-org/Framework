@@ -6,8 +6,6 @@
  * @date: 23.06.13
  */
 
-use Flame\Utils\FileSystem;
-
 class TimerLogger
 {
 	const FILE = './timer.txt';
@@ -17,7 +15,7 @@ class TimerLogger
 	 */
 	static public function getCache()
 	{
-		$content = FileSystem::read(static::FILE, false);
+		$content = @file_get_contents(static::FILE);
 
 		if(!$content) {
 			static::write(array());
