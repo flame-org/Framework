@@ -28,7 +28,7 @@ class Timer
 			 $result = Debugger::timer($name) * 1000;
 
 			if(static::$dump === true) {
-				Debugger::barDump($result, $name);
+				Debugger::barDump($result . ' ms', $name);
 			}
 
 			\TimerLogger::writeToCache($name, $result);
