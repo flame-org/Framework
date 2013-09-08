@@ -10,6 +10,7 @@
 
 namespace Flame;
 
+use Flame\Modules\Config\ConfigFile;
 use Flame\Modules\DI\ConfiguratorHelper;
 use Flame\Modules\ModulesInstaller;
 use Nette;
@@ -43,6 +44,6 @@ class Configurator extends Nette\Configurator
 	 */
 	public function createModulesInstaller()
 	{
-		return new ModulesInstaller(new ConfiguratorHelper($this));
+		return new ModulesInstaller(new ConfiguratorHelper($this), new ConfigFile);
 	}
 }
