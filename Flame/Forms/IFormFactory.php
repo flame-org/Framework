@@ -21,6 +21,13 @@ interface IFormFactory
 	public function createForm();
 
 	/**
+	 * Create base Form with template
+	 *
+	 * @return \Flame\Application\UI\TemplateForm
+	 */
+	public function createTemplateForm();
+
+	/**
 	 * Set translate adapter
 	 *
 	 * @param ITranslator $translator
@@ -43,6 +50,6 @@ interface IFormFactory
 	 * @param IFormProcessor $processor
 	 * @return $this
 	 */
-	public function setProcessor(IFormProcessor $processor = null);
+	public function addProcessor(IFormProcessor $processor = null);
 
 }
