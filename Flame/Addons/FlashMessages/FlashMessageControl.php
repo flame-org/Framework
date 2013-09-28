@@ -8,12 +8,12 @@
 
 namespace Flame\Addons\FlashMessages;
 
-class FlashMessageControl extends \Flame\Application\UI\Control
+use Flame\Application\UI\Control;
+
+class FlashMessageControl extends Control
 {
 
-	/**
-	 * @var string
-	 */
+	/** @var string  */
 	private $templateFile;
 
 	/**
@@ -23,15 +23,16 @@ class FlashMessageControl extends \Flame\Application\UI\Control
 	{
 		parent::__construct();
 
-		$this->templateFile = $templateFile;
+		if (!$templateFile) {
+			 $templateFile = __DIR__ . '/FlashMessageControl.latte';
+		}
 
-		if (!$templateFile)
-			$this->templateFile = __DIR__ . '/FlashMessageControl.latte';
+		$this->templateFile = $templateFile;
 	}
 
-	public function renderDefault()
+	public function render()
 	{
-		$this->template->flashes = $this->parent->getTemplate()->flashes;
+		$this->template->flashes = $this->parent->template->flashes;
 		$this->template->setFile($this->templateFile)->render();
 	}
 
