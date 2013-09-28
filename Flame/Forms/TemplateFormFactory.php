@@ -24,7 +24,9 @@ class TemplateFormFactory extends Factory implements ITemplateFormFactory
 	{
 		$form = new TemplateForm;
 		$form->setTranslator($this->translator);
-		$form->setRenderer($this->renderer);
+		if($this->renderer !== null) {
+			$form->setRenderer($this->renderer);
+		}
 		$form->setTemplateFile($this->templateFile);
 		$this->attachProcessors($form);
 		return $form;

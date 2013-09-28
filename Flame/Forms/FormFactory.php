@@ -24,7 +24,9 @@ class FormFactory extends Factory implements IFormFactory
 	{
 		$form = new Form;
 		$form->setTranslator($this->translator);
-		$form->setRenderer($this->renderer);
+		if($this->renderer !== null) {
+			$form->setRenderer($this->renderer);
+		}
 		$this->attachProcessors($form);
 		return $form;
 	}
