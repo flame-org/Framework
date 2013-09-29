@@ -26,7 +26,7 @@ class TimerLogger
 	}
 
 	/**
-	 * @return int
+	 * @return bool
 	 */
 	static public function clearCache()
 	{
@@ -48,7 +48,7 @@ class TimerLogger
 	/**
 	 * @param $name
 	 * @param $value
-	 * @return int
+	 * @return bool
 	 */
 	static public function writeToCache($name, $value)
 	{
@@ -65,11 +65,16 @@ class TimerLogger
 
 	/**
 	 * @param $value
-	 * @return int
+	 * @return bool
+	 * @throws Nette\IOException
 	 */
 	static private function write($value)
 	{
-		return \Nette\Utils\FileSystem::write(static::FILE, json_encode($value));
+		if (@file_put_contents(static::FILE, json_encode($value)) === FALSE) {
+			throw new Nette\IOException("Unable to write file '" . static::FILE . "'.");
+		}
+
+		return true;
 	}
 
 }
