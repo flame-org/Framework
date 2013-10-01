@@ -8,7 +8,10 @@
 
 namespace Flame\Security;
 
-class Password extends \Nette\Object
+use Nette\Object;
+use Nette\Utils\Strings;
+
+class Password extends Object
 {
 
 	/** @var string */
@@ -34,11 +37,13 @@ class Password extends \Nette\Object
 	}
 
 	/**
-	 * @return Password
+	 * @param int $length
+	 * @param string $charlist
+	 * @return $this
 	 */
-	public function createRandom()
+	public function createRandom($length = 5, $charlist = '0-9a-z')
 	{
-		$this->password = \Nette\Utils\Strings::random();
+		$this->password = Strings::random($length, $charlist);
 		$this->object = new \Flame\Types\Password;
 		$this->object->setPassword($this->password);
 
