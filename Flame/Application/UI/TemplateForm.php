@@ -73,7 +73,7 @@ class TemplateForm extends Form
 	protected function createTemplate()
 	{
 		/** @var \Nette\Templating\ITemplate $template */
-		$template = clone $this->getPresenter()->getTemplate();
+		$template = clone $this->getParent()->getTemplate();
 		$template->setFile($this->getTemplateFile());
 		return $template;
 	}
