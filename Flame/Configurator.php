@@ -44,6 +44,7 @@ class Configurator extends Nette\Configurator
 	 */
 	public function createModulesInstaller()
 	{
-		return new ModulesInstaller(new ConfiguratorHelper($this), new ConfigFile);
+		$installer = new ModulesInstaller(new ConfiguratorHelper($this), new ConfigFile);
+		return $installer->register();
 	}
 }
