@@ -20,7 +20,7 @@ class TemplateForm extends Form
 	protected $template;
 
 	/**
-	 * @param $path
+	 * @param string $path
 	 * @return $this
 	 */
 	public function setTemplateFile($path)
