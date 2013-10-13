@@ -40,10 +40,6 @@
       "Flame": ""
     },
 
-    "files": [
-      "Flame/compatibility.php"
-    ],
-
     "classmap": [
       "Tools"
     ]
