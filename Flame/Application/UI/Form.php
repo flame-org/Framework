@@ -44,8 +44,10 @@ class Form extends \Nette\Application\UI\Form
 	public function getValues($asArray = false)
 	{
 		$values = (array)parent::getValues($asArray);
-		if (!isset($values['id']))
+		if (!isset($values['id']) && $this->id !== null) {
 			$values['id'] = $this->getId();
+		}
+
 
 		return ArrayHash::from($values);
 	}
