@@ -95,7 +95,7 @@ class FormFactory extends Object implements IFormFactory
 	 * @param Form $form
 	 * @return Form
 	 */
-	private function initForm(Form &$form)
+	protected function initForm(Form &$form)
 	{
 		$form->setTranslator($this->translator)
 			->setRenderer($this->renderer);
