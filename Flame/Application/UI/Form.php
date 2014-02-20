@@ -12,6 +12,7 @@ namespace Flame\Application\UI;
 
 use Nette\ArrayHash;
 use Nette\Forms\Container;
+use Nette\Forms\Controls\BaseControl;
 
 class Form extends \Nette\Application\UI\Form
 {
@@ -84,6 +85,22 @@ class Form extends \Nette\Application\UI\Form
 		}
 
 		return parent::setDefaults($values, $erase);
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function removeEmptyControls()
+	{
+		foreach($this->getControls() as $control) {
+			if ($control instanceof BaseControl) {
+				if (!$control->isFilled()) {
+					unset($this[$control->name]);
+				}
+			}
+		}
+
+		return $this;
 	}
 
 	/**
