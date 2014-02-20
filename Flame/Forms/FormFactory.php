@@ -90,11 +90,8 @@ class FormFactory extends Object implements IFormFactory
 	 */
 	private function initForm(Form &$form)
 	{
-		$form->setTranslator($this->translator);
-
-		if($this->renderer !== null) {
-			$form->setRenderer($this->renderer);
-		}
+		$form->setTranslator($this->translator)
+			->setRenderer($this->renderer);
 
 		foreach ($this->processors as $processor) {
 			$processor->attach($form);
