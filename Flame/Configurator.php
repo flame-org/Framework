@@ -10,9 +10,6 @@
 
 namespace Flame;
 
-use Flame\Modules\Config\ConfigFile;
-use Flame\Modules\DI\ConfiguratorHelper;
-use Flame\Modules\ModulesInstaller;
 use Nette;
 
 class Configurator extends Nette\Configurator
@@ -37,14 +34,5 @@ class Configurator extends Nette\Configurator
 		$this->onCompile[] = function (Nette\Configurator $configurator, Nette\DI\Compiler $compiler) use ($name, $class) {
 			$compiler->addExtension($name, new $class);
 		};
-	}
-
-	/**
-	 * @return ModulesInstaller
-	 */
-	public function createModulesInstaller()
-	{
-		$installer = new ModulesInstaller(new ConfiguratorHelper($this));
-		return $installer->register();
 	}
 }
