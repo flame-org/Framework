@@ -55,12 +55,9 @@ class FormFactory extends Object implements IFormFactory
 	 * @param IFormProcessor $processor
 	 * @return $this
 	 */
-	public function addProcessor(IFormProcessor $processor = null)
+	public function addProcessor(IFormProcessor $processor)
 	{
-		if($processor !== null) {
-			$this->processors[] = $processor;
-		}
-
+		$this->processors[spl_object_hash($processor)] = $processor;
 		return $this;
 	}
 

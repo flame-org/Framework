@@ -50,6 +50,6 @@ interface IFormFactory
 	 * @param IFormProcessor $processor
 	 * @return $this
 	 */
-	public function addProcessor(IFormProcessor $processor = null);
+	public function addProcessor(IFormProcessor $processor);
 
 }
