@@ -22,6 +22,7 @@ abstract class FormProcessor extends Object implements IFormProcessor
 	 */
 	public function attach(Form $form)
 	{
+		$form->onSubmit[] = $this->submit;
 		$form->onSuccess[] = $this->success;
 		$form->onError[] = $this->error;
 		$form->onValidate[] = $this->validate;
@@ -42,5 +43,10 @@ abstract class FormProcessor extends Object implements IFormProcessor
 	 * @param Form $form
 	 */
 	public function error(Form $form) {}
+
+	/**
+	 * @param Form $form
+	 */
+	public function submit(Form $form) {}
 
 }
