@@ -82,6 +82,16 @@ class FormFactory extends Object implements IFormFactory
 	}
 
 	/**
+	 * Get list of form processors
+	 *
+	 * @return array|IFormProcessor[]
+	 */
+	public function getProcessors()
+	{
+		return $this->processors;
+	}
+
+	/**
 	 * @param Form $form
 	 * @return Form
 	 */

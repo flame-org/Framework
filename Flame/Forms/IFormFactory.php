@@ -52,4 +52,11 @@ interface IFormFactory
 	 */
 	public function addProcessor(IFormProcessor $processor);
 
+	/**
+	 * Get list of form processors
+	 *
+	 * @return array|IFormProcessor[]
+	 */
+	public function getProcessors();
+
 }
