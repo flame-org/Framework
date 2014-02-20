@@ -53,6 +53,14 @@ interface IFormFactory
 	public function addProcessor(IFormProcessor $processor);
 
 	/**
+	 * Remove all or specific processors
+	 *
+	 * @param array $processors
+	 * @return $this
+	 */
+	public function removeProcessors(array $processors = array());
+
+	/**
 	 * Get list of form processors
 	 *
 	 * @return array|IFormProcessor[]

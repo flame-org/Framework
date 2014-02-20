@@ -106,4 +106,25 @@ class FormFactory extends Object implements IFormFactory
 
 		return $form;
 	}
+
+	/**
+	 * Remove all or specific processors
+	 *
+	 * @param array $processors
+	 * @return $this
+	 */
+	public function removeProcessors(array $processors = array())
+	{
+		if (count($processors)) {
+			foreach ($processors as $processor) {
+				if (isset($this->processors[$processor])) {
+					unset($this->processors[$processor]);
+				}
+			}
+		}else {
+			$this->processors = array();
+		}
+
+		return $this;
+	}
 }
