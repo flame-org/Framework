@@ -17,12 +17,7 @@ use Nette;
  */
 abstract class Control extends Nette\Application\UI\Control
 {
-
-	public function render()
-	{
-		$this->template->render();
-	}
-
+	
 	/**
 	 * @param null $class
 	 * @return \Nette\Templating\ITemplate
